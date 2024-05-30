@@ -1,36 +1,176 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+   <h1>여기,</h1>
 
-## Getting Started
+<h3>Project Intro.</h3>
 
-First, run the development server:
+<br />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h3>🔗 Links</h3> 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+design <br />
+deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br />
 
-## Learn More
+<h3>Test Account</h3> 
 
-To learn more about Next.js, take a look at the following resources:
+<table>
+  <tr>
+    <td>ID</td>
+    <td>temp id</td>
+  </tr>
+    <tr>
+    <td>Password</td>
+    <td>temp pasword</td>
+  </tr>
+</table>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br/>
+<br/>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<h3>Members</h3>
 
-## Deploy on Vercel
+<table align="center">
+  <tr>
+    <td>
+      <a href="#">
+        <img src="" width="120px" height="120px"/>
+      </a>  
+    </td>
+  </tr>
+  <tr>
+    <th>
+       Jayden
+    </th>
+  </tr>
+  <tr>
+    <th>
+      Designer
+    </th>
+   
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td>
+      <a href="https://github.com/55555-Jyeon">
+        <img src="https://github.com/Manners-Maketh-Market/MMM/assets/134191817/b04543f3-6de1-42c1-bd01-92cfd68dcb3f" width="120px" height="120px"/>
+      </a>  
+    </td>
+    <td>
+      <a href="https://github.com/ijimlnosk">
+        <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/3c49fb91-37bc-4e51-ac49-53a07fe5a338" width="120px" height="120px"/>
+      </a>  
+    </td>
+     <td>
+      <a href="https://github.com/kiminn">
+        <img src="https://github.com/Manners-Maketh-Market/MMM/assets/134191815/90e1745b-51eb-4e31-8946-93970bcb7af1" width="120px" height="120px"/>
+      </a>  
+    </td>
+    <td>
+      <a href="https://github.com/hayoung78">
+        <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/3385ed36-d314-4f90-bcc2-682abd11da61" width="120px" height="120px"/>
+      </a>  
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Amy
+    </th>
+    <th>
+      Gang
+    </th>
+    <th>
+      Kimi
+    </th>
+    <th>
+      Wendy
+    </th>
+  </tr>
+  <tr>
+    <th>
+       FE
+    </th>
+    <th>
+       👑 FE
+    </th>
+    <th>
+       FE
+    </th>
+    <th>
+       FE
+    </th>
+  </tr>
+</table>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br />
+<br />
+
+<h3>Schedule</h3> 
+
+
+<h6>total</h6> 
+<p>프로젝트 전체 진행 기간 : 2024.05.25 ~ 2024.07.00</p>
+
+<br />
+
+<h6>details</h6> 
+
+<table>
+  <tr>
+    <td colspan="2"> 🗓️ </td>
+    <td>todo title</td>
+    <td>check</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Week-01</td>
+    <td>05.25 - 05.26 </td>
+    <td>1차 스코프 컷다운/기획</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <td>05.26 - 05.31 </td>
+    <td>1차 디자인 및 POC / 아키텍처 설계 및 인프라 구축</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Week-02</td>
+    <td>06.01 - 06.02 </td>
+    <td>2차 스코프 컷다운/기획</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>06.03 - 06.14 </td>
+    <td>2차 디자인  및 1차 스코프 개발</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Week-03</td>
+    <td>06.15 - 06.16 </td>
+    <td>최종 스코프 컷다운/데모데이 준비</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>06.17 - 06.28 </td>
+    <td>최종 디자인/2차 스코프 개발</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Week-04</td>
+    <td>06.29 - 06.30 </td>
+    <td>최종 데모데이 준비</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>07.01 - 07.00 </td>
+    <td>최종 스코프 개발</td>
+    <td>-</td>
+  </tr>
+</table>
+</body>
+
+
+<br/>
+<br/>
