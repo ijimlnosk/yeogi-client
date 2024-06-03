@@ -5,6 +5,7 @@ import clsx from "clsx"
 import dayjs from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
+import Select from "react-select"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
@@ -53,46 +54,47 @@ const Calendar: React.FC = () => {
         setCurrentDate(currentDate.add(increment, "month"))
     }
 
-    const handleYearMonthSelect = (year: number, month: number) => {
-        setCurrentDate(dayjs().year(year).month(month).startOf("month"))
+    const handleCalendarSelect = (selectedOption: any) => {
+        const [year, month] = selectedOption.value.split("-")
+        setCurrentDate(dayjs().year(Number(year)).month(Number(month)).startOf("month"))
     }
 
     const currentYear = currentDate.year()
     const currentMonth = currentDate.month()
 
-    const yearMonthOptions = []
-    for (let i = 0; i < 12; i++) {
-        const month = (currentMonth + i) % 12
-        const year = currentYear + Math.floor((currentMonth + i) / 12)
-        yearMonthOptions.push({ year, month })
+    // 10년 범위 내의 년-월 옵션 생성 (현재 연도 기준으로)
+    const calendarOptions = []
+    for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+        for (let month = 0; month < 12; month++) {
+            calendarOptions.push({
+                value: `${year}-${month}`,
+                label: `${year}년 ${month + 1}월`,
+            })
+        }
     }
 
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="w-full max-w-md mx-auto p-[24px] border rounded-[16px] shadow-custom bg-SYSTEM-white">
+        <div className="w-full max-w-md mx-auto p-4 border rounded-[16px] shadow-custom bg-white">
             <div className="flex justify-between items-center mb-4">
+                {/* 이전 달로 이동하는 버튼 */}
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}
                 </button>
                 <div className="flex items-center space-x-2">
-                    <select
-                        onChange={e =>
-                            handleYearMonthSelect(
-                                Number(e.target.value.split("-")[0]),
-                                Number(e.target.value.split("-")[1]),
-                            )
-                        }
-                        className="border-none p-1 rounded"
-                        value={`${currentDate.year()}-${currentDate.month()}`}
-                    >
-                        {yearMonthOptions.map((option, index) => (
-                            <option key={index} value={`${option.year}-${option.month}`}>
-                                {option.year}년 {option.month + 1}월
-                            </option>
-                        ))}
-                    </select>
+                    {/* 년도와 월을 선택할 수 있는 드롭다운 */}
+                    <Select
+                        options={calendarOptions}
+                        onChange={handleCalendarSelect}
+                        className="w-40"
+                        value={{
+                            label: `${currentDate.year()}년 ${currentDate.month() + 1}월`,
+                            value: `${currentDate.year()}-${currentDate.month()}`,
+                        }}
+                    />
                 </div>
+                {/* 다음 달로 이동하는 버튼 */}
                 <button onClick={() => handleMonthChange(1)}>{currentDate.add(1, "month").format("YYYY.MM")}</button>
             </div>
             <div className="grid grid-cols-7 gap-2 text-center">
@@ -102,14 +104,16 @@ const Calendar: React.FC = () => {
                         {day}
                     </div>
                 ))}
+            </div>
+            <div className="grid grid-cols-7 gap-2">
                 {/* 달력의 각 날짜를 표시 */}
                 {days.map((day, index) => (
                     <div key={index} className="text-center py-2">
                         <div
                             className={clsx("w-10 h-10 flex items-center justify-center rounded-full cursor-pointer", {
-                                "bg-BRAND-50 text-SYSTEM-white": isSelected(day), // 선택된 날짜의 스타일
+                                "bg-BRAND-50 text-SYSTEM-whtie": isSelected(day), // 선택된 날짜의 스타일
                                 "text-red-500": day.isSame(dayjs(), "day"), // 오늘 날짜의 스타일
-                                "text-gray-400": !day.isSame(currentDate, "month"), // 현재 월이 아닌 날짜의 스타일
+                                "text-GREY-30": !day.isSame(currentDate, "month"), // 현재 월이 아닌 날짜의 스타일
                             })}
                             onClick={() => handleDayClick(day)}
                         >
