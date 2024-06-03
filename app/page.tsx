@@ -1,6 +1,7 @@
 import Pagination from "@/components/commons/pagination"
 
 export default function Home() {
+    const totalPages = 8
     return (
         <div className="p-4">
             <h1 className="font-myeongjo text-title text-BRAND-50">
@@ -13,7 +14,7 @@ export default function Home() {
                 <h2 className="text-subTitle text-ACCENT-orange">Subtitle with ACCENT orange color.</h2>
                 <p className="text-sm text-GREY-70">Some description with GREY 70 color.</p>
             </div>
-            <Pagination />
+            <Pagination totalPages={totalPages} />
         </div>
     )
 }
