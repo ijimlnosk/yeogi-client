@@ -1,6 +1,9 @@
+import Calendar from "@/components/commons/calendar"
+
 export default function Home() {
     return (
         <div className="p-4">
+            <Calendar />
             <h1 className="font-myeongjo text-title text-BRAND-50">
                 This is the Nanum Myeongjo font with BRAND 50 color.
             </h1>
