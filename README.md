@@ -133,18 +133,18 @@ deploy
   <tr>
     <td>05.26 - 05.31 </td>
     <td>1차 디자인 및 POC / 아키텍처 설계 및 인프라 구축</td>
-    <td>-</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td rowspan="2">Week-02</td>
     <td>06.01 - 06.02 </td>
     <td>2차 스코프 컷다운/기획</td>
-    <td>-</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>06.03 - 06.14 </td>
     <td>2차 디자인  및 1차 스코프 개발</td>
-    <td>-</td>
+    <td>on progress</td>
   </tr>
   <tr>
     <td rowspan="2">Week-03</td>
@@ -171,6 +171,52 @@ deploy
 </table>
 </body>
 
+<br/>
+<br/>
+
+
+<h3>Stacks</h3>
+
+<h4>Languages</h4>
+
+<p align="center">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3cript&logoColor=white">
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white">
+</p>
+
+<h4>Framework</h4>
+
+<p align="center">
+<img src="https://img.shields.io/badge/nextjs-000?style=flat-square&logo=nextjs&logoColor=white">
+</p>
+
+<h4>Library</h4>
+
+<p align="center">
+<img src="https://img.shields.io/badge/nextUI-000?style=flat-square&logo=nextui&logoColor=white">
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white">
+<img src="https://img.shields.io/badge/zod-3E67B1?style=flat-square&logo=zod&logoColor=white">
+<img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white">
+<img src="https://img.shields.io/badge/storybook-FF4785?style=flat-square&logo=storybook&logoColor=white">
+</p>
+
+<h4>Communications</h4>
+
+<p align="center">
+<img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/discord-5865F2?style=flat-square&logo=discord&logoColor=white">
+<img src="https://img.shields.io/badge/jira-0052CC?style=flat-square&logo=jira&logoColor=white">
+<img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white">
+</p>
+
+<h4>Tools</h4>
+
+<p align="center">
+<img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"> 
+<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC.svg?&style=for-the-badge&logo=Visual%10Studio%10Code&logoColor=white">
+<img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white">
+</p>
 
 <br/>
 <br/>
