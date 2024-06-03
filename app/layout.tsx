@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Nanum_Myeongjo } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
+import Layout from "@/components/layouts/layout"
 
 const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"] })
 const pretendard = localFont({
@@ -46,7 +47,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${myeongjo.className} ${pretendard.className}`}>{children}</body>
+            <body className={`${myeongjo.className} ${pretendard.className}`}>
+                <Layout>{children}</Layout>
+            </body>
         </html>
     )
 }
