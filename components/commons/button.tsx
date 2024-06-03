@@ -9,7 +9,7 @@ import { cn } from "@/utils/tailwindUtils"
  * @returns {string}
  */
 
-const buttonStyle = cva("flex items-center justify-center px-4 py-2 active:scale-95", {
+const buttonStyle = cva("flex items-center justify-center px-4 py-2 active:scale-95 text-[16px]", {
     variants: {
         rounded: {
             sm: "rounded-sm",
