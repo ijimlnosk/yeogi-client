@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                     <p className="text-GREY-50 mt-[16px] text-bg">Record your Trip</p>
                 </div>
                 <div className="font-pretendard flex flex-col text-GREY-50 text-sm place-items-end justify-between mt-auto">
-                    <nav className="flex space-x-10 mb-4">
+                    <nav className="flex space-x-8 mb-4">
                         <a href="#">커뮤니티</a>
                         <a href="#">기록</a>
                         <a href="#">마이페이지</a>
