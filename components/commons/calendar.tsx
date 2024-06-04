@@ -84,7 +84,7 @@ const Calendar: React.FC = () => {
             <div className="flex justify-center items-center pb-8 ">
                 <select
                     onChange={handleCalendarSelect}
-                    className="border p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none"
+                    className="border p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none cursor-pointer"
                     value={`${currentDate.year()}-${currentDate.month()}`}
                 >
                     {calendarOptions.map(option => (
