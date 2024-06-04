@@ -1,10 +1,13 @@
 "use client"
-import Pagination from "@/components/commons/pagination"
+
+import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
+import Comment from "@/components/commons/comment"
+import ReComment from "@/components/commons/reComment"
 import Overlay from "@/components/commons/overlay"
 
-export default function Home() {
+const Home = () => {
     const [isActive, setIsActive] = useState(false)
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
@@ -67,6 +70,25 @@ export default function Home() {
                 </div>
                 <Pagination totalPages={totalPages} />
             </div>
+            <div>
+                <Button>기본 버튼</Button>
+                <Button
+                    background={isActive ? "brand30" : "gray20"}
+                    textColor={isActive ? "white" : "black"}
+                    onClick={handleToggleActive}
+                    className="w-[190px] h-[54px]"
+                >
+                    textBox_md
+                </Button>
+                {/* comment component test */}
+                <div className="my-[40px]">
+                    <Comment />
+                    <div className="my-[20px]" />
+                    <ReComment />
+                </div>
+            </div>
+            <Pagination totalPages={totalPages} />
         </>
     )
 }
+export default Home
