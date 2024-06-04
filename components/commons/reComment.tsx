@@ -6,7 +6,7 @@ import ReCommentTape from "@/public/images/re-comment-tape.svg"
 const ReComment = () => {
     return (
         <div className="relative">
-            <div className="relative w-[850px] bg-[#E3ECF8] re-comment-pattern opacity-90 border-[#5B90D2] border-2 rounded-2xl px-[50px] py-[30px]">
+            <div className="relative w-[850px] bg-[#E3ECF8] bg-re-comment-pattern opacity-90 border-[#5B90D2] border-2 rounded-2xl px-[50px] py-[30px]">
                 <Image
                     width={186}
                     height={34}
