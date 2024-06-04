@@ -1,5 +1,6 @@
-"use client"
 
+"use client"
+import Pagination from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 
@@ -9,10 +10,12 @@ export default function Home() {
     const handleToggleActive = () => {
         setIsActive(prev => !prev)
     }
+    const totalPages = 8
+
     return (
         <div className="p-4">
             <h1 className="font-myeongjo text-title text-BRAND-50">
-                This is the Nanum Myeongjo font with BRAND 50 color.
+                This is the Nanum Myeongjo font with BRAND color.
             </h1>
             <p className="font-pretendard text-md text-SYSTEM-black">
                 This is the Pretendard font with SYSTEM black color.
@@ -32,6 +35,7 @@ export default function Home() {
                     textBox_md
                 </Button>
             </div>
+            <Pagination totalPages={totalPages} />
         </div>
     )
 }
