@@ -1,10 +1,10 @@
-
 "use client"
-import Pagination from "@/components/commons/pagination"
+
+import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 
-export default function Home() {
+const Home = () => {
     const [isActive, setIsActive] = useState(false)
 
     const handleToggleActive = () => {
@@ -39,3 +39,4 @@ export default function Home() {
         </div>
     )
 }
+export default Home
