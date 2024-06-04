@@ -74,7 +74,7 @@ const Calendar: React.FC = () => {
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] shadow-custom bg-white">
+        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] bg-white shadow-custom">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}
@@ -84,7 +84,7 @@ const Calendar: React.FC = () => {
             <div className="flex justify-center items-center pb-8 ">
                 <select
                     onChange={handleCalendarSelect}
-                    className="select-custom border p-2 rounded text-SYSTEM-black font-bold text-md"
+                    className="border p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none"
                     value={`${currentDate.year()}-${currentDate.month()}`}
                 >
                     {calendarOptions.map(option => (
@@ -94,25 +94,26 @@ const Calendar: React.FC = () => {
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-7 gap-2 text-center">
+            <div className="grid grid-cols-7 text-center">
                 {daysOfWeek.map((day, index) => (
                     <div key={index} className="font-medium">
                         {day}
                     </div>
                 ))}
                 {days.map((day, index) => (
-                    <div key={index} className="py-1">
-                        <div
-                            className={clsx("w-10 h-10 flex items-center justify-center cursor-pointer", {
-                                "bg-BRAND-50 text-SYSTEM-white": isSelected(day),
-                                "rounded-full":
-                                    startDate &&
-                                    endDate &&
-                                    (day.isSame(startDate, "day") || day.isSame(endDate, "day")),
-                                "rounded-l-full": startDate && day.isSame(startDate, "day"),
-                                "rounded-r-full": endDate && day.isSame(endDate, "day"),
-                                "text-red-500": day.isSame(dayjs(), "day"),
-                                "text-GREY-30": !day.isSame(currentDate, "month"),
+                    <div
+                        key={index}
+                        className={clsx("flex items-center justify-center cursor-pointer my-1 ", {
+                            "bg-BRAND-30 text-SYSTEM-white ": isSelected(day),
+                            "rounded-l-full shadow-custom": startDate && endDate && day.isSame(startDate, "day"),
+                            "rounded-r-full ": startDate && endDate && day.isSame(endDate, "day"),
+                            "text-red-500": day.isSame(dayjs(), "day"),
+                            "text-GREY-30": !day.isSame(currentDate, "month"),
+                        })}
+                    >
+                        <div // 날짜 범위
+                            className={clsx("w-10 h-10 flex items-center justify-center cursor-pointer rounded-full", {
+                                "bg-BRAND-30 text-SYSTEM-white": isSelected(day),
                             })}
                             onClick={() => handleDayClick(day)}
                         >
