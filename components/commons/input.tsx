@@ -26,13 +26,13 @@ type InputProps<TFieldValues extends FormValues> = {
  * @template TFieldValues
  *
  * @param {Object} props
- * @param {Path<TFfieldValues>} props.name
- * @param {'text'|'password'} [props.type='text']
- * @param {string} props.placeholder
- * @param {RegisterOptions} [props.validation]
- * @param {string} [props.className]
- * @param {UseFormRegister<TFieldValues>} props.register
- * @param {FieldErrors<TFieldValues>} props.errors
+ * @param {Path<TFfieldValues>} props.name - 이름
+ * @param {'text'|'password'} [props.type='text'] - 타입
+ * @param {string} props.placeholder - 플레이스홀더
+ * @param {RegisterOptions} [props.validation] - 유효성 검사 규칙
+ * @param {string} [props.className] - 추가할 tailwind css
+ * @param {UseFormRegister<TFieldValues>} props.register - RHF의 register 함수
+ * @param {FieldErrors<TFieldValues>} props.errors - RHF의 오류 객체
  *
  * @returns {JSX.Element}
  *
