@@ -3,6 +3,7 @@
 import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
+import Comment from "@/components/commons/comment"
 
 const Home = () => {
     const [isActive, setIsActive] = useState(false)
@@ -34,6 +35,7 @@ const Home = () => {
                 >
                     textBox_md
                 </Button>
+                <Comment />
             </div>
             <Pagination totalPages={totalPages} />
         </div>

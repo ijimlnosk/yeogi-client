@@ -16,7 +16,12 @@ const config: Config = {
             fontSize: {
                 ...FONT_SIZE,
             },
-            extend: {},
+            extend: {
+                backgroundImage: {
+                    "comment-pattern": "url(./public/images/comment-bg.jpeg)",
+                    "re-comment-pattern": "url(./public/images/re-comment-bg.jpeg)",
+                },
+            },
         },
     },
     plugins: [],
