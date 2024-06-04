@@ -4,6 +4,7 @@ import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 import Comment from "@/components/commons/comment"
+import ReComment from "@/components/commons/reComment"
 
 const Home = () => {
     const [isActive, setIsActive] = useState(false)
@@ -35,7 +36,12 @@ const Home = () => {
                 >
                     textBox_md
                 </Button>
-                <Comment />
+                {/* comment component test */}
+                <div className="my-[40px]">
+                    <Comment />
+                    <div className="my-[20px]" />
+                    <ReComment />
+                </div>
             </div>
             <Pagination totalPages={totalPages} />
         </div>
