@@ -70,8 +70,8 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
  */
 function PaginationNumber({ page, href, isActive }: { page: number | string; href: string; isActive: boolean }) {
     const className = clsx("flex w-[25px] h-[25px] items-center justify-center mx-1.5", {
-        "z-10 border-[1px] border-SYSTEM-black rounded-full text-SYSTEM-black": isActive,
-        "hover:bg-GREY-30 rounded-full": !isActive,
+        "z-10 border-[1px] border-SYSTEM-black rounded-full text-SYSTEM-black cursor-pointer": isActive,
+        "hover:cursor-pointer": !isActive,
     })
     return isActive ? (
         <div className={className}>{page}</div>
