@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                         <Link href="/signup" className="text-SYSTEM-black">
                             회원가입
                         </Link>
-                        <Link href="/write">
+                        <Link href="/createPost">
                             <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
                                 <Image src={writeIcon} alt="write_icon" width={24} height={24} className="mr-[8px]" />
                                 글쓰기
