@@ -4,18 +4,7 @@ import commentIcon from "@/public/icons/comment.svg"
 import locationIcon from "@/public/icons/gps.svg"
 import Image from "next/image"
 import Link from "next/link"
-
-type PostCardProps = {
-    post_id: number
-    title: string
-    likeCount: number
-    commentCount: number
-    continent: string
-    user_nickname: string
-    user_profile: string
-    thumbnail: string
-    created_At: Date
-}
+import { PostCardProps } from "./type"
 
 const PostCard = ({
     post_id = 0,
