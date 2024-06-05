@@ -1,19 +1,18 @@
 import Image from "next/image"
-/* intro */
-import Travel01 from "@/public/images/main-01.svg"
-import Travel02 from "@/public/images/main-02.svg"
-import Travel03 from "@/public/images/main-03.svg"
-import Memo from "@/public/images/main-memo.svg"
-import Stamp01 from "@/public/images/main-stamp-01.svg"
-import Stamp02 from "@/public/images/main-stamp-02.svg"
-import Stamp03 from "@/public/images/main-stamp-03.svg"
-/* desc */
-import Line from "@/public/images/line.svg"
-import Step01 from "@/public/images/step-01.svg"
-import Step02 from "@/public/images/step-02.svg"
-import Step03 from "@/public/images/step-03.svg"
-import TongFront from "@/public/images/tongs-front.svg"
-import TongBack from "@/public/images/tongs-back.svg"
+import Polaroid from "./polaroid"
+import {
+    Line,
+    Memo,
+    Stamp01,
+    Stamp02,
+    Stamp03,
+    Step01,
+    Step02,
+    Step03,
+    Travel01,
+    Travel02,
+    Travel03,
+} from "@/constants/mainImages"
 
 export const LeftGroup = () => {
     return (
@@ -25,6 +24,7 @@ export const LeftGroup = () => {
         </div>
     )
 }
+
 export const RightGroup = () => {
     return (
         <div className="flex flex-col relative w-[30%]">
@@ -40,72 +40,39 @@ export const Polaroids = () => {
         <div className="w-full h-[775px] pt-[24%]">
             <Image width={1920} src={Line} className="absolute top-[34%] z-[-1]" alt="string" />
             <div className="px-[88px] flex flex-row justify-between">
-                {/* step 01 */}
-                <div className="relative">
-                    <Image
-                        width={42}
-                        src={TongFront}
-                        className="absolute top-[4%] left-[45%] z-40"
-                        alt="나무 집게 앞면"
-                    />
-                    <Image
-                        width={34}
-                        src={TongBack}
-                        className="absolute top-[4%] left-[48%] rotate-[30deg] z-[-2]"
-                        alt="나무 집게 뒷면"
-                    />
-                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[18%]">
-                        <Image width={350} src={Step01} alt="step 01" />
-                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 01</p>
-                        <p className="w-[180px] text-bg font-semibold break-keep">
-                            세계 곳곳을 다녀온 추억을 <span className="text-BRAND-50">기록하세요</span>.
-                        </p>
-                    </div>
-                </div>
-                {/* step02 */}
-                <div className="relative">
-                    <Image
-                        width={42}
-                        src={TongFront}
-                        className="absolute top-[18%] left-[45%] rotate-[-30deg] z-40"
-                        alt="나무 집게 앞면"
-                    />
-                    <Image
-                        width={34}
-                        src={TongBack}
-                        className="absolute top-[18%] left-[49%] rotate-[0deg] z-[-2]"
-                        alt="나무 집게 뒷면"
-                    />
-                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[40%]">
-                        <Image width={350} src={Step02} alt="step 02" />
-                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 02</p>
-                        <p className="w-[200px] text-bg font-semibold break-keep">
-                            다른 사람의 여행 기록글을 <span className="text-ACCENT-coral">읽어보세요</span>.
-                        </p>
-                    </div>
-                </div>
-                {/* step 03 */}
-                <div className="relative">
-                    <Image
-                        width={42}
-                        src={TongFront}
-                        className="absolute top-[10%] left-[45%] rotate-[-50deg] z-40"
-                        alt="나무 집게 앞면"
-                    />
-                    <Image
-                        width={34}
-                        src={TongBack}
-                        className="absolute top-[10%] left-[47%] rotate-[-20deg] z-[-2]"
-                        alt="나무 집게 뒷면"
-                    />
-                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[26%]">
-                        <Image width={350} src={Step03} alt="step 03" />
-                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 03</p>
-                        <p className="w-[200px] text-bg font-semibold break-keep">
-                            좋아요와 댓글로 기록글에 <span className="text-ACCENT-orange">공감하세요</span>.
-                        </p>
-                    </div>
-                </div>
+                <Polaroid
+                    step="STEP 01"
+                    src={Step01}
+                    alt="step 01"
+                    description="세계 곳곳을 다녀온 추억을"
+                    spanText="기록하세요"
+                    top={4}
+                    rotateFront={0}
+                    rotateBack={48}
+                    mt={18}
+                />
+                <Polaroid
+                    step="STEP 02"
+                    src={Step02}
+                    alt="step 02"
+                    description="다른 사람의 여행 기록글을"
+                    spanText="읽어보세요"
+                    top={18}
+                    rotateFront={-30}
+                    rotateBack={49}
+                    mt={40}
+                />
+                <Polaroid
+                    step="STEP 03"
+                    src={Step03}
+                    alt="step 03"
+                    description="좋아요와 댓글로 기록글에"
+                    spanText="공감하세요"
+                    top={10}
+                    rotateFront={-50}
+                    rotateBack={47}
+                    mt={26}
+                />
             </div>
         </div>
     )
