@@ -38,7 +38,7 @@ export const RightGroup = () => {
 export const Polaroids = () => {
     return (
         <div className="w-full h-[775px] pt-[24%]">
-            <Image width={1920} src={Line} className="absolute top-[50%] z-[-1]" alt="string" />
+            <Image width={1920} src={Line} className="absolute top-[34%] z-[-1]" alt="string" />
             <div className="px-[88px] flex flex-row justify-between">
                 {/* step 01 */}
                 <div className="relative">
@@ -54,11 +54,11 @@ export const Polaroids = () => {
                         className="absolute top-[4%] left-[48%] rotate-[30deg] z-[-2]"
                         alt="나무 집게 뒷면"
                     />
-                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[14%]">
+                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[18%]">
                         <Image width={350} src={Step01} alt="step 01" />
-                        <p className="pt-[20px] pb-[12px]">STEP 01</p>
-                        <p>
-                            세계 곳곳을 다녀온 추억을 <span className="">기록하세요</span>.
+                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 01</p>
+                        <p className="w-[180px] text-bg font-semibold break-keep">
+                            세계 곳곳을 다녀온 추억을 <span className="text-BRAND-50">기록하세요</span>.
                         </p>
                     </div>
                 </div>
@@ -78,9 +78,9 @@ export const Polaroids = () => {
                     />
                     <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[40%]">
                         <Image width={350} src={Step02} alt="step 02" />
-                        <p className="pt-[20px] pb-[12px]">STEP 02</p>
-                        <p>
-                            세계 곳곳을 다녀온 추억을 <span className="">기록하세요</span>.
+                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 02</p>
+                        <p className="w-[200px] text-bg font-semibold break-keep">
+                            다른 사람의 여행 기록글을 <span className="text-ACCENT-coral">읽어보세요</span>.
                         </p>
                     </div>
                 </div>
@@ -89,20 +89,20 @@ export const Polaroids = () => {
                     <Image
                         width={42}
                         src={TongFront}
-                        className="absolute top-[6%] left-[45%] rotate-[-50deg] z-40"
+                        className="absolute top-[10%] left-[45%] rotate-[-50deg] z-40"
                         alt="나무 집게 앞면"
                     />
                     <Image
                         width={34}
                         src={TongBack}
-                        className="absolute top-[5%] left-[47%] rotate-[-20deg] z-[-2]"
+                        className="absolute top-[10%] left-[47%] rotate-[-20deg] z-[-2]"
                         alt="나무 집게 뒷면"
                     />
-                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[20%]">
+                    <div className="w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] mt-[26%]">
                         <Image width={350} src={Step03} alt="step 03" />
-                        <p className="pt-[20px] pb-[12px]">STEP 03</p>
-                        <p>
-                            세계 곳곳을 다녀온 추억을 <span className="">기록하세요</span>.
+                        <p className="pt-[20px] pb-[12px] text-sm font-bold">STEP 03</p>
+                        <p className="w-[200px] text-bg font-semibold break-keep">
+                            좋아요와 댓글로 기록글에 <span className="text-ACCENT-orange">공감하세요</span>.
                         </p>
                     </div>
                 </div>
