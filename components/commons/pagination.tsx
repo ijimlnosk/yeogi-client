@@ -1,6 +1,6 @@
 "use client"
 
-import { generatePagination, hasNextGroup, hasPreviousGroup } from "@/utils/generatePages"
+import { generatePagination, hasNextGroup } from "@/utils/generatePages"
 import clsx from "clsx"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -16,7 +16,7 @@ import { usePathname, useSearchParams } from "next/navigation"
  * @const nextDisabled 다음 그룹이 없을 경우 true로 설정하여 다음 버튼을 비활성화
  * @returns 화면에 렌더될 숫자 버튼 배열과 이전, 다음 버튼을 반환
  */
-export default function Pagination({ totalPages }: { totalPages: number }) {
+export const Pagination = ({ totalPages }: { totalPages: number }) => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const currentPage = Number(searchParams.get("page")) || 1
@@ -68,7 +68,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
  * @const className clsx를 사용하여 isActive 상태에 따라 CSS 클래스를 적용
  * @returns isActive 여부에 따라 해당 스타일이 적용된 숫자 버튼을 반환
  */
-function PaginationNumber({ page, href, isActive }: { page: number | string; href: string; isActive: boolean }) {
+const PaginationNumber = ({ page, href, isActive }: { page: number | string; href: string; isActive: boolean }) => {
     const className = clsx("flex w-[25px] h-[25px] items-center justify-center mx-1.5", {
         "z-10 border-[1px] border-SYSTEM-black rounded-full text-SYSTEM-black cursor-pointer": isActive,
         "hover:cursor-pointer": !isActive,
