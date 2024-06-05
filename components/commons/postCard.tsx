@@ -32,13 +32,13 @@ const PostCard = ({
                     <p className="text-gray-600 text-sm">게시일 : {new Date(created_At).toLocaleDateString()}</p>
                 </div>
                 {/* 좋아요 코멘트 */}
-                <div className="px-[20px] pt-0 flex justify-between items-center ">
+                <div className="px-[20px] flex justify-between items-center ">
                     <div className="bg-white flex gap-[12px]">
                         <div className=" flex items-center gap-[3px]">
                             <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
-                        <div className=" flex">
+                        <div className=" flex gap-[3px]">
                             <Image
                                 src={commentIcon}
                                 alt="comment_Icon"
