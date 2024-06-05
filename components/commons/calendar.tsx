@@ -9,7 +9,7 @@ import isBetween from "dayjs/plugin/isBetween"
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
-const Calendar: React.FC = () => {
+const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [startDate, setStartDate] = useState<Date | null>(null)
     const [endDate, setEndDate] = useState<Date | null>(null)
@@ -26,6 +26,19 @@ const Calendar: React.FC = () => {
         day = day.add(1, "day")
     }
 
+    /**
+     * handleDayClick 함수
+     * author: Kimi
+     * @param {dayjs.Dayjs} day - 클릭된 날짜
+     *
+     * 날짜 클릭 이벤트를 처리하는 함수
+     * isRange true -> 시작 날짜와 종료 날짜 설정,
+     * isRange false -> 단일 날짜 선택
+     *
+     * 클릭된 날짜가 시작 날짜 이후인 경우 종료 날짜를 설정
+     * 그렇지 않은 경우 시작 날짜를 클릭된 날짜로 설정하고 종료 날짜를 초기화
+     * 범위를 선택하는 것이 아닌 경우 선택된 날짜를 클릭된 날짜로 설정
+     */
     const handleDayClick = (day: dayjs.Dayjs) => {
         if (isRange) {
             if (startDate && !endDate && day.isAfter(startDate)) {
