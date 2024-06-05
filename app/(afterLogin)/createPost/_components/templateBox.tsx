@@ -12,7 +12,7 @@ const TemplateBox = ({ type, isSelected }: TemplateBoxProps) => {
         image = "/images/post-template1.svg"
     } else if (type === "type2") {
         ruleText = "방법2"
-        title = "간단하게 메모 형식으로 적고 싶어요"
+        title = "간단하게 메모  형식으로 적고 싶어요"
         image = "/images/post-template2.svg"
     }
 
