@@ -2,7 +2,8 @@ export const COLORS = {
     SYSTEM: {
         black: "#0c0c0c",
         white: "#fff",
-        beige: "#f6f2ee",
+        beige: "#F6F2EE",
+        bone: "#EADCCE",
     },
     GREY: {
         10: "#eee",
@@ -22,5 +23,6 @@ export const COLORS = {
     ACCENT: {
         orange: "#F07D13",
         coral: "#EF7974",
+        fireBush: "#E08F3D",
     },
 } as const

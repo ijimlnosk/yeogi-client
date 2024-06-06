@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
     return (
         <header
-            className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50`}
+            className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50 bg-SYSTEM-beige`}
         >
             <div className="mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                 <div className="flex items-center">
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                         <Link href="/signup" className="text-SYSTEM-black">
                             회원가입
                         </Link>
-                        <Link href="/write">
+                        <Link href="/createPost">
                             <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
                                 <Image src={writeIcon} alt="write_icon" width={24} height={24} className="mr-[8px]" />
                                 글쓰기
