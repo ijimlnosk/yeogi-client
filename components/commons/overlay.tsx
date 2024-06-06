@@ -41,7 +41,7 @@ const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: Overl
                         alt="icon"
                         width={24}
                         height={24}
-                        className="absolute bottom-[192px] right-[465px]"
+                        className="absolute bottom-[192px] right-[480px]"
                     />
                 )}
                 <button onClick={onClick} className={`absolute bottom-[190px] right-[400px] text-sm ${textColor}`}>
