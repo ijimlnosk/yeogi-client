@@ -21,11 +21,15 @@ body {
 }
 
 .quill-editor .ql-snow {
-  @apply border-none !important;
+  @apply border-none h-[80px] flex justify-center items-center !important;
 }
 
 .quill-editor .ql-editor {
   @apply border-none min-h-[200px];
+}
+
+.quill-editor .ql-container {
+  @apply absolute top-[19%] left-0 w-[900px] min-h-[200px] bg-SYSTEM-white rounded-xl !important;
 }
 
 @layer utilities {
