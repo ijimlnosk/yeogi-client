@@ -14,3 +14,9 @@ export type PostCardProps = {
     thumbnail: string
     created_At: Date
 }
+
+//calendar props type
+export type DateRange = {
+    start: Date | null
+    end: Date | null
+}
