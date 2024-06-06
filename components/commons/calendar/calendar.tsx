@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, ChangeEvent } from "react"
+import React, { useState, ChangeEvent, FC } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
@@ -10,7 +10,7 @@ import { CalendarProps, DateRange } from "../type"
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
-const Calendar: React.FC<CalendarProps> = ({ onClose }) => {
+const Calendar: FC<CalendarProps> = ({ onClose }) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
     const [isRange, setIsRange] = useState(true)
@@ -55,7 +55,7 @@ const Calendar: React.FC<CalendarProps> = ({ onClose }) => {
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] bg-SYSTEM-white shadow-custom">
+        <div className="font-pretendard  p-6 ">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}
@@ -79,9 +79,6 @@ const Calendar: React.FC<CalendarProps> = ({ onClose }) => {
                 {daysOfWeek.map((day, index) => renderDayOfWeek(day, index))}
                 {days.map((day, index) => renderDay(day, index, isSelected, dateRange, currentDate, handleDayClick))}
             </div>
-            <button onClick={onClose} className="mt-4 p-2 rounded-md bg-green-500 text-white">
-                선택완료
-            </button>
         </div>
     )
 }

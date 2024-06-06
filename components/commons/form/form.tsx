@@ -17,7 +17,7 @@ const Form = () => {
     }
 
     return (
-        <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen p-6 flex flex-col ">
+        <div>
             <h1 className="text-2xl mb-[20px] text-GREY-80">
                 당신의 <span className="text-BRAND-50">여행을</span> 자유롭게
                 <span className="text-BRAND-50">기록하세요.</span>
@@ -26,7 +26,7 @@ const Form = () => {
             <div className="flex text-sm mb-4">
                 <button
                     onClick={toggleOverlay}
-                    className="border p-8 rounded-md w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
+                    className="border p-8 mr-[20px] rounded-md w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
                 >
                     <div>
                         <span className="text-[#ff2323] mr-4">*</span>다녀온 지역을 선택해주세요.
@@ -43,11 +43,6 @@ const Form = () => {
                     <span>&gt;</span>
                 </button>
             </div>
-            <div className="flex justify-end space-x-4">
-                <button className="bg-gray-400 text-white p-2 rounded-md">임시저장</button>
-                <button className="bg-black text-white p-2 rounded-md">기록 올리기</button>
-            </div>
-
             <Overlay isOpen={isOverlayOpen} onClose={toggleOverlay}>
                 <div className="flex flex-col w-[448px] h-[397px] p-[4px] text-sm">
                     <h2 className=" text-center my-6">대륙 선택</h2>
