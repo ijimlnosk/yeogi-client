@@ -18,12 +18,12 @@ const PostCard = ({
     created_At,
 }: PostCardProps) => {
     return (
-        <Link href={`/detailPost/${post_id}`}>
-            <div className="w-[360px] h-[381px] rounded-[24px] overflow-hidden shadow-lg bg-SYSTEM-white relative">
+        <div className="w-[360px] h-[381px] rounded-[24px] overflow-hidden shadow-lg bg-SYSTEM-white relative">
+            <Link href={`/detailPost/${post_id}`}>
                 <img className="w-[360px] h-[244px] object-cover" src={thumbnail} alt="Post thumbnail" />
                 {/* 위치아이콘 */}
                 <div className="absolute top-[20px] left-[20px] inline-flex gap-[2px] px-[7px] py-[4px] pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-[8px] shadow-md">
-                    <Image src={locationIcon} alt="location_Icon" width={16} height={16} />
+                    <Image src={locationIcon} alt="location_Icon" />
                     <p className="text-sm text-BRAND-50">{continent}</p>
                 </div>
                 {/* 게시일 */}
@@ -35,17 +35,11 @@ const PostCard = ({
                 <div className="px-[20px] flex justify-between items-center ">
                     <div className="bg-white flex gap-[12px]">
                         <div className=" flex items-center gap-[3px]">
-                            <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
+                            <Image src={likeIcon} alt="like_Icon" />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
                         <div className=" flex gap-[3px]">
-                            <Image
-                                src={commentIcon}
-                                alt="comment_Icon"
-                                width={16}
-                                height={16}
-                                className="text-GREY-50"
-                            />
+                            <Image src={commentIcon} alt="comment_Icon" />
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>
@@ -55,8 +49,8 @@ const PostCard = ({
                         <p className="text-SYSTEM-black text-xxs">{user_nickname}</p>
                     </div>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     )
 }
 

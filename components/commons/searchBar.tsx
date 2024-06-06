@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import Image from "next/image"
-import searchIcon from "@/public/icons/search.svg"
+import searchIcon from "@/public/icons/searchbar.svg"
 
 const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
     const sizeClasses = clsx({
@@ -10,10 +10,10 @@ const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
     })
 
     return (
-        <form className="max-w-md mx-auto">
+        <form className="max-w-auto mx-auto">
             <div className="relative ">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                    <Image src={searchIcon} alt="search_icon" width={24} height={24} text-GREY-50 />
+                    <Image src={searchIcon} alt="search_icon" />
                 </div>
                 <div>
                     <input
