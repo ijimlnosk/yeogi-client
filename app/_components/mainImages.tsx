@@ -37,42 +37,46 @@ export const RightGroup = () => {
 
 export const Polaroids = () => {
     return (
-        <div className="w-full h-[775px] pt-[24%]">
-            <Image width={1920} src={Line} className="absolute top-[34%] z-[-1]" alt="string" />
-            <div className="px-[88px] flex flex-row justify-between">
-                <Polaroid
-                    step="STEP 01"
-                    src={Step01}
-                    alt="step 01"
-                    description="세계 곳곳을 다녀온 추억을"
-                    spanText="기록하세요"
-                    top={4}
-                    rotateFront={0}
-                    rotateBack={48}
-                    mt={18}
-                />
-                <Polaroid
-                    step="STEP 02"
-                    src={Step02}
-                    alt="step 02"
-                    description="다른 사람의 여행 기록글을"
-                    spanText="읽어보세요"
-                    top={18}
-                    rotateFront={-30}
-                    rotateBack={49}
-                    mt={40}
-                />
-                <Polaroid
-                    step="STEP 03"
-                    src={Step03}
-                    alt="step 03"
-                    description="좋아요와 댓글로 기록글에"
-                    spanText="공감하세요"
-                    top={10}
-                    rotateFront={-50}
-                    rotateBack={47}
-                    mt={26}
-                />
+        <div className="w-full h-full pt-[24%] flex items-center justify-center">
+            <Image min-width={1920} src={Line} className="absolute w-full top-[420px] z-[-1]" alt="string" />
+            <div className="w-[1680px] h-[600px] flex flex-row items-center justify-between">
+                <div className="h-full pt-[23px]">
+                    <Polaroid
+                        step="STEP 01"
+                        src={Step01}
+                        alt="step 01"
+                        description="세계 곳곳을 다녀온 추억을"
+                        spanText="기록하세요"
+                        textColor="text-BRAND-50"
+                        top={"top-[-40px]"}
+                        rotateBack={"rotate-[30deg]"}
+                    />
+                </div>
+                <div className="h-full pt-[110px]">
+                    <Polaroid
+                        step="STEP 02"
+                        src={Step02}
+                        alt="step 02"
+                        description="다른 사람의 여행 기록글을"
+                        spanText="읽어보세요"
+                        textColor="text-ACCENT-coral"
+                        top={"top-[-46px]"}
+                        rotateFront={"rotate-[-30deg]"}
+                    />
+                </div>
+                <div className="h-full pt-[55px]">
+                    <Polaroid
+                        step="STEP 03"
+                        src={Step03}
+                        alt="step 03"
+                        description="좋아요와 댓글로 기록글에"
+                        spanText="공감하세요"
+                        textColor="text-ACCENT-orange"
+                        top={"top-[-40px]"}
+                        rotateFront={"rotate-[-50deg]"}
+                        rotateBack={"rotate-[-20deg]"}
+                    />
+                </div>
             </div>
         </div>
     )
