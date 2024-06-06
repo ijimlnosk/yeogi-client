@@ -5,10 +5,13 @@ import "react-quill/dist/quill.snow.css"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
-export const QuillEditor = () => {
+type EditorProps = {
+    className: string
+}
+
+export const QuillEditor = ({ className }: EditorProps) => {
     return (
         <ReactQuill
-            className="quill-editor"
             modules={{
                 toolbar: [
                     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -22,6 +25,7 @@ export const QuillEditor = () => {
                     ["clean"],
                 ],
             }}
+            className={className}
         />
     )
 }
