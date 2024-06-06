@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
-import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "../../utils/calendarUtils"
+import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "./calendarUtils"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
@@ -59,7 +59,7 @@ const Calendar: React.FC = () => {
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] bg-white shadow-custom">
+        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] bg-SYSTEM-white shadow-custom">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}

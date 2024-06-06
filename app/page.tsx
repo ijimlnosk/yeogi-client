@@ -1,5 +1,5 @@
 // import Calendar2 from "@/components/commons/calandar2"
-import Calendar from "@/components/commons/calendar"
+import Calendar from "@/components/commons/calendar/calendar"
 
 export default function Home() {
     return (

@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs"
 import clsx from "clsx"
-import React from "react"
+import React from "react";
 
 export const generateCalendarOptions = (currentYear: number, currentMonth: number) => {
     const options = []
@@ -44,10 +44,11 @@ export const renderDay = (
 ) => (
     <div
         key={index}
-        className={clsx("flex items-center justify-center cursor-pointer my-1 ", {
-            "bg-BRAND-30 text-SYSTEM-white ": isSelected(day),
-            "rounded-l-full shadow-custom": dateRange.start && dateRange.end && day.isSame(dayjs(dateRange.start), "day"),
-            "rounded-r-full ": dateRange.start && dateRange.end && day.isSame(dayjs(dateRange.end), "day"),
+        className={clsx("flex items-center justify-center cursor-pointer my-1", {
+            "bg-BRAND-30 text-SYSTEM-white": isSelected(day),
+            "rounded-l-full shadow-custom":
+                dateRange.start && dateRange.end && day.isSame(dayjs(dateRange.start), "day"),
+            "rounded-r-full": dateRange.start && dateRange.end && day.isSame(dayjs(dateRange.end), "day"),
             "text-red-500": day.isSame(dayjs(), "day"),
             "text-GREY-30": !day.isSame(currentDate, "month"),
         })}
