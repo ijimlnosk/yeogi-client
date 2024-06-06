@@ -8,7 +8,7 @@ const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
     })
 
     return (
-        <form className="max-w-md mx-auto">
+        <form className="max-w-auto mx-auto">
             <div className="relative">
                 <div className=" absolute inset-y-0 p-3 placeholder:start-0 flex items-center pointer-events-none">
                     <svg
