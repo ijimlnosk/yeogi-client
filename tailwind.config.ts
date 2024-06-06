@@ -16,6 +16,10 @@ const config: Config = {
             fontSize: {
                 ...FONT_SIZE,
             },
+            boxShadow: {
+                custom: "3px 4px 18px 0px #59595945",
+            },
+            extend: {},
             backgroundImage: {
                 "comment-pattern": "url(/images/comment-bg.svg)",
                 "re-comment-pattern": "url(/images/re-comment-bg.svg)",
