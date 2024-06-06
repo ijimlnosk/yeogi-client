@@ -4,7 +4,7 @@ import FormBtn from "@/components/commons/form/formBtn"
 
 const Page = () => {
     return (
-        <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen p-6 flex flex-col">
+        <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
             <Form />
             {/* <QuillEditor /> */}
             <FormBtn />

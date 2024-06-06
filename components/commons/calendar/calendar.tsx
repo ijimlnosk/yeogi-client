@@ -55,17 +55,17 @@ const Calendar: FC<CalendarProps> = ({ onClose }) => {
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard  p-6 ">
+        <div className="font-pretendard p-6">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}
                 </button>
                 <button onClick={() => handleMonthChange(1)}>{currentDate.add(1, "month").format("YYYY.MM")}</button>
             </div>
-            <div className="flex justify-center items-center pb-8 ">
+            <div className="flex justify-center items-center pb-8">
                 <select
                     onChange={handleCalendarSelect}
-                    className="border p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none cursor-pointer"
+                    className="p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none cursor-pointer"
                     value={`${currentDate.year()}-${currentDate.month()}`}
                 >
                     {calendarOptions.map(option => (
@@ -75,7 +75,7 @@ const Calendar: FC<CalendarProps> = ({ onClose }) => {
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-7 text-center">
+            <div className="grid grid-cols-7 text-center h-[350px]">
                 {daysOfWeek.map((day, index) => renderDayOfWeek(day, index))}
                 {days.map((day, index) => renderDay(day, index, isSelected, dateRange, currentDate, handleDayClick))}
             </div>

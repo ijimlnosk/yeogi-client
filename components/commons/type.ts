@@ -24,3 +24,12 @@ export type DateRange = {
 export type CalendarProps = {
     onClose: () => void
 }
+
+//form overlay props type
+export type FormOverlayProps = {
+    isContinentOverlayOpen: boolean
+    isCalendarOverlayOpen: boolean
+    onClose: () => void
+    handleContinentSelect: (continent: string) => void
+    selectedContinent: string | null
+}
