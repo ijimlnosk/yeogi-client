@@ -177,46 +177,88 @@ deploy
 
 <h3>Stacks</h3>
 
-<h4>Languages</h4>
+<table>
+  <tr>
+    <td><h4>Languages</h4></td>
+    <td>
+      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white">
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h4>Framework</h4></td>
+    <td>
+      <img src="https://img.shields.io/badge/next.js-000?style=flat-square&logo=next.js&logoColor=white">
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h4>Library</h4></td>
+    <td>
+      <img src="https://img.shields.io/badge/nextUI-000?style=flat-square&logo=nextui&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/zod-3E67B1?style=flat-square&logo=zod&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/storybook-FF4785?style=flat-square&logo=storybook&logoColor=white">
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h4>Communications</h4></td>
+    <td>
+      <img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=github&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/discord-5865F2?style=flat-square&logo=discord&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/jira-0052CC?style=flat-square&logo=jira&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white">
+    </td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><h4>Tools</h4></td>
+    <td>
+      <img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"> 
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=flat-square&logo=Visual%20Studio%20Code&logoColor=white">
+    </td>
+    <td>
+      <img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white">
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
 
-<p align="center">
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3cript&logoColor=white">
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white">
-</p>
 
-<h4>Framework</h4>
 
-<p align="center">
-<img src="https://img.shields.io/badge/nextjs-000?style=flat-square&logo=nextjs&logoColor=white">
-</p>
-
-<h4>Library</h4>
-
-<p align="center">
-<img src="https://img.shields.io/badge/nextUI-000?style=flat-square&logo=nextui&logoColor=white">
-<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white">
-<img src="https://img.shields.io/badge/zod-3E67B1?style=flat-square&logo=zod&logoColor=white">
-<img src="https://img.shields.io/badge/reactquery-FF4154?style=flat-square&logo=reactquery&logoColor=white">
-<img src="https://img.shields.io/badge/storybook-FF4785?style=flat-square&logo=storybook&logoColor=white">
-</p>
-
-<h4>Communications</h4>
-
-<p align="center">
-<img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/discord-5865F2?style=flat-square&logo=discord&logoColor=white">
-<img src="https://img.shields.io/badge/jira-0052CC?style=flat-square&logo=jira&logoColor=white">
-<img src="https://img.shields.io/badge/notion-000000?style=flat-square&logo=notion&logoColor=white">
-</p>
-
-<h4>Tools</h4>
-
-<p align="center">
-<img src="https://img.shields.io/badge/figma-F24E1E?style=flat-square&logo=figma&logoColor=white"> 
-<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC.svg?&style=for-the-badge&logo=Visual%10Studio%10Code&logoColor=white">
-<img src="https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white">
-</p>
 
 <br/>
 <br/>
