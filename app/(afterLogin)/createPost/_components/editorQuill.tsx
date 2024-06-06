@@ -8,12 +8,17 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 export const QuillEditor = () => {
     return (
         <ReactQuill
+            className="quill-editor"
             modules={{
                 toolbar: [
-                    [{ header: [1, 2, false] }],
                     ["bold", "italic", "underline", "strike", "blockquote"],
+                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                    [{ font: [] }],
+                    [{ direction: "rtl" }],
+                    ["image", "link"],
                     [{ list: "ordered" }, { list: "bullet" }],
-                    ["link", "image"],
+                    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+                    [{ align: [] }],
                     ["clean"],
                 ],
             }}

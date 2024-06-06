@@ -16,6 +16,18 @@ body {
   @apply bg-SYSTEM-beige;
 }
 
+.quill-editor {
+  @apply bg-SYSTEM-white w-[900px] border-0 rounded-xl;
+}
+
+.quill-editor .ql-snow {
+  @apply border-none !important;
+}
+
+.quill-editor .ql-editor {
+  @apply border-none min-h-[200px];
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
