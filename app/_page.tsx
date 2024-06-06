@@ -27,7 +27,7 @@ const Home = () => {
 
     return (
         <>
-            <Overlay isOpen={isOverlayOpen} onClose={() => setIsOverlayOpen(false)}>
+            <Overlay isOpen={isOverlayOpen} onClick={() => setIsOverlayOpen(false)}>
                 <div className="flex flex-col items-center justify-center w-[400px] h-[350px]">
                     <p className="flex items-center justify-center w-full h-[50px] text-sm">대륙선택</p>
                     <div className="grid grid-cols-2">
