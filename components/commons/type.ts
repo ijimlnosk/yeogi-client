@@ -20,3 +20,7 @@ export type DateRange = {
     start: Date | null
     end: Date | null
 }
+
+export type CalendarProps = {
+    onClose: () => void
+}

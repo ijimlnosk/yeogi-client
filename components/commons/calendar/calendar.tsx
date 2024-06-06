@@ -5,12 +5,12 @@ import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
 import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "./calendarUtils"
-import { DateRange } from "../type"
+import { CalendarProps, DateRange } from "../type"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
-const Calendar: React.FC = () => {
+const Calendar: React.FC<CalendarProps> = ({ onClose }) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
     const [isRange, setIsRange] = useState(true)
@@ -79,6 +79,9 @@ const Calendar: React.FC = () => {
                 {daysOfWeek.map((day, index) => renderDayOfWeek(day, index))}
                 {days.map((day, index) => renderDay(day, index, isSelected, dateRange, currentDate, handleDayClick))}
             </div>
+            <button onClick={onClose} className="mt-4 p-2 rounded-md bg-green-500 text-white">
+                선택완료
+            </button>
         </div>
     )
 }

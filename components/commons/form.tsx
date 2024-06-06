@@ -1,11 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import { QuillEditor } from "../createPost/_components/editorQuill"
 import Overlay from "@/components/commons/overlay"
 import Calendar from "@/components/commons/calendar/calendar"
 
-const Page: React.FC = () => {
+const Form = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
@@ -76,4 +75,4 @@ const Page: React.FC = () => {
     )
 }
 
-export default Page
+export default Form
