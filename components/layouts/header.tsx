@@ -34,7 +34,7 @@ const Header: React.FC = () => {
         <header
             className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50`}
         >
-            <div className="mx-auto bg-[#F6F2EE] px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
+            <div className="mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                 <div className="flex items-center">
                     <button className=" bg-BRAND-50 font-semibold text-SYSTEM-white w-[120px] h-[46px] px-[31px] py-[10px] rounded-full">
                         YEOGI
