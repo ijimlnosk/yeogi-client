@@ -5,14 +5,10 @@ import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
 import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "./calendarUtils"
+import { DateRange } from "../type"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
-
-interface DateRange {
-    start: Date | null
-    end: Date | null
-}
 
 const Calendar: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
