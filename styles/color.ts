@@ -14,6 +14,7 @@ export const COLORS = {
         80: "#6c6c6c",
     },
     BRAND: {
+        "05": "#DBEAD0",
         10: "#C0DCAB",
         30: "#90B773",
         50: "#658F47",
