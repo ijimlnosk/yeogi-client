@@ -3,8 +3,6 @@
 import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
-import Comment from "@/components/commons/comment"
-import ReComment from "@/components/commons/reComment"
 import Overlay from "@/components/commons/overlay"
 import Searchbar from "@/components/commons/searchBar"
 import PostCard from "@/components/commons/postCard"

@@ -3,6 +3,11 @@ export type TemplateBoxProps = {
     isSelected: boolean
 }
 
+export type ThumbnailProps = {
+    isOverlayOpen: boolean
+    setIsOverlayOpen: (isOpen: boolean) => void
+}
+
 //calendar props type
 export type DateRange = {
     start: Date | null
