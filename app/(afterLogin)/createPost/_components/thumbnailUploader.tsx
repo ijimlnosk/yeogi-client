@@ -4,13 +4,9 @@ import Overlay from "@/components/commons/overlay"
 import Image from "next/image"
 import { useRef, useState } from "react"
 import Photo from "@/public/icons/image.svg"
+import { ThumbnailProps } from "./type"
 
-type Props = {
-    isOverlayOpen: boolean
-    setIsOverlayOpen: (isOpen: boolean) => void
-}
-
-const UploadThumbnail = ({ isOverlayOpen, setIsOverlayOpen }: Props) => {
+const ThumbnailUploader = ({ isOverlayOpen, setIsOverlayOpen }: ThumbnailProps) => {
     const fileRef = useRef<HTMLInputElement>(null)
     const [image, setImage] = useState<string | null>(null)
 
@@ -48,7 +44,7 @@ const UploadThumbnail = ({ isOverlayOpen, setIsOverlayOpen }: Props) => {
                                 src={image}
                                 width="500"
                                 height="260"
-                                className="object-contain overflow-hidden"
+                                className="object-contain overflow-hidden cursor-pointer"
                                 alt="썸네일 미리보기"
                             />
                         ) : (
@@ -86,4 +82,4 @@ const UploadThumbnail = ({ isOverlayOpen, setIsOverlayOpen }: Props) => {
         </>
     )
 }
-export default UploadThumbnail
+export default ThumbnailUploader
