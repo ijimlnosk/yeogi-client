@@ -17,6 +17,7 @@ export type PostCardProps = {
     created_At: Date
 }
 
+
 export type CommentProps = {
     content: string
     likes: number

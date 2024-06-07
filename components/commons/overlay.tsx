@@ -31,7 +31,9 @@ const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: Overl
 
     if (!isOpen) return null
 
-    const contentCss = clsx("bg-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center")
+    const contentCss = clsx(
+        "bg-SYSTEM-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
+    )
 
     return (
         <div
