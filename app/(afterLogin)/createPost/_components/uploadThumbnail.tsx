@@ -58,7 +58,7 @@ const UploadThumbnail = ({ isOverlayOpen, setIsOverlayOpen }: Props) => {
                     <p className="text-xxs text-GREY-50 py-[20px]">
                         이미지 미 선택 시 <span className="text-ACCENT-coral">기본 이미지</span>로 썸네일이 적용됩니다.
                     </p>
-                    {image ? (
+                    {image && (
                         <div className="w-full flex items-center text-sm text-center">
                             <button
                                 onClick={onDeleteSelectedImage}
@@ -66,13 +66,13 @@ const UploadThumbnail = ({ isOverlayOpen, setIsOverlayOpen }: Props) => {
                             >
                                 삭제
                             </button>
-                            <button className="w-[108px] h-[46px] rounded-xl bg-SYSTEM-black text-SYSTEM-white cursor-pointer absolute bottom-[30px] right-[30px] transition duration-300 hover:bg-ACCENT-orange">
-                                선택 완료
-                            </button>
                         </div>
-                    ) : (
-                        ""
                     )}
+                    <div className="w-full flex items-center text-sm text-center">
+                        <button className="w-[108px] h-[46px] rounded-xl bg-SYSTEM-black text-SYSTEM-white cursor-pointer absolute bottom-[30px] right-[30px] transition duration-300 hover:bg-ACCENT-orange">
+                            선택 완료
+                        </button>
+                    </div>
                     <input
                         ref={fileRef}
                         name="file"
