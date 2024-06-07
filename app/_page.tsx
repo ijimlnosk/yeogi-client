@@ -96,12 +96,6 @@ const Home = () => {
                     commentCount={10000}
                     likeCount={10000}
                 />
-                {/* comment component test */}
-                <div className="my-[40px]">
-                    <Comment />
-                    <div className="my-[20px]" />
-                    <ReComment />
-                </div>
             </div>
             <Pagination totalPages={totalPages} />
         </>

@@ -1,6 +1,8 @@
+"use client"
+
 import clsx from "clsx"
 import Image from "next/image"
-import { ReactNode } from "react"
+import { ReactNode, useEffect } from "react"
 
 type OverlayProps = {
     isOpen: boolean
@@ -22,6 +24,18 @@ type OverlayProps = {
  */
 
 const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: OverlayProps) => {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "unset"
+        }
+
+        return () => {
+            document.body.style.overflow = "unset"
+        }
+    }, [isOpen])
+
     if (!isOpen) return null
 
     const contentCss = clsx("bg-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center")
@@ -33,20 +47,16 @@ const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: Overl
             aria-modal="true"
             role="dialog"
         >
-            <div className={contentCss} onClick={e => e.stopPropagation()}>
-                {children}
-                {imageUrl && (
-                    <Image
-                        src={imageUrl}
-                        alt="icon"
-                        width={24}
-                        height={24}
-                        className="absolute bottom-[192px] right-[480px]"
-                    />
-                )}
-                <button onClick={onClick} className={`absolute bottom-[190px] right-[400px] text-sm ${textColor}`}>
-                    {text}
-                </button>
+            <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
+                <div className={contentCss}>{children}</div>
+                <div className="w-full flex flex-row items-center justify-end pt-2">
+                    <div className="pt-[10px] pr-[4px]">
+                        {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />}
+                    </div>
+                    <button onClick={onClick} className={`text-sm ${textColor}`}>
+                        {text}
+                    </button>
+                </div>
             </div>
         </div>
     )
