@@ -37,3 +37,10 @@ export type DateRange = {
     start: Date | null
     end: Date | null
 }
+
+export type FailModalProps = {
+    title: string
+    context: string
+    isOpen: boolean
+    setIsOpen: (isOpen: boolean) => void
+}
