@@ -2,6 +2,7 @@
 
 import React, { useState } from "react"
 import FormOverlay from "./formOverlay"
+import FormSelector from "./formSelector"
 
 const Form = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -31,25 +32,10 @@ const Form = () => {
                 <span className="text-BRAND-50">기록하세요.</span>
             </h1>
 
-            <div className="flex mb-[20px] ">
-                <button
-                    onClick={toggleOverlay}
-                    className="rounded-[12px] p-8 mr-[20px] w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
-                >
-                    <div>
-                        <span className="text-[#ff2323] mr-4">*</span>다녀온 지역을 선택해주세요.
-                    </div>
-                    <span>&gt;</span>
-                </button>
-                <button
-                    onClick={toggleCalendar}
-                    className="rounded-[12px] p-8 w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
-                >
-                    <div>
-                        <span className="text-[#ff2323] mr-4">*</span>여행 기간을 선택해주세요.
-                    </div>
-                    <span>&gt;</span>
-                </button>
+            <div className="flex mb-[20px]">
+                <FormSelector onClick={toggleOverlay} label="다녀온 지역을 선택해주세요." />
+                <div className="mr-[20px]" />
+                <FormSelector onClick={toggleCalendar} label="여행 기간을 선택해주세요." />
             </div>
             <div className="relative w-full h-[80px] mb-[15px]">
                 <input

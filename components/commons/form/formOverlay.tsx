@@ -1,16 +1,9 @@
-import React from "react";
-import Overlay from "@/components/commons/overlay";
-import Calendar from "@/components/commons/calendar/calendar";
+import React, { FC } from "react"
+import Overlay from "@/components/commons/overlay"
+import Calendar from "@/components/commons/calendar/calendar"
+import { FormOverlayProps } from "../type"
 
-type Props = {
-    isContinentOverlayOpen: boolean;
-    isCalendarOverlayOpen: boolean;
-    onClose: () => void;
-    handleContinentSelect: (continent: string) => void;
-    selectedContinent: string | null;
-};
-
-const CombinedOverlay: React.FC<Props> = ({
+const Form: FC<FormOverlayProps> = ({
     isContinentOverlayOpen,
     isCalendarOverlayOpen,
     onClose,
@@ -47,6 +40,6 @@ const CombinedOverlay: React.FC<Props> = ({
             </div>
         </Overlay>
     </>
-);
+)
 
-export default CombinedOverlay;
+export default Form

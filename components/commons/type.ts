@@ -33,3 +33,9 @@ export type FormOverlayProps = {
     handleContinentSelect: (continent: string) => void
     selectedContinent: string | null
 }
+
+//form selector props type
+export type FormSelectorProps = {
+    onClick: () => void
+    label: string
+}
