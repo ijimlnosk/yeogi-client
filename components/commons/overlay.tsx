@@ -14,7 +14,6 @@ import { OverlayProps } from "./type"
  * @param {string} props.text - 닫기 버튼에 표시될 텍스트
  * @param {string} props.imageUrl - 오버레이에 표시될 이미지 URL
  * @param {string} props.textColor - 닫기 버튼 텍스트 색상
- *
  */
 
 const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: OverlayProps) => {
