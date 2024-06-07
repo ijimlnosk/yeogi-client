@@ -16,3 +16,26 @@ export type PostCardProps = {
 }
 
 
+export type CommentProps = {
+    content: string
+    likes: number
+    comments: number
+    date: string
+    userId: string
+    userProfileImage: string
+}
+
+export type ReCommentProps = {
+    content: string
+    likes: number
+    date: string
+    userId: string
+    userProfileImage: string
+}
+
+//calendar props type
+export type DateRange = {
+    start: Date | null
+    end: Date | null
+}
+

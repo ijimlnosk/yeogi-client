@@ -1,12 +1,16 @@
 import clsx from "clsx"
+import Image from "next/image"
 import { ReactNode } from "react"
 
 type OverlayProps = {
     isOpen: boolean
-    onClose: () => void
+    onClick: () => void
     children: ReactNode
     widthCss?: string
     heightCss?: string
+    text?: string
+    imageUrl?: string
+    textColor?: string
 }
 
 /**
@@ -17,7 +21,7 @@ type OverlayProps = {
  * @param {ReactNode} props.children - 오버레이 내부에 표시될 내용
  */
 
-const Overlay = ({ isOpen, onClose, children }: OverlayProps) => {
+const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: OverlayProps) => {
     if (!isOpen) return null
 
     const contentCss = clsx(
@@ -26,14 +30,25 @@ const Overlay = ({ isOpen, onClose, children }: OverlayProps) => {
 
     return (
         <div
-            className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50"
-            onClick={onClose}
+            className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
+            onClick={onClick}
             aria-modal="true"
             role="dialog"
         >
             <div className={contentCss} onClick={e => e.stopPropagation()}>
                 {children}
-                <button onClick={onClose} className="absolute top-2 right-2 text-lg font-bold"></button>
+                {imageUrl && (
+                    <Image
+                        src={imageUrl}
+                        alt="icon"
+                        width={24}
+                        height={24}
+                        className="absolute bottom-[192px] right-[480px]"
+                    />
+                )}
+                <button onClick={onClick} className={`absolute bottom-[190px] right-[400px] text-sm ${textColor}`}>
+                    {text}
+                </button>
             </div>
         </div>
     )
