@@ -15,6 +15,7 @@ export type PostCardProps = {
     created_At: Date
 }
 
+
 export type CommentProps = {
     content: string
     likes: number
@@ -37,3 +38,4 @@ export type DateRange = {
     start: Date | null
     end: Date | null
 }
+

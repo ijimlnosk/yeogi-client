@@ -1,16 +1,16 @@
 "use client"
 
-import React, { useState, ChangeEvent } from "react"
+import React, { useState, ChangeEvent, FC } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
-import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "./calendarUtils"
-import { DateRange } from "../type"
+import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "../../../../utils/calendarUtils"
+import { CalendarProps, DateRange } from "./type"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
-const Calendar: React.FC = () => {
+const Calendar: FC<CalendarProps> = ({ onClose }) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
     const [isRange, setIsRange] = useState(true)
@@ -55,17 +55,17 @@ const Calendar: React.FC = () => {
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard w-full max-w-md mx-auto p-6 border rounded-[16px] bg-SYSTEM-white shadow-custom">
+        <div className="font-pretendard p-6">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}
                 </button>
                 <button onClick={() => handleMonthChange(1)}>{currentDate.add(1, "month").format("YYYY.MM")}</button>
             </div>
-            <div className="flex justify-center items-center pb-8 ">
+            <div className="flex justify-center items-center pb-8">
                 <select
                     onChange={handleCalendarSelect}
-                    className="border p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none cursor-pointer"
+                    className="p-2 rounded text-SYSTEM-black font-bold text-md border-none outline-none cursor-pointer"
                     value={`${currentDate.year()}-${currentDate.month()}`}
                 >
                     {calendarOptions.map(option => (
@@ -75,7 +75,7 @@ const Calendar: React.FC = () => {
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-7 text-center">
+            <div className="grid grid-cols-7 text-center h-[350px]">
                 {daysOfWeek.map((day, index) => renderDayOfWeek(day, index))}
                 {days.map((day, index) => renderDay(day, index, isSelected, dateRange, currentDate, handleDayClick))}
             </div>
