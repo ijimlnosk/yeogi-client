@@ -2,6 +2,8 @@
  * 공용컴포넌트에서 사용될 type 파일
  */
 
+import { ReactNode } from "react"
+
 //postCard props 타입
 export type PostCardProps = {
     post_id: number
@@ -39,3 +41,20 @@ export type DateRange = {
     end: Date | null
 }
 
+export type FailModalProps = {
+    title: string
+    context: string
+    isOpen: boolean
+    setIsOpen: (isOpen: boolean) => void
+}
+
+export type OverlayProps = {
+    isOpen: boolean
+    onClick: () => void
+    children: ReactNode
+    widthCss?: string
+    heightCss?: string
+    text?: string
+    imageUrl?: string
+    textColor?: string
+}
