@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import Overlay from "@/components/commons/overlay"
-import Calendar from "@/components/commons/calendar/calendar"
+import Calendar from "../calendar"
 import { FormOverlayProps } from "../type"
 
 const Form: FC<FormOverlayProps> = ({

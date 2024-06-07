@@ -1,6 +1,5 @@
-import Form from "@/components/commons/form/form"
-import { QuillEditor } from "../createPost/_components/editorQuill"
-import FormBtn from "@/components/commons/form/formBtn"
+import Form from "../createPost/_components/form/form"
+import FormBtn from "../createPost/_components/form/formBtn"
 
 const Page = () => {
     return (
