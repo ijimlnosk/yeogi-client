@@ -35,7 +35,7 @@ const FloatingBar = () => {
         }
     }, [])
 
-    //위로올리는 화살표 아이콘기능
+    // ScrollTop 기능
     const handleArrowClick = () => {
         setIsActiveState(prev => ({ ...prev, arrow: true }))
         window.scrollTo({ top: 0, behavior: "smooth" })
@@ -44,15 +44,14 @@ const FloatingBar = () => {
         }, 500)
     }
 
-    //공유하기 아이콘 기능
-    const handleShareClick = () => {
+    // 공유하기 기능
+    const handleShareClick = async () => {
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                setIsActiveState(prev => ({ ...prev, share: true }))
-                setTimeout(() => {
-                    setIsActiveState(prev => ({ ...prev, share: false }))
-                }, 500)
-            })
+            await navigator.clipboard.writeText(window.location.href)
+            setIsActiveState(prev => ({ ...prev, share: true }))
+            setTimeout(() => {
+                setIsActiveState(prev => ({ ...prev, share: false }))
+            }, 500)
         }
     }
 
