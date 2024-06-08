@@ -4,6 +4,12 @@ import shareIcon from "@/public/icons/share.svg"
 import { useEffect, useState } from "react"
 import FloatingButton from "./floatingButton"
 
+/**
+ * FloatingBarComponent
+ * @author: Wendy
+ *
+ */
+
 const FloatingBar = () => {
     const [isActiveState, setIsActiveState] = useState({
         arrow: false,
