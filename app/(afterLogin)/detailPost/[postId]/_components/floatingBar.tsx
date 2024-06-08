@@ -7,7 +7,6 @@ import FloatingButton from "./floatingButton"
 /**
  * FloatingBarComponent
  * @author: Wendy
- *
  */
 
 const FloatingBar = () => {
