@@ -8,17 +8,14 @@ export type ThumbnailProps = {
     setIsOverlayOpen: (isOpen: boolean) => void
 }
 
-//calendar props type
 export type DateRange = {
     start: Date | null
     end: Date | null
 }
-
 export type CalendarProps = {
     onClose: () => void
 }
 
-//form overlay props type
 export type FormOverlayProps = {
     isContinentOverlayOpen: boolean
     isCalendarOverlayOpen: boolean
@@ -26,9 +23,14 @@ export type FormOverlayProps = {
     handleContinentSelect: (continent: string) => void
     selectedContinent: string | null
 }
-
-//form selector props type
 export type FormSelectorProps = {
     onClick: () => void
     label: string
+}
+export type FormBtnProps = {
+    setIsOverlayOpen: (isOpen: boolean) => void
+}
+
+export type PreviewPostCardProps = {
+    selectedImage: string | null
 }

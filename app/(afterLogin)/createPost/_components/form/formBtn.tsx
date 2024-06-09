@@ -1,8 +1,5 @@
 import React from "react"
-
-type FormBtnProps = {
-    setIsOverlayOpen: (isOpen: boolean) => void
-}
+import { FormBtnProps } from "../type"
 
 const FormBtn = ({ setIsOverlayOpen }: FormBtnProps) => {
     return (

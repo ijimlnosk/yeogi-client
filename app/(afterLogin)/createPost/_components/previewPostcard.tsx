@@ -1,8 +1,5 @@
 import PostCard from "@/components/commons/postCard"
-
-type PreviewPostCardProps = {
-    selectedImage: string | null
-}
+import { PreviewPostCardProps } from "./type"
 
 const PreviewPostCard = ({ selectedImage }: PreviewPostCardProps) => {
     return (
