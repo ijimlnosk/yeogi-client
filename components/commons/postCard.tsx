@@ -14,12 +14,12 @@ const PostCard = ({
     commentCount,
     continent,
     user_nickname,
-    user_profile = "https://s3-alpha-sig.figma.com/img/02af/5ca9/17efd34b030c6ea9acf84d5e19fa991b?Expires=1718582400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=N9TtaFLsrrJlBkT-y1tTuiv7xHqxofyKaieuLQHUZ1jujxj0uhv9OQtrS-EOFTWUz7lccHTWHDVm3TvOTWUu6JYXaJD9uXCBXKooZd62M4YZUSE8jG3noz0uGpTw1Ol1M1TfBsM5cujNHSH3Sjq3ihDOE4e3og0DSVHF80t8IlnM3iyL7usWNOznk3-6Q8Q8HNR4caEYZEodXJfpjKMYYBQwZijLyeuPc4Ws6mgC8BVscsV~8zmZRjsqOy~gclDB1fqA1GquLN3fQ27fFeepeQ19oxfRxdwQPtzcQRrXTs6v7Z12Zu5l3whMfBjS7ptWG8flnZSWV-0m9Q-Z5ZuBwg__",
+    user_profile,
     thumbnail,
     created_At,
 }: PostCardProps) => {
     return (
-        <div className="w-[360px] h-[381px] rounded-3xl overflow-hidden shadow-lg bg-SYSTEM-white relative">
+        <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
             <Link href={`/detailPost/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image

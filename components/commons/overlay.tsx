@@ -29,6 +29,7 @@ const Overlay = ({
     onLeftClick,
     leftText,
     leftImageUrl,
+    rounded = "rounded-lg",
 }: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
@@ -44,9 +45,7 @@ const Overlay = ({
 
     if (!isOpen) return null
 
-    const contentCss = clsx(
-        "bg-SYSTEM-white rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
-    )
+    const contentCss = clsx("bg-transparent shadow-xl w-auto mx-auto my-auto flex justify-center items-center")
 
     return (
         <div
@@ -59,7 +58,7 @@ const Overlay = ({
                 {leftImageUrl && (
                     <p className="text-sm font-bold text-SYSTEM-white pb-[30px]">이렇게 업로드될 거에요!</p>
                 )}
-                <div className={contentCss}>{children}</div>
+                <div className={`${contentCss} ${rounded}`}>{children}</div>
                 <div className="w-full flex flex-row justify-between items-center">
                     <div className="w-1/2 flex flex-row items-center pt-2">
                         <div className="pt-[10px] pr-[4px]">

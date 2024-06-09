@@ -29,6 +29,7 @@ const Page = () => {
                 textColor={"text-SYSTEM-white"}
                 imageUrl={isPreviewVisible && checkIcon}
                 leftImageUrl={isPreviewVisible && BackIcon}
+                rounded={"rounded-3xl"}
             >
                 {!isPreviewVisible ? (
                     <ThumbnailUploader onComplete={handleComplete} />

@@ -60,4 +60,5 @@ export type OverlayProps = {
     leftText?: string
     leftImageUrl?: string
     leftTextColor?: string
+    rounded?: string
 }
