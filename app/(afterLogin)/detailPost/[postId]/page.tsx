@@ -9,6 +9,7 @@ import LikeToComment from "./_components/likeToComment"
 import { useSearchParams } from "next/navigation"
 import { Pagination } from "@/components/commons/pagination"
 import Link from "next/link"
+import FloatingBar from "./_components/floatingBar"
 
 const DetailPostPage = () => {
     const [comments, setComments] = useState<CommentType[]>([]) // 임시 데이터
@@ -63,8 +64,9 @@ const DetailPostPage = () => {
     }, [])
 
     return (
-        <div>
-            <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center flex-col">
+            <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-[40px] ">
+                <FloatingBar />
                 <FreeFormDetail
                     title="인생 첫 혼자 유럽 일주"
                     content="What is Lorem Ipsum?
