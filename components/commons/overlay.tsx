@@ -11,12 +11,26 @@ import { OverlayProps } from "./type"
  * @param {boolean} isOpen - 오버레이의 표시 여부 제어
  * @param {Function} props.onClick - 오버레이를 닫을 때 호출되는 콜백함수 닫기 or 오버레이 바깥 클릭 시 닫힘
  * @param {ReactNode} props.children - 오버레이 내부에 표시될 내용
- * @param {string} props.text - 닫기 버튼에 표시될 텍스트
- * @param {string} props.imageUrl - 오버레이에 표시될 이미지 URL
- * @param {string} props.textColor - 닫기 버튼 텍스트 색상
+ * @param {string} props.text - 오른쪽 버튼에 표시될 텍스트
+ * @param {string} props.imageUrl - 오른쪽 버튼에 표시될 이미지 URL
+ * @param {string} props.textColor - 오른쪽 버튼 텍스트 색상
+ * @param {string} props.leftText - 왼쪽 버튼에 표시될 텍스트
+ * @param {string} props.leftImageUrl - 왼쪽 버튼에 표시될 이미지 URL
+ * @param {string} props.leftTextColor - 왼쪽 버튼 텍스트 색상
  */
 
-const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: OverlayProps) => {
+const Overlay = ({
+    isOpen,
+    onClick,
+    children,
+    text,
+    imageUrl,
+    textColor,
+    onLeftClick,
+    leftText,
+    leftImageUrl,
+    leftTextColor,
+}: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden"
@@ -44,13 +58,27 @@ const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: Overl
         >
             <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
                 <div className={contentCss}>{children}</div>
-                <div className="w-full flex flex-row items-center justify-end pt-2">
-                    <div className="pt-[10px] pr-[4px]">
-                        {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />}
+                <div className="w-full flex flex-row justify-between items-center">
+                    <div className="w-1/2 flex flex-row items-center pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {leftImageUrl && (
+                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onLeftClick} className={`text-sm ${leftTextColor}`}>
+                            {leftText}
+                        </button>
                     </div>
-                    <button onClick={onClick} className={`text-sm ${textColor}`}>
-                        {text}
-                    </button>
+                    <div className="w-1/2 flex flex-row items-center justify-end pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {imageUrl && (
+                                <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onClick} className={`text-sm ${textColor}`}>
+                            {text}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
