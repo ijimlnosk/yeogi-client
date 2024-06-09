@@ -29,7 +29,6 @@ const Overlay = ({
     onLeftClick,
     leftText,
     leftImageUrl,
-    leftTextColor,
 }: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
@@ -46,7 +45,7 @@ const Overlay = ({
     if (!isOpen) return null
 
     const contentCss = clsx(
-        "bg-SYSTEM-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
+        "bg-SYSTEM-white rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
     )
 
     return (
@@ -65,7 +64,7 @@ const Overlay = ({
                                 <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
                             )}
                         </div>
-                        <button onClick={onLeftClick} className={`text-sm ${leftTextColor}`}>
+                        <button onClick={onLeftClick} className={`text-sm ${textColor}`}>
                             {leftText}
                         </button>
                     </div>
