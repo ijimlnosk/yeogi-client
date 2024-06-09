@@ -61,7 +61,7 @@ const FloatingBar = () => {
                 handleArrowClick()
                 break
             case "like":
-                setIsActiveState(prev => ({ ...prev, like: !isActiveState.like }))
+                setIsActiveState(prev => ({ ...prev, like: !prev.like }))
                 break
             case "share":
                 handleShareClick()
