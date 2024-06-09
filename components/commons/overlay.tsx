@@ -16,7 +16,18 @@ import { OverlayProps } from "./type"
  * @param {string} props.textColor - 닫기 버튼 텍스트 색상
  */
 
-const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: OverlayProps) => {
+const Overlay = ({
+    isOpen,
+    onClick,
+    children,
+    text,
+    imageUrl,
+    textColor,
+    onLeftClick,
+    leftText,
+    leftImageUrl,
+    leftTextColor,
+}: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden"
@@ -44,13 +55,27 @@ const Overlay = ({ isOpen, onClick, children, text, imageUrl, textColor }: Overl
         >
             <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
                 <div className={contentCss}>{children}</div>
-                <div className="w-full flex flex-row items-center justify-end pt-2">
-                    <div className="pt-[10px] pr-[4px]">
-                        {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />}
+                <div className="w-full flex flex-row justify-between items-center">
+                    <div className="w-1/2 flex flex-row items-center pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {leftImageUrl && (
+                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onLeftClick} className={`text-sm ${leftTextColor}`}>
+                            {leftText}
+                        </button>
                     </div>
-                    <button onClick={onClick} className={`text-sm ${textColor}`}>
-                        {text}
-                    </button>
+                    <div className="w-1/2 flex flex-row items-center justify-end pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {imageUrl && (
+                                <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onClick} className={`text-sm ${textColor}`}>
+                            {text}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

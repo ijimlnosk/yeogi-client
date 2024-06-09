@@ -17,7 +17,6 @@ export type PostCardProps = {
     created_At: Date
 }
 
-
 export type CommentProps = {
     content: string
     likes: number
@@ -51,10 +50,14 @@ export type FailModalProps = {
 export type OverlayProps = {
     isOpen: boolean
     onClick: () => void
+    onLeftClick?: () => void
     children: ReactNode
     widthCss?: string
     heightCss?: string
     text?: string
     imageUrl?: string
     textColor?: string
+    leftText?: string
+    leftImageUrl?: string
+    leftTextColor?: string
 }
