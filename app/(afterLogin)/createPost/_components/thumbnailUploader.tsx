@@ -5,7 +5,7 @@ import { useRef, useState } from "react"
 import Photo from "@/public/icons/image.svg"
 
 type ThumbnailUploaderProps = {
-    onComplete: () => void
+    onComplete: (selectedImage: string | null) => void
 }
 
 const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
@@ -66,7 +66,7 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
             )}
             <div className="w-full flex items-center text-sm text-center">
                 <button
-                    onClick={onComplete}
+                    onClick={() => onComplete(image)}
                     className="w-[108px] h-[46px] rounded-xl bg-SYSTEM-black text-SYSTEM-white cursor-pointer absolute bottom-[30px] right-[30px] transition duration-300 hover:bg-ACCENT-orange"
                 >
                     선택 완료

@@ -13,7 +13,7 @@ export type PostCardProps = {
     continent: string
     user_nickname: string
     user_profile: string
-    thumbnail: string
+    thumbnail: string | null
     created_At: Date
 }
 

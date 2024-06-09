@@ -50,12 +50,15 @@ const Overlay = ({
 
     return (
         <div
-            className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
+            className="font-pretendard fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
             onClick={onClick}
             aria-modal="true"
             role="dialog"
         >
             <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
+                {leftImageUrl && (
+                    <p className="text-sm font-bold text-SYSTEM-white pb-[30px]">이렇게 업로드될 거에요!</p>
+                )}
                 <div className={contentCss}>{children}</div>
                 <div className="w-full flex flex-row justify-between items-center">
                     <div className="w-1/2 flex flex-row items-center pt-2">
