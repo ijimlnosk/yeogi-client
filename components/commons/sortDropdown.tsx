@@ -34,7 +34,6 @@ const SortDropdown = () => {
             {isOpen && (
                 <div className=" border rounded-3xl py-[12px] w-[140px] h-[148px] bg-SYSTEM-white absolute shadow-lg  focus:outline-none">
                     <div className=" items-center text-center ">
-                        {/* 드롭다운 목록 내용 */}
                         {sorts.map((sort, index) => (
                             <SortButton
                                 key={sort.key}
