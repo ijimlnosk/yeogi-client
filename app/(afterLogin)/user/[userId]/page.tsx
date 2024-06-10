@@ -41,7 +41,7 @@ export default function userPage() {
     return (
         <main>
             <div>
-                <WorldMap user={user} editable={true} newPost={newPost} />
+                <WorldMap user={user} editable={false} newPost={newPost} />
             </div>
         </main>
     )
