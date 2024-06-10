@@ -1,13 +1,13 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import ThumbnailUploader from "../createPost/_components/thumbnailUploader"
 import Overlay from "@/components/commons/overlay"
 import PreviewPostCard from "../createPost/_components/previewPostcard"
 import checkIcon from "@/public/icons/white_check.svg"
 import BackIcon from "@/public/icons/white_arrow-left.svg"
 import FormBtn from "../createPost/_components/form/formBtn"
-import FormInputs from "../createPost/_components/form/form"
+import FormInputs from "../createPost/_components/form/formInputs"
 import { QuillEditor } from "../createPost/_components/form/editorQuill"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
@@ -17,7 +17,6 @@ const Page = () => {
     const [isPreviewVisible, setIsPreviewVisible] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [quillEditors, setQuillEditors] = useState<number[]>([])
-    const quillEditorRefs = useRef<(HTMLElement | null)[]>([])
 
     const handleComplete = (selectedImage: string | null) => {
         setSelectedImage(selectedImage)
@@ -53,7 +52,7 @@ const Page = () => {
                     <PreviewPostCard selectedImage={selectedImage} />
                 )}
             </Overlay>
-            <div className="w-[900px] h-full font-pretendard">
+            <div className="w-[900px] h-full font-pretendard ">
                 <FormInputs formText={"간단하게 "} />
                 <QuillEditor index={-1} />
                 {quillEditors.map((id, index) => (

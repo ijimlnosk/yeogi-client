@@ -28,7 +28,7 @@ export const QuillEditor = ({ index, handleDeleteQuillEditor }: QuillEditorProps
                 )}
             </div>
             <ReactQuill
-                className="relative quill-editor bg-white rounded-lg shadow-lg"
+                className="relative quill-editor bg-SYSTEM-white rounded-lg shadow-lg"
                 modules={{
                     toolbar: [
                         [{ font: [] }],
