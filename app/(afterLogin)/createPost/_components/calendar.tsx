@@ -4,7 +4,7 @@ import React, { useState, ChangeEvent, FC } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
-import { generateCalendarOptions, generateDays, renderDayOfWeek, renderDay } from "../../../../utils/calendarUtils"
+import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "@/utils/calendarUtils"
 import { CalendarProps, DateRange } from "./type"
 
 dayjs.extend(advancedFormat)
