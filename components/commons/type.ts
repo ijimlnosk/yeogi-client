@@ -13,7 +13,7 @@ export type PostCardProps = {
     continent: string
     user_nickname: string
     user_profile: string
-    thumbnail: string
+    thumbnail: string | null
     created_At: Date
 }
 
@@ -60,4 +60,5 @@ export type OverlayProps = {
     leftText?: string
     leftImageUrl?: string
     leftTextColor?: string
+    rounded?: string
 }

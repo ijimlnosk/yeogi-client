@@ -29,7 +29,7 @@ const TemplateBox = ({ type, isSelected }: TemplateBoxProps) => {
 
     return (
         <div
-            className={`w-[500px] h-[478px] flex flex-col items-center justify-center border-2 border-ACCENT-fireBush bg-SYSTEM-bone rounded-md hover:cursor-pointer ${isSelected ? "bg-BRAND-10 bg-opacity-70 border-BRAND-50 shadow-lg" : ""}`}
+            className={`w-[500px] h-[478px] flex flex-col items-center justify-center border-2  rounded-md hover:cursor-pointer ${isSelected ? "bg-BRAND-10 bg-opacity-70 border-BRAND-50 shadow-lg" : "border-ACCENT-fireBush bg-SYSTEM-bone"}`}
         >
             <div className="w-[79px] h-[37px] bg-SYSTEM-black rounded-full flex items-center justify-center p-2">
                 <p className="text-white text-sm">{ruleText}</p>
