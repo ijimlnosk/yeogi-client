@@ -30,7 +30,7 @@ const UserPage = () => {
     }
 
     return (
-        <div>
+        <div className="h-screen">
             {isEditing ? (
                 <EditProfile
                     name={profile.name}
