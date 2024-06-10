@@ -2,12 +2,9 @@
 
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
+import { EditorProps } from "./type"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
-
-type EditorProps = {
-    className: string
-}
 
 export const QuillEditor = ({ className }: EditorProps) => {
     return (

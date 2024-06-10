@@ -3,8 +3,6 @@
 import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
-import Comment from "@/components/commons/comment"
-import ReComment from "@/components/commons/reComment"
 import Overlay from "@/components/commons/overlay"
 import Searchbar from "@/components/commons/searchBar"
 import PostCard from "@/components/commons/postCard"
@@ -27,7 +25,7 @@ const Home = () => {
 
     return (
         <>
-            <Overlay isOpen={isOverlayOpen} onClose={() => setIsOverlayOpen(false)}>
+            <Overlay isOpen={isOverlayOpen} onClick={() => setIsOverlayOpen(false)}>
                 <div className="flex flex-col items-center justify-center w-[400px] h-[350px]">
                     <p className="flex items-center justify-center w-full h-[50px] text-sm">대륙선택</p>
                     <div className="grid grid-cols-2">
@@ -96,12 +94,6 @@ const Home = () => {
                     commentCount={10000}
                     likeCount={10000}
                 />
-                {/* comment component test */}
-                <div className="my-[40px]">
-                    <Comment />
-                    <div className="my-[20px]" />
-                    <ReComment />
-                </div>
             </div>
             <Pagination totalPages={totalPages} />
         </>
