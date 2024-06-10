@@ -3,10 +3,7 @@
 import Image from "next/image"
 import { useRef, useState } from "react"
 import Photo from "@/public/icons/image.svg"
-
-type ThumbnailUploaderProps = {
-    onComplete: (selectedImage: string | null) => void
-}
+import { ThumbnailUploaderProps } from "./type"
 
 const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
     const fileRef = useRef<HTMLInputElement>(null)

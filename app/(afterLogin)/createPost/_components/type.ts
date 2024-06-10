@@ -34,3 +34,7 @@ export type FormBtnProps = {
 export type PreviewPostCardProps = {
     selectedImage: string | null
 }
+
+export type ThumbnailUploaderProps = {
+    onComplete: (selectedImage: string | null) => void
+}
