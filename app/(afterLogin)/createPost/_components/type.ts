@@ -42,3 +42,7 @@ export type ThumbnailUploaderProps = {
 export type EditorProps = {
     className: string
 }
+
+export type FormInputsProps = {
+    formText: string
+}

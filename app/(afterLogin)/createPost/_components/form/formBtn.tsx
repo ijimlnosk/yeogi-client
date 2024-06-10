@@ -3,7 +3,7 @@ import { FormBtnProps } from "../type"
 
 const FormBtn = ({ setIsOverlayOpen }: FormBtnProps) => {
     return (
-        <div className="flex justify-end space-x-4">
+        <div className="flex justify-end space-x-4 my-[10px]">
             <button className="bg-GREY-50 text-SYSTEM-white py-[12px] px-[20px] rounded-xl">임시저장</button>
             <button
                 onClick={() => setIsOverlayOpen(true)}

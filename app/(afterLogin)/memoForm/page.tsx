@@ -7,6 +7,10 @@ import PreviewPostCard from "../createPost/_components/previewPostcard"
 import checkIcon from "@/public/icons/white_check.svg"
 import BackIcon from "@/public/icons/white_arrow-left.svg"
 import FormBtn from "../createPost/_components/form/formBtn"
+import FormInputs from "../createPost/_components/form/form"
+import { QuillEditor } from "../createPost/_components/form/editorQuill"
+import AddMemoIcon from "@/public/icons/plus-circle.svg"
+import Image from "next/image"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -19,7 +23,7 @@ const Page = () => {
     }
 
     return (
-        <>
+        <div className="flex flex-col justify-center items-center mb-[205px]">
             <Overlay
                 isOpen={isOverlayOpen}
                 onClick={() => setIsOverlayOpen(false)}
@@ -37,10 +41,16 @@ const Page = () => {
                     <PreviewPostCard selectedImage={selectedImage} />
                 )}
             </Overlay>
-            <div>
+            <div className="w-[900px] h-full font-pretendard ">
+                <FormInputs formText={"간단하게 "} />
+                <QuillEditor />
+                <div className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50">
+                    <Image width={24} height={24} src={AddMemoIcon} alt="add memo icon" />
+                    <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
+                </div>
                 <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
             </div>
-        </>
+        </div>
     )
 }
 export default Page
