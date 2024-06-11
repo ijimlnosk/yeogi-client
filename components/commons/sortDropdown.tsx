@@ -26,13 +26,13 @@ const SortDropdown = () => {
                     className=" text-xs inline-flex justify-center w-[110px] h-[44px] px-3 py-[10px] border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none  "
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <Image src={listIcon} alt="list_Icon" width={24} height={24} />
+                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-0" />
                     {sorts.find(sort => sort.key === activeSort)?.label}
                 </button>
             </div>
 
             {isOpen && (
-                <div className=" border rounded-3xl py-[12px] w-[140px] h-[148px] bg-SYSTEM-white absolute shadow-lg  focus:outline-none">
+                <div className=" border rounded-3xl py-3 w-[140px] h-[148px] bg-SYSTEM-white absolute shadow-lg  focus:outline-none">
                     <div className=" items-center text-center ">
                         {sorts.map((sort, index) => (
                             <SortButton
