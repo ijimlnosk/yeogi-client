@@ -10,17 +10,16 @@
   font-family: 'Pretendard', sans-serif;
 }
 
-body, html {
-  user-drag: none; 
-  -webkit-user-drag: none;
-  -moz-user-drag: none;
-  -ms-user-drag: none;
-}
-
 body {
   width: 100vw;
   height: 100vh;
   @apply bg-SYSTEM-beige;
+
+  /* prevent Drag */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }
 
 /* editor */
@@ -31,15 +30,15 @@ body {
   @apply border-none h-[80px] flex justify-center items-center !important;
 }
 .quill-editor .ql-editor {
-  @apply border-none min-h-[200px];
+  @apply border-none w-[900px] min-h-[200px];
 }
-.quill-editor .ql-container {
-  @apply w-[900px] min-h-[200px] bg-SYSTEM-white rounded-xl !important;
+.quill-editor .ql-container  {
+  @apply w-[900px] min-h-[200px] h-max p-2 text-sm text-left bg-SYSTEM-white rounded-xl !important;
 }
 
 /* memo-form editor style */
 .memo-editor .ql-container {
-  @apply mt-[20px] !important;
+  @apply mt-5 !important;
 }
 
 @layer utilities {
