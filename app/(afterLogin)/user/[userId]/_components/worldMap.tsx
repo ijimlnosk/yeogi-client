@@ -39,7 +39,7 @@ const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
     return (
         <div className="w-full flex flex-col items-center justify-center">
             {!editable && (
-                <div className="w-[1680px] pl-[20px] pr-[20px] pb-[20px] flex flex-row justify-between items-center">
+                <div className="w-[1680px] pl-5 pr-5 pb-5 flex flex-row justify-between items-center">
                     <p className="font-semibold text-xl">
                         <span className="text-BRAND-50">{user.nickName}</span>님의 세계지도
                     </p>

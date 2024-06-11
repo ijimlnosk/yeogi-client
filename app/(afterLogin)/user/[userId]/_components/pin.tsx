@@ -34,7 +34,7 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                             alt="thumnail"
                             width={56}
                             height={56}
-                            className="border-[2px] border-SYSTEM-error rounded-[50%] w-[56px] h-[56px] object-cover"
+                            className="border-2 border-SYSTEM-error rounded-full w-[56px] h-[56px] object-cover"
                         />
                     </Link>
                 </div>
