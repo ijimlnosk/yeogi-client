@@ -2,7 +2,9 @@
  * 공용컴포넌트에서 사용될 type 파일
  */
 
-import { ReactNode } from "react"
+import { ButtonHTMLAttributes, ReactNode } from "react"
+import { VariantProps } from "class-variance-authority"
+import { buttonStyle } from "@/styles/common-button"
 
 //postCard props 타입
 export type PostCardProps = {
@@ -69,3 +71,9 @@ export type SortButtonProps = {
     onClick: () => void
     showBorder: boolean
 }
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+    VariantProps<typeof buttonStyle> & {
+        children?: ReactNode
+        isActive?: boolean
+    }
