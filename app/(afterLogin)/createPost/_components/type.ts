@@ -46,7 +46,7 @@ export type FormInputsProps = {
     formText: string
 }
 
-export type SelectedContinentProps = {
-    selectedContinent: Continent
-    handleContinentSelect: (continent: Continent) => void
+export type selectComponentProps = {
+    isOpen: boolean
+    onClick: () => void
 }

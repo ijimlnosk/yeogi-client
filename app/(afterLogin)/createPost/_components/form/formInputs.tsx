@@ -3,16 +3,12 @@
 import { useState } from "react"
 import FormSelector from "./formSelector"
 import { FormInputsProps } from "../type"
-import SwitchOverlay from "./switchOverlay"
+import SelectCalendar from "./selectCalendar"
+import SelectedContinent from "./selectContinent"
 
 const FormInputs = ({ formText }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-
-    const closeAllOverlays = () => {
-        setIsContinentOpen(false)
-        setIsCalendarOpen(false)
-    }
 
     return (
         <div className="text-sm">
@@ -32,11 +28,8 @@ const FormInputs = ({ formText }: FormInputsProps) => {
                     placeholder="제목을 입력하세요."
                 />
             </div>
-            <SwitchOverlay
-                isContinentOverlayOpen={isContinentOpen}
-                isCalendarOverlayOpen={isCalendarOpen}
-                onClose={closeAllOverlays}
-            />
+            <SelectedContinent isOpen={isContinentOpen} onClick={() => setIsContinentOpen(!isContinentOpen)} />
+            <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
         </div>
     )
 }

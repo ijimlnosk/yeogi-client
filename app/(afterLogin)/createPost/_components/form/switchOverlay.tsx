@@ -9,23 +9,21 @@ const SwitchOverlay = ({ isContinentOverlayOpen, isCalendarOverlayOpen, onClose 
     const isContinent = isContinentOverlayOpen
 
     return (
-        <>
-            <Overlay
-                isOpen={isOverlayOpen}
-                onClick={() => onClose}
-                imageUrl={CheckIcon}
-                text={"선택 완료"}
-                textColor={"text-SYSTEM-white"}
-            >
-                {isContinent ? (
-                    <SelectedContinent />
-                ) : (
-                    <div className="w-[448px] h-[500px]">
-                        <Calendar />
-                    </div>
-                )}
-            </Overlay>
-        </>
+        <Overlay
+            isOpen={isOverlayOpen}
+            onClick={onClose}
+            imageUrl={CheckIcon}
+            text={"선택 완료"}
+            textColor={"text-SYSTEM-white"}
+        >
+            {isContinent ? (
+                <SelectedContinent />
+            ) : (
+                <div className="w-[448px] h-[500px]">
+                    <Calendar />
+                </div>
+            )}
+        </Overlay>
     )
 }
 
