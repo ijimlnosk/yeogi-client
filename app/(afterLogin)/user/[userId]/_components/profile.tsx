@@ -1,13 +1,14 @@
 import { FC } from "react"
 import { ProfileProps } from "../type"
 
-const Profile: FC<ProfileProps> = ({ name, bio, profileImage, backgroundImage, onEdit }) => {
+const Profile: FC<ProfileProps> = ({ name, bio, profileImage, bgImage, onEdit }) => {
     return (
         <div className="relative font-pretendard">
             <div className="relative">
+                <div className="absolute inset-0 bg-black opacity-20"></div>
                 <img
-                    src={typeof backgroundImage === "string" ? backgroundImage : backgroundImage.src}
-                    alt="Background"
+                    src={typeof bgImage === "string" ? bgImage : bgImage.src}
+                    alt="background"
                     className="w-full h-[440px] object-cover"
                 />
                 <button
@@ -20,10 +21,10 @@ const Profile: FC<ProfileProps> = ({ name, bio, profileImage, backgroundImage, o
             <div className="absolute left-[120px] top-[360px] flex items-center">
                 <img
                     src={typeof profileImage === "string" ? profileImage : profileImage.src}
-                    alt="Profile"
+                    alt="profile"
                     className="w-60 h-60 rounded-full border-[5px] border-white shadow-profile"
                 />
-                <div className="ml-12 mt-32">
+                <div className="ml-12 mt-36">
                     <h1 className="text-4xl font-semibold mb-4">{name}</h1>
                     <p className="text-lg">{bio}</p>
                 </div>

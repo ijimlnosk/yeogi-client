@@ -3,24 +3,24 @@
 import { useState } from "react"
 import Profile from "./_components/profile"
 import EditProfile from "./_components/editProfile"
-import defaultProfileBg from "@/public/images/p_bg.webp"
-import defaultProfile from "@/public/images/profile.jpg"
-import { Profile as ProfileType } from "./type"
+import defaultBg from "@/public/images/p_bg.png"
+import defaultProfile from "@/public/images/메롱고.jpeg"
+import { ProfileProps, EditProfileProps } from "./type"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
-    const [profile, setProfile] = useState<ProfileType>({
+    const [profile, setProfile] = useState<Omit<ProfileProps, "onEdit">>({
         name: "메롱메롱",
         bio: "오늘의 여행을 내일로 미루지 말자",
         profileImage: defaultProfile,
-        backgroundImage: defaultProfileBg,
+        bgImage: defaultBg,
     })
 
     const handleEdit = () => {
         setIsEditing(true)
     }
 
-    const handleSave = (updatedProfile: ProfileType) => {
+    const handleSave = (updatedProfile: Omit<ProfileProps, "onEdit">) => {
         setProfile(updatedProfile)
         setIsEditing(false)
     }
@@ -36,7 +36,7 @@ const UserPage = () => {
                     name={profile.name}
                     bio={profile.bio}
                     profileImage={profile.profileImage}
-                    backgroundImage={profile.backgroundImage}
+                    bgImage={profile.bgImage}
                     onSave={handleSave}
                     onCancel={handleCancel}
                 />
@@ -45,7 +45,7 @@ const UserPage = () => {
                     name={profile.name}
                     bio={profile.bio}
                     profileImage={profile.profileImage}
-                    backgroundImage={profile.backgroundImage}
+                    bgImage={profile.bgImage}
                     onEdit={handleEdit}
                 />
             )}
