@@ -1,8 +1,9 @@
-import { useState, FC } from "react"
+import { useState, FC, useRef } from "react"
 import ProfileImage from "./editProfile/profileImage"
 import EditField from "./editProfile/editField"
 import { StaticImageData } from "next/image"
 import { EditProfileProps } from "../type"
+import photoIcon from "@/public/icons/photoIcon.svg"
 
 const EditProfile: FC<EditProfileProps> = ({
     name: initialName,
@@ -16,6 +17,8 @@ const EditProfile: FC<EditProfileProps> = ({
     const [bio, setBio] = useState(initialBio)
     const [profileImage, setProfileImage] = useState<string | StaticImageData>(initialProfileImage)
     const [bgImage, setBgImage] = useState<string | StaticImageData>(initialBgImage)
+
+    const bgImageInputRef = useRef<HTMLInputElement>(null)
 
     const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -55,9 +58,13 @@ const EditProfile: FC<EditProfileProps> = ({
                     className="w-full h-[440px] object-cover"
                 />
                 <div className="absolute inset-0 bg-black opacity-60"></div>
-                <div className="absolute inset-0 flex items-center justify-center cursor-pointer z-10">
-                    <input type="file" onChange={handleBgImageChange} className="hidden" />
+                <div
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
+                    onClick={() => bgImageInputRef.current?.click()}
+                >
+                    <img src={photoIcon.src} alt="Change Background" className="w-10 h-10" />
                 </div>
+                <input type="file" ref={bgImageInputRef} className="hidden" onChange={handleBgImageChange} />
             </div>
             <div className="absolute left-[120px] top-[320px] flex items-center group">
                 <ProfileImage image={profileImage} onImageChange={handleProfileImageChange} />
@@ -74,7 +81,7 @@ const EditProfile: FC<EditProfileProps> = ({
                         onChange={e => setBio(e.target.value)}
                         type="textarea"
                         maxLength={40}
-                        className="text-lg w-fit"
+                        className="text-lg w-fit resize-none"
                     />
                 </div>
             </div>
