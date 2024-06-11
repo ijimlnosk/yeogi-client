@@ -4,6 +4,7 @@ import Button from "@/components/commons/button"
 import { Pagination } from "@/components/commons/pagination"
 import PostCard from "@/components/commons/postCard"
 import Searchbar from "@/components/commons/searchBar"
+import SortDropdown from "@/components/commons/sortDropdown"
 import { useState } from "react"
 
 const MainPosts = () => {
@@ -20,7 +21,7 @@ const MainPosts = () => {
             <div className="flex justify-center items-center w-full">
                 <Searchbar text="찾고 싶은 여행 기록을 검색하세요." size="lg" />
             </div>
-            <div className="py-[60px]">
+            <div className=" flex py-[60px] ">
                 <div className="flex flex-col items-center justify-center">
                     <div className="w-[712px] flex justify-between">
                         {continent.map((item, idx) => (
@@ -35,6 +36,9 @@ const MainPosts = () => {
                             </Button>
                         ))}
                     </div>
+                </div>
+                <div className="pl-[30px]">
+                    <SortDropdown />
                 </div>
             </div>
             <div className="h-[812px]">

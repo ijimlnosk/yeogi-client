@@ -19,6 +19,7 @@ const buttonStyle = cva(
                 lg: "rounded-lg",
             },
             background: {
+                none: "",
                 gray10: "bg-GREY-10",
                 gray20: "bg-GREY-20",
                 black: "bg-SYSTEM-black",
