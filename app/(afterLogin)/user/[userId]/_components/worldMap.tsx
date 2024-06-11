@@ -59,7 +59,7 @@ const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
                     width={1680}
                     height={800}
                     onClick={e =>
-                        handleMapClick(
+                        handleMapClick({
                             e,
                             editable,
                             isUpdate,
@@ -70,7 +70,7 @@ const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
                             setPins,
                             setMovingPins,
                             setPinCount,
-                        )
+                        })
                     }
                 />
                 {pins.map((post, index) => (

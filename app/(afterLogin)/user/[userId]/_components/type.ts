@@ -30,3 +30,16 @@ export type PinProps = {
     selectedPin: WorldPost | null
     onClick: (post: WorldPost, e: ReactMouseEvent<HTMLImageElement>) => void
 }
+
+export type HandleMapClickProps = {
+    e: ReactMouseEvent<HTMLImageElement>
+    editable: boolean
+    isUpdate: boolean
+    pinCount: number
+    movingPins: WorldPost[]
+    pins: WorldPost[]
+    setSelectedPin: (pin: WorldPost | null) => void
+    setPins: (pins: WorldPost[]) => void
+    setMovingPins: (pins: WorldPost[]) => void
+    setPinCount: (count: number) => void
+}

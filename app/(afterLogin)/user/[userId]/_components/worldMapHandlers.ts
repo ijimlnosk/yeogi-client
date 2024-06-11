@@ -1,27 +1,24 @@
-import { MouseEvent as ReactMouseEvent } from "react"
-import { WorldPost } from "./type"
+import { HandleMapClickProps } from "./type"
 
-export const handleMapClick = (
-    e: ReactMouseEvent<HTMLImageElement>,
-    editable: boolean,
-    isUpdate: boolean,
-    pinCount: number,
-    movingPins: WorldPost[],
-    pins: WorldPost[],
-    setSelectedPin: (pin: WorldPost | null) => void,
-    setPins: (pins: WorldPost[]) => void,
-    setMovingPins: (pins: WorldPost[]) => void,
-    setPinCount: (count: number) => void,
-) => {
+export const handleMapClick = ({
+    e,
+    editable,
+    isUpdate,
+    pinCount,
+    movingPins,
+    pins,
+    setSelectedPin,
+    setPins,
+    setMovingPins,
+    setPinCount,
+}: HandleMapClickProps) => {
     if (!editable && !isUpdate) {
         setSelectedPin(null)
         return
     }
-
     const rect = e.currentTarget.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width) * 100
     const y = ((e.clientY - rect.top) / rect.height) * 100
-
     if (pinCount > 0 && movingPins.length) {
         const movingPin = movingPins[0]
         const updatedPin = { ...movingPin, pin: { x, y } }
