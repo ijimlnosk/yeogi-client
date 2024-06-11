@@ -21,7 +21,7 @@ const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
             // 초기 위치
             const newPin = { ...newPost, pin: { x: 0, y: 0 } }
             setMovingPins(prevPins => [...prevPins, newPin])
-            setPinCount(pinCount + 1)
+            setPinCount(prev => prev + 1)
         }
     }, [newPost])
 
@@ -30,7 +30,7 @@ const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
         if (isUpdate) {
             setPins(pins.filter(p => p !== post))
             setMovingPins([...movingPins, post])
-            setPinCount(pinCount + 1)
+            setPinCount(prev => prev + 1)
         } else {
             setSelectedPin(prev => (prev && prev.id === prev.id ? null : post))
         }
