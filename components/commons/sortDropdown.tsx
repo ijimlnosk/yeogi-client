@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import SortButton from "./sortButton"
 import Image from "next/image"
 import listIcon from "@/public/icons/list.svg"
+import { sortDropDownClasses } from "@/constants/sortButton"
 
 const SortDropdown = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -21,12 +22,8 @@ const SortDropdown = () => {
     return (
         <div className="relative inline-block">
             <div>
-                <button
-                    type="button"
-                    className=" text-xs inline-flex justify-center w-[110px] h-[44px] px-3 py-[10px] border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none  "
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-0" />
+                <button type="button" className={`${sortDropDownClasses.base}`} onClick={() => setIsOpen(!isOpen)}>
+                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-1" />
                     {sorts.find(sort => sort.key === activeSort)?.label}
                 </button>
             </div>
