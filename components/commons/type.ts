@@ -62,3 +62,10 @@ export type OverlayProps = {
     leftTextColor?: string
     rounded?: string
 }
+
+export type SortButtonProps = {
+    label: string
+    isActive: boolean
+    onClick: () => void
+    showBorder: boolean
+}
