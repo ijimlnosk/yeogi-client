@@ -15,12 +15,6 @@ export type DateRange = {
     end: Date | null
 }
 
-export type SwitchOverlayProps = {
-    isContinentOverlayOpen: boolean
-    isCalendarOverlayOpen: boolean
-    onClose: () => void
-}
-
 export type FormSelectorProps = {
     onClick: () => void
     label: string
