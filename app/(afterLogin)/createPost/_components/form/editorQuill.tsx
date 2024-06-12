@@ -2,15 +2,11 @@
 
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
+import { QuillEditorProps } from "../type"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
-export type QuillEditorProps = {
-    index: number
-    handleDeleteQuillEditor?: (index: number) => void
-}
-
-export const QuillEditor = ({ index, handleDeleteQuillEditor }: QuillEditorProps) => {
+export const QuillEditor = ({ index, handleDeleteQuillEditor, isFreeForm }: QuillEditorProps) => {
     const handleDeleteClick = (index: number) => {
         if (handleDeleteQuillEditor) handleDeleteQuillEditor(index)
     }
@@ -28,7 +24,7 @@ export const QuillEditor = ({ index, handleDeleteQuillEditor }: QuillEditorProps
                 )}
             </div>
             <ReactQuill
-                className="relative quill-editor bg-SYSTEM-white rounded-lg shadow-lg"
+                className={isFreeForm ? `quill-editor free-editor` : `quill-editor`}
                 modules={{
                     toolbar: [
                         [{ font: ["font-pretendard", "font-myeongjo"] }],

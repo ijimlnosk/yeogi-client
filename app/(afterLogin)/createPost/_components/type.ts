@@ -16,6 +16,12 @@ export type DateRange = {
     end: Date | null
 }
 
+export type QuillEditorProps = {
+    index: number
+    handleDeleteQuillEditor?: (index: number) => void
+    isFreeForm?: boolean
+}
+
 export type FormSelectorProps = {
     onClick: () => void
     label: string
@@ -58,4 +64,9 @@ export type CountrySearchBarProps = {
 export type CountrySearchProps = {
     isOpen: boolean
     onSelect: (country: string) => void
+}
+
+export type UploadOverlayProps = {
+    isOverlayOpen: boolean
+    setIsOverlayOpen: (isOpen: boolean) => void
 }
