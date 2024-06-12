@@ -3,6 +3,9 @@
  */
 
 import React, { ReactNode } from "react"
+import { ButtonHTMLAttributes, ReactNode } from "react"
+import { VariantProps } from "class-variance-authority"
+import { buttonStyle } from "@/styles/common-button"
 
 //postCard props 타입
 export type PostCardProps = {
@@ -75,3 +78,10 @@ export type SearchBarProps = {
     size: "sm" | "lg"
     onChange: React.ChangeEventHandler<HTMLInputElement>
 }
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+    VariantProps<typeof buttonStyle> & {
+        children?: ReactNode
+        isActive?: boolean
+    }
+

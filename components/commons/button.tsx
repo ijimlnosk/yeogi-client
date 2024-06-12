@@ -1,48 +1,7 @@
-import { ButtonHTMLAttributes, ReactNode } from "react"
-import { VariantProps, cva } from "class-variance-authority"
 import { cn } from "@/utils/tailwindUtils"
+import { ButtonProps } from "./type"
+import { buttonStyle } from "@/styles/common-button"
 
-/**
- * 버튼 스타일 정의
- * author: Gang
- * @param {object}
- * @returns {string}
- */
-
-const buttonStyle = cva("flex items-center justify-center px-4 py-2 active:scale-95 text-[16px]", {
-    variants: {
-        rounded: {
-            sm: "rounded-sm",
-            md: "rounded-md",
-            lg: "rounded-lg",
-        },
-        background: {
-            none: "",
-            gray10: "bg-GREY-10",
-            gray20: "bg-GREY-20",
-            black: "bg-SYSTEM-black",
-            white: "bg-SYSTEM-white",
-            brand30: "bg-BRAND-30",
-            brand50: "bg-BRAND-50",
-        },
-        textColor: {
-            black: "text-SYSTEM-black",
-            brand50: "text-BRAND-50",
-            white: "text-SYSTEM-white",
-        },
-    },
-    defaultVariants: {
-        rounded: "md",
-        background: "gray20",
-        textColor: "black",
-    },
-})
-
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-    VariantProps<typeof buttonStyle> & {
-        children?: ReactNode
-        isActive?: boolean
-    }
 /**
  * 공용 버튼 컴포넌트
  * author: Gang
