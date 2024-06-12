@@ -82,3 +82,13 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
         children?: ReactNode
         isActive?: boolean
     }
+
+export type PaginationProps = {
+    totalPages: number
+}
+
+export type PaginationNumberProps = {
+    page: number | string
+    href: string
+    isActive: boolean
+}
