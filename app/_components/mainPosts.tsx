@@ -5,6 +5,7 @@ import { Pagination } from "@/components/commons/pagination"
 import PostCard from "@/components/commons/postCard"
 import Searchbar from "@/components/commons/searchBar"
 import SortDropdown from "@/components/commons/sortDropdown"
+import { Continents } from "@/constants/continents"
 import { useState } from "react"
 
 const MainPosts = () => {
@@ -14,17 +15,17 @@ const MainPosts = () => {
         setSelectedContinentIndex(index)
     }
 
-    const continent = ["아시아", "유럽", "아프리카", "북아메리카", "남아메리카", "오세아니아", "북극", "남극"]
+    const handleSearchKeyword = () => {}
 
     return (
         <div className="w-full h-[1365px] pt-[90px] pb-[134px] flex flex-col items-center">
             <div className="flex justify-center items-center w-full">
-                <Searchbar text="찾고 싶은 여행 기록을 검색하세요." size="lg" />
+                <Searchbar onChange={handleSearchKeyword} text="찾고 싶은 여행 기록을 검색하세요." size="lg" />
             </div>
             <div className=" flex py-[60px] ">
                 <div className="flex flex-col items-center justify-center">
                     <div className="w-[712px] flex justify-between">
-                        {continent.map((item, idx) => (
+                        {Continents.map((item, idx) => (
                             <Button
                                 key={item}
                                 onClick={() => handleSelectContinent(idx)}
