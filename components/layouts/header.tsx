@@ -6,6 +6,7 @@ import Image from "next/image"
 import searchIcon from "@/public/icons/search.svg"
 import writeIcon from "@/public/icons/write.svg"
 import SearchBar from "../commons/searchBar"
+import LogoText from "@/public/icons/logo_text.svg"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
@@ -44,9 +45,7 @@ const Header = () => {
             <div className="mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                 <div className="flex items-center">
                     <Link href="/">
-                        <button className=" bg-BRAND-50 font-semibold text-SYSTEM-white w-[120px] h-[46px] px-[31px] py-[10px] rounded-full">
-                            YEOGI
-                        </button>
+                        <Image src={LogoText} width={90} height={60} alt="yeogi logo" />
                     </Link>
                     <nav className="ml-8">
                         <Link href="/community" className="text-SYSTEM-black px-4 font-bold">
