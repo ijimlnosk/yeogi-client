@@ -24,7 +24,7 @@ body {
 
 /* editor */
 .quill-editor {
-  @apply bg-SYSTEM-white w-[900px] mt-5 border-0 rounded-xl shadow-lg;
+  @apply bg-SYSTEM-white w-[900px] mt-1 border-0 rounded-xl shadow-lg;
 }
 .quill-editor .ql-snow {
   @apply border-none h-[80px] flex justify-center items-center !important;
@@ -33,7 +33,7 @@ body {
   @apply relative border-none w-[900px] min-h-[200px] bg-SYSTEM-white rounded-lg;
 }
 .quill-editor .ql-container  {
-  @apply w-[900px] min-h-[200px] h-max mt-5 p-2 text-sm text-left bg-SYSTEM-white rounded-xl !important;
+  @apply w-[900px] min-h-[200px] h-max p-2 text-sm text-left bg-SYSTEM-white rounded-xl !important;
 }
 
 /* free-form editor style */
