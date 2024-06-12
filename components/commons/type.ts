@@ -2,7 +2,7 @@
  * 공용컴포넌트에서 사용될 type 파일
  */
 
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 //postCard props 타입
 export type PostCardProps = {
@@ -68,4 +68,10 @@ export type SortButtonProps = {
     isActive: boolean
     onClick: () => void
     showBorder: boolean
+}
+
+export type SearchBarProps = {
+    text: string
+    size: "sm" | "lg"
+    onChange: React.ChangeEventHandler<HTMLInputElement>
 }
