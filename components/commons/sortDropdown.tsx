@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+"use client"
+
+import { useState } from "react"
 import SortButton from "./sortButton"
 import Image from "next/image"
 import listIcon from "@/public/icons/list.svg"

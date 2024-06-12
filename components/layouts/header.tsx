@@ -49,9 +49,9 @@ const Header: React.FC = () => {
                 </div>
                 <div className="flex items-center">
                     <div className="ml-4 flex items-center space-x-12 font-medium">
-                        <button>
+                        <Link href="/search">
                             <Image src={searchIcon} alt="search_icon" width={24} height={24} />
-                        </button>
+                        </Link>
                         <Link href="/login" className="text-SYSTEM-black">
                             로그인
                         </Link>
