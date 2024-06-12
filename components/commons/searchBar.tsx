@@ -2,8 +2,9 @@ import React from "react"
 import clsx from "clsx"
 import Image from "next/image"
 import searchIcon from "@/public/icons/searchbar.svg"
+import { SearchBarProps } from "./type"
 
-const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
+const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
     const sizeClasses = clsx({
         "w-[222px] h-[48px] text-sm text-SYSTEM-black": size === "sm",
         "w-[850px] h-[70px] text-bg text-SYSTEM-black": size === "lg",
@@ -25,6 +26,7 @@ const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
                         )}
                         placeholder={text}
                         required
+                        onChange={onChange}
                     />
                 </div>
             </div>
@@ -32,4 +34,4 @@ const Searchbar = ({ text, size }: { text: string; size: "sm" | "lg" }) => {
     )
 }
 
-export default Searchbar
+export default SearchBar

@@ -2,6 +2,7 @@
  * 공용컴포넌트에서 사용될 type 파일
  */
 
+import React, { ReactNode } from "react"
 import { ButtonHTMLAttributes, ReactNode } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
@@ -72,8 +73,15 @@ export type SortButtonProps = {
     showBorder: boolean
 }
 
+export type SearchBarProps = {
+    text: string
+    size: "sm" | "lg"
+    onChange: React.ChangeEventHandler<HTMLInputElement>
+}
+
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     VariantProps<typeof buttonStyle> & {
         children?: ReactNode
         isActive?: boolean
     }
+
