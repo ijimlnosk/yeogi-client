@@ -5,7 +5,6 @@ import { Pagination } from "@/components/commons/pagination"
 import PostCard from "@/components/commons/postCard"
 import Searchbar from "@/components/commons/searchBar"
 import SortDropdown from "@/components/commons/sortDropdown"
-import Section from "@/components/commons/sortDropdown"
 import { useState } from "react"
 
 const MainPosts = () => {
