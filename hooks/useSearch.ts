@@ -24,12 +24,10 @@ const useSearch = (posts: Post[], searchTerm: string) => {
                         chosungIncludes(post.title, term) ||
                         chosungIncludes(post.nickName, term) ||
                         chosungIncludes(post.title + post.content, term) ||
-                        chosungIncludes(post.author, term) ||
                         chosungIncludes(post.country, term) ||
                         post.title.toLowerCase().includes(term) ||
                         post.nickName.toLowerCase().includes(term) ||
                         (post.title + post.content).toLowerCase().includes(term) ||
-                        post.author.toLowerCase().includes(term) ||
                         post.country.toLowerCase().includes(term),
                 ),
             )
