@@ -1,24 +1,31 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import searchIcon from "@/public/icons/search.svg"
 import writeIcon from "@/public/icons/write.svg"
+import SearchBar from "../commons/searchBar"
 
-const Header: React.FC = () => {
+const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
+    const [isSearchbarClicked, setIsSearchbarClicked] = useState(false)
 
     const handleScroll = () => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
+                setIsSearchbarClicked(false)
                 setIsShowHeader(false)
             } else {
                 setIsShowHeader(true)
             }
             setLastScrollY(window.scrollY)
         }
+    }
+
+    const handleKeyword = (keyword: string) => {
+        console.log(keyword)
     }
 
     useEffect(() => {
@@ -49,9 +56,13 @@ const Header: React.FC = () => {
                 </div>
                 <div className="flex items-center">
                     <div className="ml-4 flex items-center space-x-12 font-medium">
-                        <Link href="/search">
-                            <Image src={searchIcon} alt="search_icon" width={24} height={24} />
-                        </Link>
+                        <button onClick={() => setIsSearchbarClicked(true)}>
+                            {isSearchbarClicked ? (
+                                <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
+                            ) : (
+                                <Image src={searchIcon} alt="search_icon" width={24} height={24} />
+                            )}
+                        </button>
                         <Link href="/login" className="text-SYSTEM-black">
                             로그인
                         </Link>

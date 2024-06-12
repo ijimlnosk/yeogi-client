@@ -2,12 +2,11 @@
 
 import Button from "@/components/commons/button"
 import { Pagination } from "@/components/commons/pagination"
-import PostCard from "@/components/commons/postCard"
 import Searchbar from "@/components/commons/searchBar"
+import SearchResults from "@/components/commons/searchResults"
 import SortDropdown from "@/components/commons/sortDropdown"
 import { Continents } from "@/constants/continents"
 import { useState } from "react"
-import SearchResults from "./searchResults"
 
 const MainPosts = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
@@ -16,12 +15,18 @@ const MainPosts = () => {
         setSelectedContinentIndex(index)
     }
 
-    const handleSearchKeyword = () => {}
+    const handleKeyword = (keyword: string) => {
+        console.log(keyword)
+    }
 
     return (
         <div className="w-full h-[1365px] pt-[90px] pb-[134px] flex flex-col items-center">
             <div className="flex justify-center items-center w-full">
-                <Searchbar onChange={handleSearchKeyword} text="찾고 싶은 여행 기록을 검색하세요." size="lg" />
+                <Searchbar
+                    onChange={e => handleKeyword(e.target.value)}
+                    text="찾고 싶은 여행 기록을 검색하세요."
+                    size="lg"
+                />
             </div>
             <div className="flex py-15 my-[52px]">
                 <div className="flex flex-col items-center justify-center">

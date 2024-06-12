@@ -6,7 +6,6 @@ import { ButtonHTMLAttributes, ChangeEventHandler, ReactNode } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 
-//postCard props 타입
 export type PostCardProps = {
     post_id: number
     title: string

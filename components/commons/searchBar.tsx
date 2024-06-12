@@ -1,8 +1,11 @@
-import React from "react"
+"use client"
+
 import clsx from "clsx"
 import Image from "next/image"
 import searchIcon from "@/public/icons/searchbar.svg"
 import { SearchBarProps } from "./type"
+import { ChangeEvent, FormEvent, useState } from "react"
+import { useRouter } from "next/navigation"
 
 const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
     const sizeClasses = clsx({
@@ -10,8 +13,23 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
         "w-[850px] h-[70px] text-bg text-SYSTEM-black": size === "lg",
     })
 
+    const router = useRouter()
+    const [keyword, setKeyword] = useState<string>("")
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        router.push(`/search?query=${keyword}`)
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setKeyword(e.target.value)
+        if (onChange) {
+            onChange(e)
+        }
+    }
+
     return (
-        <form className="max-w-auto mx-auto">
+        <form className="max-w-auto mx-auto" onSubmit={handleSubmit}>
             <div className="relative ">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
                     <Image src={searchIcon} alt="search_icon" />
@@ -26,7 +44,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         )}
                         placeholder={text}
                         required
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                 </div>
             </div>
