@@ -3,6 +3,14 @@ import { CountryProps } from "./type"
 import { Country } from "@/app/(afterLogin)/createPost/_components/type"
 import { chosungIncludes } from "es-hangul"
 
+/**
+ *
+ * @param {Object} props
+ * @param {Country[]} props.countries
+ * @param {string} props.searchTerm
+ * @returns {Country[]}
+ */
+
 const useCountrySearch = ({ countries, searchTerm }: CountryProps) => {
     const [results, setResults] = useState<Country[]>(countries)
 
