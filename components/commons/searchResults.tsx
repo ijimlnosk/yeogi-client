@@ -1,13 +1,13 @@
 import PostCard from "@/components/commons/postCard"
-import { Post } from "@/hooks/type"
 import TempImage from "@/public/images/sampleThumbnail.svg"
+import { Post } from "@/utils/type"
 
 const SearchResults = ({ posts }: { posts: Post[] }) => {
-    if (posts.length > 0)
+    if (posts && posts.length > 0)
         return (
-            <div className="flex flex-row flex-wrap gap-4 py-20">
+            <div className="w-[1680px] grid grid-cols-4 gap-4 pt-6 pb-20">
                 {posts.map(post => (
-                    <div key={post.postId} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2">
+                    <div key={post.postId} className="w-fit p-2">
                         <PostCard
                             key={post.postId}
                             post_id={post.postId}

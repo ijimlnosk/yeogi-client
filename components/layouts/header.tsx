@@ -12,6 +12,7 @@ const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
     const [isSearchbarClicked, setIsSearchbarClicked] = useState(false)
+    const [, setSearchKeyword] = useState<string>("")
 
     const handleScroll = () => {
         if (typeof window !== "undefined") {
@@ -26,7 +27,7 @@ const Header = () => {
     }
 
     const handleKeyword = (keyword: string) => {
-        console.log(keyword)
+        setSearchKeyword(keyword)
     }
 
     useEffect(() => {
