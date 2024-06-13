@@ -16,7 +16,7 @@ const useCountrySearch = ({ countries, searchTerm }: CountryProps) => {
 
     useEffect(() => {
         if (searchTerm) {
-            const term = searchTerm.toLowerCase()
+            const term = searchTerm
             setResults(countries.filter(country => chosungIncludes(country.name, term) || country.name.includes(term)))
         } else {
             const sortedCountries = [...countries].sort((a, b) => a.name.localeCompare(b.name, "ko-KR"))
