@@ -38,7 +38,7 @@ const CountriesSearch = ({ isOpen, onSelect }: CountrySearchProps) => {
                             <li
                                 key={idx}
                                 onClick={() => handleCountryClick(country.name)}
-                                className={`w-[400px] py-[12px] flex items-center justify-center hover:cursor-pointer ${selectedCountry === country.name ? "text-BRAND-30" : ""}`}
+                                className={`w-[400px] py-3 flex items-center justify-center hover:cursor-pointer ${selectedCountry === country.name ? "text-BRAND-30" : ""}`}
                             >
                                 {country.name}
                             </li>
