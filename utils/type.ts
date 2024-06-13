@@ -1,5 +1,3 @@
-import { Country } from "@/app/(afterLogin)/createPost/_components/type"
-
 export type Post = {
     postId: number
     userProfile: string
@@ -12,9 +10,4 @@ export type Post = {
     createdAt: Date
     commentCount: number
     likeCount: number
-}
-
-export type CountryProps = {
-    countries: Country[]
-    searchTerm: string
 }
