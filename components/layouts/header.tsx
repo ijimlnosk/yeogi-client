@@ -60,7 +60,7 @@ const Header = () => {
                             {isSearchbarClicked ? (
                                 <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
                             ) : (
-                                <Image src={searchIcon} alt="search_icon" width={24} height={24} />
+                                <Image src={searchIcon} width={24} height={24} alt="search_icon" />
                             )}
                         </button>
                         <Link href="/login" className="text-SYSTEM-black">
@@ -71,7 +71,7 @@ const Header = () => {
                         </Link>
                         <Link href="/createPost">
                             <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
-                                <Image src={writeIcon} alt="write_icon" width={24} height={24} className="mr-[8px]" />
+                                <Image src={writeIcon} width={24} height={24} alt="write_icon" className="mr-[8px]" />
                                 글쓰기
                             </button>
                         </Link>
