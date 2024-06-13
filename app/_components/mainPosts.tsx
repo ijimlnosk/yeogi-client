@@ -6,8 +6,9 @@ import Searchbar from "@/components/commons/searchBar"
 import { Continents } from "@/constants/continents"
 import { Post } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
+import { filterPosts } from "@/utils/filterPosts"
 import dynamic from "next/dynamic"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
@@ -16,10 +17,22 @@ const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), 
 const MainPosts = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
     const [searchKeyword, setSearchKeyword] = useState<string>("")
-    const { data: filteredPosts } = useQuery<Post[], Error>({
-        queryKey: ["filteredPosts", searchKeyword],
-        queryFn: () => handleGetPost({ searchType: "CONTENT", searchString: searchKeyword, sortCondition: "LIKES" }),
+    const [, setSortCondition] = useState<string>("likes")
+
+    const { data: posts } = useQuery<Post[], Error>({
+        queryKey: ["posts", searchKeyword],
+        queryFn: () => handleGetPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES" }),
     })
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const sort = params.get("sort")
+        if (sort) {
+            setSortCondition(sort)
+        }
+    }, [])
+
+    const filteredPosts = filterPosts(posts ?? [], searchKeyword)
 
     return (
         <div className="w-full h-fit pt-[90px] pb-[134px] flex flex-col items-center">

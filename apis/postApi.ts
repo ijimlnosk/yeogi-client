@@ -4,7 +4,7 @@ import { getPostProps } from "./type"
 
 const POST_API_URL = "/posts"
 const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImFteUB0ZXN0LmNvbSIsImV4cCI6MTcxODMxMjgzOSwiaWF0IjoxNzE4MzExMDM5fQ.OEXlZXAXYBFI8MNHI9G6mGav7FNo0JtX0b2H7skCOjQ"
+    "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImFteUB0ZXN0LmNvbSIsImV4cCI6MTcxODMxNjg3OSwiaWF0IjoxNzE4MzE1MDc5fQ.H6llci_7bFH1xd45sJ7vo2St7BBGdNgbdW1Vr5zCWfY"
 
 export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: string): Promise<Post[]> => {
     return filterPosts(samplePosts, searchKeyword)
