@@ -1,4 +1,4 @@
-import { useState, FC, useRef } from "react"
+import { useState, FC, useRef, ChangeEvent } from "react"
 import ProfileImage from "./editProfile/profileImage"
 import EditField from "./editProfile/editField"
 import { StaticImageData } from "next/image"
@@ -20,28 +20,27 @@ const EditProfile: FC<EditProfileProps> = ({
 
     const bgImageInputRef = useRef<HTMLInputElement>(null)
 
-    const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 공통된 이미지 업데이트 함수
+    const updateImage = (e: ChangeEvent<HTMLInputElement>, setImage: (image: string | StaticImageData) => void) => {
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader()
             reader.onload = (event: ProgressEvent<FileReader>) => {
                 if (event.target && event.target.result) {
-                    setProfileImage(event.target.result.toString())
+                    setImage(event.target.result.toString())
                 }
             }
             reader.readAsDataURL(e.target.files[0])
         }
     }
 
-    const handleBgImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader()
-            reader.onload = (event: ProgressEvent<FileReader>) => {
-                if (event.target && event.target.result) {
-                    setBgImage(event.target.result.toString())
-                }
-            }
-            reader.readAsDataURL(e.target.files[0])
-        }
+    // 프로필 이미지 변경 핸들러
+    const handleProfileImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        updateImage(e, setProfileImage)
+    }
+
+    // 배경 이미지 변경 핸들러
+    const handleBgImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        updateImage(e, setBgImage)
     }
 
     const handleSaveClick = () => {
@@ -66,9 +65,9 @@ const EditProfile: FC<EditProfileProps> = ({
                 </div>
                 <input type="file" ref={bgImageInputRef} className="hidden" onChange={handleBgImageChange} />
             </div>
-            <div className="absolute left-[120px] top-[320px] flex items-center group">
+            <div className="absolute left-[120px] top-[360px] flex items-center group">
                 <ProfileImage image={profileImage} onImageChange={handleProfileImageChange} />
-                <div className="ml-12 mt-[184px]">
+                <div className="ml-12 mt-36">
                     <EditField
                         value={name}
                         onChange={e => setName(e.target.value)}
@@ -79,9 +78,9 @@ const EditProfile: FC<EditProfileProps> = ({
                     <EditField
                         value={bio}
                         onChange={e => setBio(e.target.value)}
-                        type="textarea"
+                        type="input"
                         maxLength={40}
-                        className="text-lg w-fit resize-none"
+                        className="text-lg w-fit"
                     />
                 </div>
             </div>
@@ -92,7 +91,7 @@ const EditProfile: FC<EditProfileProps> = ({
                 >
                     프로필 저장
                 </button>
-                <button className="bg-gray-500 text-white py-2 px-4 rounded-xl text-md font-medium" onClick={onCancel}>
+                <button className="bg-GREY-50 text-white py-2 px-4 rounded-xl text-md font-medium" onClick={onCancel}>
                     취소
                 </button>
             </div>

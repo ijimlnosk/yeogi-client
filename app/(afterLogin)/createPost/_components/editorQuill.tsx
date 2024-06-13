@@ -10,7 +10,7 @@ export const QuillEditor = () => {
     return (
         <div className="quill-editor-wrapper">
             <ReactQuill
-                className="quill-editor bg-white rounded-lg shadow-lg"
+                className="quill-editor bg-SYSTEM-white rounded-lg shadow-lg"
                 modules={{
                     toolbar: [
                         [{ font: [] }],

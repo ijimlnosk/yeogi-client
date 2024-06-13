@@ -17,24 +17,14 @@ const EditField: FC<EditFieldProps> = ({ value, onChange, type = "input", maxLen
 
     return (
         <div className={`relative flex items-center ${className}`}>
-            {type === "input" ? (
-                <input
-                    type="text"
-                    value={value}
-                    onChange={handleChange}
-                    className="bg-transparent outline-none w-[400px]"
-                    maxLength={maxLength}
-                    ref={inputRef as React.RefObject<HTMLInputElement>}
-                />
-            ) : (
-                <textarea
-                    value={value}
-                    onChange={handleChange}
-                    className="bg-transparent outline-none resize-none overflow-auto w-[400px] "
-                    maxLength={maxLength}
-                    ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-                />
-            )}
+            <input
+                type="text"
+                value={value}
+                onChange={handleChange}
+                className="bg-transparent outline-none w-[400px]"
+                maxLength={maxLength}
+                ref={inputRef as React.RefObject<HTMLInputElement>}
+            />
             {isEdited ? (
                 <span
                     className="text-lg font-normal ml-4 text-ACCENT-orange cursor-pointer w-[400px]"
