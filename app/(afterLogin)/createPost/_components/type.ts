@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react"
+
 export type TemplateBoxProps = {
     type: "type1" | "type2"
     isSelected: boolean
@@ -47,6 +49,21 @@ export type FormInputsProps = {
 export type selectComponentProps = {
     isOpen: boolean
     onClick: () => void
+}
+
+
+export type Country = {
+    name: string
+}
+
+export type CountrySearchBarProps = {
+    text: string
+    onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+export type CountrySearchProps = {
+    isOpen: boolean
+    onSelect: (country: string) => void
 }
 
 export type UploadOverlayProps = {
