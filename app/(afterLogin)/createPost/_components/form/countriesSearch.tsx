@@ -28,17 +28,11 @@ const CountriesSearch = ({ isOpen, onSelect }: CountrySearchProps) => {
         <Overlay isOpen={isOpen} onClick={handleSelectClick} text="선택완료" imageUrl="/icons/black_check.svg">
             <div className="bg-SYSTEM-white w-[448px] h-[397px] flex flex-col items-center rounded-2xl">
                 <div className="w-full flex items-center justify-center relative">
-                    <Image
-                        src={backIcon}
-                        alt="뒤로 가기"
-                        width={24}
-                        height={24}
-                        className="absolute left-[24px] top-[24px]"
-                    />
-                    <p className="text-sm py-[24px] ">국가 검색</p>
+                    <Image src={backIcon} alt="뒤로 가기" width={24} height={24} className="absolute left-6 top-6" />
+                    <p className="text-sm py-6 ">국가 검색</p>
                 </div>
                 <CountrySearchBar text="여행 국가를 입력하세요" onChange={e => setSearchTerm(e.target.value)} />
-                <div className=" py-[20px] overflow-y-scroll w-[400px] flex justify-center">
+                <div className=" py-5 overflow-y-scroll w-[400px] flex justify-center">
                     <ul className="flex flex-col">
                         {results.map((country, idx) => (
                             <li
