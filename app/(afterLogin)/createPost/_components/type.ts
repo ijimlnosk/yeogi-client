@@ -12,21 +12,18 @@ export type DateRange = {
     start: Date | null
     end: Date | null
 }
-export type CalendarProps = {
-    onClose: () => void
+
+export type QuillEditorProps = {
+    index: number
+    handleDeleteQuillEditor?: (index: number) => void
+    isFreeForm?: boolean
 }
 
-export type FormOverlayProps = {
-    isContinentOverlayOpen: boolean
-    isCalendarOverlayOpen: boolean
-    onClose: () => void
-    handleContinentSelect: (continent: string) => void
-    selectedContinent: string | null
-}
 export type FormSelectorProps = {
     onClick: () => void
     label: string
 }
+
 export type FormBtnProps = {
     setIsOverlayOpen: (isOpen: boolean) => void
 }
@@ -37,4 +34,22 @@ export type PreviewPostCardProps = {
 
 export type ThumbnailUploaderProps = {
     onComplete: (selectedImage: string | null) => void
+}
+
+export type EditorProps = {
+    className: string
+}
+
+export type FormInputsProps = {
+    formText: string
+}
+
+export type selectComponentProps = {
+    isOpen: boolean
+    onClick: () => void
+}
+
+export type UploadOverlayProps = {
+    isOverlayOpen: boolean
+    setIsOverlayOpen: (isOpen: boolean) => void
 }

@@ -1,9 +1,11 @@
-import React from "react"
 import clsx from "clsx"
+import LogoImage from "@/public/icons/logo_img.svg"
+import LogoText from "@/public/icons/logo_text.svg"
+import Image from "next/image"
 
-const Footer: React.FC = () => {
+const Footer = () => {
     return (
-        <footer className={clsx("w-full bg-[#EDE8E3] flex flex-col  px-[120px] py-[80px]")}>
+        <footer className={clsx("w-full bg-[#F7EDE0] flex flex-col  px-[120px] py-[80px]")}>
             <div className={clsx("w-full flex")}>
                 <div className="flex flex-col text-GREY-80 pt-[212px]">
                     <h2 className="text-bg font-semibold mb-2">About Us</h2>
@@ -15,9 +17,8 @@ const Footer: React.FC = () => {
                     </p>
                 </div>
                 <div className="flex flex-col items-center mx-auto font-myeongjo">
-                    <button className="bg-BRAND-50 text-SYSTEM-white rounded-full w-[240px] h-[80px] text-xl font-bold">
-                        YEOGI
-                    </button>
+                    <Image src={LogoImage} width={120} height={120} alt="yeogi logo" />
+                    <Image src={LogoText} width={90} height={60} alt="yeogi logo" />
                     <p className="text-GREY-50 mt-[16px] text-bg">Record your Trip</p>
                 </div>
                 <div className="font-pretendard flex flex-col text-GREY-50 text-sm place-items-end justify-between mt-auto">

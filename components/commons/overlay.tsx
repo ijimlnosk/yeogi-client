@@ -61,9 +61,9 @@ const Overlay = ({
                 <div className={`${contentCss} ${rounded}`}>{children}</div>
                 <div className="w-full flex flex-row justify-between items-center">
                     <div className="w-1/2 flex flex-row items-center pt-2">
-                        <div className="pt-[10px] pr-[4px]">
+                        <div className="pt-2.5 pr-1">
                             {leftImageUrl && (
-                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-2.5" />
                             )}
                         </div>
                         <button onClick={onLeftClick} className={`text-sm ${textColor}`}>
@@ -71,10 +71,8 @@ const Overlay = ({
                         </button>
                     </div>
                     <div className="w-1/2 flex flex-row items-center justify-end pt-2">
-                        <div className="pt-[10px] pr-[4px]">
-                            {imageUrl && (
-                                <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
-                            )}
+                        <div className="pt-2.5 pr-1">
+                            {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-2.5" />}
                         </div>
                         <button onClick={onClick} className={`text-sm ${textColor}`}>
                             {text}

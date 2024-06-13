@@ -1,20 +1,19 @@
 "use client"
 
-import React, { useState, ChangeEvent, FC } from "react"
+import { useState, ChangeEvent } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
-import { CalendarProps } from "../type"
 import { DateRange } from "@/components/commons/type"
-import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "@/utils/calendarUtils"
+import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "./calendarUtils"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
-const Calendar: FC<CalendarProps> = ({ onClose }) => {
+const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
-    const [isRange, setIsRange] = useState(true)
+    const [isRange] = useState(true)
     const [currentDate, setCurrentDate] = useState(dayjs())
 
     const days = generateDays(currentDate)
@@ -51,12 +50,11 @@ const Calendar: FC<CalendarProps> = ({ onClose }) => {
     }
 
     const currentYear = currentDate.year()
-    const currentMonth = currentDate.month()
-    const calendarOptions = generateCalendarOptions(currentYear, currentMonth)
+    const calendarOptions = generateCalendarOptions(currentYear)
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (
-        <div className="font-pretendard p-6">
+        <div className="font-pretendard p-6 bg-SYSTEM-white rounded-2xl">
             <div className="flex justify-between items-center text-GREY-50 text-sm ">
                 <button onClick={() => handleMonthChange(-1)}>
                     {currentDate.subtract(1, "month").format("YYYY.MM")}

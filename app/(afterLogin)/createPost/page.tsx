@@ -16,9 +16,9 @@ const Page = () => {
     const handleSubmit = () => {
         if (selectedType) {
             if (selectedType === "type1") {
-                router.push("/freeForm")
+                router.push("/createPost/freeForm")
             } else if (selectedType === "type2") {
-                router.push("/memoForm")
+                router.push("/createPost/memoForm")
             }
         }
     }
