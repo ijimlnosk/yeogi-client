@@ -18,7 +18,7 @@ const PostCard = ({
     created_At,
 }: PostCardProps) => {
     return (
-        <div className="w-[360px] h-[381px] rounded-6 bg-SYSTEM-white overflow-hidden shadow-lg relative">
+        <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
             <Link href={`/detailPost/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image
@@ -29,7 +29,7 @@ const PostCard = ({
                     alt="post thumbnail"
                 />
                 {/* 유저가 방문한 대륙 표시 */}
-                <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-2 shadow-md">
+                <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-[8px] shadow-md">
                     <Image src={locationIcon} alt="location_Icon" width={16} height={16} />
                     <p className="text-sm text-BRAND-50">{continent}</p>
                 </div>

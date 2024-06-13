@@ -1,13 +1,19 @@
 export type Post = {
     postId: number
-    userProfile: string
-    thumbnail: string
+    author: string
     title: string
     content: string
-    continent: string
-    country: string
-    nickName: string
-    createdAt: Date
-    commentCount: number
+    shortPostList?: ShortPosts[]
     likeCount: number
+    viewCount: number
+    createdAt: string
+    modifiedAt: string
+    tripStartDate: string
+    tripEndDate: string
+    continent: string
+    region: string
+}
+
+export type ShortPosts = {
+    content: string
 }

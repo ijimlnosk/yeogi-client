@@ -17,14 +17,14 @@ export const filterPosts = (posts: Post[], searchTerm: string) => {
     return posts.filter(
         post =>
             chosungIncludes(post.title, term) ||
-            chosungIncludes(post.nickName, term) ||
+            chosungIncludes(post.author, term) ||
             chosungIncludes(post.content, term) ||
             chosungIncludes(post.continent, term) ||
-            chosungIncludes(post.country, term) ||
+            chosungIncludes(post.region, term) ||
             post.title.toLowerCase().includes(term) ||
-            post.nickName.toLowerCase().includes(term) ||
+            post.author.toLowerCase().includes(term) ||
             post.content.toLowerCase().includes(term) ||
             post.continent.toLowerCase().includes(term) ||
-            post.country.toLowerCase().includes(term),
+            post.region.toLowerCase().includes(term),
     )
 }

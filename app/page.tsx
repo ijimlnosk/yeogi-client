@@ -1,3 +1,5 @@
+"use client"
+
 import MainDesc from "./_components/mainDesc"
 import MainIntro from "./_components/mainIntro"
 import MainPosts from "./_components/mainPosts"
