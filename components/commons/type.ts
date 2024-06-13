@@ -2,12 +2,10 @@
  * 공용컴포넌트에서 사용될 type 파일
  */
 
-import React, { ReactNode } from "react"
-import { ButtonHTMLAttributes, ReactNode } from "react"
+import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 
-//postCard props 타입
 export type PostCardProps = {
     post_id: number
     title: string
@@ -76,7 +74,7 @@ export type SortButtonProps = {
 export type SearchBarProps = {
     text: string
     size: "sm" | "lg"
-    onChange: React.ChangeEventHandler<HTMLInputElement>
+    onChange: ChangeEventHandler<HTMLInputElement>
 }
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
@@ -85,3 +83,12 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
         isActive?: boolean
     }
 
+export type PaginationProps = {
+    totalPages: number
+}
+
+export type PaginationNumberProps = {
+    page: number | string
+    href: string
+    isActive: boolean
+}

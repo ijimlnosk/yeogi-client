@@ -1,15 +1,13 @@
 import React from "react"
 import { SortButtonProps } from "./type"
-import { SortButtonClasses } from "@/constants/sortButton"
 
 const SortButton = ({ label, isActive, onClick, showBorder }: SortButtonProps) => {
-    const baseClass = SortButtonClasses.base
-    const borderClass = showBorder ? SortButtonClasses.border : ""
-    const activeClass = isActive ? SortButtonClasses.active : SortButtonClasses.inactive
-
     return (
         <div className="item-center flex flex-col justify-center items-center px-[40px]">
-            <div onClick={onClick} className={`${baseClass} ${borderClass} ${activeClass}`}>
+            <div
+                onClick={onClick}
+                className={` flex flex-col justify-center w-[60px] h-[42px] cursor-pointer items-center text-center ${showBorder ? "border-b-[1px] border-t-[1px] border-GREY-20" : ""} ${isActive ? "text-SYSTEM-black  font-semibold" : " text-GREY-50"}`}
+            >
                 {label}
             </div>
         </div>
