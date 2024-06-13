@@ -24,7 +24,7 @@ body {
 
 /* editor */
 .quill-editor {
-  @apply bg-SYSTEM-white w-[900px] mt-1 border-0 rounded-xl shadow-lg;
+  @apply bg-SYSTEM-white w-[900px] mt-1 rounded-xl shadow-lg;
 }
 .quill-editor .ql-snow {
   @apply border-none h-[80px] flex justify-center items-center !important;
