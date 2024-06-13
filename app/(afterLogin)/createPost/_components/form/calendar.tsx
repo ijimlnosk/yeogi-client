@@ -13,7 +13,7 @@ dayjs.extend(isBetween)
 const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
     const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
-    const [isRange, _] = useState(true)
+    const [isRange] = useState(true)
     const [currentDate, setCurrentDate] = useState(dayjs())
 
     const days = generateDays(currentDate)
@@ -50,8 +50,7 @@ const Calendar = () => {
     }
 
     const currentYear = currentDate.year()
-    const currentMonth = currentDate.month()
-    const calendarOptions = generateCalendarOptions(currentYear, currentMonth)
+    const calendarOptions = generateCalendarOptions(currentYear)
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"]
 
     return (

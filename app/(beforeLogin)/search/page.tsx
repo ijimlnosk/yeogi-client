@@ -9,7 +9,7 @@ import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-const SearchResults = dynamic(() => import("@/components/commons/searchResults"))
+const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
@@ -55,4 +55,6 @@ const SearchPage = () => {
         </div>
     )
 }
-export default SearchPage
+
+const CSRSearchPage = dynamic(() => Promise.resolve(SearchPage), { ssr: false })
+export default CSRSearchPage

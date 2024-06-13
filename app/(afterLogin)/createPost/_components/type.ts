@@ -1,5 +1,3 @@
-import { Continent } from "@/constants/continents"
-
 export type TemplateBoxProps = {
     type: "type1" | "type2"
     isSelected: boolean

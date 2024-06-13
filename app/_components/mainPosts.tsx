@@ -14,8 +14,8 @@ const Pagination = dynamic(() => import("@/components/commons/pagination"), { ss
 
 const MainPosts = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
-    const [searchKeyword, setSearchKeyword] = useState<string>("모비")
-    const [posts, setPosts] = useState<Post[]>(samplePosts)
+    const [, setSearchKeyword] = useState<string>("모비")
+    const [posts] = useState<Post[]>(samplePosts)
 
     const handleSelectContinent = (index: number) => {
         setSelectedContinentIndex(index)
