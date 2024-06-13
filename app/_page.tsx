@@ -1,10 +1,8 @@
 "use client"
 
-import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 import Overlay from "@/components/commons/overlay"
-import Searchbar from "@/components/commons/searchBar"
 import PostCard from "@/components/commons/postCard"
 
 const Home = () => {
@@ -21,7 +19,6 @@ const Home = () => {
     const handleSelectContinent = (index: number) => {
         setSelectedContinentIndex(index)
     }
-    const totalPages = 8
 
     return (
         <>
@@ -68,7 +65,6 @@ const Home = () => {
                 <div className="w-[500px]">
                     <Button onClick={() => setIsOverlayOpen(true)}>Overlay Open</Button>
                 </div>
-                <Pagination totalPages={totalPages} />
             </div>
             <div>
                 <Button>기본 버튼</Button>
@@ -92,7 +88,6 @@ const Home = () => {
                     likeCount={10000}
                 />
             </div>
-            <Pagination totalPages={totalPages} />
         </>
     )
 }
