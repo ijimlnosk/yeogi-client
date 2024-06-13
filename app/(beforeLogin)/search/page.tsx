@@ -1,35 +1,32 @@
 "use client"
 
-import { fetchSearchResultsAPI } from "@/apis/mockPosts"
-import { Pagination } from "@/components/commons/pagination"
-import SearchResults from "@/components/commons/searchResults"
+import { samplePosts } from "@/apis/mockPosts"
+import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
-import { Post } from "@/hooks/type"
+import { filterPosts } from "@/utils/filterPosts"
+import { Post } from "@/utils/type"
+import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+
+const SearchResults = dynamic(() => import("@/components/commons/searchResults"))
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("query") || ""
-    const [posts, setPosts] = useState<Post[]>([]) // 검색 결과를 담을 상태
+    const [posts, setPosts] = useState<Post[]>(samplePosts)
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const results = await fetchSearchResultsAPI(searchKeyword)
-                setPosts(results)
-            } catch (error) {
-                console.error("검색 결과를 가져오는 중 오류 발생:", error)
-            }
+        if (searchKeyword) {
+            const results = filterPosts(samplePosts, searchKeyword)
+            setPosts(results)
         }
-
-        fetchPosts()
     }, [searchKeyword])
 
     return (
         <div className="px-[120px] py-10">
             <div className="flex flex-row justify-start items-center">
-                <p className="text-bg text-GREY-80 font-medium">
+                <div className="text-bg text-GREY-80 font-medium">
                     {posts.length > 0 ? (
                         <>
                             <span className="text-BRAND-50">{searchKeyword}</span>과 관련된 총
@@ -47,12 +44,12 @@ const SearchPage = () => {
                             <p>올바른 검색어를 입력하셨나요?</p>
                         </>
                     )}
-                </p>
+                </div>
             </div>
             {posts.length > 0 && (
                 <>
                     <SearchResults posts={posts} />
-                    <Pagination totalPages={Math.ceil(posts.length)} />
+                    <Pagination totalPages={Math.ceil(posts.length) / 8} />
                 </>
             )}
         </div>

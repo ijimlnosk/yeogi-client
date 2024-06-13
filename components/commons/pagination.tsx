@@ -18,7 +18,7 @@ import { PaginationNumberProps, PaginationProps } from "./type"
  * @returns 화면에 렌더될 숫자 버튼 배열과 이전, 다음 버튼을 반환
  */
 
-export const Pagination = ({ totalPages }: PaginationProps) => {
+const Pagination = ({ totalPages }: PaginationProps) => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const currentPage = Number(searchParams.get("page")) || 1
@@ -61,7 +61,7 @@ export const Pagination = ({ totalPages }: PaginationProps) => {
         </div>
     )
 }
-
+export default Pagination
 /**
  * @function PaginationNumber 각 페이지 번호를 렌더링
  * @param page 렌더링할 페이지 번호

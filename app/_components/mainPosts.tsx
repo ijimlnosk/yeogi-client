@@ -1,22 +1,28 @@
 "use client"
 
+import { samplePosts } from "@/apis/mockPosts"
 import Button from "@/components/commons/button"
-import { Pagination } from "@/components/commons/pagination"
 import Searchbar from "@/components/commons/searchBar"
-import SearchResults from "@/components/commons/searchResults"
-import SortDropdown from "@/components/commons/sortDropdown"
 import { Continents } from "@/constants/continents"
-import { useState } from "react"
+import { Post } from "@/utils/type"
+import dynamic from "next/dynamic"
+import { Suspense, useState } from "react"
+
+const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
+const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
+const Pagination = dynamic(() => import("@/components/commons/pagination"), { ssr: false })
 
 const MainPosts = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
+    const [searchKeyword, setSearchKeyword] = useState<string>("모비")
+    const [posts, setPosts] = useState<Post[]>(samplePosts)
 
     const handleSelectContinent = (index: number) => {
         setSelectedContinentIndex(index)
     }
 
     const handleKeyword = (keyword: string) => {
-        console.log(keyword)
+        setSearchKeyword(keyword)
     }
 
     return (
@@ -48,10 +54,14 @@ const MainPosts = () => {
                     <SortDropdown />
                 </div>
             </div>
-            <div className="h-[812px]">
-                <SearchResults />
+            <div>
+                {posts.length > 0 && (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SearchResults posts={posts} />
+                    </Suspense>
+                )}
             </div>
-            <Pagination totalPages={10} />
+            <Pagination totalPages={Math.ceil(posts.length) / 8} />
         </div>
     )
 }

@@ -1,18 +1,11 @@
-import { Post } from "@/hooks/type"
+import { filterPosts } from "@/utils/filterPosts"
+import { Post } from "@/utils/type"
 
-export const fetchSearchResultsAPI = async (searchKeyword: string): Promise<Post[]> => {
-    const results = samplePosts.filter(
-        post =>
-            post.title.includes(searchKeyword) ||
-            post.continent.includes(searchKeyword) ||
-            post.country.includes(searchKeyword) ||
-            post.nickName.includes(searchKeyword),
-    )
-
-    return results
+export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: string): Promise<Post[]> => {
+    return filterPosts(samplePosts, searchKeyword)
 }
 
-const samplePosts: Post[] = [
+export const samplePosts: Post[] = [
     {
         postId: 1,
         userProfile: "",
