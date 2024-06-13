@@ -26,4 +26,8 @@ export const COLORS = {
         coral: "#EF7974",
         fireBush: "#E08F3D",
     },
+    SNS:{
+        kakao:"#FEE502",
+        naver: " #06BD34",
+    }
 } as const
