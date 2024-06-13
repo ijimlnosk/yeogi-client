@@ -7,7 +7,7 @@ const CountrySearchBar = ({ text, onChange }: CountrySearchBarProps) => {
         <form className="max-w-auto mx-auto">
             <div className="relative ">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                    <Image src={searchIcon} alt="search_icon" />
+                    <Image src={searchIcon} alt="search_icon" width={24} height={24} />
                 </div>
                 <div>
                     <input
