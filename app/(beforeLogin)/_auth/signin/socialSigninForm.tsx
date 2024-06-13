@@ -1,10 +1,9 @@
 import SocialLoginButton from "./socialLoginButton"
-import { SocialSigninFormProps } from "./type"
 import kakaoIcon from "@/public/icons/kakao.svg"
 import naverIcon from "@/public/icons/naver_icon 1.svg"
 import googleIcon from "@/public/icons/google.svg"
 
-const SocialSigninForm = ({ onClose }: SocialSigninFormProps) => {
+const SocialSigninForm = () => {
     return (
         <div className="w-[400px] h-[530px] top-[225px] left-[760px] rounded-3xl border-[1px] border-BRAND-70 bg-SYSTEM-white">
             <div className="pt-[71px]">
