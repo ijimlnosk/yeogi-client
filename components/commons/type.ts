@@ -1,8 +1,7 @@
 /**
  * 공용컴포넌트에서 사용될 type 파일
  */
-
-import { ButtonHTMLAttributes, ChangeEventHandler, ReactNode } from "react"
+import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 
