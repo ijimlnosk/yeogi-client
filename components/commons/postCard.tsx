@@ -34,7 +34,7 @@ const PostCard = ({
                     <p className="text-sm text-BRAND-50">{continent}</p>
                 </div>
                 {/* 게시일 */}
-                <div className="p5">
+                <div className="p-5">
                     <div className="font-bold text-sm ">{title}</div>
                     <p className="text-GREY-50 text-sm">게시일 : {new Date(created_At).toLocaleDateString()}</p>
                 </div>
