@@ -21,11 +21,11 @@ const SortDropdown = () => {
     }
 
     return (
-        <div className="relative inline-block">
+        <div className="relative inline-block z-[100]">
             <div>
                 <button
                     type="button"
-                    className=" text-xs inline-flex justify-center w-[110px] h-[44px] px-3 py-[10px] border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
+                    className=" text-xs inline-flex justify-center w-[110px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-1" />

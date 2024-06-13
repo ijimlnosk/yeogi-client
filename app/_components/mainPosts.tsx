@@ -26,7 +26,7 @@ const MainPosts = () => {
     }
 
     return (
-        <div className="w-full h-[1365px] pt-[90px] pb-[134px] flex flex-col items-center">
+        <div className="w-full h-fit pt-[90px] pb-[134px] flex flex-col items-center">
             <div className="flex justify-center items-center w-full">
                 <Searchbar
                     onChange={e => handleKeyword(e.target.value)}
