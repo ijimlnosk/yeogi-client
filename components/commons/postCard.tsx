@@ -1,4 +1,3 @@
-import React from "react"
 import likeIcon from "@/public/icons/like.svg"
 import commentIcon from "@/public/icons/comment.svg"
 import locationIcon from "@/public/icons/gps.svg"
@@ -19,7 +18,7 @@ const PostCard = ({
     created_At,
 }: PostCardProps) => {
     return (
-        <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
+        <div className="w-[360px] h-[381px] rounded-6 bg-SYSTEM-white overflow-hidden shadow-lg relative">
             <Link href={`/detailPost/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image
@@ -30,18 +29,18 @@ const PostCard = ({
                     alt="post thumbnail"
                 />
                 {/* 유저가 방문한 대륙 표시 */}
-                <div className="absolute top-[20px] left-[20px] inline-flex gap-[2px] px-[7px] py-[4px] pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-[8px] shadow-md">
+                <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-2 shadow-md">
                     <Image src={locationIcon} alt="location_Icon" width={16} height={16} />
                     <p className="text-sm text-BRAND-50">{continent}</p>
                 </div>
                 {/* 게시일 */}
-                <div className="px-[20px] py-[20px]">
+                <div className="p5">
                     <div className="font-bold text-sm ">{title}</div>
                     <p className="text-GREY-50 text-sm">게시일 : {new Date(created_At).toLocaleDateString()}</p>
                 </div>
                 {/* 좋아요 코멘트 */}
-                <div className="px-[20px] flex justify-between items-center ">
-                    <div className="bg-SYSTEM-white flex gap-[12px]">
+                <div className="px-5 flex justify-between items-center ">
+                    <div className="bg-SYSTEM-white flex gap-3">
                         <div className=" flex items-center gap-[3px]">
                             <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
@@ -52,8 +51,14 @@ const PostCard = ({
                         </div>
                     </div>
                     {/* 유저프로필 */}
-                    <div className=" flex gap-[8px]">
-                        <img src={user_profile} alt="User Profile" className="w-[24px] h-[24px] rounded-[63px]" />
+                    <div className=" flex gap-2">
+                        <Image
+                            src={user_profile}
+                            width={24}
+                            height={24}
+                            alt="User Profile"
+                            className="rounded-[63px]"
+                        />
                         <p className="text-SYSTEM-black text-xxs">{user_nickname}</p>
                     </div>
                 </div>
