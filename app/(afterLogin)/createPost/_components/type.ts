@@ -1,4 +1,3 @@
-import { Continent } from "@/constants/continents"
 import { ChangeEventHandler } from "react"
 
 export type TemplateBoxProps = {

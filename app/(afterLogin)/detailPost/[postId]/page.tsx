@@ -7,7 +7,7 @@ import FreeFormDetail from "./_components/freeFormDetail"
 import { CommentType, ReCommentType } from "./type"
 import LikeToComment from "./_components/likeToComment"
 import { useSearchParams } from "next/navigation"
-import { Pagination } from "@/components/commons/pagination"
+import Pagination from "@/components/commons/pagination"
 import Link from "next/link"
 import FloatingBar from "./_components/floatingBar"
 

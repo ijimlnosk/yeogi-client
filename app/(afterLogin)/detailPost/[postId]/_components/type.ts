@@ -1,5 +1,3 @@
-import { MouseEventHandler } from "react"
-
 export type PostDetailProps = {
     title: string
     content: string
@@ -38,13 +36,12 @@ export type LikesToComments = {
 }
 
 export type FloatingIcon = {
-    name: string;
-    icon: string;
-    isActive: boolean;
+    name: string
+    icon: string
+    isActive: boolean
 }
 
 export type FloatingButtonType = {
     icon: FloatingIcon
-    onClick:() => void
-
+    onClick: () => void
 }

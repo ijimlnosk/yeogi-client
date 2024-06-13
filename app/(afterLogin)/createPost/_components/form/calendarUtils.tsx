@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs"
 import clsx from "clsx"
 
-export const generateCalendarOptions = (currentYear: number, currentMonth: number) => {
+export const generateCalendarOptions = (currentYear: number) => {
     const options = []
     for (let year = currentYear - 10; year <= currentYear + 10; year++) {
         for (let month = 0; month < 12; month++) {
