@@ -1,13 +1,13 @@
 "use client"
 
-import { WorldMapProps, WorldPost } from "./type"
+import { WorldMapProps, WorldPost } from "./wordMap/type"
 import Button from "@/components/commons/button"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { MouseEvent as ReactMouseEvent } from "react"
-import Pin from "./pin"
-import { handleMapClick, toggleUpdateMode } from "./worldMapHandlers"
-import UserDetails from "./userDetails"
+import Pin from "./wordMap/pin"
+import { handleMapClick, toggleUpdateMode } from "./wordMap/worldMapHandlers"
+import UserDetails from "./wordMap/userDetails"
 
 const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
     const [pins, setPins] = useState<WorldPost[]>(user.posts) // 지도에 표시된 핀 목록
