@@ -1,10 +1,8 @@
 import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
-import { getPostProps } from "./type"
+import { createPostTemplate, getPostProps } from "./type"
 
 const POST_API_URL = "/posts"
-const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsInN1YiI6ImFteUB0ZXN0LmNvbSIsImV4cCI6MTcxODMxNjg3OSwiaWF0IjoxNzE4MzE1MDc5fQ.H6llci_7bFH1xd45sJ7vo2St7BBGdNgbdW1Vr5zCWfY"
 
 export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: string): Promise<Post[]> => {
     return filterPosts(samplePosts, searchKeyword)
@@ -17,19 +15,33 @@ export const handleGetPost = async ({ searchType, searchString, sortCondition }:
     queryParams.append("searchType", searchType.toUpperCase())
     queryParams.append("sortCondition", sortCondition.toUpperCase())
 
-    if (searchString) {
-        queryParams.append("searchString", searchString)
-    }
+    if (searchString) queryParams.append("searchString", searchString)
 
     const response = await fetch(`${POST_API_URL}/posts?${queryParams.toString()}`, {
         method: "GET",
+        credentials: "include",
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
     })
 
-    if (response.ok === false) throw new Error("요청에 상응하는 응답이 없어요...🥹")
+    if (!response.ok) throw new Error("요청에 상응하는 응답이 없어요...🥹")
     const data = await response.json()
 
     return data
+}
+
+export const handleUpdatePost = async (newPost: createPostTemplate): Promise<Post> => {
+    const response = await fetch(`${POST_API_URL}/posts`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+        body: JSON.stringify(newPost),
+    })
+
+    if (!response.ok) throw new Error("게시글 등록에 실패했어요...🥹")
+    const data = await response.json()
+    return data as Post
 }

@@ -1,12 +1,13 @@
 import PostCard from "@/components/commons/postCard"
 import { PreviewPostCardProps } from "./type"
 
-const PreviewPostCard = ({ selectedImage }: PreviewPostCardProps) => {
+const PreviewPostCard = ({ selectedContinent, title, selectedImage }: PreviewPostCardProps) => {
+    const currentDate = new Date().toISOString()
     return (
         <PostCard
-            title={"post title"}
-            continent={"유럽"}
-            created_At={new Date("2023-06-05T14:48:00.000Z")}
+            title={title}
+            continent={selectedContinent}
+            created_At={currentDate}
             likeCount={0}
             commentCount={0}
             user_nickname="Amy"

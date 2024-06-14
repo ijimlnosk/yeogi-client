@@ -20,6 +20,11 @@ body {
   -moz-user-select: none;
   -ms-use-select: none;
   user-select: none;
+
+  /* invisible scroll */
+  ::-webkit-scrollbar {
+    display: none; /* chrome, safari, opera, edge */
+  }
 }
 
 /* editor */

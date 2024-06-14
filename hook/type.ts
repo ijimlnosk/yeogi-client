@@ -1,6 +1,8 @@
-import { Country } from "@/app/(afterLogin)/createPost/_components/type"
+import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/type"
+import { Continent } from "@/constants/continents"
 
 export type CountryProps = {
-    countries: Country[]
+    countriesByContinent: CountryByContinent
     searchTerm: string
+    selectedContinent: Continent
 }

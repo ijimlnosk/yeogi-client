@@ -2,7 +2,7 @@ export type Post = {
     postId: number
     author: string
     title: string
-    content: string
+    content?: string
     shortPostList?: ShortPosts[]
     likeCount: number
     viewCount: number

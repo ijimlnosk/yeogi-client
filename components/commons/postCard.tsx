@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
+import SampleProfile from "@/public/images/sampleProfile.svg"
 
 const PostCard = ({
     post_id = 0,
@@ -53,7 +54,7 @@ const PostCard = ({
                     {/* 유저프로필 */}
                     <div className=" flex gap-2">
                         <Image
-                            src={user_profile}
+                            src={user_profile ? user_profile : SampleProfile}
                             width={24}
                             height={24}
                             alt="User Profile"

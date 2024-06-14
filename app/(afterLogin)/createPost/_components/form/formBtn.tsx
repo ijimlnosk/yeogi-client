@@ -1,4 +1,3 @@
-import React from "react"
 import { FormBtnProps } from "../type"
 
 const FormBtn = ({ setIsOverlayOpen }: FormBtnProps) => {

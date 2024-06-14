@@ -1,7 +1,7 @@
 /**
  * 공용컴포넌트에서 사용될 type 파일
  */
-import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode } from "react"
+import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 
@@ -14,7 +14,7 @@ export type PostCardProps = {
     user_nickname: string
     user_profile: string
     thumbnail: string | null
-    created_At: Date
+    created_At: string
 }
 
 export type CommentProps = {
@@ -49,6 +49,7 @@ export type FailModalProps = {
 
 export type OverlayProps = {
     isOpen: boolean
+    handleOverlaySubmit?: (e: FormEvent) => void
     onClick: () => void
     onLeftClick?: () => void
     children: ReactNode

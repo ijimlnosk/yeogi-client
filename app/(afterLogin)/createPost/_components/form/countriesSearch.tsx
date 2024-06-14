@@ -1,25 +1,30 @@
 "use client"
 
 import { useState } from "react"
-
 import CountrySearchBar from "./countrySearchBar"
-import { countries } from "@/data/countries"
+import { countriesByContinent } from "@/data/countries"
 import Overlay from "@/components/commons/overlay"
 import { CountrySearchProps } from "../type"
 import Image from "next/image"
 import backIcon from "@/public/icons/black_arrow_left.svg"
 import useCountrySearch from "@/hook/useCountrySearch"
+import { useSelectionStore } from "@/libs/store"
 
-const CountriesSearch = ({ isOpen, onSelect }: CountrySearchProps) => {
+const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchProps) => {
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [selectedCountry, setSelectedCountry] = useState<string>("")
-    const results = useCountrySearch({ countries, searchTerm })
+    const results = useCountrySearch({ countriesByContinent, searchTerm, selectedContinent })
+
+    const setSelectedCountryStore = useSelectionStore(state => state.setSelectedCountry)
 
     const handleCountryClick = (country: string) => {
         setSelectedCountry(country)
     }
 
     const handleSelectClick = () => {
+        if (selectedCountry) {
+            setSelectedCountryStore(selectedCountry)
+        }
         if (onSelect) {
             onSelect(selectedCountry)
         }
@@ -27,7 +32,7 @@ const CountriesSearch = ({ isOpen, onSelect }: CountrySearchProps) => {
 
     return (
         <Overlay isOpen={isOpen} onClick={handleSelectClick} text="선택완료" imageUrl="/icons/black_check.svg">
-            <div className="bg-SYSTEM-white w-[448px] h-[397px] flex flex-col items-center rounded-2xl">
+            <div className="bg-SYSTEM-white w-[448px] h-[397px] pb-4 flex flex-col items-center rounded-2xl">
                 <div className="w-full flex items-center justify-center relative">
                     <Image src={backIcon} alt="뒤로 가기" width={24} height={24} className="absolute left-6 top-6" />
                     <p className="text-sm py-6 ">국가 검색</p>

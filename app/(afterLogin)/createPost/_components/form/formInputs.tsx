@@ -6,9 +6,15 @@ import { FormInputsProps } from "../type"
 import SelectCalendar from "./selectCalendar"
 import SelectedContinent from "./selectContinent"
 
-const FormInputs = ({ formText }: FormInputsProps) => {
+const FormInputs = ({ formText, formData, handleInputChange }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+    const [nextStep, setNextStep] = useState<boolean>(false)
+
+    const handleSelectContinent = () => {
+        setNextStep(true)
+        setIsContinentOpen(false)
+    }
 
     return (
         <div className="text-sm">
@@ -17,18 +23,33 @@ const FormInputs = ({ formText }: FormInputsProps) => {
                 <span className="text-BRAND-50">기록하세요.</span>
             </h1>
             <div className="flex mb-5">
-                <FormSelector onClick={() => setIsContinentOpen(true)} label="다녀온 지역을 선택해주세요." />
+                <FormSelector
+                    onClick={() => setIsContinentOpen(true)}
+                    label="다녀온 지역을 선택해주세요."
+                    state={"continent"}
+                />
                 <div className="mr-5" />
-                <FormSelector onClick={() => setIsCalendarOpen(true)} label="여행 기간을 선택해주세요." />
+                <FormSelector
+                    onClick={() => setIsCalendarOpen(true)}
+                    label="여행 기간을 선택해주세요."
+                    state={"calendar"}
+                />
             </div>
             <div className="relative w-full h-[80px] mb-[15px]">
                 <input
                     type="text"
                     className="rounded-xl p-8 w-full h-[80px] bg-SYSTEM-white outline-none placeholder:text-GREY-80 "
                     placeholder="제목을 입력하세요."
+                    value={formData.title || ""}
+                    onChange={e => handleInputChange("title", e.target.value)}
                 />
             </div>
-            <SelectedContinent isOpen={isContinentOpen} onClick={() => setIsContinentOpen(!isContinentOpen)} />
+            <SelectedContinent
+                isOpen={isContinentOpen}
+                nextStep={nextStep}
+                setNextStep={setNextStep}
+                onClick={handleSelectContinent}
+            />
             <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
         </div>
     )
