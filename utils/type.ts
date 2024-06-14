@@ -10,10 +10,10 @@ export type Post = {
     modifiedAt: string
     tripStartDate: string
     tripEndDate: string
-    continent: string
-    region: string
+    region?: string
 }
 
 export type ShortPosts = {
     content: string
+    region: string
 }

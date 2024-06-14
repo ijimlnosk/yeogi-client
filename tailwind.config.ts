@@ -17,15 +17,16 @@ const config: Config = {
             fontSize: {
                 ...FONT_SIZE,
             },
+            boxShadow: {
+                custom: "3px 4px 18px 0px #59595945",
+                profile: "3px 4px 18px 0px rgba(107, 68, 29, 0.27)",
+                polaroid: "3px 4px 18px 0 rgba(107, 68, 28, .27)",
+                "polaroid-hover": "3px 4px 22px 0 rgba(107, 68, 28, .1)",
+            },
             extend: {},
             backgroundImage: {
                 "comment-pattern": "url(/images/comment-bg.svg)",
                 "re-comment-pattern": "url(/images/re-comment-bg.svg)",
-            },
-            boxShadow: {
-                polaroid: "3px 4px 18px 0 rgba(107, 68, 28, .27)",
-                "polaroid-hover": "3px 4px 22px 0 rgba(107, 68, 28, .1)",
-                custom: "3px 4px 18px 0px #59595945",
             },
             scale: {
                 "120": "1.2",

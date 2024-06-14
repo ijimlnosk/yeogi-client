@@ -1,4 +1,5 @@
 import { Post } from "@/utils/type"
+<<<<<<< HEAD
 import { filterPosts } from "@/utils/filterPosts"
 import { createPostTemplate, getPostProps } from "./type"
 
@@ -20,10 +21,22 @@ export const handleGetPost = async ({ searchType, searchString, sortCondition }:
     const response = await fetch(`${POST_API_URL}/posts?${queryParams.toString()}`, {
         method: "GET",
         credentials: "include",
+=======
+
+const API_URL = "/posts"
+
+export const fetchDetailPost = async (postId: number): Promise<Post> => {
+    if (!API_URL) {
+        throw new Error("api url error")
+    }
+    const response = await fetch(`${API_URL}/posts/${postId}`, {
+        method: "GET",
+>>>>>>> main
         headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
     })
+<<<<<<< HEAD
 
     if (!response.ok) throw new Error("요청에 상응하는 응답이 없어요...🥹")
     const data = await response.json()
@@ -45,3 +58,11 @@ export const handleUpdatePost = async (newPost: createPostTemplate): Promise<Pos
     const data = await response.json()
     return data as Post
 }
+=======
+    if (!response.ok) {
+        throw new Error("response not ok")
+    }
+    const data = await response.json()
+    return data
+}
+>>>>>>> main
