@@ -5,7 +5,7 @@ import Profile from "./_components/profile"
 import EditProfile from "./_components/editProfile"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
-import { ProfileProps, EditProfileProps } from "./type"
+import { ProfileProps } from "./type"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)

@@ -1,18 +1,18 @@
-import { useState, FC, useRef, ChangeEvent } from "react"
+import { useState, useRef, ChangeEvent } from "react"
 import ProfileImage from "./editProfile/profileImage"
 import EditField from "./editProfile/editField"
 import { StaticImageData } from "next/image"
 import { EditProfileProps } from "../type"
 import photoIcon from "@/public/icons/photoIcon.svg"
 
-const EditProfile: FC<EditProfileProps> = ({
+const EditProfile = ({
     name: initialName,
     bio: initialBio,
     profileImage: initialProfileImage,
     bgImage: initialBgImage,
     onSave,
     onCancel,
-}) => {
+}: EditProfileProps) => {
     const [name, setName] = useState(initialName)
     const [bio, setBio] = useState(initialBio)
     const [profileImage, setProfileImage] = useState<string | StaticImageData>(initialProfileImage)
