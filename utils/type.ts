@@ -1,4 +1,5 @@
 export type Post = {
+    continent: string
     postId: number
     author: string
     title: string

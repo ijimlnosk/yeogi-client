@@ -13,7 +13,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-06-10",
         likeCount: 20,
         viewCount: 100,
-        shortPostList: [{ content: "에펠탑" }, { content: "루브르 박물관" }],
         content: "모비",
     },
     {
@@ -28,7 +27,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-05-30",
         likeCount: 15,
         viewCount: 150,
-        shortPostList: [{ content: "한강" }, { content: "서울타워" }],
         content: "모비",
     },
     {
@@ -43,7 +41,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-06-15",
         likeCount: 15,
         viewCount: 200,
-        shortPostList: [{ content: "도쿄타워" }, { content: "후지산" }],
         content: "모비",
     },
     {
@@ -58,7 +55,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-05-20",
         likeCount: 15,
         viewCount: 250,
-        shortPostList: [{ content: "뉴욕" }, { content: "라스베이거스" }],
         content: "모비",
     },
     {
@@ -87,7 +83,7 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-03-10",
         likeCount: 43,
         viewCount: 500,
-        shortPostList: [{ content: "우유니 사막" }, { content: "라파즈" }],
+        shortPostList: [],
         content: "모비",
     },
     {
@@ -116,7 +112,7 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-05-10",
         likeCount: 15,
         viewCount: 150,
-        shortPostList: [{ content: "피라미드" }, { content: "나일강" }],
+        shortPostList: [],
         content: "모비",
     },
     {

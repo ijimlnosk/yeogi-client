@@ -22,7 +22,7 @@ const SearchResults = ({ posts }: SearchResultsProps) => {
                         title={post.title}
                         continent={post.continent}
                         user_nickname={post.author}
-                        created_At={new Date(post.createdAt)}
+                        created_At={""}
                         commentCount={0}
                         likeCount={post.likeCount}
                     />

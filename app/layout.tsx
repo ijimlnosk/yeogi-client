@@ -3,7 +3,6 @@ import { Nanum_Myeongjo } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import Layout from "@/components/layouts/layout"
-import QueryProvider from "@/components/queryProvider"
 
 const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"] })
 const pretendard = localFont({
@@ -51,11 +50,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <QueryProvider>
-                <body className={`${myeongjo.className} ${pretendard.className}`}>
-                    <Layout>{children}</Layout>
-                </body>
-            </QueryProvider>
+            <body className={`${myeongjo.className} ${pretendard.className}`}>
+                <Layout>{children}</Layout>
+            </body>
         </html>
     )
 }

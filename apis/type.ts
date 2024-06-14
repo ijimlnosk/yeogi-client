@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Continent } from "@/constants/continents"
 
 export type getPostProps = {
@@ -24,7 +23,8 @@ export const initialFormData: createPostTemplate = {
     tripEndDate: "",
     title: "",
     content: "",
-=======
+}
+
 export type createCommentProps = {
     content: string
     postId: number
@@ -32,5 +32,4 @@ export type createCommentProps = {
 
 export type getCommentProps = {
     postId: number
->>>>>>> main
 }

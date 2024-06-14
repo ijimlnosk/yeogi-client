@@ -1,3 +1,4 @@
+import { ShortPosts } from "@/utils/type"
 import { Comment } from "../type"
 
 export type PostDetailProps = {
@@ -7,7 +8,7 @@ export type PostDetailProps = {
     created_At: string
     destination: string
     travel_range: string
-    shortPosts: string[]
+    shortPosts: ShortPosts[]
 }
 
 export type CommentBoxProps = {

@@ -45,12 +45,12 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 <FloatingBar />
                 <FreeFormDetail
                     title={post.title}
-                    content={post.content}
+                    content={post.content || ""}
                     author={post.author}
                     created_At={formatISODateString(post.createdAt)}
-                    destination={post.region}
+                    destination={post.region || ""}
                     travel_range={`${formatISODateString(post.tripStartDate)} - ${formatISODateString(post.tripEndDate)}`}
-                    shortPosts={post.shortPostList}
+                    shortPosts={post.shortPostList || []}
                 />
             </div>
             <div className="flex justify-center items-center pt-[50px]">

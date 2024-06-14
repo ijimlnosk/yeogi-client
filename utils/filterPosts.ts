@@ -14,17 +14,24 @@ export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
 
     const term = searchTerm.toLowerCase()
 
-    return posts.filter(
-        post =>
-            chosungIncludes(post.title, term) ||
-            chosungIncludes(post.author, term) ||
-            chosungIncludes(post.content, term) ||
-            chosungIncludes(post.continent, term) ||
-            chosungIncludes(post.region, term) ||
-            post.title.toLowerCase().includes(term) ||
-            post.author.toLowerCase().includes(term) ||
-            post.content.toLowerCase().includes(term) ||
-            post.continent.toLowerCase().includes(term) ||
-            post.region.toLowerCase().includes(term),
-    )
+    return posts.filter(post => {
+        const title = post.title ? post.title.toLowerCase() : ""
+        const author = post.author ? post.author.toLowerCase() : ""
+        const content = post.content ? post.content.toLowerCase() : ""
+        const continent = post.continent ? post.continent.toLowerCase() : ""
+        const region = post.region ? post.region.toLowerCase() : ""
+
+        return (
+            chosungIncludes(title, term) ||
+            chosungIncludes(author, term) ||
+            chosungIncludes(content, term) ||
+            chosungIncludes(continent, term) ||
+            chosungIncludes(region, term) ||
+            title.includes(term) ||
+            author.includes(term) ||
+            content.includes(term) ||
+            continent.includes(term) ||
+            region.includes(term)
+        )
+    })
 }
