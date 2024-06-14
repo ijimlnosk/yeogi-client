@@ -1,10 +1,8 @@
 "use client"
 
-import { Pagination } from "@/components/commons/pagination"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 import Overlay from "@/components/commons/overlay"
-import Searchbar from "@/components/commons/searchBar"
 import PostCard from "@/components/commons/postCard"
 
 const Home = () => {
@@ -21,7 +19,6 @@ const Home = () => {
     const handleSelectContinent = (index: number) => {
         setSelectedContinentIndex(index)
     }
-    const totalPages = 8
 
     return (
         <>
@@ -68,7 +65,6 @@ const Home = () => {
                 <div className="w-[500px]">
                     <Button onClick={() => setIsOverlayOpen(true)}>Overlay Open</Button>
                 </div>
-                <Pagination totalPages={totalPages} />
             </div>
             <div>
                 <Button>기본 버튼</Button>
@@ -80,9 +76,6 @@ const Home = () => {
                 >
                     textBox_md
                 </Button>
-
-                <Searchbar text="slkjflskdjf" size="lg" />
-                <Searchbar text="lsdjfls" size="sm" />
                 <PostCard
                     post_id={0}
                     user_profile="https://s3-alpha-sig.figma.com/img/02af/5ca9/17efd34b030c6ea9acf84d5e19fa991b?Expires=1718582400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=N9TtaFLsrrJlBkT-y1tTuiv7xHqxofyKaieuLQHUZ1jujxj0uhv9OQtrS-EOFTWUz7lccHTWHDVm3TvOTWUu6JYXaJD9uXCBXKooZd62M4YZUSE8jG3noz0uGpTw1Ol1M1TfBsM5cujNHSH3Sjq3ihDOE4e3og0DSVHF80t8IlnM3iyL7usWNOznk3-6Q8Q8HNR4caEYZEodXJfpjKMYYBQwZijLyeuPc4Ws6mgC8BVscsV~8zmZRjsqOy~gclDB1fqA1GquLN3fQ27fFeepeQ19oxfRxdwQPtzcQRrXTs6v7Z12Zu5l3whMfBjS7ptWG8flnZSWV-0m9Q-Z5ZuBwg__"
@@ -95,7 +88,6 @@ const Home = () => {
                     likeCount={10000}
                 />
             </div>
-            <Pagination totalPages={totalPages} />
         </>
     )
 }

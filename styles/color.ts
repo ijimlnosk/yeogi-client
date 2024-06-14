@@ -15,6 +15,7 @@ export const COLORS = {
         80: "#6c6c6c",
     },
     BRAND: {
+        "05": "#DBEAD0",
         10: "#C0DCAB",
         30: "#90B773",
         50: "#658F47",
@@ -26,4 +27,8 @@ export const COLORS = {
         coral: "#EF7974",
         fireBush: "#E08F3D",
     },
+    SNS:{
+        kakao:"#FEE502",
+        naver: " #06BD34",
+    }
 } as const

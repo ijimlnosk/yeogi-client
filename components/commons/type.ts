@@ -1,10 +1,10 @@
 /**
  * 공용컴포넌트에서 사용될 type 파일
  */
+import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode } from "react"
+import { VariantProps } from "class-variance-authority"
+import { buttonStyle } from "@/styles/common-button"
 
-import { ReactNode } from "react"
-
-//postCard props 타입
 export type PostCardProps = {
     post_id: number
     title: string
@@ -13,7 +13,7 @@ export type PostCardProps = {
     continent: string
     user_nickname: string
     user_profile: string
-    thumbnail: string
+    thumbnail: string | null
     created_At: Date
 }
 
@@ -50,12 +50,44 @@ export type FailModalProps = {
 export type OverlayProps = {
     isOpen: boolean
     onClick: () => void
-    children: React.ReactNode
+    onLeftClick?: () => void
+    children: ReactNode
+    widthCss?: string
+    heightCss?: string
+    text?: string
+    imageUrl?: string
+    textColor?: string
+    leftText?: string
+    leftImageUrl?: string
+    leftTextColor?: string
+    rounded?: string
+}
+
+export type SortButtonProps = {
+    label: string
+    isActive: boolean
+    onClick: () => void
+    showBorder: boolean
+}
+
+export type SearchBarProps = {
     text: string
-    imageUrl: string
-    textColor: string
-    onLeftClick: () => void
-    leftText: string
-    leftImageUrl: string
-    leftTextColor: string
+    size: "sm" | "lg"
+    onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+    VariantProps<typeof buttonStyle> & {
+        children?: ReactNode
+        isActive?: boolean
+    }
+
+export type PaginationProps = {
+    totalPages: number
+}
+
+export type PaginationNumberProps = {
+    page: number | string
+    href: string
+    isActive: boolean
 }

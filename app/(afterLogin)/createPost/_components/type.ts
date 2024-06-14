@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react"
+
 export type TemplateBoxProps = {
     type: "type1" | "type2"
     isSelected: boolean
@@ -8,27 +10,63 @@ export type ThumbnailProps = {
     setIsOverlayOpen: (isOpen: boolean) => void
 }
 
-//calendar props type
 export type DateRange = {
     start: Date | null
     end: Date | null
 }
 
-export type CalendarProps = {
-    onClose: () => void
+export type QuillEditorProps = {
+    index: number
+    handleDeleteQuillEditor?: (index: number) => void
+    isFreeForm?: boolean
 }
 
-//form overlay props type
-export type FormOverlayProps = {
-    isContinentOverlayOpen: boolean
-    isCalendarOverlayOpen: boolean
-    onClose: () => void
-    handleContinentSelect: (continent: string) => void
-    selectedContinent: string | null
-}
-
-//form selector props type
 export type FormSelectorProps = {
     onClick: () => void
     label: string
+}
+
+export type FormBtnProps = {
+    setIsOverlayOpen: (isOpen: boolean) => void
+}
+
+export type PreviewPostCardProps = {
+    selectedImage: string | null
+}
+
+export type ThumbnailUploaderProps = {
+    onComplete: (selectedImage: string | null) => void
+}
+
+export type EditorProps = {
+    className: string
+}
+
+export type FormInputsProps = {
+    formText: string
+}
+
+export type selectComponentProps = {
+    isOpen: boolean
+    onClick: () => void
+}
+
+
+export type Country = {
+    name: string
+}
+
+export type CountrySearchBarProps = {
+    text: string
+    onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+export type CountrySearchProps = {
+    isOpen: boolean
+    onSelect: (country: string) => void
+}
+
+export type UploadOverlayProps = {
+    isOverlayOpen: boolean
+    setIsOverlayOpen: (isOpen: boolean) => void
 }

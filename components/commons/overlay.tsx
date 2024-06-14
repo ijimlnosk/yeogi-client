@@ -29,7 +29,7 @@ const Overlay = ({
     onLeftClick,
     leftText,
     leftImageUrl,
-    leftTextColor,
+    rounded = "rounded-lg",
 }: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
@@ -45,35 +45,34 @@ const Overlay = ({
 
     if (!isOpen) return null
 
-    const contentCss = clsx(
-        "bg-SYSTEM-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
-    )
+    const contentCss = clsx("bg-transparent shadow-xl w-auto mx-auto my-auto flex justify-center items-center")
 
     return (
         <div
-            className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
+            className="font-pretendard fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
             onClick={onClick}
             aria-modal="true"
             role="dialog"
         >
             <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
-                <div className={contentCss}>{children}</div>
+                {leftImageUrl && (
+                    <p className="text-sm font-bold text-SYSTEM-white pb-[30px]">이렇게 업로드될 거에요!</p>
+                )}
+                <div className={`${contentCss} ${rounded}`}>{children}</div>
                 <div className="w-full flex flex-row justify-between items-center">
                     <div className="w-1/2 flex flex-row items-center pt-2">
-                        <div className="pt-[10px] pr-[4px]">
+                        <div className="pt-2.5 pr-1">
                             {leftImageUrl && (
-                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-2.5" />
                             )}
                         </div>
-                        <button onClick={onLeftClick} className={`text-sm ${leftTextColor}`}>
+                        <button onClick={onLeftClick} className={`text-sm ${textColor}`}>
                             {leftText}
                         </button>
                     </div>
                     <div className="w-1/2 flex flex-row items-center justify-end pt-2">
-                        <div className="pt-[10px] pr-[4px]">
-                            {imageUrl && (
-                                <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
-                            )}
+                        <div className="pt-2.5 pr-1">
+                            {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-2.5" />}
                         </div>
                         <button onClick={onClick} className={`text-sm ${textColor}`}>
                             {text}
