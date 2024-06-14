@@ -1,5 +1,5 @@
 import { useSelectionStore } from "@/libs/store"
-import { FormSelectorProps } from "../type"
+import { FormSelectorProps, TextDisplayProps } from "../type"
 import { formatISODateString } from "@/utils/formatDate"
 
 const FormSelector = ({ onClick, label, state }: FormSelectorProps) => {
@@ -11,38 +11,41 @@ const FormSelector = ({ onClick, label, state }: FormSelectorProps) => {
             className="rounded-xl p-8 w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
         >
             {state === "continent" ? (
-                <>
-                    {selectedContinent && selectedCountry ? (
-                        <div className="text-BRAND-50">
-                            {selectedContinent}
-                            <span> / </span>
-                            {selectedCountry}
-                        </div>
-                    ) : (
-                        <div>
-                            <span className="text-[#ff2323] mr-4">*</span>
-                            {label}
-                        </div>
-                    )}
-                </>
+                <TextDisplay
+                    condition={!!selectedContinent && !!selectedCountry}
+                    mainText={selectedContinent}
+                    subText={selectedCountry}
+                    label={label}
+                />
             ) : (
-                <>
-                    {startDate && endDate ? (
-                        <div className="text-BRAND-50">
-                            {formatISODateString(startDate.toISOString())}
-                            <span> / </span>
-                            {formatISODateString(endDate.toISOString())}
-                        </div>
-                    ) : (
-                        <div>
-                            <span className="text-[#ff2323] mr-4">*</span>
-                            {label}
-                        </div>
-                    )}
-                </>
+                <TextDisplay
+                    condition={!!startDate && !!endDate}
+                    mainText={startDate ? formatISODateString(startDate.toISOString()) : null}
+                    subText={endDate ? formatISODateString(endDate.toISOString()) : null}
+                    label={label}
+                />
             )}
             <span>&gt;</span>
         </button>
     )
 }
 export default FormSelector
+
+export const TextDisplay = ({ condition, mainText, subText, label }: TextDisplayProps) => {
+    return condition ? (
+        <div className="text-BRAND-50">
+            {mainText}
+            {subText && (
+                <>
+                    <span> / </span>
+                    {subText}
+                </>
+            )}
+        </div>
+    ) : (
+        <div>
+            <span className="text-[#ff2323] mr-4">*</span>
+            {label}
+        </div>
+    )
+}

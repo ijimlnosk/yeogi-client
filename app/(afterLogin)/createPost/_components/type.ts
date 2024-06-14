@@ -91,3 +91,10 @@ export type UploadOverlayProps = {
     setIsOverlayOpen: (isOpen: boolean) => void
     handleOverlaySubmit: (e: FormEvent) => void
 }
+
+export type TextDisplayProps = {
+    condition: boolean
+    mainText: string | null
+    subText?: string | null
+    label: string
+}
