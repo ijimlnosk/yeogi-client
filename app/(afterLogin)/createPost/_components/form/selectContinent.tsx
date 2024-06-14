@@ -3,7 +3,7 @@
 import Overlay from "@/components/commons/overlay"
 import { Continent, Continents } from "@/constants/continents"
 import { useState } from "react"
-import CheckIcon from "@/public/icons/white_check.svg"
+import CheckIcon from "@/public/icons/black_check.svg"
 import { selectContinentProps } from "../type"
 import Button from "@/components/commons/button"
 import CountriesSearch from "./countriesSearch"
@@ -35,7 +35,7 @@ const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectCon
                 onClick={handleSelectClick}
                 imageUrl={CheckIcon}
                 text={"선택 완료"}
-                textColor={"text-SYSTEM-white"}
+                textColor={"text-SYSTEM-black"}
             >
                 <div className="flex flex-col w-[448px] h-[397px] px-6 text-sm bg-SYSTEM-white rounded-2xl">
                     <h2 className="text-center my-6">대륙 선택</h2>
