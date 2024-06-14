@@ -10,7 +10,6 @@ import WorldMap from "./_components/worldMap"
 import MyPost from "./_components/myPost"
 import { samplePosts } from "@/apis/mockPosts"
 import { Post } from "@/utils/type"
-import UserDetails from "./_components/wordMap/userDetails"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
