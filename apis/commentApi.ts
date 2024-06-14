@@ -2,14 +2,14 @@ import { createCommentProps, getCommentProps } from "./type"
 
 const API_URL = "/comments"
 
-export const createComment = async ({ author, content, postId }: createCommentProps) => {
-    const response = await fetch(`${API_URL}/comments`, {
+export const createComment = async ({ content, postId }: createCommentProps) => {
+    const response = await fetch(`${API_URL}/comment`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
+        credentials: "include",
         body: JSON.stringify({
-            author,
             content,
             postId,
         }),

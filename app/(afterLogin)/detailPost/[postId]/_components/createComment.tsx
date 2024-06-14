@@ -1,28 +1,10 @@
 import { createComment } from "@/apis/commentApi"
-import { getUserInfo } from "@/apis/userApi"
-import { useQuery } from "@tanstack/react-query"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { CommentProps } from "../type"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")
-    const [author, setAuthor] = useState<string>("")
     const [error, setError] = useState<string | null>(null)
-
-    const {
-        data: userInfo,
-        isLoading: isUserLoading,
-        error: userInfoError,
-    } = useQuery({
-        queryKey: ["userInfo"],
-        queryFn: getUserInfo,
-    })
-
-    useEffect(() => {
-        if (userInfo) {
-            setAuthor(userInfo.name)
-        }
-    }, [userInfo])
 
     const handleSubmit = async () => {
         if (content.trim() === "") {
@@ -31,7 +13,7 @@ const CreateComment = ({ postId }: CommentProps) => {
         }
 
         try {
-            await createComment({ author, content, postId })
+            await createComment({ content, postId })
             setContent("")
             alert("댓글 등록 성공")
         } catch (error) {
@@ -46,9 +28,6 @@ const CreateComment = ({ postId }: CommentProps) => {
             handleSubmit()
         }
     }
-
-    if (isUserLoading) return <div>Loading...</div>
-    if (userInfoError) return <div>user info error</div>
 
     return (
         <form className="w-[1000px] rounded-[16px]  ">

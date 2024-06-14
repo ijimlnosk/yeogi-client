@@ -7,15 +7,12 @@ const CommentBox = ({ comments }: CommentBoxProps) => {
             {comments.length > 0 ? (
                 <div className="w-full flex items-center justify-center flex-col">
                     {comments.map(commentWithLike => (
-                        <div
-                            key={commentWithLike.comment.id}
-                            className="flex flex-col items-center justify-center pb-[80px]"
-                        >
+                        <div key={commentWithLike.id} className="flex flex-col items-center justify-center pb-[80px]">
                             <Comment
-                                content={commentWithLike.comment.content}
-                                author={commentWithLike.comment.author}
+                                content={commentWithLike.content}
+                                author={commentWithLike.nickname}
                                 likes={commentWithLike.likeCount}
-                                date={commentWithLike.comment.createdAt}
+                                date={commentWithLike.createdAt}
                             />
                         </div>
                     ))}

@@ -9,7 +9,7 @@ import { fetchDetailPost } from "@/apis/postApi"
 import { Post } from "@/utils/type"
 import { formatISODateString } from "@/utils/formatDate"
 import { useQuery } from "@tanstack/react-query"
-import { CommentWithLike, PostDetailProps } from "./type"
+import { Comment, PostDetailProps } from "./type"
 import { getComment } from "@/apis/commentApi"
 import CommentBox from "./_components/commentBox"
 
@@ -29,7 +29,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         data: comments = [],
         error: commentError,
         isLoading: isCommentLoading,
-    } = useQuery<CommentWithLike[], Error>({
+    } = useQuery<Comment[], Error>({
         queryKey: ["comments", { postId: Number(postId) }],
         queryFn: () => getComment({ postId: Number(postId) }),
     })
@@ -60,7 +60,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 <LikeToComment likes={post.likeCount} comments={comments.length} />
             </div>
             <div className="flex items-center justify-center">
-                <CommentBox comments={comments} />
+                {comments.length > 0 ? <CommentBox comments={comments} /> : <div>댓글이 없습니다</div>}
             </div>
             <div className="w-full flex justify-center items-center pt-[50px] pb-[100px]">
                 <div className="w-[1000px] flex justify-end">

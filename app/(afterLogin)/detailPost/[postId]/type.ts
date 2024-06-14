@@ -27,13 +27,9 @@ export type CommentProps = {
 export type Comment = {
     id: number
     content: string
-    author: string
+    nickname: string
     postId: number
     createdAt: string
     modifiedAt: string
-}
-
-export type CommentWithLike = {
-    comment: Comment
     likeCount: number
 }
