@@ -1,7 +1,6 @@
-import { FC } from "react"
 import { ProfileProps } from "../type"
 
-const Profile: FC<ProfileProps> = ({ name, bio, profileImage, bgImage, onEdit }) => {
+const Profile = ({ name, bio, profileImage, bgImage, onEdit }: ProfileProps) => {
     return (
         <div className="relative font-pretendard">
             <div className="relative">

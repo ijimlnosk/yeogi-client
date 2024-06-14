@@ -1,8 +1,8 @@
-import { FC, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import editIcon from "@/public/icons/edit.svg"
 import { EditFieldProps } from "../../type"
 
-const EditField: FC<EditFieldProps> = ({ value, onChange, type = "input", maxLength, className }) => {
+const EditField = ({ value, onChange, maxLength, className }: EditFieldProps) => {
     const [isEdited, setIsEdited] = useState(false)
     const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null)
 

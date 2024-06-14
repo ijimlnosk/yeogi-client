@@ -50,14 +50,12 @@ export type FailModalProps = {
 export type OverlayProps = {
     isOpen: boolean
     onClick: () => void
-    onLeftClick?: () => void
-    children: ReactNode
-    widthCss?: string
-    heightCss?: string
-    text?: string
-    imageUrl?: string
-    textColor?: string
-    leftText?: string
-    leftImageUrl?: string
-    leftTextColor?: string
+    children: React.ReactNode
+    text: string
+    imageUrl: string
+    textColor: string
+    onLeftClick: () => void
+    leftText: string
+    leftImageUrl: string
+    leftTextColor: string
 }

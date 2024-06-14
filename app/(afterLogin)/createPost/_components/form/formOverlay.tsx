@@ -1,45 +1,88 @@
-import React, { FC } from "react"
-import Overlay from "@/components/commons/overlay"
-import Calendar from "../calendar"
-import { FormOverlayProps } from "../type"
+"use client"
 
-const Form: FC<FormOverlayProps> = ({
-    isContinentOverlayOpen,
-    isCalendarOverlayOpen,
-    onClose,
-    handleContinentSelect,
-    selectedContinent,
-}) => (
-    <>
-        <Overlay isOpen={isContinentOverlayOpen} onClose={onClose}>
-            <div className="flex flex-col w-[448px] h-[397px] p-[4px] text-sm">
-                <h2 className="text-center my-6">대륙 선택</h2>
-                <div className="grid grid-cols-2 gap-[20px]">
-                    {["아시아", "아프리카", "남아메리카", "북아메리카", "유럽", "오세아니아", "북극", "남극"].map(
-                        continent => (
-                            <button
-                                key={continent}
-                                className={`p-4 rounded-[8px] ${
-                                    selectedContinent === continent
-                                        ? "bg-BRAND-30 text-white"
-                                        : "bg-GREY-10 hover:bg-BRAND-30 hover:shadow-custom hover:text-white"
-                                }`}
-                                onClick={() => handleContinentSelect(continent)}
-                            >
-                                {continent}
-                            </button>
-                        ),
-                    )}
+import clsx from "clsx"
+import Image from "next/image"
+import { useEffect } from "react"
+import { OverlayProps } from "@/components/commons/type"
+
+/**
+ * Overlay Component
+ * @param {boolean} isOpen - 오버레이의 표시 여부 제어
+ * @param {Function} onClick - 오버레이를 닫을 때 호출되는 콜백함수 닫기 or 오버레이 바깥 클릭 시 닫힘
+ * @param {ReactNode} children - 오버레이 내부에 표시될 내용
+ * @param {string} text - 오른쪽 버튼에 표시될 텍스트
+ * @param {string} imageUrl - 오른쪽 버튼에 표시될 이미지 URL
+ * @param {string} textColor - 오른쪽 버튼 텍스트 색상
+ * @param {string} leftText - 왼쪽 버튼에 표시될 텍스트
+ * @param {string} leftImageUrl - 왼쪽 버튼에 표시될 이미지 URL
+ * @param {string} leftTextColor - 왼쪽 버튼 텍스트 색상
+ * @param {Function} onLeftClick - 왼쪽 버튼 클릭 시 호출되는 콜백함수
+ */
+
+const Overlay = ({
+    isOpen,
+    onClick,
+    children,
+    text,
+    imageUrl,
+    textColor,
+    onLeftClick,
+    leftText,
+    leftImageUrl,
+    leftTextColor,
+}: OverlayProps) => {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "unset"
+        }
+
+        return () => {
+            document.body.style.overflow = "unset"
+        }
+    }, [isOpen])
+
+    if (!isOpen) return null
+
+    const contentCss = clsx(
+        "bg-SYSTEM-white p-4 rounded-lg shadow-lg w-auto mx-auto my-auto flex justify-center items-center",
+    )
+
+    return (
+        <div
+            className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-30"
+            onClick={onClick}
+            aria-modal="true"
+            role="dialog"
+        >
+            <div onClick={e => e.stopPropagation()} className="flex flex-col items-center">
+                <div className={contentCss}>{children}</div>
+                <div className="w-full flex flex-row justify-between items-center">
+                    <div className="w-1/2 flex flex-row items-center pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {leftImageUrl && (
+                                <Image src={leftImageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onLeftClick} className={`text-sm ${leftTextColor}`}>
+                            {leftText}
+                        </button>
+                    </div>
+                    <div className="w-1/2 flex flex-row items-center justify-end pt-2">
+                        <div className="pt-[10px] pr-[4px]">
+                            {imageUrl && (
+                                <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-[10px]" />
+                            )}
+                        </div>
+                        <button onClick={onClick} className={`text-sm ${textColor}`}>
+                            {text}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </Overlay>
+        </div>
+    )
+}
 
-        <Overlay isOpen={isCalendarOverlayOpen} onClose={onClose}>
-            <div className="w-[448px] h-[500px]">
-                <Calendar onClose={onClose} />
-            </div>
-        </Overlay>
-    </>
-)
-
-export default Form
+export default Overlay

@@ -16,16 +16,8 @@ const UserPage = () => {
         bgImage: defaultBg,
     })
 
-    const handleEdit = () => {
-        setIsEditing(true)
-    }
-
     const handleSave = (updatedProfile: Omit<ProfileProps, "onEdit">) => {
         setProfile(updatedProfile)
-        setIsEditing(false)
-    }
-
-    const handleCancel = () => {
         setIsEditing(false)
     }
 
@@ -38,7 +30,7 @@ const UserPage = () => {
                     profileImage={profile.profileImage}
                     bgImage={profile.bgImage}
                     onSave={handleSave}
-                    onCancel={handleCancel}
+                    onCancel={() => setIsEditing(false)}
                 />
             ) : (
                 <Profile
@@ -46,7 +38,7 @@ const UserPage = () => {
                     bio={profile.bio}
                     profileImage={profile.profileImage}
                     bgImage={profile.bgImage}
-                    onEdit={handleEdit}
+                    onEdit={() => setIsEditing(false)}
                 />
             )}
         </div>
