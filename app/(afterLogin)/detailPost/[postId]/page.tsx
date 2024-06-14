@@ -71,7 +71,6 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         목록으로
                     </Link>
                 </div>
-                d
             </div>
         </div>
     )
