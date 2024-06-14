@@ -20,10 +20,8 @@ export type PostCardProps = {
 export type CommentProps = {
     content: string
     likes: number
-    comments: number
     date: string
-    userId: string
-    userProfileImage: string
+    author: string
 }
 
 export type ReCommentProps = {
