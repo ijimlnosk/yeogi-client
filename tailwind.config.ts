@@ -28,10 +28,6 @@ const config: Config = {
                 "comment-pattern": "url(/images/comment-bg.svg)",
                 "re-comment-pattern": "url(/images/re-comment-bg.svg)",
             },
-            boxShadow: {
-                polaroid: "3px 4px 18px 0 rgba(107, 68, 28, .27)",
-                "polaroid-hover": "3px 4px 22px 0 rgba(107, 68, 28, .1)",
-            },
             scale: {
                 "120": "1.2",
             },
