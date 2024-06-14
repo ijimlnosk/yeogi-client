@@ -6,7 +6,7 @@ import { CommentProps } from "./type"
 const Comment = ({ content, likes, date, author }: CommentProps) => {
     return (
         <div className="relative">
-            <div className="relative w-[1000px] bg-SYSTEM-bone bg-comment-pattern opacity-90 border-ACCENT-fireBush border-2 rounded-2xl px-[20px] py-[30px]">
+            <div className="relative w-[1000px] bg-SYSTEM-bone bg-comment-pattern opacity-90 border-ACCENT-fireBush border-2 rounded-2xl px-5 py-[30px]">
                 <Image
                     width={186}
                     height={34}

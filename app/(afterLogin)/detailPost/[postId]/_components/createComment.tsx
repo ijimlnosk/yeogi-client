@@ -30,9 +30,9 @@ const CreateComment = ({ postId }: CommentProps) => {
     }
 
     return (
-        <form className="w-[1000px] rounded-[16px]  ">
+        <form className="w-[1000px] rounded-2xl  ">
             <textarea
-                className="w-full h-[260px] rounded-[16px] pt-[25px] pl-[20px] bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
+                className="w-full h-[260px] rounded-2xl pt-[25px] pl-[20px] bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
                 placeholder="댓글을 입력해주세요"
                 value={content}
                 onChange={e => setContent(e.target.value)}

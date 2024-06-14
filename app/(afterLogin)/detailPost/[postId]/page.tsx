@@ -41,7 +41,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
 
     return (
         <div className="flex items-center justify-center flex-col">
-            <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-[40px] ">
+            <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-10 ">
                 <FloatingBar />
                 <FreeFormDetail
                     title={post.title}
