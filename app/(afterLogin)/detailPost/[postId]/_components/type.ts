@@ -1,4 +1,4 @@
-import { CommentWithLike } from "../type"
+import { Comment } from "../type"
 
 export type PostDetailProps = {
     title: string
@@ -11,7 +11,7 @@ export type PostDetailProps = {
 }
 
 export type CommentBoxProps = {
-    comments: CommentWithLike[]
+    comments: Comment[]
 }
 
 export type FloatingIcon = {
