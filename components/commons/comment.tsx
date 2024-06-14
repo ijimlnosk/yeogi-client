@@ -1,13 +1,12 @@
 import Image from "next/image"
 import LikeIcon from "@/public/icons/like.svg"
-import CommentIcon from "@/public/icons/comment.svg"
 import CommentTape from "@/public/images/comment-tape.svg"
 import { CommentProps } from "./type"
 
-const Comment = ({ content, likes, comments, date, userId, userProfileImage }: CommentProps) => {
+const Comment = ({ content, likes, date, author }: CommentProps) => {
     return (
         <div className="relative">
-            <div className="relative w-[1000px] bg-SYSTEM-bone bg-comment-pattern opacity-90 border-ACCENT-fireBush border-2 rounded-2xl px-[20px] py-[30px]">
+            <div className="relative w-[1000px] bg-SYSTEM-bone bg-comment-pattern opacity-90 border-ACCENT-fireBush border-2 rounded-2xl px-5 py-[30px]">
                 <Image
                     width={186}
                     height={34}
@@ -24,22 +23,22 @@ const Comment = ({ content, likes, comments, date, userId, userProfileImage }: C
                             <Image width={24} height={24} src={LikeIcon} alt="total likes" />
                             <span className="pl-[10px] text-GREY-80">{likes} 개</span>
                         </span>
-                        <span className="flex flex-row justify-center items-center">
+                        {/* <span className="flex flex-row justify-center items-center">
                             <Image width={24} height={24} src={CommentIcon} alt="total comments" />
                             <span className="pl-[10px] text-GREY-80">{comments} 개</span>
-                        </span>
+                        </span> */}
                     </span>
                     <span className="flex flex-row items-center">
                         <span className="mr-[18px]">{date}</span>
                         <span className="flex flex-row justify-center items-center">
-                            <Image
+                            {/* <Image
                                 width={24}
                                 height={24}
                                 src={userProfileImage}
                                 className="rounded-full bg-ACCENT-orange"
                                 alt="user profile"
-                            />
-                            <span>{userId}</span>
+                            /> */}
+                            <span>{author}</span>
                         </span>
                     </span>
                 </p>
