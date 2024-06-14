@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -8,7 +7,6 @@ import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
 import { ProfileProps } from "./type"
 import WorldMap from "./_components/worldMap"
-
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
@@ -61,29 +59,37 @@ const UserPage = () => {
         setIsEditing(false)
     }
 
+    const handleEdit = () => {
+        setIsEditing(true)
+    }
+
+    const handleCancel = () => {
+        setIsEditing(false)
+    }
+
     return (
         <>
-        <div className="h-screen">
-            {isEditing ? (
-                <EditProfile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onSave={handleSave}
-                    onCancel={() => setIsEditing(false)}
-                />
-            ) : (
-                <Profile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onEdit={() => setIsEditing(false)}
-                />
-            )}
-        </div>
-        <WorldMap user={user} editable={false} newPost={newPost} />
+            <div className="h-screen">
+                {isEditing ? (
+                    <EditProfile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onSave={handleSave}
+                        onCancel={handleCancel}
+                    />
+                ) : (
+                    <Profile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onEdit={handleEdit}
+                    />
+                )}
+            </div>
+            <WorldMap user={user} editable={false} newPost={newPost} />
         </>
     )
 }
