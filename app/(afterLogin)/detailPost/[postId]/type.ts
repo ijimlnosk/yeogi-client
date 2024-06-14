@@ -17,3 +17,23 @@ export type ReCommentType = {
     userProfileImage: string
     parentId: number
 }
+
+export type PostDetailProps = { params: { postId: string } }
+
+export type CommentProps = {
+    postId: number
+}
+
+export type Comment = {
+    id: number
+    content: string
+    author: string
+    postId: number
+    createdAt: string
+    modifiedAt: string
+}
+
+export type CommentWithLike = {
+    comment: Comment
+    likeCount: number
+}

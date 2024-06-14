@@ -1,7 +1,7 @@
 import Image from "next/image"
-import { LikesToComments } from "./type"
+import { LikeToComments } from "./type"
 
-const LikeToComment = ({ likes, comments }: LikesToComments) => {
+const LikeToComment = ({ likes, comments }: LikeToComments) => {
     return (
         <div className="w-[1000px] flex flex-row pt-[50px]">
             <div className="w-[100px] flex flex-row items-center">
