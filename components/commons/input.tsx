@@ -4,7 +4,7 @@ import { FieldErrors, Path, RegisterOptions, UseFormRegister } from "react-hook-
 
 // 폼데이터 인터페이스 정의
 type FormValues = {
-    userId: string
+    email: string
     password: string
     data?: {
         nickName: string

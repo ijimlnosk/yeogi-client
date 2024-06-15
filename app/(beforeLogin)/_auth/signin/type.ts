@@ -5,3 +5,7 @@ export type SocialSigninButtonProops = {
     border?: string
     onClick?: () => void
 }
+export type UserRequest ={
+    email:string
+    password: string
+}
