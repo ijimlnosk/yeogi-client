@@ -10,9 +10,14 @@ alt="yeogi logo" />
 
 <img width="16%" src="https://github.com/mobi-projects/yeogi-client/assets/134191817/6a1307e8-9c58-4cda-ad92-a09281d4a95a" alt="yeogi logo" />
 
+
+
 <h5>
 <strong>여기</strong>에 <strong>여</strong>행을 <strong>기</strong>록하세요.
 </h5>
+
+<br />
+
 
 <div align="center">
   <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/2e6b2ca4-fa61-48a6-aa07-f9f2a40d25b5" alt="yeogi main page" />
@@ -24,10 +29,10 @@ alt="yeogi logo" />
 
 
 
-
-
-
 <br />
+<br />
+
+
 
 <h3>🔗 Links</h3> 
 

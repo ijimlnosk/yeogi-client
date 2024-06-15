@@ -29,7 +29,7 @@ const SignupForm = () => {
         data.gender = selectedgender
     }
     return (
-        <div className="w-[450px] h-[790px] top-[95px] left-[760px] rounded-3xl border-[1px] pt-[39px] px-[39px] ">
+        <div className="w-[450px] h-[790px] top-[95px] left-[760px] rounded-3xl border-[1px] pt-[39px] px-[39px] bg-SYSTEM-white">
             <div>
                 <div className=" pb-6 text-xs">가게 정보를 입력해 주세요.</div>
                 <form className="" onSubmit={handleSubmit(onSubmit)}>
