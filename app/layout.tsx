@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Record Your Trip",
     description: "여기에 여행을 기록하세요",
     icons: {
-        icon: "/yeogi.svg",
+        icon: "/icons/logo_img.svg",
     },
 }
 
