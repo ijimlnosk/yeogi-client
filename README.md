@@ -1,14 +1,31 @@
 <div align="center">
-   <h1>여기,</h1>
 
-<h3>Project Intro.</h3>
+<img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/6ce60050-7ab0-44a6-b51d-f87d19485e39" alt="yeogi logo" />
+
+<img width="16%" src="https://github.com/mobi-projects/yeogi-client/assets/134191817/6a1307e8-9c58-4cda-ad92-a09281d4a95a" alt="yeogi logo" />
+
+<br />
+<br />
+
+<div align="center">
+  <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/2e6b2ca4-fa61-48a6-aa07-f9f2a40d25b5" alt="yeogi main page" />
+</div>
+
+<br />
+
+<img width="20%" src="https://github.com/mobi-projects/yeogi-client/assets/134191817/507ea1e9-c386-48e0-bbe4-0ab3fb65cf4c" alt="yeogi logo" />     
+
+
+
+<strong>여기</strong>에 <strong>여</strong>행을 <strong>기</strong>록하세요.
+
 
 <br />
 
 <h3>🔗 Links</h3> 
 
-design <br />
-deploy
+<a href="">YEOGI</a> designed with Figma. <br />
+<a href="https://yeogi-client.vercel.app/">YEOGI</a> deployed by Vercel. 
 
 
 <br />
@@ -34,9 +51,7 @@ deploy
 <table align="center">
   <tr>
     <td>
-      <a href="#">
-        <img src="" width="120px" height="120px"/>
-      </a>  
+        <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/a23b2573-f289-4865-9164-6dd4e8894e9e" width="120px" height="120px"/>
     </td>
   </tr>
   <tr>
@@ -144,13 +159,13 @@ deploy
   <tr>
     <td>06.03 - 06.14 </td>
     <td>2차 디자인  및 1차 스코프 개발</td>
-    <td>on progress</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td rowspan="2">Week-03</td>
     <td>06.15 - 06.16 </td>
     <td>최종 스코프 컷다운/데모데이 준비</td>
-    <td>-</td>
+    <td>on progress</td>
   </tr>
   <tr>
     <td>06.17 - 06.28 </td>
@@ -223,7 +238,6 @@ deploy
       <img src="https://img.shields.io/badge/kakao-FFCD00?style=flat-square&logo=kakao&logoColor=white"> 
       <img src="https://img.shields.io/badge/naver-03C75A?style=flat-square&logo=naver&logoColor=white"> 
       <img src="https://img.shields.io/badge/google-4285F4?style=flat-square&logo=google&logoColor=white"> 
-      <img src="https://img.shields.io/badge/googlemaps-4285F4?style=flat-square&logo=googlemaps&logoColor=white"> 
     </td>
   </tr>
 </table>

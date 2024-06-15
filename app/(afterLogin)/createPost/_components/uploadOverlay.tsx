@@ -7,10 +7,13 @@ import { useState } from "react"
 import { UploadOverlayProps } from "./type"
 import ThumbnailUploader from "./thumbnailUploader"
 import PreviewPostCard from "./previewPostcard"
+import { useFormDataStore, useSelectionStore } from "@/libs/store"
 
-const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen }: UploadOverlayProps) => {
+const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit }: UploadOverlayProps) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+    const { selectedContinent } = useSelectionStore()
+    const { formData } = useFormDataStore()
 
     const handleComplete = (selectedImage: string | null) => {
         setSelectedImage(selectedImage)
@@ -20,6 +23,7 @@ const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen }: UploadOverlayProps) 
     return (
         <Overlay
             isOpen={isOverlayOpen}
+            handleOverlaySubmit={handleOverlaySubmit}
             onClick={() => setIsOverlayOpen(false)}
             onLeftClick={() => setIsPreviewVisible(false)}
             leftText={isPreviewVisible ? "다시 선택" : ""}
@@ -32,7 +36,15 @@ const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen }: UploadOverlayProps) 
             {!isPreviewVisible ? (
                 <ThumbnailUploader onComplete={handleComplete} />
             ) : (
-                <PreviewPostCard selectedImage={selectedImage} />
+                <>
+                    {selectedContinent && (
+                        <PreviewPostCard
+                            selectedImage={selectedImage}
+                            selectedContinent={selectedContinent}
+                            title={formData.title}
+                        />
+                    )}
+                </>
             )}
         </Overlay>
     )

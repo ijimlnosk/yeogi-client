@@ -9,22 +9,29 @@
 import { chosungIncludes } from "es-hangul"
 import { Post } from "./type"
 
-export const filterPosts = (posts: Post[], searchTerm: string) => {
-    if (!searchTerm) return []
+export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
+    // if (!searchTerm) return []
 
     const term = searchTerm.toLowerCase()
 
-    return posts.filter(
-        post =>
-            chosungIncludes(post.title, term) ||
-            chosungIncludes(post.nickName, term) ||
-            chosungIncludes(post.content, term) ||
-            chosungIncludes(post.continent, term) ||
-            chosungIncludes(post.country, term) ||
-            post.title.toLowerCase().includes(term) ||
-            post.nickName.toLowerCase().includes(term) ||
-            post.content.toLowerCase().includes(term) ||
-            post.continent.toLowerCase().includes(term) ||
-            post.country.toLowerCase().includes(term),
-    )
+    return posts.filter(post => {
+        const title = post.title ? post.title.toLowerCase() : ""
+        const author = post.author ? post.author.toLowerCase() : ""
+        const content = post.content ? post.content.toLowerCase() : ""
+        const continent = post.continent ? post.continent.toLowerCase() : ""
+        const region = post.region ? post.region.toLowerCase() : ""
+
+        return (
+            chosungIncludes(title, term) ||
+            chosungIncludes(author, term) ||
+            chosungIncludes(content, term) ||
+            chosungIncludes(continent, term) ||
+            chosungIncludes(region, term) ||
+            title.includes(term) ||
+            author.includes(term) ||
+            content.includes(term) ||
+            continent.includes(term) ||
+            region.includes(term)
+        )
+    })
 }

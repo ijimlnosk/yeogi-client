@@ -3,18 +3,21 @@ import { CountryProps } from "./type"
 import { Country } from "@/app/(afterLogin)/createPost/_components/type"
 import { chosungIncludes } from "es-hangul"
 
-const useCountrySearch = ({ countries, searchTerm }: CountryProps) => {
-    const [results, setResults] = useState<Country[]>(countries)
+const useCountrySearch = ({ countriesByContinent, searchTerm, selectedContinent }: CountryProps) => {
+    const [results, setResults] = useState<Country[]>([])
 
     useEffect(() => {
+        const allCountries = countriesByContinent[selectedContinent]
         if (searchTerm) {
             const term = searchTerm.toLowerCase()
-            setResults(countries.filter(country => chosungIncludes(country.name, term) || country.name.includes(term)))
+            setResults(
+                allCountries.filter(country => chosungIncludes(country.name, term) || country.name.includes(term)),
+            )
         } else {
-            const sortedCountries = [...countries].sort((a, b) => a.name.localeCompare(b.name, "ko-KR"))
+            const sortedCountries = [...allCountries].sort((a, b) => a.name.localeCompare(b.name, "ko-KR"))
             setResults(sortedCountries)
         }
-    }, [countries, searchTerm])
+    }, [selectedContinent, searchTerm, countriesByContinent])
     return results
 }
 export default useCountrySearch

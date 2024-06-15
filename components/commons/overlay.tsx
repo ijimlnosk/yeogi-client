@@ -22,6 +22,7 @@ import { OverlayProps } from "./type"
 const Overlay = ({
     isOpen,
     onClick,
+    handleOverlaySubmit,
     children,
     text,
     imageUrl,
@@ -70,7 +71,7 @@ const Overlay = ({
                             {leftText}
                         </button>
                     </div>
-                    <div className="w-1/2 flex flex-row items-center justify-end pt-2">
+                    <div onClick={handleOverlaySubmit} className="w-1/2 flex flex-row items-center justify-end pt-2">
                         <div className="pt-2.5 pr-1">
                             {imageUrl && <Image src={imageUrl} alt="icon" width={24} height={24} className="pb-2.5" />}
                         </div>

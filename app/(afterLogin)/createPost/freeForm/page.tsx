@@ -1,21 +1,64 @@
 "use client"
 
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { QuillEditor } from "../_components/form/editorQuill"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import UploadOverlay from "../_components/uploadOverlay"
+import { createPostTemplate } from "@/apis/type"
+import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
+import { useFormDataStore, useSelectionStore } from "@/libs/store"
+import { handleUpdatePost } from "@/apis/postApi"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const isFreeForm = true
+    const [formData, setFormData] = useState<createPostTemplate>(loadPostFromSession)
+    const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
+    const { posts, setPosts } = useFormDataStore()
+
+    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+        const newFormData = {
+            ...formData,
+            [field]: value,
+        }
+        setFormData(newFormData)
+        savePostToSession(newFormData)
+    }
+
+    const handleOverlaySubmit = async (e: FormEvent) => {
+        e.preventDefault()
+
+        const postData: createPostTemplate = {
+            continent: selectedContinent || "아시아",
+            country: selectedCountry!,
+            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripEndDate: endDate ? endDate.toISOString() : "",
+            title: formData.title,
+            content: formData.content,
+        }
+
+        try {
+            const newPost = await handleUpdatePost(postData)
+            const updatedPosts = [newPost, ...posts]
+            setPosts(updatedPosts)
+            alert("🟢 게시 성공")
+        } catch (error) {
+            console.error(error)
+            alert("🔴 게시 실패")
+        }
+    }
 
     return (
         <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
-            <UploadOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen} />
+            <UploadOverlay
+                isOverlayOpen={isOverlayOpen}
+                setIsOverlayOpen={setIsOverlayOpen}
+                handleOverlaySubmit={handleOverlaySubmit}
+            />
             <div className="mb-20">
-                <FormInputs formText="자유롭게 " />
-                <QuillEditor index={-1} isFreeForm={isFreeForm} />
+                <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
+                <QuillEditor index={-1} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
                 <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
             </div>
         </div>

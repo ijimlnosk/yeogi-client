@@ -1,23 +1,33 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SortButton from "./sortButton"
 import Image from "next/image"
 import listIcon from "@/public/icons/list.svg"
+import { useRouter } from "next/navigation"
+import { sorts } from "@/constants/sorts"
 
 const SortDropdown = () => {
+    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
     const [activeSort, setActiveSort] = useState("latest")
 
-    const sorts = [
-        { key: "likes", label: "최신 순" },
-        { key: "comments", label: "좋아요 순" },
-        { key: "latest", label: "댓글 순" },
-    ]
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const sort = params.get("sort")
+        if (sort && sorts.some(s => s.key === sort)) {
+            setActiveSort(sort)
+        }
+    }, [])
 
     const handleSortClick = (key: string) => {
         setActiveSort(key)
         setIsOpen(false)
+
+        const params = new URLSearchParams(window.location.search)
+        params.set("sort", key)
+        const newUrl = `${window.location.pathname}?${params.toString()}`
+        router.push(newUrl, { scroll: false })
     }
 
     return (
@@ -25,7 +35,7 @@ const SortDropdown = () => {
             <div>
                 <button
                     type="button"
-                    className=" text-xs inline-flex justify-center w-[110px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
+                    className=" text-xs inline-flex justify-center w-[120px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-1" />

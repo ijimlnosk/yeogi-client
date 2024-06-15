@@ -4,26 +4,29 @@ import { useState, ChangeEvent } from "react"
 import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
-import { DateRange } from "@/components/commons/type"
 import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "./calendarUtils"
+import { useSelectionStore } from "@/libs/store"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
 
 const Calendar = () => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-    const [dateRange, setDateRange] = useState<DateRange>({ start: null, end: null })
     const [isRange] = useState(true)
     const [currentDate, setCurrentDate] = useState(dayjs())
+
+    const { startDate, endDate, setStartDate, setEndDate } = useSelectionStore()
 
     const days = generateDays(currentDate)
 
     const handleDayClick = (day: Dayjs) => {
         if (isRange) {
-            if (dateRange.start && !dateRange.end && day.isAfter(dateRange.start)) {
-                setDateRange({ start: dateRange.start, end: day.toDate() })
+            if (startDate && !endDate && day.isAfter(startDate)) {
+                setStartDate(startDate)
+                setEndDate(day)
             } else {
-                setDateRange({ start: day.toDate(), end: null })
+                setStartDate(day)
+                setEndDate(null)
             }
         } else {
             setSelectedDate(day.toDate())
@@ -34,10 +37,10 @@ const Calendar = () => {
         if (!isRange) {
             return selectedDate && day.isSame(selectedDate, "day")
         }
-        if (dateRange.start && dateRange.end) {
-            return day.isBetween(dayjs(dateRange.start), dayjs(dateRange.end), null, "[]")
+        if (startDate && endDate) {
+            return day.isBetween(dayjs(startDate), dayjs(endDate), null, "[]")
         }
-        return dateRange.start && day.isSame(dayjs(dateRange.start), "day")
+        return startDate && day.isSame(dayjs(startDate), "day")
     }
 
     const handleMonthChange = (increment: number) => {
@@ -76,7 +79,17 @@ const Calendar = () => {
             </div>
             <div className="grid grid-cols-7 text-center h-[350px]">
                 {daysOfWeek.map((day, index) => renderDayOfWeek(day, index))}
-                {days.map((day, index) => renderDay(day, index, isSelected, dateRange, currentDate, handleDayClick))}
+                {days.map((day, index) =>
+                    renderDay(
+                        day,
+                        index,
+                        isSelected,
+                        startDate?.toDate() ?? null,
+                        endDate?.toDate() ?? null,
+                        currentDate,
+                        handleDayClick,
+                    ),
+                )}
             </div>
         </div>
     )

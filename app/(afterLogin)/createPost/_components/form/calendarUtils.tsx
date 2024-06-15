@@ -37,7 +37,8 @@ export const renderDay = (
     day: Dayjs,
     index: number,
     isSelected: (day: Dayjs) => boolean | null,
-    dateRange: { start: Date | null; end: Date | null },
+    startDate: Date | null,
+    endDate: Date | null,
     currentDate: Dayjs,
     handleDayClick: (day: Dayjs) => void,
 ) => {
@@ -46,8 +47,8 @@ export const renderDay = (
             key={index}
             className={clsx("flex items-center justify-center cursor-pointer my-1", {
                 "bg-BRAND-30 text-SYSTEM-white": isSelected(day),
-                "rounded-l-full shadow-custom": dateRange.start && day.isSame(dayjs(dateRange.start), "day"),
-                "rounded-r-full shadow-custom": dateRange.end && day.isSame(dayjs(dateRange.end), "day"),
+                "rounded-l-full shadow-custom": startDate && day.isSame(dayjs(startDate), "day"),
+                "rounded-r-full shadow-custom": endDate && day.isSame(dayjs(endDate), "day"),
                 "text-red-500": day.isSame(dayjs(), "day"),
                 "text-GREY-30": !day.isSame(currentDate, "month"),
             })}

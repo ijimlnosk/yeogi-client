@@ -1,16 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import { QuillEditor } from "../_components/form/editorQuill"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
 import UploadOverlay from "../_components/uploadOverlay"
+import { createPostTemplate } from "@/apis/type"
+import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
+import { useFormDataStore, useSelectionStore } from "@/libs/store"
+import { handleUpdatePost } from "@/apis/postApi"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [quillEditors, setQuillEditors] = useState<number[]>([])
+    const [formData, setFormData] = useState<createPostTemplate>(loadPostFromSession)
+    const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
+    const { posts, setPosts } = useFormDataStore()
 
     const handleAddMemoClick = () => {
         setQuillEditors([...quillEditors, quillEditors.length])
@@ -22,15 +29,55 @@ const Page = () => {
         setQuillEditors(updatedEditors)
     }
 
+    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+        const newFormData = {
+            ...formData,
+            [field]: value,
+        }
+        setFormData(newFormData)
+        savePostToSession(newFormData)
+    }
+
+    const handleOverlaySubmit = async (e: FormEvent) => {
+        e.preventDefault()
+
+        const postData: createPostTemplate = {
+            continent: selectedContinent || "아시아",
+            country: selectedCountry!,
+            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripEndDate: endDate ? endDate.toISOString() : "",
+            title: formData.title,
+            content: formData.content,
+        }
+
+        try {
+            const newPost = await handleUpdatePost(postData)
+            const updatedPosts = [newPost, ...posts]
+            setPosts(updatedPosts)
+            alert("🟢 게시 성공")
+        } catch (error) {
+            console.error(error)
+            alert("🔴 게시 실패")
+        }
+    }
+
     return (
         <div className="flex flex-col justify-center items-center mb-[205px]">
-            <UploadOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen} />
+            <UploadOverlay
+                isOverlayOpen={isOverlayOpen}
+                setIsOverlayOpen={setIsOverlayOpen}
+                handleOverlaySubmit={handleOverlaySubmit}
+            />
             <div className="w-[900px] h-full font-pretendard ">
-                <FormInputs formText={"간단하게 "} />
-                <QuillEditor index={-1} />
+                <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
+                <QuillEditor index={-1} handleInputChange={handleInputChange} />
                 {quillEditors.map((id, index) => (
                     <div key={id}>
-                        <QuillEditor index={index} handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)} />
+                        <QuillEditor
+                            index={index}
+                            handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
+                            handleInputChange={handleInputChange}
+                        />
                     </div>
                 ))}
                 <div
