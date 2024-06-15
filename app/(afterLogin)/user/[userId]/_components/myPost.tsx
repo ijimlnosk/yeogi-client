@@ -1,8 +1,11 @@
 import PostCard from "@/components/commons/postCard"
 import TempImage from "@/public/images/sampleThumbnail.svg"
 import { Post } from "@/utils/type"
+import SampleProfile from "@/public/images/sampleProfile.svg"
 
 const MyPost = ({ posts }: { posts: Post[] }) => {
+    const currentDate = new Date().toISOString()
+
     if (posts && posts.length > 0)
         return (
             <div className="w-full flex flex-col items-center justify-center">
@@ -17,13 +20,13 @@ const MyPost = ({ posts }: { posts: Post[] }) => {
                             <PostCard
                                 key={post.postId}
                                 post_id={post.postId}
-                                user_profile={post.userProfile}
+                                user_profile={SampleProfile}
                                 thumbnail={TempImage}
                                 title={post.title}
                                 continent={post.continent}
-                                user_nickname={post.nickName}
-                                created_At={new Date(post.createdAt)}
-                                commentCount={post.commentCount}
+                                user_nickname={post.author}
+                                created_At={currentDate}
+                                commentCount={0}
                                 likeCount={post.likeCount}
                             />
                         </div>

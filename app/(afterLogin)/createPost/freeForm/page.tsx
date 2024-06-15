@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import { FormEvent, useState, useEffect } from "react"
 import { QuillEditor } from "../_components/form/editorQuill"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
@@ -13,21 +13,41 @@ import { handleUpdatePost } from "@/apis/postApi"
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const isFreeForm = true
-    const [formData, setFormData] = useState<createPostTemplate>(loadPostFromSession)
+    const [formData, setFormData] = useState<createPostTemplate | null>(null)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { posts, setPosts } = useFormDataStore()
 
-    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
-        const newFormData = {
-            ...formData,
-            [field]: value,
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const initialFormData = loadPostFromSession()
+            setFormData(
+                initialFormData || {
+                    continent: "",
+                    country: "",
+                    tripStartDate: "",
+                    tripEndDate: "",
+                    title: "",
+                    content: "",
+                },
+            )
         }
-        setFormData(newFormData)
-        savePostToSession(newFormData)
+    }, [])
+
+    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+        if (formData) {
+            const newFormData = {
+                ...formData,
+                [field]: value,
+            }
+            setFormData(newFormData)
+            savePostToSession(newFormData)
+        }
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
+
+        if (!formData) return
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -47,6 +67,10 @@ const Page = () => {
             console.error(error)
             alert("🔴 게시 실패")
         }
+    }
+
+    if (formData === null) {
+        return <div>Loading...</div>
     }
 
     return (

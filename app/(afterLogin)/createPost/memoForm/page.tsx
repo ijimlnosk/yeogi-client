@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import { FormEvent, useState, useEffect } from "react"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import { QuillEditor } from "../_components/form/editorQuill"
@@ -15,9 +15,25 @@ import { handleUpdatePost } from "@/apis/postApi"
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [quillEditors, setQuillEditors] = useState<number[]>([])
-    const [formData, setFormData] = useState<createPostTemplate>(loadPostFromSession)
+    const [formData, setFormData] = useState<createPostTemplate | null>(null)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { posts, setPosts } = useFormDataStore()
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const initialFormData = loadPostFromSession()
+            setFormData(
+                initialFormData || {
+                    continent: "",
+                    country: "",
+                    tripStartDate: "",
+                    tripEndDate: "",
+                    title: "",
+                    content: "",
+                },
+            )
+        }
+    }, [])
 
     const handleAddMemoClick = () => {
         setQuillEditors([...quillEditors, quillEditors.length])
@@ -30,16 +46,20 @@ const Page = () => {
     }
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
-        const newFormData = {
-            ...formData,
-            [field]: value,
+        if (formData) {
+            const newFormData = {
+                ...formData,
+                [field]: value,
+            }
+            setFormData(newFormData)
+            savePostToSession(newFormData)
         }
-        setFormData(newFormData)
-        savePostToSession(newFormData)
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
+
+        if (!formData) return
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -61,6 +81,10 @@ const Page = () => {
         }
     }
 
+    if (formData === null) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div className="flex flex-col justify-center items-center mb-[205px]">
             <UploadOverlay
@@ -68,7 +92,7 @@ const Page = () => {
                 setIsOverlayOpen={setIsOverlayOpen}
                 handleOverlaySubmit={handleOverlaySubmit}
             />
-            <div className="w-[900px] h-full font-pretendard ">
+            <div className="w-[900px] h-full font-pretendard">
                 <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
                 <QuillEditor index={-1} handleInputChange={handleInputChange} />
                 {quillEditors.map((id, index) => (
