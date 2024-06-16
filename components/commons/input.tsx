@@ -3,12 +3,9 @@ import { ReactNode } from "react"
 import { FieldErrors, Path, RegisterOptions, UseFormRegister } from "react-hook-form"
 
 // 폼데이터 인터페이스 정의
-type FormValues = {
+export type FormValues = {
     email: string
     password: string
-    data?: {
-        nickName: string
-    }
 }
 
 type InputProps<TFieldValues extends FormValues> = {
