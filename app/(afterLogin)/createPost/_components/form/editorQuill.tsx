@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
 import { QuillEditorProps } from "../type"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -11,31 +11,28 @@ export const QuillEditor = ({
     index,
     isFreeForm,
     handleDeleteQuillEditor,
+    handleInputChange,
     handleEditorInputChange,
 }: QuillEditorProps) => {
     const [value, setValue] = useState("")
 
     const handleDeleteClick = () => {
-        if (handleDeleteQuillEditor) handleDeleteQuillEditor(index)
+        if (handleDeleteQuillEditor && index !== undefined) handleDeleteQuillEditor(index)
     }
 
     const handleChange = (content: string) => {
         setValue(content)
-        if (handleEditorInputChange) handleEditorInputChange(index, content)
-        sessionStorage.setItem(`content-${index}`, content)
-    }
-
-    useEffect(() => {
-        const savedContent = sessionStorage.getItem(`content-${index}`)
-        if (savedContent) {
-            setValue(savedContent)
+        if (isFreeForm && handleInputChange) {
+            handleInputChange("content", content)
+        } else if (handleEditorInputChange && index !== undefined) {
+            handleEditorInputChange(index, content)
         }
-    }, [index])
+    }
 
     return (
         <div className="quill-editor-wrapper my-4">
             <div className="relative top-10 w-[940px] flex justify-end">
-                {index !== -1 && (
+                {!isFreeForm && (
                     <button
                         onClick={handleDeleteClick}
                         className="w-[30px] h-[30px] bg-SYSTEM-white text-GREY-50 rounded-full"

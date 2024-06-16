@@ -57,10 +57,11 @@ const Page = () => {
             />
             <div className="mb-20">
                 <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
-                <QuillEditor index={-1} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
+                <QuillEditor index={0} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
                 <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
             </div>
         </div>
     )
 }
+
 export default Page
