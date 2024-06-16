@@ -1,6 +1,7 @@
 import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { createPostTemplate, getPostProps } from "./type"
+import { getDefaultPost } from "@/utils/resetFormData"
 
 const POST_API_URL = "/posts"
 
@@ -33,14 +34,24 @@ export const handleUpdatePost = async (newPost: createPostTemplate): Promise<Pos
         method: "POST",
         credentials: "include",
         headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
         body: JSON.stringify(newPost),
     })
 
-    if (!response.ok) throw new Error("게시글 등록에 실패했어요...🥹")
-    const data = await response.json()
-    return data as Post
+    if (!response.ok) {
+        const errorText = await response.text()
+        console.error("Response error:", response.status, errorText)
+        throw new Error("게시글 등록에 실패했어요...🥹")
+    }
+
+    try {
+        const data = await response.json()
+        return data as Post
+    } catch (error) {
+        return getDefaultPost()
+    }
 }
 
 export const fetchDetailPost = async (postId: number): Promise<Post> => {

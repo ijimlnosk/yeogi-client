@@ -49,15 +49,20 @@ const Page = () => {
 
         if (!formData) return
 
+        // ISO 형식으로 변환
+        const tripStartDate = startDate ? startDate.toISOString() : ""
+        const tripEndDate = endDate ? endDate.toISOString() : ""
+
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
             country: selectedCountry!,
-            tripStartDate: startDate ? startDate.toISOString() : "",
-            tripEndDate: endDate ? endDate.toISOString() : "",
+            tripStartDate: tripStartDate,
+            tripEndDate: tripEndDate,
             title: formData.title,
             content: formData.content,
+            shortPosts: [],
         }
-
+        console.log("Sending post data:", JSON.stringify(postData, null, 2))
         try {
             const newPost = await handleUpdatePost(postData)
             const updatedPosts = [newPost, ...posts]
