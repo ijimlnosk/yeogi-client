@@ -7,7 +7,12 @@ import { useEffect, useState } from "react"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
-export const QuillEditor = ({ index, handleDeleteQuillEditor, handleEditorInputChange }: QuillEditorProps) => {
+export const QuillEditor = ({
+    index,
+    isFreeForm,
+    handleDeleteQuillEditor,
+    handleEditorInputChange,
+}: QuillEditorProps) => {
     const [value, setValue] = useState("")
 
     const handleDeleteClick = () => {
@@ -42,7 +47,7 @@ export const QuillEditor = ({ index, handleDeleteQuillEditor, handleEditorInputC
             <ReactQuill
                 value={value}
                 onChange={handleChange}
-                className={`quill-editor`}
+                className={isFreeForm ? `quill-editor free-editor` : `quill-editor`}
                 modules={{
                     toolbar: [
                         [{ font: ["font-pretendard", "font-myeongjo"] }],

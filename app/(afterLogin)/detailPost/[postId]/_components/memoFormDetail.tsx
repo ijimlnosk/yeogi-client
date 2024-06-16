@@ -1,6 +1,6 @@
 import { PostDetailProps } from "./type"
 
-const MemoFormDetail = ({ title, content, author, created_At, destination, travel_range }: PostDetailProps) => {
+const MemoFormDetail = ({ title, author, created_At, destination, travel_range, shortPosts }: PostDetailProps) => {
     return (
         <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-white h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-[16px] pt-[20px] pb-[20px]">
             <div className="w-[960px] border-2 border-GREY-30 rounded-[16px] p-[20px] ">
@@ -28,7 +28,15 @@ const MemoFormDetail = ({ title, content, author, created_At, destination, trave
                             </p>
                         </div>
                     </div>
-                    <div className="">{content}</div>
+                    <div className="w-full py-5 flex flex-col items-center justify-center">
+                        {shortPosts?.map(post => (
+                            <div
+                                className="py-5 flex flex-row items-center justify-center gap-2"
+                                dangerouslySetInnerHTML={{ __html: post.content }}
+                                key={post.shortPostId}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

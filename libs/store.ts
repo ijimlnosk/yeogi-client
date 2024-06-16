@@ -29,15 +29,19 @@ export const useSelectionStore = create<SelectionState>(set => ({
 type FormState = {
     formData: createPostTemplate
     posts: Post[]
+    quillEditors: Array<{ content: string }>
     setFormData: (data: createPostTemplate) => void
     setPosts: (posts: Post[]) => void
+    setQuillEditors: (editors: Array<{ content: string }>) => void
     resetFormData: () => void
 }
 
 export const useFormDataStore = create<FormState>(set => ({
     formData: initialFormData,
     posts: [],
+    quillEditors: [],
     setFormData: data => set({ formData: data }),
     setPosts: posts => set({ posts }),
-    resetFormData: () => set({ formData: initialFormData }),
+    setQuillEditors: editors => set({ quillEditors: editors }),
+    resetFormData: () => set({ formData: initialFormData, quillEditors: [] }),
 }))

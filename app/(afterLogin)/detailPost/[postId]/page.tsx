@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query"
 import { Comment, PostDetailProps } from "./type"
 import { getComment } from "@/apis/commentApi"
 import CommentBox from "./_components/commentBox"
+import MemoFormDetail from "./_components/memoFormDetail"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
@@ -43,15 +44,27 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         <div className="flex items-center justify-center flex-col">
             <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-10 ">
                 <FloatingBar />
-                <FreeFormDetail
-                    title={post.title}
-                    content={post.content || ""}
-                    author={post.author}
-                    created_At={formatISODateString(post.createdAt)}
-                    destination={post.region || ""}
-                    travel_range={`${formatISODateString(post.tripStartDate)} - ${formatISODateString(post.tripEndDate)}`}
-                    shortPosts={post.shortPostList || []}
-                />
+                {post.content !== "" ? (
+                    <FreeFormDetail
+                        title={post.title}
+                        content={post.content || ""}
+                        author={post.author}
+                        created_At={formatISODateString(post.createdAt)}
+                        destination={post.region || ""}
+                        travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
+                        shortPosts={[]}
+                    />
+                ) : (
+                    <MemoFormDetail
+                        title={post.title}
+                        author={post.author}
+                        content={""}
+                        created_At={formatISODateString(post.createdAt)}
+                        destination={post.region || ""}
+                        travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
+                        shortPosts={post.shortPostList || []}
+                    />
+                )}
             </div>
             <div className="flex justify-center items-center pt-[50px]">
                 <CreateComment postId={post.postId} />

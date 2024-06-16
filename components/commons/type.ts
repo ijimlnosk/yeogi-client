@@ -4,6 +4,7 @@
 import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
+import { Post } from "@/utils/type"
 
 export type PostCardProps = {
     post_id: number
@@ -72,6 +73,10 @@ export type SearchBarProps = {
     text: string
     size: "sm" | "lg"
     onChange: ChangeEventHandler<HTMLInputElement>
+}
+
+export type SearchResultsProps = {
+    posts: Post[]
 }
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &

@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useState, useEffect } from "react"
+import { FormEvent, useState } from "react"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import { QuillEditor } from "../_components/form/editorQuill"
@@ -16,11 +16,6 @@ const Page = () => {
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
-
-    useEffect(() => {
-        // 데이터 초기화 로직
-        // loadStateFromSession();
-    }, [])
 
     const handleAddMemoClick = () => {
         setQuillEditors([...quillEditors, { content: "" }])
@@ -50,17 +45,15 @@ const Page = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",
-            shortPosts: quillEditors.map(editor => ({ content: editor.content })),
+            shortPosts: quillEditors.map(editor => editor.content),
         }
-        console.log("postData", postData)
 
         try {
             const newPost = await handleUpdatePost(postData)
-            console.log("newPost", newPost)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
             alert("🟢 Memo 게시 성공")
-            resetFormData() // 폼 데이터 초기화
+            resetFormData()
             setQuillEditors([])
         } catch (error) {
             console.error(error)

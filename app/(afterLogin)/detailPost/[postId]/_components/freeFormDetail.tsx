@@ -1,14 +1,6 @@
 import { PostDetailProps } from "./type"
 
-const FreeFormDetail = ({
-    title,
-    content,
-    author,
-    created_At,
-    destination,
-    travel_range,
-    shortPosts,
-}: PostDetailProps) => {
+const FreeFormDetail = ({ title, content, author, created_At, destination, travel_range }: PostDetailProps) => {
     return (
         <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-white h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-2xl py-5">
             <div className="w-[960px] border-2 border-GREY-30 rounded-2xl p-5 ">
@@ -36,19 +28,7 @@ const FreeFormDetail = ({
                             </p>
                         </div>
                     </div>
-                    {content ? (
-                        <div dangerouslySetInnerHTML={{ __html: content }} className="py-5" />
-                    ) : (
-                        <div className="w-full py-5 flex flex-col items-center justify-center">
-                            {shortPosts.map((post, idx) => (
-                                <div
-                                    className="py-5 flex flex-row items-center justify-center gap-2"
-                                    dangerouslySetInnerHTML={{ __html: post }}
-                                    key={idx}
-                                />
-                            ))}
-                        </div>
-                    )}
+                    {content && <div dangerouslySetInnerHTML={{ __html: content }} className="py-5" />}
                 </div>
             </div>
         </div>
