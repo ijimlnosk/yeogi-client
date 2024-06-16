@@ -1,6 +1,6 @@
 import { createPostTemplate, initialFormData } from "@/apis/type"
 
-export const loadPostFromSession = (): createPostTemplate => {
+export const loadStateFromSession = (): createPostTemplate => {
     if (typeof window === "undefined") return initialFormData
 
     const savedPost = sessionStorage.getItem("post")
@@ -9,12 +9,11 @@ export const loadPostFromSession = (): createPostTemplate => {
     try {
         return JSON.parse(savedPost)
     } catch (error) {
-        console.error("Error parsing post from session storage:", error)
         return initialFormData
     }
 }
 
-export const savePostToSession = (post: createPostTemplate) => {
+export const saveStateToSession = (post: createPostTemplate) => {
     if (typeof window === "undefined") return
 
     sessionStorage.setItem("post", JSON.stringify(post))

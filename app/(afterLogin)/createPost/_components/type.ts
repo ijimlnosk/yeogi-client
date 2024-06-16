@@ -21,7 +21,8 @@ export type QuillEditorProps = {
     index: number
     handleDeleteQuillEditor?: (index: number) => void
     isFreeForm?: boolean
-    handleInputChange: <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => void
+    handleInputChange?: <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => void
+    handleEditorInputChange?: (index: number, value: string) => void
 }
 
 export type FormSelectorProps = {

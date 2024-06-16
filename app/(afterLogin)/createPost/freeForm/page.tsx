@@ -6,9 +6,10 @@ import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
-import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
+
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { handleUpdatePost } from "@/apis/postApi"
+import { loadStateFromSession, saveStateToSession } from "@/utils/sessionStorage"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -19,7 +20,7 @@ const Page = () => {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const initialFormData = loadPostFromSession()
+            const initialFormData = loadStateFromSession()
             setFormData(
                 initialFormData || {
                     continent: "",
@@ -28,6 +29,7 @@ const Page = () => {
                     tripEndDate: "",
                     title: "",
                     content: "",
+                    shortPosts: "",
                 },
             )
         }
@@ -40,7 +42,7 @@ const Page = () => {
                 [field]: value,
             }
             setFormData(newFormData)
-            savePostToSession(newFormData)
+            saveStateToSession(newFormData)
         }
     }
 
@@ -49,28 +51,23 @@ const Page = () => {
 
         if (!formData) return
 
-        // ISO 형식으로 변환
-        const tripStartDate = startDate ? startDate.toISOString() : ""
-        const tripEndDate = endDate ? endDate.toISOString() : ""
-
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
             country: selectedCountry!,
-            tripStartDate: tripStartDate,
-            tripEndDate: tripEndDate,
+            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: formData.content,
             shortPosts: [],
         }
-        console.log("Sending post data:", JSON.stringify(postData, null, 2))
         try {
             const newPost = await handleUpdatePost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 게시 성공")
+            alert("🟢 Free 게시 성공")
         } catch (error) {
             console.error(error)
-            alert("🔴 게시 실패")
+            alert("🔴 Free 게시 실패")
         }
     }
 

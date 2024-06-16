@@ -32,7 +32,6 @@ export type ReCommentProps = {
     userProfileImage: string
 }
 
-//calendar props type
 export type DateRange = {
     start: Date | null
     end: Date | null

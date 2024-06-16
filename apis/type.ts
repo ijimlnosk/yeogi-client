@@ -13,7 +13,11 @@ export type createPostTemplate = {
     tripEndDate: string
     title: string
     content?: string
-    shortPosts?: string[]
+    shortPosts?: shortPostsType[]
+}
+
+export type shortPostsType = {
+    content: string
 }
 
 export const initialFormData: createPostTemplate = {
@@ -23,6 +27,7 @@ export const initialFormData: createPostTemplate = {
     tripEndDate: "",
     title: "",
     content: "",
+    shortPosts: undefined,
 }
 
 export type createCommentProps = {

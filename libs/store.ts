@@ -1,49 +1,43 @@
-import { createPostTemplate } from "@/apis/type"
-import { Continent } from "@/constants/continents"
-import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
-import { Post } from "@/utils/type"
+import create from "zustand"
 import { Dayjs } from "dayjs"
-import { create } from "zustand"
+import { Continent } from "@/constants/continents"
+import { Post } from "@/utils/type"
+import { createPostTemplate, initialFormData } from "@/apis/type"
 
 type SelectionState = {
     selectedContinent: Continent | null
     selectedCountry: string | null
-    setSelectedContinent: (continent: Continent) => void
-    setSelectedCountry: (country: string) => void
     startDate: Dayjs | null
     endDate: Dayjs | null
+    setSelectedContinent: (continent: Continent | null) => void
+    setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
 }
 
 export const useSelectionStore = create<SelectionState>(set => ({
     selectedContinent: null,
-    selectedCountry: "",
-    setSelectedContinent: (continent: Continent) => set({ selectedContinent: continent }),
-    setSelectedCountry: (country: string) => set({ selectedCountry: country }),
+    selectedCountry: null,
     startDate: null,
     endDate: null,
+    setSelectedContinent: continent => set({ selectedContinent: continent }),
+    setSelectedCountry: country => set({ selectedCountry: country }),
     setStartDate: date => set({ startDate: date }),
     setEndDate: date => set({ endDate: date }),
 }))
 
-export type FormState = {
+type FormState = {
     formData: createPostTemplate
-    setFormData: (data: createPostTemplate) => void
     posts: Post[]
+    setFormData: (data: createPostTemplate) => void
     setPosts: (posts: Post[]) => void
+    resetFormData: () => void
 }
 
 export const useFormDataStore = create<FormState>(set => ({
-    formData: loadPostFromSession(),
-    setFormData: data => {
-        set({ formData: data })
-        savePostToSession(data)
-    },
-    selectedContinent: null,
-    selectedCountry: null,
-    startDate: null,
-    endDate: null,
+    formData: initialFormData,
     posts: [],
-    setPosts: posts => set({ posts: posts }),
+    setFormData: data => set({ formData: data }),
+    setPosts: posts => set({ posts }),
+    resetFormData: () => set({ formData: initialFormData }),
 }))

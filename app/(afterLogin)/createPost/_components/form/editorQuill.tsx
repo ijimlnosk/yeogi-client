@@ -7,32 +7,32 @@ import { useEffect, useState } from "react"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
-export const QuillEditor = ({ index, handleDeleteQuillEditor, isFreeForm, handleInputChange }: QuillEditorProps) => {
+export const QuillEditor = ({ index, handleDeleteQuillEditor, handleEditorInputChange }: QuillEditorProps) => {
     const [value, setValue] = useState("")
 
-    const handleDeleteClick = (index: number) => {
+    const handleDeleteClick = () => {
         if (handleDeleteQuillEditor) handleDeleteQuillEditor(index)
     }
 
     const handleChange = (content: string) => {
         setValue(content)
-        handleInputChange("content", content)
-        sessionStorage.setItem("content", content)
+        if (handleEditorInputChange) handleEditorInputChange(index, content)
+        sessionStorage.setItem(`content-${index}`, content)
     }
 
     useEffect(() => {
-        const savedContent = sessionStorage.getItem("content")
+        const savedContent = sessionStorage.getItem(`content-${index}`)
         if (savedContent) {
             setValue(savedContent)
         }
-    }, [])
+    }, [index])
 
     return (
         <div className="quill-editor-wrapper my-4">
             <div className="relative top-10 w-[940px] flex justify-end">
                 {index !== -1 && (
                     <button
-                        onClick={() => handleDeleteClick(index)}
+                        onClick={handleDeleteClick}
                         className="w-[30px] h-[30px] bg-SYSTEM-white text-GREY-50 rounded-full"
                     >
                         x
@@ -42,7 +42,7 @@ export const QuillEditor = ({ index, handleDeleteQuillEditor, isFreeForm, handle
             <ReactQuill
                 value={value}
                 onChange={handleChange}
-                className={isFreeForm ? `quill-editor free-editor` : `quill-editor`}
+                className={`quill-editor`}
                 modules={{
                     toolbar: [
                         [{ font: ["font-pretendard", "font-myeongjo"] }],
