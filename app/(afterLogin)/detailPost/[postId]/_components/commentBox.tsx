@@ -28,10 +28,12 @@ const CommentBox = ({ comments }: CommentBoxProps) => {
                     {currentComments.map(commentWithLike => (
                         <div key={commentWithLike.id} className="flex flex-col items-center justify-center pb-[80px]">
                             <Comment
+                                commentId={commentWithLike.id}
                                 content={commentWithLike.content}
                                 author={commentWithLike.nickname}
                                 likes={commentWithLike.likeCount}
                                 date={commentWithLike.createdAt}
+                                initialLiked={false}
                             />
                         </div>
                     ))}

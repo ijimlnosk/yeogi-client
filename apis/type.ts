@@ -33,3 +33,7 @@ export type createCommentProps = {
 export type getCommentProps = {
     postId: number
 }
+
+export type commentIdProps = {
+    commentId: number
+}
