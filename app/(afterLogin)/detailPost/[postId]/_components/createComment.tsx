@@ -1,10 +1,11 @@
 import { createComment } from "@/apis/commentApi"
 import { useState } from "react"
 import { CommentProps } from "../type"
+import FailModal from "@/components/commons/failModal"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")
-    const [error, setError] = useState<string | null>(null)
+    const [isError, setIsError] = useState<boolean>(false)
 
     const handleSubmit = async () => {
         if (content.trim() === "") {
@@ -15,12 +16,10 @@ const CreateComment = ({ postId }: CommentProps) => {
         try {
             await createComment({ content, postId })
             setContent("")
-            setError(null)
-            alert("댓글 등록 성공")
+            setIsError(false)
             window.location.reload()
         } catch (error) {
-            console.error(error)
-            setError("댓글 등록 실패")
+            setIsError(true)
         }
     }
 
@@ -46,7 +45,12 @@ const CreateComment = ({ postId }: CommentProps) => {
                 onChange={e => setContent(e.target.value)}
                 onKeyDown={handleKeyDown}
             />
-            {error && <div>{error}</div>}
+            <FailModal
+                isOpen={isError}
+                setIsOpen={() => setIsError(isError)}
+                title="댓글 등록"
+                context="댓글이 등록되지 않았어요"
+            />
         </form>
     )
 }
