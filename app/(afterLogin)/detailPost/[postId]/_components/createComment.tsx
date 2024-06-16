@@ -1,17 +1,24 @@
+"use client"
+
 import { createComment } from "@/apis/commentApi"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { CommentProps } from "../type"
 import FailModal from "@/components/commons/failModal"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
+    const isLoading = useRef<boolean>(false)
 
     const handleSubmit = async () => {
         if (content.trim() === "") {
             alert("댓글을 입력해주세요")
             return
         }
+
+        if (isLoading.current) return
+
+        isLoading.current = true
 
         try {
             await createComment({ content, postId })
@@ -20,6 +27,8 @@ const CreateComment = ({ postId }: CommentProps) => {
             window.location.reload()
         } catch (error) {
             setIsError(true)
+        } finally {
+            isLoading.current = false
         }
     }
 
