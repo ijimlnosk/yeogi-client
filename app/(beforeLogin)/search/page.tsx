@@ -49,7 +49,6 @@ const SearchPage = () => {
             {posts.length > 0 && (
                 <>
                     <SearchResults posts={posts} />
-                    <Pagination totalPages={Math.ceil(posts.length) / 8} />
                 </>
             )}
         </div>
