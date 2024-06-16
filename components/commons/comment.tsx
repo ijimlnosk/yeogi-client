@@ -3,6 +3,7 @@ import Image from "next/image"
 import CommentTape from "@/public/images/comment-tape.svg"
 import { CommentProps } from "./type"
 import LikeButton from "./likeButton"
+import { formatISODateString } from "@/utils/formatDate"
 
 const Comment = ({ commentId, content, likes, date, author, initialLiked }: CommentProps) => {
     return (
@@ -27,7 +28,7 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked }: Comm
                         <LikeButton commentId={commentId} initialLikes={likes} initialLiked={initialLiked} />
                     </div>
                     <span className="flex flex-row items-center">
-                        <span className="mr-[18px]">{date}</span>
+                        <span className="mr-[18px] pt-1 text-GREY-80">{formatISODateString(date)}</span>
                         <span className="flex flex-row justify-center items-center">
                             {/* <Image
                                 width={24}
