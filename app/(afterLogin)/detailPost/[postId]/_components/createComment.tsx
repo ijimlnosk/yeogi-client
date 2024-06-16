@@ -15,7 +15,9 @@ const CreateComment = ({ postId }: CommentProps) => {
         try {
             await createComment({ content, postId })
             setContent("")
+            setError(null)
             alert("댓글 등록 성공")
+            window.location.reload()
         } catch (error) {
             console.error(error)
             setError("댓글 등록 실패")
@@ -30,7 +32,13 @@ const CreateComment = ({ postId }: CommentProps) => {
     }
 
     return (
-        <form className="w-[1000px] rounded-2xl  ">
+        <form
+            className="w-[1000px] rounded-2xl"
+            onSubmit={e => {
+                e.preventDefault()
+                handleSubmit()
+            }}
+        >
             <textarea
                 className="w-full h-[260px] rounded-2xl pt-[25px] pl-[20px] bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
                 placeholder="댓글을 입력해주세요"
