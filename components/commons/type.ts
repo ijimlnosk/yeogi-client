@@ -83,6 +83,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 
 export type PaginationProps = {
     totalPages: number
+    currentPage: number
 }
 
 export type PaginationNumberProps = {
