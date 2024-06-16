@@ -51,11 +51,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <ReactQueryProvider>
-                <body className={`${myeongjo.className} ${pretendard.className}`}>
+            <body className={`${myeongjo.className} ${pretendard.className}`}>
+                <ReactQueryProvider>
                     <Layout>{children}</Layout>
-                </body>
-            </ReactQueryProvider>
+                </ReactQueryProvider>
+            </body>
         </html>
     )
 }
