@@ -1,7 +1,6 @@
 "use client"
 
 import { samplePosts } from "@/apis/mockPosts"
-import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
