@@ -9,7 +9,7 @@ export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: 
     return filterPosts(samplePosts, searchKeyword)
 }
 
-export const handleGetPost = async ({ searchType, searchString, sortCondition }: getPostProps): Promise<Post[]> => {
+export const getPost = async ({ searchType, searchString, sortCondition }: getPostProps): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
 
     const queryParams = new URLSearchParams()
@@ -29,7 +29,7 @@ export const handleGetPost = async ({ searchType, searchString, sortCondition }:
     return data
 }
 
-export const handleUpdatePost = async (newPost: createPostTemplate): Promise<Post> => {
+export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts`, {
         method: "POST",
         credentials: "include",
@@ -54,7 +54,7 @@ export const handleUpdatePost = async (newPost: createPostTemplate): Promise<Pos
     }
 }
 
-export const fetchDetailPost = async (postId: number): Promise<Post> => {
+export const getPostDetail = async (postId: number): Promise<Post> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }

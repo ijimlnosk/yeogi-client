@@ -7,7 +7,7 @@ import FormInputs from "../_components/form/formInputs"
 import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
-import { handleUpdatePost } from "@/apis/postApi"
+import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 
 const Page = () => {
@@ -36,7 +36,7 @@ const Page = () => {
         }
 
         try {
-            const newPost = await handleUpdatePost(postData)
+            const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
             alert("🟢 Free 게시 성공")

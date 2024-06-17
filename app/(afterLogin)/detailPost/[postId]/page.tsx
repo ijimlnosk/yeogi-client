@@ -5,7 +5,7 @@ import FreeFormDetail from "./_components/freeFormDetail"
 import LikeToComment from "./_components/likeToComment"
 import Link from "next/link"
 import FloatingBar from "./_components/floatingBar"
-import { fetchDetailPost } from "@/apis/postApi"
+import { getPostDetail } from "@/apis/postApi"
 import { Post } from "@/utils/type"
 import { formatISODateString } from "@/utils/formatDate"
 import { useQuery } from "@tanstack/react-query"
@@ -23,7 +23,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         isLoading,
     } = useQuery<Post, Error>({
         queryKey: ["post", postId],
-        queryFn: () => fetchDetailPost(Number(postId)),
+        queryFn: () => getPostDetail(Number(postId)),
     })
 
     const {

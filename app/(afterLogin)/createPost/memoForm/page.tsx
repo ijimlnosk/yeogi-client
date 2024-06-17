@@ -8,7 +8,7 @@ import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
 import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
-import { handleUpdatePost } from "@/apis/postApi"
+import { postPost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 
@@ -52,7 +52,7 @@ const Page = () => {
         }
 
         try {
-            const newPost = await handleUpdatePost(postData)
+            const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
             alert("🟢 Memo 게시 성공")
