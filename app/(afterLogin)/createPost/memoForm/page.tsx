@@ -3,14 +3,14 @@
 import { FormEvent, useState } from "react"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
-import { QuillEditor } from "../_components/form/editorQuill"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
-import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
 import { postPost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
+import UploadOverlay from "../_components/overlay/uploadOverlay"
+import { QuillEditor } from "../_components/editor/editorQuill"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)

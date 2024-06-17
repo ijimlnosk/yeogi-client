@@ -1,8 +1,10 @@
-import { FC, useRef } from "react"
-import photoIcon from "@/public/icons/photoIcon.svg"
-import { ProfileImageProps } from "../../type"
+"use client"
 
-const ProfileImage: FC<ProfileImageProps> = ({ image, onImageChange, className }) => {
+import { useRef } from "react"
+import photoIcon from "@/public/icons/photoIcon.svg"
+import { ProfileImageProps } from "./type"
+
+const ProfileImage = ({ image, onImageChange, className }: ProfileImageProps) => {
     const imageInputRef = useRef<HTMLInputElement>(null)
 
     return (

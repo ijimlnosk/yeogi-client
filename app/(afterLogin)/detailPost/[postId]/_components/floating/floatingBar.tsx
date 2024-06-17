@@ -1,3 +1,5 @@
+"use client"
+
 import arrowIcon from "@/public/icons/arrow_up.svg"
 import likeIcon from "@/public/icons/floatinglike.svg"
 import shareIcon from "@/public/icons/share.svg"

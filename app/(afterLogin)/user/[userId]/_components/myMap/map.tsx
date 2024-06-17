@@ -4,10 +4,10 @@ import Button from "@/components/commons/button"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { MouseEvent as ReactMouseEvent } from "react"
-import { WorldMapProps, WorldPost } from "./myMap/type"
-import UserDetails from "./myMap/userDetails"
-import { handleMapClick, toggleUpdateMode } from "./myMap/worldMapHandlers"
-import Pin from "./myMap/pin"
+import UserDetails from "../userDetails"
+import Pin from "./pin"
+import { WorldMapProps, WorldPost } from "./type"
+import { handleMapClick, toggleUpdateMode } from "./mapHandlers"
 
 const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
     const [pins, setPins] = useState<WorldPost[]>(user.posts) // 지도에 표시된 핀 목록

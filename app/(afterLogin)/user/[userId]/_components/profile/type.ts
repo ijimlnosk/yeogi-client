@@ -8,6 +8,12 @@ export type ProfileProps = {
     onEdit: () => void
 }
 
+export type ProfileImageProps = {
+    image: string | StaticImageData
+    onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    className?: string
+}
+
 export type EditProfileProps = {
     name: string
     bio: string
@@ -24,10 +30,3 @@ export type EditFieldProps = {
     maxLength?: number
     className?: string
 }
-
-export type ProfileImageProps = {
-    image: string | StaticImageData
-    onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    className?: string
-}
-

@@ -1,6 +1,6 @@
 import { createComment } from "@/apis/commentApi"
 import { useState } from "react"
-import { CommentProps } from "../type"
+import { CommentProps } from "./type"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")

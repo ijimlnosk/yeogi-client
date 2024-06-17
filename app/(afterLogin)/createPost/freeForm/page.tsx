@@ -1,14 +1,14 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { QuillEditor } from "../_components/form/editorQuill"
+import { QuillEditor } from "../_components/editor/editorQuill"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
-import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
+import UploadOverlay from "../_components/overlay/uploadOverlay"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)

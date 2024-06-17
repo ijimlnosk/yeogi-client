@@ -1,15 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import Profile from "./_components/profile"
-import EditProfile from "./_components/editProfile"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
-import { ProfileProps } from "./type"
-import WorldMap from "./_components/worldMap"
 import MyPost from "./_components/myPost"
 import { samplePosts } from "@/apis/mockPosts"
 import { Post } from "@/utils/type"
+import { ProfileProps } from "./_components/profile/type"
+import EditProfile from "./_components/profile/editProfile"
+import Profile from "./_components/profile/profile"
+import WorldMap from "./_components/myMap/map"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
