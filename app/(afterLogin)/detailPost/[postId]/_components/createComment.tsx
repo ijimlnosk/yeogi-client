@@ -48,7 +48,7 @@ const CreateComment = ({ postId }: CommentProps) => {
             }}
         >
             <textarea
-                className="w-full h-[260px] rounded-2xl pt-[25px] pl-[20px] bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
+                className="w-full h-[260px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
                 placeholder="댓글을 입력해주세요"
                 value={content}
                 onChange={e => setContent(e.target.value)}
