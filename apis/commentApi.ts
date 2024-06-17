@@ -37,7 +37,7 @@ export const getComment = async ({ postId }: getCommentProps) => {
     return data
 }
 
-export const addLike = async ({ commentId }: commentIdProps) => {
+export const addCommentLike = async ({ commentId }: commentIdProps) => {
     const response = await fetch(`${API_URL}/comment/like/${commentId}`, {
         method: "POST",
         headers: {
@@ -53,7 +53,7 @@ export const addLike = async ({ commentId }: commentIdProps) => {
     return { commentId }
 }
 
-export const removeLike = async ({ commentId }: commentIdProps) => {
+export const removeCommentLike = async ({ commentId }: commentIdProps) => {
     const response = await fetch(`${API_URL}/comment/like/${commentId}`, {
         method: "DELETE",
         headers: {
