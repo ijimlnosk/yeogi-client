@@ -6,6 +6,7 @@ import Link from "next/link"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
 import SampleProfile from "@/public/images/sampleProfile.svg"
+import { formatISODateString } from "@/utils/formatDate"
 
 const PostCard = ({
     post_id = 0,
@@ -37,7 +38,7 @@ const PostCard = ({
                 {/* 게시일 */}
                 <div className="p-5">
                     <div className="font-bold text-sm ">{title}</div>
-                    <p className="text-GREY-50 text-sm">게시일 : {new Date(created_At).toLocaleDateString()}</p>
+                    <p className="text-GREY-50 text-sm">게시일 : {formatISODateString(created_At)}</p>
                 </div>
                 {/* 좋아요 코멘트 */}
                 <div className="px-5 flex justify-between items-center ">

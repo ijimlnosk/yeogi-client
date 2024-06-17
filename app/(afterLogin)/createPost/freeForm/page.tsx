@@ -1,53 +1,29 @@
 "use client"
 
-import { FormEvent, useState, useEffect } from "react"
+import { FormEvent, useState } from "react"
 import { QuillEditor } from "../_components/form/editorQuill"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
-import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
-import { handleUpdatePost } from "@/apis/postApi"
+import { postPost } from "@/apis/postApi"
+import { processContentImages } from "@/utils/commonFormUtils"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const isFreeForm = true
-    const [formData, setFormData] = useState<createPostTemplate | null>(null)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
-    const { posts, setPosts } = useFormDataStore()
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const initialFormData = loadPostFromSession()
-            setFormData(
-                initialFormData || {
-                    continent: "",
-                    country: "",
-                    tripStartDate: "",
-                    tripEndDate: "",
-                    title: "",
-                    content: "",
-                },
-            )
-        }
-    }, [])
+    const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
-        if (formData) {
-            const newFormData = {
-                ...formData,
-                [field]: value,
-            }
-            setFormData(newFormData)
-            savePostToSession(newFormData)
-        }
+        setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        if (!formData) return
+        const processedContent = await processContentImages(formData.content || "") // 유틸리티 함수 사용
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -55,21 +31,23 @@ const Page = () => {
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
-            content: formData.content,
+            content: processedContent,
+            shortPosts: [],
         }
 
         try {
-            const newPost = await handleUpdatePost(postData)
+            const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 게시 성공")
+            alert("🟢 Free 게시 성공")
+            resetFormData()
         } catch (error) {
             console.error(error)
-            alert("🔴 게시 실패")
+            alert("🔴 Free 게시 실패")
         }
     }
 
-    if (formData === null) {
+    if (!formData) {
         return <div>Loading...</div>
     }
 
@@ -82,10 +60,11 @@ const Page = () => {
             />
             <div className="mb-20">
                 <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
-                <QuillEditor index={-1} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
+                <QuillEditor index={0} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
                 <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
             </div>
         </div>
     )
 }
+
 export default Page
