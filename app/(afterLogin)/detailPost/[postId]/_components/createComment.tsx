@@ -39,27 +39,24 @@ const CreateComment = ({ postId }: CommentProps) => {
     }
 
     return (
-        <form
-            className="w-[1000px] rounded-2xl"
-            onSubmit={e => {
-                e.preventDefault()
-                handleSubmit()
-            }}
-        >
-            <textarea
-                className="w-full h-[260px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
-                placeholder="댓글을 입력해주세요"
-                value={content}
-                onChange={e => setContent(e.target.value)}
-                onKeyDown={handleKeyDown}
-            />
-            <FailModal
-                isOpen={isError}
-                setIsOpen={() => setIsError(isError)}
-                title="댓글 등록"
-                context="댓글이 등록되지 않았어요"
-            />
-        </form>
+        <>
+            <FailModal isOpen={isError} setIsOpen={setIsError} title="댓글 등록" context="댓글이 등록되지 않았어요" />
+            <form
+                className="w-[1000px] rounded-2xl"
+                onSubmit={e => {
+                    e.preventDefault()
+                    handleSubmit()
+                }}
+            >
+                <textarea
+                    className="w-full h-[260px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
+                    placeholder="댓글을 입력해주세요"
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
+            </form>
+        </>
     )
 }
 export default CreateComment

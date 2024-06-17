@@ -98,4 +98,5 @@ export type LikeButtonProps = {
     commentId: number
     initialLikes: number
     initialLiked: boolean
+    setIsError: (isError: boolean) => void
 }
