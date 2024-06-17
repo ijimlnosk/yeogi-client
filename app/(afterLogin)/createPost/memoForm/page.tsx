@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useState, useEffect } from "react"
+import { FormEvent, useState } from "react"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import { QuillEditor } from "../_components/form/editorQuill"
@@ -8,58 +8,38 @@ import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
 import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
-import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
+import { postPost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
-import { handleUpdatePost } from "@/apis/postApi"
+import { processContentImages } from "@/utils/commonFormUtils"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-    const [quillEditors, setQuillEditors] = useState<number[]>([])
-    const [formData, setFormData] = useState<createPostTemplate | null>(null)
+    const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
-    const { posts, setPosts } = useFormDataStore()
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const initialFormData = loadPostFromSession()
-            setFormData(
-                initialFormData || {
-                    continent: "",
-                    country: "",
-                    tripStartDate: "",
-                    tripEndDate: "",
-                    title: "",
-                    content: "",
-                },
-            )
-        }
-    }, [])
+    const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
 
     const handleAddMemoClick = () => {
-        setQuillEditors([...quillEditors, quillEditors.length])
+        setQuillEditors([...quillEditors, { content: "" }])
     }
 
     const handleDeleteQuillEditor = (index: number) => {
-        const updatedEditors = [...quillEditors]
-        updatedEditors.splice(index, 1)
+        const updatedEditors = quillEditors.filter((_, i) => i !== index)
+        setQuillEditors(updatedEditors)
+    }
+
+    const handleEditorInputChange = (index: number, value: string) => {
+        const updatedEditors = quillEditors.map((editor, i) => (i === index ? { ...editor, content: value } : editor))
         setQuillEditors(updatedEditors)
     }
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
-        if (formData) {
-            const newFormData = {
-                ...formData,
-                [field]: value,
-            }
-            setFormData(newFormData)
-            savePostToSession(newFormData)
-        }
+        setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        if (!formData) return
+        const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content))) // 유틸리티 함수 사용
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -67,21 +47,24 @@ const Page = () => {
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
-            content: formData.content,
+            content: "",
+            shortPosts: processedContent,
         }
 
         try {
-            const newPost = await handleUpdatePost(postData)
+            const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 게시 성공")
+            alert("🟢 Memo 게시 성공")
+            resetFormData()
+            setQuillEditors([])
         } catch (error) {
             console.error(error)
-            alert("🔴 게시 실패")
+            alert("🔴 Memo 게시 실패")
         }
     }
 
-    if (formData === null) {
+    if (!formData) {
         return <div>Loading...</div>
     }
 
@@ -94,13 +77,12 @@ const Page = () => {
             />
             <div className="w-[900px] h-full font-pretendard">
                 <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
-                <QuillEditor index={-1} handleInputChange={handleInputChange} />
-                {quillEditors.map((id, index) => (
-                    <div key={id}>
+                {quillEditors.map((_, index) => (
+                    <div key={index}>
                         <QuillEditor
                             index={index}
                             handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
-                            handleInputChange={handleInputChange}
+                            handleEditorInputChange={handleEditorInputChange}
                         />
                     </div>
                 ))}
@@ -116,4 +98,5 @@ const Page = () => {
         </div>
     )
 }
+
 export default Page

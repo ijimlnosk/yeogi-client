@@ -18,10 +18,11 @@ export type DateRange = {
 }
 
 export type QuillEditorProps = {
-    index: number
-    handleDeleteQuillEditor?: (index: number) => void
+    index?: number
     isFreeForm?: boolean
-    handleInputChange: <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => void
+    handleDeleteQuillEditor?: (index: number) => void
+    handleInputChange?: <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => void
+    handleEditorInputChange?: (index: number, value: string) => void
 }
 
 export type FormSelectorProps = {

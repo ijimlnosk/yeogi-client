@@ -1,6 +1,6 @@
 "use client"
 
-import { handleGetPost } from "@/apis/postApi"
+import { getPost } from "@/apis/postApi"
 import Button from "@/components/commons/button"
 import Searchbar from "@/components/commons/searchBar"
 import { Continents } from "@/constants/continents"
@@ -21,7 +21,7 @@ const MainPosts = () => {
 
     const { data: posts } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
-        queryFn: () => handleGetPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES" }),
+        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES" }),
     })
 
     useEffect(() => {

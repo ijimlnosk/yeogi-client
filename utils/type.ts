@@ -9,12 +9,12 @@ export type Post = {
     viewCount: number
     createdAt: string
     modifiedAt: string
-    tripStartDate: string
+    tripStarDate: string
     tripEndDate: string
     region?: string
 }
 
 export type ShortPosts = {
+    shortPostId: number
     content: string
-    region: string
 }
