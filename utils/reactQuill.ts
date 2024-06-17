@@ -7,6 +7,7 @@ export const getModules = () => ({
         [{ align: [] }],
         ["link", "image"],
         ["clean"],
+        ["image"],
     ],
 })
 
