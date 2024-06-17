@@ -28,3 +28,7 @@ export type TextDisplayProps = {
     subText?: string | null
     label: string
 }
+
+export type MyMapOverlayProps = {
+    isMapOverlayOpen: boolean
+}

@@ -9,7 +9,7 @@ import { Post } from "@/utils/type"
 import { ProfileProps } from "./_components/profile/type"
 import EditProfile from "./_components/profile/editProfile"
 import Profile from "./_components/profile/profile"
-import WorldMap from "./_components/myMap/map"
+import WorldMap from "./_components/myMap/worldMap"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)

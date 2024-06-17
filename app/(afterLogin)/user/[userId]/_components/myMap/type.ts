@@ -6,6 +6,16 @@ export type WorldMapProps = {
     newPost?: WorldPost
 }
 
+export type MapProps = {
+    user: User
+    editable: boolean
+    isUpdate: boolean
+    movingPins: WorldPost[]
+    setMovingPins: (pins: WorldPost[]) => void
+    pinCount: number
+    setPinCount: (count: number) => void
+}
+
 export type Pin = {
     x: number
     y: number

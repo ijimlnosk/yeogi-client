@@ -9,12 +9,14 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
+import MyMapOverlay from "../_components/overlay/mapOverlay"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-    const isFreeForm = true
+    const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const isFreeForm = true
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
         setFormData({ ...formData, [field]: value })
@@ -23,7 +25,7 @@ const Page = () => {
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        const processedContent = await processContentImages(formData.content || "") // 유틸리티 함수 사용
+        const processedContent = await processContentImages(formData.content || "")
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -39,8 +41,9 @@ const Page = () => {
             const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 Free 게시 성공")
             resetFormData()
+            alert("🟢 Free 게시 성공")
+            setIsMapOverlayOpen(true)
         } catch (error) {
             console.error(error)
             alert("🔴 Free 게시 실패")
@@ -52,18 +55,21 @@ const Page = () => {
     }
 
     return (
-        <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
-            <UploadOverlay
-                isOverlayOpen={isOverlayOpen}
-                setIsOverlayOpen={setIsOverlayOpen}
-                handleOverlaySubmit={handleOverlaySubmit}
-            />
-            <div className="mb-20">
-                <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
-                <QuillEditor index={0} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
-                <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+        <>
+            <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
+                <UploadOverlay
+                    isOverlayOpen={isOverlayOpen}
+                    setIsOverlayOpen={setIsOverlayOpen}
+                    handleOverlaySubmit={handleOverlaySubmit}
+                />
+                <div className="mb-20">
+                    <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
+                    <QuillEditor index={0} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
+                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+                </div>
             </div>
-        </div>
+            {isMapOverlayOpen && <MyMapOverlay isMapOverlayOpen={isMapOverlayOpen} />}
+        </>
     )
 }
 

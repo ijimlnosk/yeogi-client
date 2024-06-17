@@ -11,10 +11,12 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
 import { QuillEditor } from "../_components/editor/editorQuill"
+import MyMapOverlay from "../_components/overlay/mapOverlay"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
+    const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
 
@@ -58,6 +60,7 @@ const Page = () => {
             alert("🟢 Memo 게시 성공")
             resetFormData()
             setQuillEditors([])
+            setIsMapOverlayOpen(true)
         } catch (error) {
             console.error(error)
             alert("🔴 Memo 게시 실패")
@@ -69,33 +72,36 @@ const Page = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center mb-[205px]">
-            <UploadOverlay
-                isOverlayOpen={isOverlayOpen}
-                setIsOverlayOpen={setIsOverlayOpen}
-                handleOverlaySubmit={handleOverlaySubmit}
-            />
-            <div className="w-[900px] h-full font-pretendard">
-                <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
-                {quillEditors.map((_, index) => (
-                    <div key={index}>
-                        <QuillEditor
-                            index={index}
-                            handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
-                            handleEditorInputChange={handleEditorInputChange}
-                        />
+        <>
+            <div className="flex flex-col justify-center items-center mb-[205px]">
+                <UploadOverlay
+                    isOverlayOpen={isOverlayOpen}
+                    setIsOverlayOpen={setIsOverlayOpen}
+                    handleOverlaySubmit={handleOverlaySubmit}
+                />
+                <div className="w-[900px] h-full font-pretendard">
+                    <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
+                    {quillEditors.map((_, index) => (
+                        <div key={index}>
+                            <QuillEditor
+                                index={index}
+                                handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
+                                handleEditorInputChange={handleEditorInputChange}
+                            />
+                        </div>
+                    ))}
+                    <div
+                        onClick={handleAddMemoClick}
+                        className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
+                    >
+                        <Image width={24} height={24} src={AddMemoIcon} alt="add memo icon" />
+                        <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                     </div>
-                ))}
-                <div
-                    onClick={handleAddMemoClick}
-                    className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
-                >
-                    <Image width={24} height={24} src={AddMemoIcon} alt="add memo icon" />
-                    <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
+                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
-                <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
             </div>
-        </div>
+            {isMapOverlayOpen && <MyMapOverlay isMapOverlayOpen={isMapOverlayOpen} />}
+        </>
     )
 }
 

@@ -31,7 +31,7 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                     <Link href={`/detailPost/${selectedPin.id}`}>
                         <Image
                             src={selectedPin.thumbnail}
-                            alt="thumnail"
+                            alt="thumbnail"
                             width={56}
                             height={56}
                             className="border-2 border-SYSTEM-error rounded-full w-[56px] h-[56px] object-cover"
