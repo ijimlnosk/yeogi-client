@@ -32,6 +32,8 @@ const Page = () => {
             shortPosts: [],
         }
 
+        console.log("postData", postData)
+
         try {
             const newPost = await handleUpdatePost(postData)
             const updatedPosts = [newPost, ...posts]
