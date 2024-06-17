@@ -12,7 +12,6 @@ const CreateComment = ({ postId }: CommentProps) => {
 
     const handleSubmit = async () => {
         if (content.trim() === "") {
-            alert("댓글을 입력해주세요")
             return
         }
 
