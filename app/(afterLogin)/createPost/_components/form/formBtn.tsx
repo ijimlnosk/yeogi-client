@@ -1,4 +1,4 @@
-import { FormBtnProps } from "../type"
+import { FormBtnProps } from "./type"
 
 const FormBtn = ({ setIsOverlayOpen }: FormBtnProps) => {
     return (

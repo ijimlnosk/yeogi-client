@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image"
+import { ChangeEvent } from "react"
 
 export type ProfileProps = {
     name: string
@@ -10,7 +11,7 @@ export type ProfileProps = {
 
 export type ProfileImageProps = {
     image: string | StaticImageData
-    onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onImageChange: (e: ChangeEvent<HTMLInputElement>) => void
     className?: string
 }
 
@@ -25,7 +26,7 @@ export type EditProfileProps = {
 
 export type EditFieldProps = {
     value: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     type?: "input" | "textarea"
     maxLength?: number
     className?: string

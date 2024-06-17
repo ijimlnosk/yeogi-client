@@ -4,10 +4,10 @@ import Overlay from "@/components/commons/overlay"
 import { Continent, Continents } from "@/constants/continents"
 import { useState } from "react"
 import CheckIcon from "@/public/icons/black_check.svg"
-import { selectContinentProps } from "../type"
 import Button from "@/components/commons/button"
 import CountriesSearch from "./countriesSearch"
 import { useSelectionStore } from "@/libs/store"
+import { selectContinentProps } from "./type"
 
 const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectContinentProps) => {
     const [strContinent] = useState<string>("")

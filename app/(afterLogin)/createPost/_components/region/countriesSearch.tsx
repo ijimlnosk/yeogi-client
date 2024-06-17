@@ -4,11 +4,11 @@ import { useState } from "react"
 import CountrySearchBar from "./countrySearchBar"
 import { countriesByContinent } from "@/data/countries"
 import Overlay from "@/components/commons/overlay"
-import { CountrySearchProps } from "../type"
 import Image from "next/image"
 import backIcon from "@/public/icons/black_arrow_left.svg"
 import useCountrySearch from "@/hook/useCountrySearch"
 import { useSelectionStore } from "@/libs/store"
+import { CountrySearchProps } from "./type"
 
 const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchProps) => {
     const [searchTerm, setSearchTerm] = useState<string>("")

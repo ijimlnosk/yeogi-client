@@ -1,9 +1,9 @@
 import { useState, useRef, ChangeEvent } from "react"
 import { StaticImageData } from "next/image"
 import photoIcon from "@/public/icons/photoIcon.svg"
-import { EditProfileProps } from "../../type"
-import ProfileImage from "../profileImage"
 import EditField from "./editField"
+import { EditProfileProps } from "./type"
+import ProfileImage from "./profileImage"
 
 const EditProfile = ({
     name: initialName,
