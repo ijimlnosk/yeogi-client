@@ -10,6 +10,7 @@ import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
 import { handleUpdatePost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
+import { processContentImages } from "@/utils/commonFormUtils"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -38,6 +39,8 @@ const Page = () => {
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
+        const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content))) // 유틸리티 함수 사용
+
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
             country: selectedCountry!,
@@ -45,7 +48,7 @@ const Page = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",
-            shortPosts: quillEditors.map(editor => editor.content),
+            shortPosts: processedContent,
         }
 
         try {
