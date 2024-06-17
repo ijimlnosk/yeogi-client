@@ -1,7 +1,6 @@
 "use client"
 
 import { samplePosts } from "@/apis/mockPosts"
-import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
@@ -49,7 +48,6 @@ const SearchPage = () => {
             {posts.length > 0 && (
                 <>
                     <SearchResults posts={posts} />
-                    <Pagination totalPages={Math.ceil(posts.length) / 8} />
                 </>
             )}
         </div>

@@ -30,3 +30,8 @@ export type LikeToComments = {
     likes: number
     comments: number
 }
+
+export type CreateComment = {
+    content: string
+    postId: number
+}
