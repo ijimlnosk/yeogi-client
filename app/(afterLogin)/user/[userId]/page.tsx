@@ -10,6 +10,7 @@ import { ProfileProps } from "./_components/profile/type"
 import EditProfile from "./_components/profile/editProfile"
 import Profile from "./_components/profile/profile"
 import WorldMap from "./_components/myMap/worldMap"
+import UserDetails from "./_components/userDetails"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
@@ -64,30 +65,33 @@ const UserPage = () => {
     }
 
     return (
-        <>
-            {isEditing ? (
-                <EditProfile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onSave={handleSave}
-                    onCancel={() => setIsEditing(false)}
-                />
-            ) : (
-                <Profile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onEdit={() => setIsEditing(true)}
-                />
-            )}
+        <div>
+            <div>
+                {isEditing ? (
+                    <EditProfile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onSave={handleSave}
+                        onCancel={() => setIsEditing(false)}
+                    />
+                ) : (
+                    <Profile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onEdit={() => setIsEditing(true)}
+                    />
+                )}
+                <UserDetails pinCount={0} />
+            </div>
             <div className="my-[120px]">
                 <WorldMap user={user} editable={false} newPost={newPost} />
             </div>
             <MyPost posts={posts} />
-        </>
+        </div>
     )
 }
 

@@ -12,6 +12,7 @@ import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
 import { QuillEditor } from "../_components/editor/editorQuill"
 import MyMapOverlay from "../_components/overlay/mapOverlay"
+import { useMapStore } from "@/libs/storePin"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -19,6 +20,7 @@ const Page = () => {
     const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const { incrementPinCount } = useMapStore()
 
     const handleAddMemoClick = () => {
         setQuillEditors([...quillEditors, { content: "" }])
@@ -60,6 +62,7 @@ const Page = () => {
             alert("🟢 Memo 게시 성공")
             resetFormData()
             setQuillEditors([])
+            incrementPinCount()
             setIsMapOverlayOpen(true)
         } catch (error) {
             console.error(error)

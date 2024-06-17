@@ -7,13 +7,22 @@ import { MouseEvent as ReactMouseEvent } from "react"
 import Pin from "./pin"
 import { WorldMapProps, WorldPost } from "./type"
 import { handleMapClick, toggleUpdateMode } from "./mapHandlers"
+import { arraysAreEqual, useMapStore } from "@/libs/storePin"
 
 const WorldMap = ({ user, editable, newPost }: WorldMapProps) => {
-    const [pins, setPins] = useState<WorldPost[]>(user.posts) // 지도에 표시된 핀 목록
+    const { pins, setPins } = useMapStore()
     const [isUpdate, setIsUpdate] = useState(false) // 수정 모드
     const [selectedPin, setSelectedPin] = useState<WorldPost | null>(null) // 선택된 핀
     const [movingPins, setMovingPins] = useState<WorldPost[]>([]) // 위치를 설정해야 하는 핀 목록
     const [pinCount, setPinCount] = useState<number>(0) // 등록되지 않은 핀 개수
+
+    // user.posts를 Zustand 스토어의 pins 상태로 설정
+    useEffect(() => {
+        if (!arraysAreEqual(user.posts, pins)) {
+            // 배열 비교 함수 사용
+            setPins(user.posts)
+        }
+    }, [user.posts, pins, setPins])
 
     useEffect(() => {
         if (newPost) {

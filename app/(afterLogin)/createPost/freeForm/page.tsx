@@ -10,12 +10,14 @@ import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
 import MyMapOverlay from "../_components/overlay/mapOverlay"
+import { useMapStore } from "@/libs/storePin"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const { incrementPinCount } = useMapStore()
     const isFreeForm = true
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
@@ -43,6 +45,7 @@ const Page = () => {
             setPosts(updatedPosts)
             resetFormData()
             alert("🟢 Free 게시 성공")
+            incrementPinCount()
             setIsMapOverlayOpen(true)
         } catch (error) {
             console.error(error)

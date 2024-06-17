@@ -1,12 +1,18 @@
 import WorldMap from "@/app/(afterLogin)/user/[userId]/_components/myMap/worldMap"
 import Overlay from "@/components/commons/overlay"
 import { MyMapOverlayProps } from "./type"
+import { useMapStore } from "@/libs/storePin"
+import { WorldPost } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 
 const MyMapOverlay = ({ isMapOverlayOpen }: MyMapOverlayProps) => {
-    const handleComplete = () => {}
+    const { setPins } = useMapStore()
+
+    const handleComplete = (newPin: WorldPost[]) => {
+        setPins([...newPin])
+    }
 
     return (
-        <Overlay isOpen={isMapOverlayOpen} onClick={handleComplete}>
+        <Overlay isOpen={isMapOverlayOpen} onClick={() => handleComplete([])}>
             <div className="flex flex-col items-center">
                 <p className="text-bg text-GREY-20 text-center">
                     기록 업로드를 완료했어요! <br /> 여행 핀을 지도 위에 표시해{" "}
