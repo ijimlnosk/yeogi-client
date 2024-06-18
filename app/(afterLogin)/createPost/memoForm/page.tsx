@@ -11,8 +11,8 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
 import { QuillEditor } from "../_components/editor/editorQuill"
-import { useMapStore } from "@/libs/storePin"
-import FailModal from "@/components/commons/failModal"
+import { useMapStore } from "@/libs/pinStore"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 import RouterOverlay from "../_components/overlay/routerOverlay"
 
 const Page = () => {
@@ -104,11 +104,13 @@ const Page = () => {
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}
             {isFailModalOpen && (
-                <FailModal
+                <SuccessToFailModal
                     isOpen={isFailModalOpen}
                     title="게시글 등록"
                     context="기록 글이 업로드되지 않았어요."
-                    setIsOpen={() => setIsFailModalOpen(true)}
+                    onClick={() => setIsFailModalOpen(true)}
+                    iconImg="/icons/unhappy.svg"
+                    state="fail"
                 />
             )}
         </>

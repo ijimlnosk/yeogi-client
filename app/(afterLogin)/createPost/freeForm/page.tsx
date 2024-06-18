@@ -9,9 +9,9 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
-import { useMapStore } from "@/libs/storePin"
+import { useMapStore } from "@/libs/pinStore"
 import RouterOverlay from "../_components/overlay/routerOverlay"
-import FailModal from "@/components/commons/failModal"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -73,11 +73,13 @@ const Page = () => {
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}
             {isFailModalOpen && (
-                <FailModal
+                <SuccessToFailModal
                     isOpen={isFailModalOpen}
                     title="게시글 등록"
                     context="기록 글이 업로드되지 않았어요."
-                    setIsOpen={() => setIsFailModalOpen(true)}
+                    onClick={() => setIsFailModalOpen(true)}
+                    iconImg="/public/icons/unhappy.svg"
+                    state="fail"
                 />
             )}
         </>
