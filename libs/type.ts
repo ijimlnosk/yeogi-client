@@ -28,3 +28,9 @@ export type MapStore = {
     pinCount: number
     incrementPinCount: () => void
 }
+export type ModalStore ={
+    showLoginModal: boolean;
+    openLoginModal: () => void;
+    closeModal: () => void;
+}
+

@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import Layout from "@/components/layouts/layout"
 import { ReactQueryProvider } from "@/components/queryProvider"
+import ClientLayout from "./clientLayout"
 
 const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"] })
 const pretendard = localFont({
@@ -53,7 +54,9 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${myeongjo.className} ${pretendard.className}`}>
                 <ReactQueryProvider>
-                    <Layout>{children}</Layout>
+                    <ClientLayout>
+                        <Layout>{children}</Layout>
+                    </ClientLayout>
                 </ReactQueryProvider>
             </body>
         </html>
