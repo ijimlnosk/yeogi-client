@@ -45,7 +45,6 @@ const CreateComment = ({ postId }: CommentProps) => {
                 onClick={() => setIsError(false)}
                 title="댓글 등록"
                 context="댓글이 등록되지 않았어요"
-                iconImg="/icons/unhappy.svg"
                 state="fail"
             />
             <form

@@ -26,7 +26,6 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked }: Comm
                 onClick={() => setIsError(false)}
                 title="좋아요"
                 context="좋아요가 눌리지 않았어요."
-                iconImg="/icons/unhappy.svg"
                 state="fail"
             />
             <div className="relative">

@@ -78,7 +78,6 @@ const Page = () => {
                     title="게시글 등록"
                     context="기록 글이 업로드되지 않았어요."
                     onClick={() => setIsFailModalOpen(true)}
-                    iconImg="/public/icons/unhappy.svg"
                     state="fail"
                 />
             )}

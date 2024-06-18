@@ -2,7 +2,7 @@ import Image from "next/image"
 import Overlay from "./overlay"
 import { FailModalProps } from "./type"
 
-const SuccessToFailModal = ({ title, context, isOpen, onClick, state, iconImg }: FailModalProps) => {
+const SuccessToFailModal = ({ title, context, isOpen, onClick, state }: FailModalProps) => {
     if (!isOpen) return null
 
     return (
@@ -16,7 +16,11 @@ const SuccessToFailModal = ({ title, context, isOpen, onClick, state, iconImg }:
             >
                 <div className="w-[360px] h-[360px] flex flex-col items-center justify-center bg-SYSTEM-white rounded-2xl z-60">
                     <div className="w-full flex items-center justify-center">
-                        <Image src={iconImg} alt="unhappy" width={64} height={64} />
+                        {state === "success" ? (
+                            <Image src="/public/icons/smile.svg" alt="happy" width={64} height={64} />
+                        ) : (
+                            <Image src="/public/icons/unhappy.svg" alt="unhappy" width={64} height={64} />
+                        )}
                     </div>
                     <div className="pt-[30px] pb-[20px]">
                         <p className="font-bold text-sm">

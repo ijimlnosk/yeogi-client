@@ -46,7 +46,6 @@ export type FailModalProps = {
     isOpen: boolean
     onClick: () => void
     state: "success" | "fail"
-    iconImg: string
 }
 
 export type DeleteModalProps = {
