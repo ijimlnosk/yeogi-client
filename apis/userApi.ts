@@ -1,4 +1,4 @@
-import { fetchFormAPI } from "./fetchFormAPI"
+import { fetchFormAPI } from "../utils/fetchFormAPI"
 
 const USER_API_URL = "/posts"
 

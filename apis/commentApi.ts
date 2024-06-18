@@ -1,4 +1,4 @@
-import { fetchFormAPI } from "./fetchFormAPI"
+import { fetchFormAPI } from "../utils/fetchFormAPI"
 import { createCommentProps, getCommentProps, commentIdProps, deleteCommentProps } from "./type"
 
 const API_URL = "/comments"

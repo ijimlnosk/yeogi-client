@@ -2,7 +2,7 @@ import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { createPostTemplate, getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
-import { fetchFormAPI } from "./fetchFormAPI"
+import { fetchFormAPI } from "../utils/fetchFormAPI"
 
 const POST_API_URL = "/posts"
 
