@@ -12,7 +12,6 @@ export type UserResponse = {
     accessToken: string;
     refreshToken: string;
 };
-
 export type SignInProps = {
     email: string
     password: string

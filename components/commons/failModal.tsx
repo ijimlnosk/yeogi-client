@@ -14,7 +14,7 @@ const FailModal = ({ title, context, isOpen, setIsOpen }: FailModalProps) => {
                 textColor="text-SYSTEM-white"
                 imageUrl="/icons/white_arrow-left.svg"
             >
-                <div className="w-[360px] h-[360px] flex flex-col items-center justify-center">
+                <div className="w-[360px] h-[360px] flex flex-col items-center justify-center bg-SYSTEM-white rounded-2xl z-60">
                     <div className="w-full flex items-center justify-center">
                         <Image src={"/icons/unhappy.svg"} alt="unhappy" width={64} height={64} />
                     </div>

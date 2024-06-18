@@ -1,6 +1,7 @@
 import { useSelectionStore } from "@/libs/store"
-import { FormSelectorProps, TextDisplayProps } from "../type"
 import { formatISODateString } from "@/utils/formatDate"
+import { FormSelectorProps } from "./type"
+import { TextDisplayProps } from "../overlay/type"
 
 const FormSelector = ({ onClick, label, state }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()

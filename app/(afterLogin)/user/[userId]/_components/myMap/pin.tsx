@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { PinProps } from "./type"
 import Link from "next/link"
+import TempImage from "@/public/images/sampleThumbnail.svg"
 
 const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
     return (
@@ -30,8 +31,8 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                 >
                     <Link href={`/detailPost/${selectedPin.id}`}>
                         <Image
-                            src={selectedPin.thumbnail}
-                            alt="thumnail"
+                            src={TempImage}
+                            alt="thumbnail"
                             width={56}
                             height={56}
                             className="border-2 border-SYSTEM-error rounded-full w-[56px] h-[56px] object-cover"

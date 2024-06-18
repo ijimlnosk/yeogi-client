@@ -1,6 +1,6 @@
 import searchIcon from "@/public/icons/searchbar.svg"
 import Image from "next/image"
-import { CountrySearchBarProps } from "../type"
+import { CountrySearchBarProps } from "./type"
 
 const CountrySearchBar = ({ text, onChange }: CountrySearchBarProps) => {
     return (

@@ -23,6 +23,7 @@ export const initialFormData: createPostTemplate = {
     tripEndDate: "",
     title: "",
     content: "",
+    shortPosts: undefined,
 }
 
 export type createCommentProps = {
@@ -32,4 +33,23 @@ export type createCommentProps = {
 
 export type getCommentProps = {
     postId: number
+}
+
+export type commentIdProps = {
+    commentId: number
+}
+
+export type fetchCommentProps = {
+    postIds: number[]
+}
+
+export type postPinProps = {
+    x: string
+    y: string
+    email: string
+    postId: number
+}
+
+export type getPinProps = {
+    email: string
 }

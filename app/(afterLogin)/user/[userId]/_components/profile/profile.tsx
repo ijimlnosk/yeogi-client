@@ -1,4 +1,4 @@
-import { ProfileProps } from "../type"
+import { ProfileProps } from "./type"
 
 const Profile = ({ name, bio, profileImage, bgImage, onEdit }: ProfileProps) => {
     return (

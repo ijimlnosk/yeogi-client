@@ -4,6 +4,7 @@
 import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
+import { Post } from "@/utils/type"
 
 export type PostCardProps = {
     post_id: number
@@ -18,10 +19,12 @@ export type PostCardProps = {
 }
 
 export type CommentProps = {
+    commentId: number
     content: string
     likes: number
     date: string
     author: string
+    initialLiked: boolean
 }
 
 export type ReCommentProps = {
@@ -32,7 +35,6 @@ export type ReCommentProps = {
     userProfileImage: string
 }
 
-//calendar props type
 export type DateRange = {
     start: Date | null
     end: Date | null
@@ -75,6 +77,10 @@ export type SearchBarProps = {
     onChange: ChangeEventHandler<HTMLInputElement>
 }
 
+export type SearchResultsProps = {
+    posts: Post[]
+}
+
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     VariantProps<typeof buttonStyle> & {
         children?: ReactNode
@@ -83,10 +89,18 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 
 export type PaginationProps = {
     totalPages: number
+    currentPage: number
 }
 
 export type PaginationNumberProps = {
     page: number | string
     href: string
     isActive: boolean
+}
+
+export type LikeButtonProps = {
+    commentId: number
+    initialLikes: number
+    initialLiked: boolean
+    setIsError: (isError: boolean) => void
 }

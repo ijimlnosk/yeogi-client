@@ -1,53 +1,35 @@
 "use client"
 
-import { FormEvent, useState, useEffect } from "react"
-import { QuillEditor } from "../_components/form/editorQuill"
+import { FormEvent, useState } from "react"
+import { QuillEditor } from "../_components/editor/editorQuill"
 import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
-import UploadOverlay from "../_components/uploadOverlay"
 import { createPostTemplate } from "@/apis/type"
-import { loadPostFromSession, savePostToSession } from "@/utils/sessionStorage"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
-import { handleUpdatePost } from "@/apis/postApi"
+import { postPost } from "@/apis/postApi"
+import { processContentImages } from "@/utils/commonFormUtils"
+import UploadOverlay from "../_components/overlay/uploadOverlay"
+import { useMapStore } from "@/libs/storePin"
+import RouterOverlay from "../_components/overlay/routerOverlay"
+import FailModal from "@/components/commons/failModal"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-    const isFreeForm = true
-    const [formData, setFormData] = useState<createPostTemplate | null>(null)
+    const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
+    const [isFailModalOpen, setIsFailModalOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
-    const { posts, setPosts } = useFormDataStore()
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const initialFormData = loadPostFromSession()
-            setFormData(
-                initialFormData || {
-                    continent: "",
-                    country: "",
-                    tripStartDate: "",
-                    tripEndDate: "",
-                    title: "",
-                    content: "",
-                },
-            )
-        }
-    }, [])
+    const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const { incrementPinCount } = useMapStore()
+    const isFreeForm = true
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
-        if (formData) {
-            const newFormData = {
-                ...formData,
-                [field]: value,
-            }
-            setFormData(newFormData)
-            savePostToSession(newFormData)
-        }
+        setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        if (!formData) return
+        const processedContent = await processContentImages(formData.content || "")
 
         const postData: createPostTemplate = {
             continent: selectedContinent || "아시아",
@@ -55,37 +37,51 @@ const Page = () => {
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
-            content: formData.content,
+            content: processedContent,
+            shortPosts: [],
         }
 
         try {
-            const newPost = await handleUpdatePost(postData)
+            const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 게시 성공")
-        } catch (error) {
-            console.error(error)
-            alert("🔴 게시 실패")
+            resetFormData()
+            incrementPinCount()
+            setIsRouterOverlayOpen(true)
+        } catch {
+            setIsFailModalOpen(true)
         }
     }
 
-    if (formData === null) {
+    if (!formData) {
         return <div>Loading...</div>
     }
 
     return (
-        <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
-            <UploadOverlay
-                isOverlayOpen={isOverlayOpen}
-                setIsOverlayOpen={setIsOverlayOpen}
-                handleOverlaySubmit={handleOverlaySubmit}
-            />
-            <div className="mb-20">
-                <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
-                <QuillEditor index={-1} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
-                <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+        <>
+            <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
+                <UploadOverlay
+                    isOverlayOpen={isOverlayOpen}
+                    setIsOverlayOpen={setIsOverlayOpen}
+                    handleOverlaySubmit={handleOverlaySubmit}
+                />
+                <div className="mb-20">
+                    <FormInputs formText="자유롭게 " formData={formData} handleInputChange={handleInputChange} />
+                    <QuillEditor index={0} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
+                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+                </div>
             </div>
-        </div>
+            {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}
+            {isFailModalOpen && (
+                <FailModal
+                    isOpen={isFailModalOpen}
+                    title="게시글 등록"
+                    context="기록 글이 업로드되지 않았어요."
+                    setIsOpen={() => setIsFailModalOpen(true)}
+                />
+            )}
+        </>
     )
 }
+
 export default Page

@@ -9,19 +9,22 @@ import { PaginationNumberProps, PaginationProps } from "./type"
 /**
  * @function Pagination
  * @param totalPages 전체 페이지
+ * @param currentPage URL의 page 매개변수에서 가져옴 (기본값 = 1)
  * @const pathname 현재 경로
  * @const searchParams URL의 검색 매개변수
- * @const currentPage URL의 page 매개변수에서 가져옴 (기본값 = 1)
  * @const allPages generatePagination 함수를 사용하여 현재 페이지와 전체 페이지 수에 기반하여 표시할 페이지 목록을 생성
  * @const prevDisabled 현재 페이지가 5 이하일 경우 true로 설정하여 이전 버튼을 비활성화
  * @const nextDisabled 다음 그룹이 없을 경우 true로 설정하여 다음 버튼을 비활성화
  * @returns 화면에 렌더될 숫자 버튼 배열과 이전, 다음 버튼을 반환
  */
 
-const Pagination = ({ totalPages }: PaginationProps) => {
+const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const currentPage = Number(searchParams.get("page")) || 1
+
+    const allPages = generatePagination(currentPage, totalPages)
+    const prevDisabled = currentPage <= 5
+    const nextDisabled = !hasNextGroup(currentPage, totalPages)
 
     /**
      * @function createPageURL URL 생성 함수
@@ -34,13 +37,9 @@ const Pagination = ({ totalPages }: PaginationProps) => {
         return `${pathname}?${params.toString()}`
     }
 
-    const allPages = generatePagination(currentPage, totalPages)
-    const prevDisabled = currentPage <= 5
-    const nextDisabled = !hasNextGroup(currentPage, totalPages)
-
     return (
         <div className="flex flex-row justify-center items-center font-pretendard text-xxs text-GREY-80">
-            <Link href={createPageURL(Math.max(currentPage - 5, 1))}>
+            <Link href={createPageURL(Math.max(currentPage - 1, 1))}>
                 <button disabled={prevDisabled}>&lt; 이전</button>
             </Link>
             <div className="flex flex-row justify-center items-center mx-4">
@@ -55,7 +54,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
                     )
                 })}
             </div>
-            <Link href={createPageURL(currentPage + 5)}>
+            <Link href={createPageURL(currentPage + 1)}>
                 <button disabled={nextDisabled}>다음 &gt;</button>
             </Link>
         </div>
