@@ -16,7 +16,7 @@ const RouterOverlay = ({ isRouterOverlayOpen }: RouterOverlayProps) => {
             textColor="text-SYSTEM-white"
             imageUrl="/icons/white_check.svg"
         >
-            <div className="w-[360px] h-[360px] flex flex-col justify-center items-center bg-SYSTEM-white rounded-[24px]">
+            <div className="w-[360px] h-[360px] flex flex-col justify-center items-center bg-SYSTEM-white rounded-3xl">
                 <Image src="/images/pin.svg" width={64} height={64} alt="pin" />
                 <p className="text-sm text-SYSTEM-black text-center font-bold pb-6">
                     <span className="text-SYSTEM-error">핀</span>을 획득했어요!
