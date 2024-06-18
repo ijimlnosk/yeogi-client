@@ -23,7 +23,7 @@ const DeleteModal = ({ title, context, isOpen, onClick, onLeftClick }: DeleteMod
                     </div>
                     <div className="pt-[30px] pb-[20px]">
                         <p>
-                            정말 해당{title}을 <span className="text-SYSTEM-error">삭제</span>하시나요?
+                            정말 해당 {title}을 <span className="text-SYSTEM-error">삭제</span>하시나요?
                         </p>
                     </div>
                     <div className="flex flex-col items-center justify-center">

@@ -59,7 +59,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 isOpen={isDelete}
                 onClick={() => handleDelete(saveCommentId)}
                 onLeftClick={() => setIsDelete(false)}
-                title="삭제"
+                title="댓글"
                 context="댓글"
             />
             <div className="flex items-center justify-center flex-col">
