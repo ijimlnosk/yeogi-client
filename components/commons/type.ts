@@ -44,7 +44,17 @@ export type FailModalProps = {
     title: string
     context: string
     isOpen: boolean
-    setIsOpen: (isOpen: boolean) => void
+    onClick: () => void
+    state: "success" | "fail"
+    iconImg: string
+}
+
+export type DeleteModalProps = {
+    title: string
+    context: string
+    isOpen: boolean
+    onClick: () => void
+    onLeftClick: () => void
 }
 
 export type OverlayProps = {
@@ -60,6 +70,7 @@ export type OverlayProps = {
     textColor?: string
     leftText?: string
     leftImageUrl?: string
+    title?: string
     leftTextColor?: string
     rounded?: string
 }
