@@ -27,16 +27,12 @@ export const postPin = async (pin: postPinProps) => {
         },
         body: JSON.stringify(pin),
     })
-    if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Response error:", response.status, errorText)
-        throw new Error("핀 꽂기 실패")
-    }
+    if (!response.ok) throw new Error("핀 꽂기 실패")
+
     try {
         const data = await response.json()
         return data
-    } catch (error) {
-        console.error("json 파싱 오류", error)
-        return undefined
+    } catch {
+        throw new Error("json 파싱 오류입니다...🥹")
     }
 }
