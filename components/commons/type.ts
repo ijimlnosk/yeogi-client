@@ -19,10 +19,12 @@ export type PostCardProps = {
 }
 
 export type CommentProps = {
+    commentId: number
     content: string
     likes: number
     date: string
     author: string
+    initialLiked: boolean
 }
 
 export type ReCommentProps = {
@@ -87,10 +89,18 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 
 export type PaginationProps = {
     totalPages: number
+    currentPage: number
 }
 
 export type PaginationNumberProps = {
     page: number | string
     href: string
     isActive: boolean
+}
+
+export type LikeButtonProps = {
+    commentId: number
+    initialLikes: number
+    initialLiked: boolean
+    setIsError: (isError: boolean) => void
 }
