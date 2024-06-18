@@ -28,3 +28,13 @@ export type MapStore = {
     pinCount: number
     incrementPinCount: () => void
 }
+
+export type ModalState = {
+    isDelete: boolean
+    setIsDelete: (isDelte: boolean) => void
+}
+
+export type CommnetState = {
+    saveCommentId: number
+    setSaveCommentId: (saveCommentId: number) => void
+}

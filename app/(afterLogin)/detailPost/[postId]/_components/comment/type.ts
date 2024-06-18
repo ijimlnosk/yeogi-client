@@ -40,3 +40,7 @@ export type LikeToComments = {
     likes: number
     comments: number
 }
+
+export type deleteCommentProps = {
+    commentId: number
+}
