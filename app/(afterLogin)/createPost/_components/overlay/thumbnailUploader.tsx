@@ -1,9 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useRef, useState } from "react"
-import Photo from "@/public/icons/image.svg"
 import { ThumbnailUploaderProps } from "./type"
+import { ChangeEvent, useRef, useState } from "react"
+import Photo from "@/public/icons/image.svg"
 
 const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
     const fileRef = useRef<HTMLInputElement>(null)
@@ -13,7 +13,7 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
         fileRef?.current?.click()
     }
 
-    const handleSelectedImage = (e: React.ChangeEvent) => {
+    const handleSelectedImage = (e: ChangeEvent) => {
         const targetFile = (e.target as HTMLInputElement).files?.[0]
         if (targetFile) {
             const selectedFile = URL.createObjectURL(targetFile)
@@ -34,7 +34,7 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
             <label
                 htmlFor="file"
                 onClick={handleClick}
-                className="inline-block w-[500px] h-[260px] bg-GREY-10 flex flex-col items-center justify-center border-2 border-BRAND-50 border-dashed"
+                className="w-[500px] h-[260px] bg-GREY-10 flex flex-col items-center justify-center border-2 border-BRAND-50 border-dashed"
             >
                 {image ? (
                     <Image

@@ -1,15 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import Profile from "./_components/profile"
-import EditProfile from "./_components/editProfile"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
-import { ProfileProps } from "./type"
-import WorldMap from "./_components/worldMap"
 import MyPost from "./_components/myPost"
 import { samplePosts } from "@/apis/mockPosts"
 import { Post } from "@/utils/type"
+import { ProfileProps } from "./_components/profile/type"
+import EditProfile from "./_components/profile/editProfile"
+import Profile from "./_components/profile/profile"
+import WorldMap from "./_components/myMap/worldMap"
+import UserDetails from "./_components/userDetails"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
@@ -64,30 +65,33 @@ const UserPage = () => {
     }
 
     return (
-        <>
-            {isEditing ? (
-                <EditProfile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onSave={handleSave}
-                    onCancel={() => setIsEditing(false)}
-                />
-            ) : (
-                <Profile
-                    name={profile.name}
-                    bio={profile.bio}
-                    profileImage={profile.profileImage}
-                    bgImage={profile.bgImage}
-                    onEdit={() => setIsEditing(true)}
-                />
-            )}
+        <div>
+            <div>
+                {isEditing ? (
+                    <EditProfile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onSave={handleSave}
+                        onCancel={() => setIsEditing(false)}
+                    />
+                ) : (
+                    <Profile
+                        name={profile.name}
+                        bio={profile.bio}
+                        profileImage={profile.profileImage}
+                        bgImage={profile.bgImage}
+                        onEdit={() => setIsEditing(true)}
+                    />
+                )}
+                <UserDetails pinCount={0} />
+            </div>
             <div className="my-[120px]">
                 <WorldMap user={user} editable={false} newPost={newPost} />
             </div>
             <MyPost posts={posts} />
-        </>
+        </div>
     )
 }
 

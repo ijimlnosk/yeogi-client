@@ -1,7 +1,7 @@
 import Overlay from "@/components/commons/overlay"
 import Calendar from "./calendar"
 import CheckIcon from "@/public/icons/white_check.svg"
-import { selectCalendarProps } from "../type"
+import { selectCalendarProps } from "./type"
 
 const SelectCalendar = ({ isOpen, onClick }: selectCalendarProps) => {
     return (

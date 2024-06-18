@@ -4,11 +4,11 @@ import { useState } from "react"
 import CountrySearchBar from "./countrySearchBar"
 import { countriesByContinent } from "@/data/countries"
 import Overlay from "@/components/commons/overlay"
-import { CountrySearchProps } from "../type"
 import Image from "next/image"
-import backIcon from "@/public/icons/black_arrow_left.svg"
+import backIcon from "@/public/icons/white_arrow-left.svg"
 import useCountrySearch from "@/hook/useCountrySearch"
 import { useSelectionStore } from "@/libs/store"
+import { CountrySearchProps } from "./type"
 
 const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchProps) => {
     const [searchTerm, setSearchTerm] = useState<string>("")
@@ -31,7 +31,13 @@ const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchP
     }
 
     return (
-        <Overlay isOpen={isOpen} onClick={handleSelectClick} text="선택완료" imageUrl="/icons/black_check.svg">
+        <Overlay
+            isOpen={isOpen}
+            onClick={handleSelectClick}
+            text="선택완료"
+            textColor={"text-SYSTEM-white"}
+            imageUrl="/icons/white_check.svg"
+        >
             <div className="bg-SYSTEM-white w-[448px] h-[397px] pb-4 flex flex-col items-center rounded-2xl">
                 <div className="w-full flex items-center justify-center relative">
                     <Image src={backIcon} alt="뒤로 가기" width={24} height={24} className="absolute left-6 top-6" />

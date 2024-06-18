@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import FormSelector from "./formSelector"
-import { FormInputsProps } from "../type"
-import SelectCalendar from "./selectCalendar"
-import SelectedContinent from "./selectContinent"
+import { FormInputsProps } from "./type"
+import SelectedContinent from "../region/selectContinent"
+import SelectCalendar from "../calendar/selectCalendar"
 
 const FormInputs = ({ formText, formData, handleInputChange }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import editIcon from "@/public/icons/edit.svg"
-import { EditFieldProps } from "../../type"
+import { EditFieldProps } from "./type"
 
 const EditField = ({ value, onChange, maxLength, className }: EditFieldProps) => {
     const [isEdited, setIsEdited] = useState(false)

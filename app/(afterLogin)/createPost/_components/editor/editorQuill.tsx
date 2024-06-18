@@ -2,9 +2,9 @@
 
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
-import { QuillEditorProps } from "@/app/(afterLogin)/createPost/_components/type"
+import { QuillEditorProps } from "./type"
 import { useMemo, useState } from "react"
-import { getFormats, getModules } from "@/utils/reactQuill"
+import { getFormats, getModules } from "./reactQuill"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 

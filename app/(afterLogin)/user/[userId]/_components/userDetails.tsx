@@ -1,6 +1,6 @@
 const UserDetails = ({ pinCount }: { pinCount: number }) => {
     return (
-        <div className="flex justify-end mr-[120px] -mt-20 mb-[120px]">
+        <div className="flex justify-end mr-[120px] mt-10 mb-[120px]">
             <div className="flex text-bg">
                 <span className="bg-SYSTEM-white p-5 mr-6 rounded-2xl w-24 h-[120px] text-center">
                     20&nbsp;대 <br />

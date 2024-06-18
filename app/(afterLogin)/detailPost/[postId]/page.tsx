@@ -1,18 +1,19 @@
 "use client"
 
-import CreateComment from "./_components/createComment"
-import FreeFormDetail from "./_components/freeFormDetail"
-import LikeToComment from "./_components/likeToComment"
 import Link from "next/link"
-import FloatingBar from "./_components/floatingBar"
 import { getPostDetail } from "@/apis/postApi"
 import { Post } from "@/utils/type"
 import { formatISODateString } from "@/utils/formatDate"
 import { useQuery } from "@tanstack/react-query"
-import { Comment, PostDetailProps } from "./type"
+import { PostDetailProps } from "./type"
 import { getComment } from "@/apis/commentApi"
-import CommentBox from "./_components/commentBox"
 import MemoFormDetail from "./_components/memoFormDetail"
+import FloatingBar from "./_components/floating/floatingBar"
+import FreeFormDetail from "./_components/freeFormDetail"
+import CreateComment from "./_components/comment/createComment"
+import LikeToComment from "./_components/comment/likeToComment"
+import CommentBox from "./_components/comment/commentBox"
+import { Comment } from "./_components/comment/type"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

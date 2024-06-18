@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { CountryProps } from "./type"
-import { Country } from "@/app/(afterLogin)/createPost/_components/type"
 import { chosungIncludes } from "es-hangul"
+import { Country } from "@/app/(afterLogin)/createPost/_components/region/type"
 
 const useCountrySearch = ({ countriesByContinent, searchTerm, selectedContinent }: CountryProps) => {
     const [results, setResults] = useState<Country[]>([])
