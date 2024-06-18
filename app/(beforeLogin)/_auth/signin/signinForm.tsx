@@ -21,9 +21,6 @@ const SigninForm = () => {
         resolver: zodResolver(SigninSchema),
     })
     const { mutate, isOpen, formState, handleOverlay } = useSignin()
-    const handleEmailSave = () => {
-        setIsChecked(!isChecked)
-    }
 
     const onSubmit = (data: UserRequest) => {
         const dataProps: UserRequest = {
@@ -65,7 +62,7 @@ const SigninForm = () => {
                                 type="radio"
                                 name="saveEmail"
                                 checked={isChecked}
-                                onClick={handleEmailSave}
+                                onClick={() => setIsChecked(!isChecked)}
                                 className="w-[18px] h-[18px] cursor-pointer  appearance-none ring-1 focus:ring-BRAND-500 checked:bg-BRAND-50  border-[1px] border-GREY-50 rounded-full   "
                             />
                             <span className="text-GREY-50 ">이메일 저장</span>
