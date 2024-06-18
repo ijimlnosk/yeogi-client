@@ -40,17 +40,58 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
         body: JSON.stringify(newPost),
     })
 
-    if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Response error:", response.status, errorText)
-        throw new Error("게시글 등록에 실패했어요...🥹")
-    }
+    if (!response.ok) throw new Error("게시글 등록에 실패했어요...🥹")
 
     try {
         const data = await response.json()
         return data as Post
     } catch (error) {
         return getDefaultPost()
+    }
+}
+
+export const putFreePost = async (postId: number, editedPost: Post): Promise<Post> => {
+    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+        body: JSON.stringify(editedPost),
+    })
+
+    if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+    const data = await response.json()
+    return data
+}
+
+export const putMemoPost = async (shortPostId: number, editedPost: Post): Promise<Post> => {
+    const response = await fetch(`${POST_API_URL}/posts/short-posts/${shortPostId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+        body: JSON.stringify(editedPost),
+    })
+
+    if (!response.ok) throw new Error("memo-form 게시글 수정에 실패했어요...🥹")
+    const data = await response.json()
+    return data
+}
+
+export const deletePost = async (postId: number): Promise<void> => {
+    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+    })
+    // if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
+    if (!response.ok) {
+        const errorText = await response.text()
+        console.error("Response error:", response.status, errorText)
     }
 }
 
