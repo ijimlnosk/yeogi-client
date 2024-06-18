@@ -20,7 +20,7 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                 height={40}
                 onClick={e => onClick(post, e)}
             />
-            {selectedPin && selectedPin.postId === post.postId && (
+            {selectedPin && selectedPin.id === post.id && (
                 <div
                     style={{
                         left: `${selectedPin.pin.x}%`,
@@ -29,7 +29,7 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                     }}
                     className="absolute z-10 w-[56px] h-[56px] "
                 >
-                    <Link href={`/detailPost/${selectedPin.postId}`}>
+                    <Link href={`/detailPost/${selectedPin.id}`}>
                         <Image
                             src={TempImage}
                             alt="thumbnail"

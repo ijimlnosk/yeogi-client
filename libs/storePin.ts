@@ -11,7 +11,7 @@ export type MapStore = {
     isPinExists?: (postId: number) => boolean
 }
 
-export const useMapStore = create<MapStore>((set, get) => ({
+export const useMapStore = create<MapStore>(set => ({
     unusedPins: [],
     usedPins: [],
     addUnusedPin: (post: WorldPost) =>
@@ -28,8 +28,8 @@ export const useMapStore = create<MapStore>((set, get) => ({
         set(state => ({
             pinCount: state.pinCount + 1,
         })),
-    isPinExists: (postId: number) => {
+    /*     isPinExists: (postId: number) => {
         const state = get()
         return state.unusedPins.some(pin => pin.postId === postId) || state.usedPins.some(pin => pin.postId === postId)
-    },
+    }, */
 }))
