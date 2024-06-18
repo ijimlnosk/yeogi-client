@@ -1,4 +1,4 @@
-export type SocialSigninButtonProops = {
+export type SocialSigninButtonProps = {
     icon: string
     text: string
     bgColor: string
