@@ -1,13 +1,15 @@
-"useClient"
+"use client"
+
 import Input from "@/components/commons/input"
 import { SigninSchema } from "@/constants/signinSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { UserRequest } from "./type"
 import { useState } from "react"
 import Button from "@/components/commons/button"
-import { postLogin } from "@/apis/auth/signin"
-import { useQueryClient } from "@tanstack/react-query"
+import useSignin from "@/hook/useSignin"
+import { UserRequest } from "./type"
+import Overlay from "@/components/commons/overlay"
+import FailModal from "@/components/commons/failModal"
 
 const SigninForm = () => {
     const [isChecked, setIsChecked] = useState(false)
@@ -18,18 +20,17 @@ const SigninForm = () => {
     } = useForm<UserRequest>({
         resolver: zodResolver(SigninSchema),
     })
+    const { mutate, isOpen, formState, handleOverlay } = useSignin()
     const handleEmailSave = () => {
         setIsChecked(!isChecked)
     }
-    const queryClient = useQueryClient()
 
-    const onSubmit = async (data: UserRequest) => {
-        try {
-            const response = await postLogin(data)
-            queryClient.setQueryData(["user"], response)
-        } catch (error) {
-            console.error(error)
+    const onSubmit = (data: UserRequest) => {
+        const dataProps: UserRequest = {
+            email: data.email,
+            password: data.password,
         }
+        mutate(dataProps)
     }
 
     return (
@@ -69,13 +70,39 @@ const SigninForm = () => {
                             />
                             <span className="text-GREY-50 ">이메일 저장</span>
                         </label>
-                        <Button type="submit" rounded="md" background="brand50" textColor="white">
+                        <Button
+                            type="submit"
+                            rounded="md"
+                            background="brand50"
+                            textColor="white"
+                            onClick={() => handleOverlay(false)}
+                        >
                             로그인
                         </Button>
                     </form>
+                    {isOpen && (
+                        <Overlay isOpen={isOpen} onClick={() => handleOverlay(false)} rounded="lg">
+                            {formState === "success" && (
+                                <FailModal
+                                    title="로그인성공성공성공"
+                                    isOpen={isOpen}
+                                    setIsOpen={handleOverlay}
+                                    context="다양한 사람들의 세계 곳곳의 여행 추억을 여기에서 확인하세요."
+                                />
+                            )}
+                            {formState === "fail" && (
+                                <FailModal
+                                    title="로그인"
+                                    isOpen={isOpen}
+                                    setIsOpen={handleOverlay}
+                                    context="이메일과 비밀번호를 다시 한번 확인해주세요."
+                                />
+                            )}
+                        </Overlay>
+                    )}
                     <div className="text-center text-xxs flex flex-col items-center">
                         아직 여기 계정이 없으신가요?
-                        <button className="text-BRAND-50   w-[52px]">가입하기</button>
+                        <button className="text-BRAND-50 w-[52px]">가입하기</button>
                     </div>
                 </div>
             </div>

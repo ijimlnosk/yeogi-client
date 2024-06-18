@@ -10,6 +10,7 @@ import LogoText from "@/public/icons/logo_text.svg"
 import Overlay from "../commons/overlay"
 import SigninForm from "@/app/(beforeLogin)/_auth/signin/signinForm"
 import SignupForm from "@/app/(beforeLogin)/_auth/signup/signupForm"
+import ProtectedLink from "../protectedLink"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
@@ -79,7 +80,7 @@ const Header = () => {
                             <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signup")}>
                                 회원가입
                             </button>
-                            <Link href="/createPost">
+                            <ProtectedLink href="/createPost">
                                 <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
                                     <Image
                                         src={writeIcon}
@@ -90,7 +91,7 @@ const Header = () => {
                                     />
                                     글쓰기
                                 </button>
-                            </Link>
+                            </ProtectedLink>
                         </div>
                     </div>
                 </div>

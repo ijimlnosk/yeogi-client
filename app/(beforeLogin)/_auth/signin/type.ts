@@ -6,6 +6,6 @@ export type SocialSigninButtonProops = {
     onClick?: () => void
 }
 export type UserRequest ={
-    email:string
-    password: string
+    email:string 
+    password: string 
 }
