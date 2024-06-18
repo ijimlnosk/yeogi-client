@@ -38,3 +38,14 @@ export type getCommentProps = {
 export type fetchCommentProps = {
     postIds: number[]
 }
+
+export type postPinProps = {
+    x: string
+    y: string
+    email: string
+    postId: number
+}
+
+export type getPinProps = {
+    email: string
+}

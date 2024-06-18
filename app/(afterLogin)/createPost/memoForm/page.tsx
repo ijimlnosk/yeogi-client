@@ -11,13 +11,15 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
 import { QuillEditor } from "../_components/editor/editorQuill"
-import MyMapOverlay from "../_components/overlay/mapOverlay"
 import { useMapStore } from "@/libs/storePin"
+import FailModal from "@/components/commons/failModal"
+import RouterOverlay from "../_components/overlay/routerOverlay"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
-    const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
+    const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
+    const [isFailModalOpen, setIsFailModalOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
     const { incrementPinCount } = useMapStore()
@@ -59,14 +61,11 @@ const Page = () => {
             const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
-            alert("🟢 Memo 게시 성공")
             resetFormData()
-            setQuillEditors([])
             incrementPinCount()
-            setIsMapOverlayOpen(true)
-        } catch (error) {
-            console.error(error)
-            alert("🔴 Memo 게시 실패")
+            setIsRouterOverlayOpen(true)
+        } catch {
+            setIsFailModalOpen(true)
         }
     }
 
@@ -103,7 +102,15 @@ const Page = () => {
                     <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>
-            {isMapOverlayOpen && <MyMapOverlay isMapOverlayOpen={isMapOverlayOpen} />}
+            {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}
+            {isFailModalOpen && (
+                <FailModal
+                    isOpen={isFailModalOpen}
+                    title="게시글 등록"
+                    context="기록 글이 업로드되지 않았어요."
+                    setIsOpen={() => setIsFailModalOpen(true)}
+                />
+            )}
         </>
     )
 }

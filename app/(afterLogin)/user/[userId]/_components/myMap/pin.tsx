@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { PinProps } from "./type"
 import Link from "next/link"
+import TempImage from "@/public/images/sampleThumbnail.svg"
 
 const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
     return (
@@ -19,7 +20,7 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                 height={40}
                 onClick={e => onClick(post, e)}
             />
-            {selectedPin && selectedPin.id === post.id && (
+            {selectedPin && selectedPin.postId === post.postId && (
                 <div
                     style={{
                         left: `${selectedPin.pin.x}%`,
@@ -28,9 +29,9 @@ const Pin = ({ post, isUpdate, selectedPin, onClick }: PinProps) => {
                     }}
                     className="absolute z-10 w-[56px] h-[56px] "
                 >
-                    <Link href={`/detailPost/${selectedPin.id}`}>
+                    <Link href={`/detailPost/${selectedPin.postId}`}>
                         <Image
-                            src={selectedPin.thumbnail}
+                            src={TempImage}
                             alt="thumbnail"
                             width={56}
                             height={56}

@@ -29,6 +29,6 @@ export type TextDisplayProps = {
     label: string
 }
 
-export type MyMapOverlayProps = {
-    isMapOverlayOpen: boolean
+export type RouterOverlayProps = {
+    isRouterOverlayOpen: boolean
 }

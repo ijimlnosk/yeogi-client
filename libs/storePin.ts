@@ -2,29 +2,34 @@ import { WorldPost } from "@/app/(afterLogin)/user/[userId]/_components/myMap/ty
 import create from "zustand"
 
 export type MapStore = {
-    pins: WorldPost[]
+    unusedPins: WorldPost[]
+    usedPins: WorldPost[]
+    addUnusedPin: (post: WorldPost) => void
+    setUsedPins: (post: WorldPost) => void
     pinCount: number
-    setPins: (pins: WorldPost[]) => void
     incrementPinCount: () => void
+    isPinExists?: (postId: number) => boolean
 }
 
-export const useMapStore = create<MapStore>(set => ({
-    pins: [],
+export const useMapStore = create<MapStore>((set, get) => ({
+    unusedPins: [],
+    usedPins: [],
+    addUnusedPin: (post: WorldPost) =>
+        set(state => ({
+            unusedPins: [...state.unusedPins, post],
+        })),
+    setUsedPins: (posts: WorldPost) =>
+        set(state => ({
+            unusedPins: state.unusedPins.filter(p => p !== posts),
+            usedPins: [...state.usedPins, posts],
+        })),
     pinCount: 0,
-    setPins: pins => {
-        set(state => {
-            if (arraysAreEqual(state.pins, pins)) return state
-            return { ...state, pins }
-        })
+    incrementPinCount: () =>
+        set(state => ({
+            pinCount: state.pinCount + 1,
+        })),
+    isPinExists: (postId: number) => {
+        const state = get()
+        return state.unusedPins.some(pin => pin.postId === postId) || state.usedPins.some(pin => pin.postId === postId)
     },
-    incrementPinCount: () => set(state => ({ pinCount: state.pinCount + 1 })),
 }))
-
-// 배열 비교 함수 (무한루프 방지)
-export function arraysAreEqual(arr1: WorldPost[], arr2: WorldPost[]): boolean {
-    if (arr1.length !== arr2.length) return false
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i].id !== arr2[i].id) return false
-    }
-    return true
-}

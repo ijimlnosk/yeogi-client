@@ -9,12 +9,14 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import UploadOverlay from "../_components/overlay/uploadOverlay"
-import MyMapOverlay from "../_components/overlay/mapOverlay"
 import { useMapStore } from "@/libs/storePin"
+import RouterOverlay from "../_components/overlay/routerOverlay"
+import FailModal from "@/components/commons/failModal"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-    const [isMapOverlayOpen, setIsMapOverlayOpen] = useState(false)
+    const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
+    const [isFailModalOpen, setIsFailModalOpen] = useState(false)
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
     const { incrementPinCount } = useMapStore()
@@ -44,12 +46,10 @@ const Page = () => {
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
             resetFormData()
-            alert("🟢 Free 게시 성공")
             incrementPinCount()
-            setIsMapOverlayOpen(true)
-        } catch (error) {
-            console.error(error)
-            alert("🔴 Free 게시 실패")
+            setIsRouterOverlayOpen(true)
+        } catch {
+            setIsFailModalOpen(true)
         }
     }
 
@@ -71,7 +71,15 @@ const Page = () => {
                     <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>
-            {isMapOverlayOpen && <MyMapOverlay isMapOverlayOpen={isMapOverlayOpen} />}
+            {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}
+            {isFailModalOpen && (
+                <FailModal
+                    isOpen={isFailModalOpen}
+                    title="게시글 등록"
+                    context="기록 글이 업로드되지 않았어요."
+                    setIsOpen={() => setIsFailModalOpen(true)}
+                />
+            )}
         </>
     )
 }
