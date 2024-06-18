@@ -2,6 +2,7 @@ import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { createPostTemplate, getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
+import { fetchFormAPI } from "./fetchFormAPI"
 
 const POST_API_URL = "/posts"
 
@@ -18,25 +19,14 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
 
     if (searchString) queryParams.append("searchString", searchString)
 
-    const response = await fetch(`${POST_API_URL}/posts?${queryParams.toString()}`, {
-        method: "GET",
-        credentials: "include",
-    })
-
-    if (!response.ok) throw new Error("요청에 상응하는 응답이 없어요...🥹")
+    const response = await fetchFormAPI(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
     const data = await response.json()
-
     return data
 }
 
 export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
-    const response = await fetch(`${POST_API_URL}/posts`, {
+    const response = await fetchFormAPI(POST_API_URL, "posts", {
         method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
         body: JSON.stringify(newPost),
     })
 
@@ -58,12 +48,7 @@ export const getPostDetail = async (postId: number): Promise<Post> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }
-    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-    })
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "GET" })
 
     if (!response.ok) {
         throw new Error("response not ok")

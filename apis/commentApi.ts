@@ -1,70 +1,58 @@
-import { createCommentProps, getCommentProps, commentIdProps } from "./type"
+import { fetchFormAPI } from "./fetchFormAPI"
+import { createCommentProps, getCommentProps, commentIdProps, deleteCommentProps } from "./type"
 
 const API_URL = "/comments"
 
+/**
+ * @function
+ * @param {createCommentProps} props
+ * @param {string} props.content - 댓글 내용
+ * @param {number} props.postId - 댓글이 달릴 게시글 ID
+ * @description 댓글 생성 API
+ */
 export const createComment = async ({ content, postId }: createCommentProps) => {
-    const response = await fetch(`${API_URL}/comment`, {
+    await fetchFormAPI(API_URL, "comment/", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            content,
-            postId,
-        }),
+        body: JSON.stringify({ content, postId }),
     })
-    if (!response.ok) {
-        throw new Error("response not ok")
-    }
-
     return { content, postId }
 }
 
+/**
+ * @function
+ * @param {getCommentProps} props
+ * @param {number} props.postId - 댓글을 가져올 게시글 ID
+ * @description 특정 게시글 댓글 가져오는 API
+ */
 export const getComment = async ({ postId }: getCommentProps) => {
-    const response = await fetch(`${API_URL}/comments/${postId}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-    })
-    if (!response.ok) {
-        throw new Error("response not ok")
-    }
+    const response = await fetchFormAPI(API_URL, `comments/${postId}`, { method: "GET" })
     const data = await response.json()
     return data
 }
 
-export const addCommentLike = async ({ commentId }: commentIdProps) => {
-    const response = await fetch(`${API_URL}/comment/like/${commentId}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-        credentials: "include",
-    })
-    if (!response.ok) {
-        throw new Error("response not ok")
-    }
-
+export const deleteComment = async ({ commentId }: deleteCommentProps) => {
+    await fetchFormAPI(API_URL, `comment/${commentId}`, { method: "DELETE" })
     return { commentId }
 }
 
-export const removeCommentLike = async ({ commentId }: commentIdProps) => {
-    const response = await fetch(`${API_URL}/comment/like/${commentId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-        credentials: "include",
-    })
-    if (!response.ok) {
-        throw new Error("Failed to remove like")
-    }
+/**
+ * @function
+ * @param {commentIdProps} props
+ * @param {number} props.commentId - 좋아요를 추가할 댓글 ID
+ * @description 댓글에 좋아요 추가하는 API
+ */
+export const addCommentLike = async ({ commentId }: commentIdProps) => {
+    await fetchFormAPI(API_URL, `comment/like/${commentId}`, { method: "POST" })
+    return { commentId }
+}
 
+/**
+ * @function
+ * @param {commentIdProps} props
+ * @param {number} props.commentId - 좋아요를 제거할 댓글 ID
+ * @description 댓글에 추가된 좋아요 삭제 API
+ */
+export const removeCommentLike = async ({ commentId }: commentIdProps) => {
+    await fetchFormAPI(API_URL, `comment/like/${commentId}`, { method: "DELETE" })
     return { commentId }
 }
