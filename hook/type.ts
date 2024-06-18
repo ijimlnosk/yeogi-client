@@ -1,4 +1,4 @@
-import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/type"
+import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
 import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type"
 import { Continent } from "@/constants/continents"
 import { UseMutationResult } from "@tanstack/react-query"
