@@ -50,7 +50,7 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     }
 }
 
-export const putFreePost = async (postId: number, editedPost: createPostTemplate): Promise<Post> => {
+export const putFreePost = async (postId: number, editedPost: createPostTemplate): Promise<createPostTemplate> => {
     const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
         method: "PUT",
         headers: {
@@ -61,8 +61,15 @@ export const putFreePost = async (postId: number, editedPost: createPostTemplate
     })
 
     if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
-    const data = await response.json()
-    return data
+    // const data = await response.json()
+    return {
+        title: editedPost.title,
+        content: editedPost.content,
+        continent: editedPost.continent,
+        country: editedPost.country,
+        tripStartDate: editedPost.tripStartDate,
+        tripEndDate: editedPost.tripEndDate,
+    }
 }
 
 export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {

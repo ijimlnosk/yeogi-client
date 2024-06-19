@@ -19,7 +19,6 @@ const UpdateFreePost = () => {
     const updatePostMutation = useUpdateFreePost()
 
     useEffect(() => {
-        console.log("postDetail", postDetail)
         if (postDetail) {
             setFormData(postDetail)
         }
@@ -41,9 +40,8 @@ const UpdateFreePost = () => {
             country: formData.country || selectedCountry!,
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
+            shortPosts: [],
         }
-
-        console.log("editedPost", editedPost)
 
         try {
             await updatePostMutation.mutateAsync({
@@ -51,7 +49,7 @@ const UpdateFreePost = () => {
                 editedFields: editedPost,
             })
             setIsSubmitted(true)
-            window.location.href = `/detailPost/freeFormDetail/${postId}`
+            window.location.href = `/detailPost/${postId}`
         } catch {
             /* 성공실패 오버레이 적용 예정 */
         }
