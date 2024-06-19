@@ -17,9 +17,9 @@ const SuccessToFailModal = ({ title, context, isOpen, onClick, state }: FailModa
                 <div className="w-[360px] h-[360px] flex flex-col items-center justify-center bg-SYSTEM-white rounded-2xl z-60">
                     <div className="w-full flex items-center justify-center">
                         {state === "success" ? (
-                            <Image src="/public/icons/smile.svg" alt="happy" width={64} height={64} />
+                            <Image src="/icons/smile.svg" alt="happy" width={64} height={64} />
                         ) : (
-                            <Image src="/public/icons/unhappy.svg" alt="unhappy" width={64} height={64} />
+                            <Image src="/icons/unhappy.svg" alt="unhappy" width={64} height={64} />
                         )}
                     </div>
                     <div className="pt-[30px] pb-5">
@@ -37,7 +37,7 @@ const SuccessToFailModal = ({ title, context, isOpen, onClick, state }: FailModa
                     </div>
                     <div className="flex flex-col items-center justify-center">
                         <p>{context}</p>
-                        <p>잠시 후 다시 시도 해주세요.</p>
+                        {state === "success" ? <p>여기에서 확인 하세요</p> : <p>잠시 후 다시 시도 해주세요.</p>}
                     </div>
                 </div>
             </Overlay>
