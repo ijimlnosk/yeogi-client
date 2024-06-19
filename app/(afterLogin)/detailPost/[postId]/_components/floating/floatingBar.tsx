@@ -1,64 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import useHandleClick from "@/utils/floatingFunctions"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps } from "./type"
+import useHandleScroll from "@/hook/useHandleScroll"
 
-const FloatingBar = ({ icons, isMine }: FloatingBarProps) => {
-    const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
-        arrow: false,
-        like: false,
-        share: false,
-        delete: false,
-        update: false,
-    })
-
-    const [scrollY, setScrollY] = useState(0)
-
-    const handleScroll = () => {
-        setScrollY(window.scrollY)
-    }
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll)
-        return () => {
-            window.removeEventListener("scroll", handleScroll)
-        }
-    }, [])
-
-    const handleClick = (iconName: string) => {
-        switch (iconName) {
-            case "arrow":
-                handleArrowClick()
-                break
-            case "like":
-                setIsActiveState(prev => ({ ...prev, like: !prev.like }))
-                break
-            case "share":
-                handleShareClick()
-                break
-            default:
-                break
-        }
-    }
-
-    const handleArrowClick = () => {
-        setIsActiveState(prev => ({ ...prev, arrow: true }))
-        window.scrollTo({ top: 0, behavior: "smooth" })
-        setTimeout(() => {
-            setIsActiveState(prev => ({ ...prev, arrow: false }))
-        }, 500)
-    }
-
-    const handleShareClick = async () => {
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(window.location.href)
-            setIsActiveState(prev => ({ ...prev, share: true }))
-            setTimeout(() => {
-                setIsActiveState(prev => ({ ...prev, share: false }))
-            }, 500)
-        }
-    }
+const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
+    const scrollY = useHandleScroll()
+    const { isActiveState, handleClick } = useHandleClick({ postId, post })
 
     return (
         <div className={`relative ${isMine ? "top-[224px]" : ""}`}>
@@ -73,7 +22,7 @@ const FloatingBar = ({ icons, isMine }: FloatingBarProps) => {
             </div>
             {isActiveState.share && (
                 <div
-                    className={`absolute left-[540px] top-[50px] w-[279px] h-[59px] rounded-[8px] bg-BRAND-50 flex items-center justify-center ${
+                    className={`absolute left-[540px] top-[50px] w-[279px] h-[59px] rounded-[8px] text-SYSTEM-white bg-BRAND-50 flex items-center justify-center ${
                         isActiveState.share ? "opacity-100 transition-opacity duration-300" : "opacity-0"
                     }`}
                 >

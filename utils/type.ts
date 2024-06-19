@@ -18,3 +18,8 @@ export type ShortPosts = {
     shortPostId: number
     content: string
 }
+
+export type useHandleClickProps = {
+    postId?: string
+    post?: Post
+}

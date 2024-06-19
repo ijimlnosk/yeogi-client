@@ -11,6 +11,6 @@ export const defaultIcons = [
 ]
 
 export const handlePostIcons = [
-    { name: "delete", icon: editIcon, isActive: false },
-    { name: "update", icon: deleteIcon, isActive: false },
+    { name: "update", icon: editIcon, isActive: false },
+    { name: "delete", icon: deleteIcon, isActive: false },
 ]
