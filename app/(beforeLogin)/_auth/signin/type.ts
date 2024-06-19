@@ -1,4 +1,4 @@
-export type SocialSigninButtonProops = {
+export type SocialSigninButtonProps = {
     icon: string
     text: string
     bgColor: string
@@ -6,6 +6,6 @@ export type SocialSigninButtonProops = {
     onClick?: () => void
 }
 export type UserRequest ={
-    email:string
-    password: string
+    email:string 
+    password: string 
 }

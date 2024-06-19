@@ -1,8 +1,8 @@
 import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type";
-// const BASE_URL = process.env.NEXTAUTH_URL;
+import { UserResponse } from "@/hook/type";
 const BASE_URL = "/auth"
 
-export const postLogin = async (data:UserRequest) :Promise<UserRequest>=> {
+export const postLogin = async (data:UserRequest) :Promise<UserResponse>=> {
 
     try {
         const response = await fetch(`${BASE_URL}/auth/login`,{
