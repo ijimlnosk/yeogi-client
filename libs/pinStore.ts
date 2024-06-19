@@ -1,4 +1,4 @@
-import create from "zustand"
+import { create } from "zustand"
 import { MapStore } from "./type"
 
 export const useMapStore = create<MapStore>(set => ({
