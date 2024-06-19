@@ -25,6 +25,7 @@ export type CommentProps = {
     date: string
     author: string
     initialLiked: boolean
+    postId: number
 }
 
 export type ReCommentProps = {
@@ -113,4 +114,12 @@ export type LikeButtonProps = {
     initialLikes: number
     initialLiked: boolean
     setIsError: (isError: boolean) => void
+    size: number
+    textSize: string
+}
+
+export type CommentCountProps = {
+    size: number
+    commentCount: number
+    textSize: string
 }

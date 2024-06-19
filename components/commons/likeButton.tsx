@@ -6,7 +6,7 @@ import { addCommentLike, removeCommentLike } from "@/apis/commentApi"
 import Image from "next/image"
 import LikeIcon from "@/public/icons/like.svg"
 
-const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError }: LikeButtonProps) => {
+const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, textSize }: LikeButtonProps) => {
     const [likeCount, setLikeCount] = useState(initialLikes)
     const [liked, setLiked] = useState(initialLiked)
 
@@ -34,14 +34,14 @@ const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError }: LikeB
         <>
             <div className="flex flex-row justify-center items-center mr-[18px]">
                 <Image
-                    width={24}
-                    height={24}
+                    width={size}
+                    height={size}
                     src={LikeIcon}
                     alt="total likes"
                     onClick={handleLikeClick}
                     className="hover:cursor-pointer"
                 />
-                <span className="pl-[10px] text-GREY-80">{likeCount} 개</span>
+                <span className={`pl-2 text-GREY-80 ${textSize}`}>{likeCount}개</span>
             </div>
         </>
     )
