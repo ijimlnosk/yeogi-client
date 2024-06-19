@@ -24,6 +24,13 @@ export type FormState = {
     resetFormData: () => void
 }
 
+export type PostDataState = {
+    postId: string | null
+    postDetail: Post | null
+    setPostId: (postId: string | null) => void
+    setPostDetail: (postDetail: Post | null) => void
+}
+
 export type MapStore = {
     pinCount: number
     incrementPinCount: () => void

@@ -1,6 +1,6 @@
 import { PostDetailProps } from "./type"
 
-const MemoFormDetail = ({ title, author, created_At, destination, travel_range, shortPosts }: PostDetailProps) => {
+const MemoFormDetail = ({ title, author, created_At, country, travel_range, shortPosts }: PostDetailProps) => {
     return (
         <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-white h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-[16px] p-5">
             <div className="w-[960px] border-2 border-GREY-30 rounded-[16px] p-5 ">
@@ -19,7 +19,7 @@ const MemoFormDetail = ({ title, author, created_At, destination, travel_range, 
                     <div className="mt-2.5 p-2.5 flex flex-row justify-between items-center  border-t-2 border-GREY-30">
                         <div className="w-[94px]">
                             <p className="flex justify-between">
-                                여행지 <span className="text-BRAND-50 font-bold">{destination}</span>
+                                여행지 <span className="text-BRAND-50 font-bold">{country}</span>
                             </p>
                         </div>
                         <div className="w-[282px]">

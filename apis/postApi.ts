@@ -13,8 +13,8 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
 
     const queryParams = new URLSearchParams()
-    queryParams.append("searchType", searchType.toUpperCase())
-    queryParams.append("sortCondition", sortCondition.toUpperCase())
+    queryParams.append("postSearchType", searchType.toUpperCase())
+    queryParams.append("postSortCondition", sortCondition.toUpperCase())
 
     if (searchString) queryParams.append("searchString", searchString)
 
@@ -50,14 +50,22 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     }
 }
 
-export const putFreePost = async (postId: number, editedPost: Post): Promise<Post> => {
+export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
-        body: JSON.stringify(editedPost),
+        body: JSON.stringify({
+            continent: editedPost.continent,
+            country: editedPost.region,
+            tripStartDate: editedPost.tripStarDate,
+            tripEndDate: editedPost.tripEndDate,
+            title: editedPost.title,
+            content: editedPost.content,
+            shortPosts: editedPost.shortPostList,
+        }),
     })
 
     if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
@@ -65,14 +73,22 @@ export const putFreePost = async (postId: number, editedPost: Post): Promise<Pos
     return data
 }
 
-export const putMemoPost = async (shortPostId: number, editedPost: Post): Promise<Post> => {
+export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts/short-posts/${shortPostId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
-        body: JSON.stringify(editedPost),
+        body: JSON.stringify({
+            continent: editedPost.continent,
+            country: editedPost.region,
+            tripStartDate: editedPost.tripStarDate,
+            tripEndDate: editedPost.tripEndDate,
+            title: editedPost.title,
+            content: editedPost.content,
+            shortPosts: editedPost.shortPostList,
+        }),
     })
 
     if (!response.ok) throw new Error("memo-form 게시글 수정에 실패했어요...🥹")

@@ -14,9 +14,16 @@ import CreateComment from "./_components/comment/createComment"
 import LikeToComment from "./_components/comment/likeToComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
+import { useRouter } from "next/navigation"
+import { useDeletePost } from "@/hook/usePostMutation"
+import { usePostDataStore } from "@/libs/store"
+import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
+    const router = useRouter()
+    const deletePostMutation = useDeletePost()
+    const { setPostId, setPostDetail } = usePostDataStore()
 
     const {
         data: post,
@@ -36,6 +43,20 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         queryFn: () => getComment({ postId: Number(postId) }),
     })
 
+    const handleDeletePost = async () => {
+        try {
+            await deletePostMutation.mutateAsync(Number(postId))
+        } catch {
+            // 삭제 실패 오버레이 적용
+        }
+    }
+
+    const handleUpdatePost = (post: Post) => {
+        setPostId(postId)
+        setPostDetail(post)
+        router.push(`/updatePost/freeForm/${postId}`)
+    }
+
     if (isLoading || isCommentLoading) return <div>Loading...</div>
     if (error) return <div>Error: {error.message}</div>
     if (commentError) return <div>Error: {commentError.message}</div>
@@ -44,14 +65,16 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     return (
         <div className="flex items-center justify-center flex-col">
             <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-10 ">
-                <FloatingBar />
+                <FloatingBar icons={defaultIcons} />
+                <FloatingBar icons={handlePostIcons} isMine={true} />
+
                 {post.content !== "" ? (
                     <FreeFormDetail
                         title={post.title}
                         content={post.content || ""}
                         author={post.author}
                         created_At={formatISODateString(post.createdAt)}
-                        destination={post.region || ""}
+                        country={post.region || ""}
                         travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
                         shortPosts={[]}
                     />
@@ -61,7 +84,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         author={post.author}
                         content={""}
                         created_At={formatISODateString(post.createdAt)}
-                        destination={post.region || ""}
+                        country={post.region || ""}
                         travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
                         shortPosts={post.shortPostList || []}
                     />

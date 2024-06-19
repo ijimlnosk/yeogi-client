@@ -1,5 +1,6 @@
 import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
 import { Continent } from "@/constants/continents"
+import { Post } from "@/utils/type"
 
 export type CountryProps = {
     countriesByContinent: CountryByContinent
@@ -14,4 +15,9 @@ export type DataProps = {
 export type SignInProps = {
     email: string
     password: string
+}
+
+export type updateFreeProps = {
+    postId: number
+    editedFields: Partial<Post>
 }

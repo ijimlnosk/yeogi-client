@@ -8,3 +8,8 @@ export type FloatingButtonType = {
     icon: FloatingIcon
     onClick: () => void
 }
+
+export type FloatingBarProps = {
+    icons: { name: string; icon: string; isActive: boolean }[]
+    isMine?: boolean
+}
