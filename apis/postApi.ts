@@ -2,7 +2,7 @@ import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { createPostTemplate, getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
-import { fetchFormAPI } from "../utils/fetchFormAPI"
+import { fetchFormAPI } from "@/utils/fetchFormAPI"
 
 const POST_API_URL = "/posts"
 
@@ -14,8 +14,8 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
 
     const queryParams = new URLSearchParams()
-    queryParams.append("searchType", searchType.toUpperCase())
-    queryParams.append("sortCondition", sortCondition.toUpperCase())
+    queryParams.append("postSearchType", searchType.toUpperCase())
+    queryParams.append("postSortCondition", sortCondition.toUpperCase())
 
     if (searchString) queryParams.append("searchString", searchString)
 
