@@ -41,6 +41,12 @@ export type LikeToComments = {
     comments: number
 }
 
-export type deleteCommentProps = {
+export type CommentMenuProps = {
     commentId: number
+    content: string
+}
+
+export type CommentUpdateFormProps = {
+    commentId: number
+    postId: number
 }
