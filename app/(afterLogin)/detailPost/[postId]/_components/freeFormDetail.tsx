@@ -1,8 +1,46 @@
+"use client"
+
+import { useEffect, useRef } from "react"
 import { PostDetailProps } from "./type"
 
 const FreeFormDetail = ({ title, content, author, created_At, country, travel_range }: PostDetailProps) => {
+    const contentRef = useRef<HTMLDivElement>(null)
+
+    const wrapImagesWithDiv = (html: string) => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(html, "text/html")
+
+        const temp = doc.querySelectorAll("p")
+        temp.forEach(p => {
+            const images = p.querySelectorAll("img")
+            images.forEach(img => {
+                const div = document.createElement("div")
+                div.className = "image-container"
+                p.parentNode?.insertBefore(div, p)
+                const newImg = document.createElement("img")
+                newImg.src = "/images/tape.svg"
+                newImg.className = "image-tape"
+                div.appendChild(newImg)
+                div.appendChild(img)
+            })
+            if (p.textContent?.trim() === "") {
+                p.parentNode?.removeChild(p)
+            }
+        })
+
+        return doc.body.innerHTML
+    }
+
+    useEffect(() => {
+        if (content && contentRef.current) {
+            const modifiedContent = wrapImagesWithDiv(content)
+            contentRef.current.innerHTML = modifiedContent
+            console.log(modifiedContent, "modifiedContent")
+        }
+    }, [content])
+
     return (
-        <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-white h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-2xl py-5">
+        <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-beige h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-2xl py-5">
             <div className="w-[960px] border-2 border-GREY-30 rounded-2xl p-5 ">
                 <div className="w-full flex justify-between border-t-2 border-b-2 p-2 border-GREY-30">
                     <p>
@@ -29,7 +67,15 @@ const FreeFormDetail = ({ title, content, author, created_At, country, travel_ra
                         </div>
                     </div>
 
-                    <div>{content && <div dangerouslySetInnerHTML={{ __html: content }} className="py-5" />}</div>
+                    <div>
+                        {content && (
+                            <div
+                                ref={contentRef}
+                                dangerouslySetInnerHTML={{ __html: content }}
+                                className="py-5 custom-free-content"
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

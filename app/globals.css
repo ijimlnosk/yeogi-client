@@ -46,6 +46,21 @@ body {
   @apply h-[1060px] !important;
 }
 
+.custom-free-content {
+  @apply w-full h-full flex flex-col justify-center items-center  !important;
+}
+
+.custom-free-content .image-container {
+  @apply w-fit h-[440px] flex flex-col justify-center items-center bg-SYSTEM-white my-[36px] px-[2%] relative !important;
+}
+
+.custom-free-content .image-container img  {
+  @apply max-w-[800px] max-h-[400px] overflow-hidden !important;
+}
+
+.custom-free-content .image-container .image-tape {
+  @apply w-[97.5px] h-[30px] absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 !important;
+}
 
 @layer utilities {
   .text-balance {
