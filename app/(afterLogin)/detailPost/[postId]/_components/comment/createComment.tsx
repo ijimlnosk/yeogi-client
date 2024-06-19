@@ -2,7 +2,7 @@
 
 import { createComment } from "@/apis/commentApi"
 import { useRef, useState } from "react"
-import FailModal from "@/components/commons/failModal"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 
 const CreateComment = ({ postId }: CommentProps) => {
@@ -40,7 +40,13 @@ const CreateComment = ({ postId }: CommentProps) => {
 
     return (
         <>
-            <FailModal isOpen={isError} setIsOpen={setIsError} title="댓글 등록" context="댓글이 등록되지 않았어요" />
+            <SuccessToFailModal
+                isOpen={isError}
+                onClick={() => setIsError(false)}
+                title="댓글 등록"
+                context="댓글이 등록되지 않았어요"
+                state="fail"
+            />
             <form
                 className="w-[1000px] rounded-2xl"
                 onSubmit={e => {

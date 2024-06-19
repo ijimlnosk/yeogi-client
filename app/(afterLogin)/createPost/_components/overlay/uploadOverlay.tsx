@@ -32,6 +32,7 @@ const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit }:
                 textColor={"text-SYSTEM-white"}
                 imageUrl={isPreviewVisible && checkIcon}
                 leftImageUrl={isPreviewVisible && BackIcon}
+                title="이렇게 업로드될 거예요!"
                 rounded={"rounded-3xl"}
             >
                 {!isPreviewVisible ? (

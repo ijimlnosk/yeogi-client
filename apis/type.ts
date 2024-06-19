@@ -35,6 +35,10 @@ export type getCommentProps = {
     postId: number
 }
 
+export type deleteCommentProps = {
+    commentId: number
+}
+
 export type commentIdProps = {
     commentId: number
 }
