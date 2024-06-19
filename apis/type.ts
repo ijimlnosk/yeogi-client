@@ -39,6 +39,12 @@ export type deleteCommentProps = {
     commentId: number
 }
 
+export type updateCommentProps = {
+    commentId: number
+    content: string
+    postId: number
+}
+
 export type commentIdProps = {
     commentId: number
 }

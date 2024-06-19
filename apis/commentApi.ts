@@ -1,5 +1,5 @@
 import { fetchFormAPI } from "../utils/fetchFormAPI"
-import { createCommentProps, getCommentProps, commentIdProps, deleteCommentProps } from "./type"
+import { createCommentProps, getCommentProps, commentIdProps, deleteCommentProps, updateCommentProps } from "./type"
 
 const API_URL = "/comments"
 
@@ -30,9 +30,28 @@ export const getComment = async ({ postId }: getCommentProps) => {
     return data
 }
 
+/**
+ * @function
+ * @param {deleteCommentProps} props
+ * @param {number} props.postId - 특정 댓글의 ID
+ * @description 특정 게시글 댓글 삭제하는 API
+ */
 export const deleteComment = async ({ commentId }: deleteCommentProps) => {
     await fetchFormAPI(API_URL, `comment/${commentId}`, { method: "DELETE" })
     return { commentId }
+}
+
+/**
+ * @function
+ * @param {updateCommentProps} props
+ * @param {number} props.postId - 특정 댓글의 ID
+ * @param {string} props.content - 변경할 content
+ * @param {number} props.postId - 특정 댓글이 있는 postID
+ * @description 특정 게시글 댓글 삭제하는 API
+ */
+export const updateComment = async ({ commentId, content, postId }: updateCommentProps) => {
+    await fetchFormAPI(API_URL, `comment/${commentId}`, { method: "PUT", body: JSON.stringify({ content, postId }) })
+    return { commentId, content, postId }
 }
 
 /**
