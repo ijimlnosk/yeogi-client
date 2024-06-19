@@ -44,7 +44,9 @@ const CommentBox = ({ comments }: CommentBoxProps) => {
                     <p>댓글이 존재하지 않습니다</p>
                 </div>
             )}
-            <Pagination totalPages={totalPage} currentPage={currentPage} />
+            <div className="pt-20">
+                <Pagination totalPages={totalPage} currentPage={currentPage} />
+            </div>
         </div>
     )
 }

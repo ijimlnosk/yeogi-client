@@ -41,43 +41,40 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked, postId
                                     alt="user profile"
                                 />
                             </div>
-
-                            <>
-                                <div className="px-3">
-                                    <div className=" w-[250px] flex flex-row items-center ">
-                                        <span className="font-semibold">{author}</span>
-                                    </div>
-                                    <div>
-                                        <p className="w-full font-pretendard text-sm font-normal text-SYSTEM-black py-4 whitespace-pre-wrap break-words">
-                                            {content}
-                                        </p>
-                                    </div>
-                                    <div className="flex flex-row items-center">
-                                        <span className="mr-[18px] text-xxs pt-1 text-GREY-80">
-                                            {formatISODateString(date)}
-                                        </span>
-                                    </div>
+                            <div className="px-3">
+                                <div className=" w-[250px] flex flex-row items-center ">
+                                    <span className="font-semibold">{author}</span>
                                 </div>
                                 <div>
-                                    <div className=" absolute top-4 right-5">
-                                        <CommentMenu commentId={commentId} content={content} />
-                                    </div>
-                                    <div className="flex flex-row justify-between items-center">
-                                        <div className="flex flex-row items-center  absolute bottom-5 right-5">
-                                            <LikeButton
-                                                commentId={commentId}
-                                                initialLikes={likes}
-                                                initialLiked={initialLiked}
-                                                setIsError={setIsError}
-                                                size={16}
-                                                textSize="text-xxs"
-                                            />
-                                            <CommentCount size={16} commentCount={0} textSize="text-xxs" />
-                                            <p className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer">답글</p>
-                                        </div>
+                                    <p className="w-full font-pretendard text-sm font-normal text-SYSTEM-black py-4 whitespace-pre-wrap break-words">
+                                        {content}
+                                    </p>
+                                </div>
+                                <div className="flex flex-row items-center absolute bottom-5 ">
+                                    <span className="mr-[18px] text-xxs pt-1 text-GREY-80">
+                                        {formatISODateString(date)}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div className=" absolute top-4 right-5">
+                                    <CommentMenu commentId={commentId} content={content} />
+                                </div>
+                                <div className="flex flex-row justify-between items-center">
+                                    <div className="flex flex-row items-center  absolute bottom-5 right-5">
+                                        <LikeButton
+                                            commentId={commentId}
+                                            initialLikes={likes}
+                                            initialLiked={initialLiked}
+                                            setIsError={setIsError}
+                                            size={16}
+                                            textSize="text-xxs"
+                                        />
+                                        <CommentCount size={16} commentCount={0} textSize="text-xxs" />
+                                        <p className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer">답글</p>
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         </div>
                     </div>
                 </div>
