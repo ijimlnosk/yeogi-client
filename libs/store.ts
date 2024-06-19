@@ -1,4 +1,4 @@
-import create from "zustand"
+import { create } from "zustand"
 import { initialFormData } from "@/apis/type"
 import { FormState, SelectionState } from "./type"
 

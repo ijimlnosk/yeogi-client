@@ -14,9 +14,10 @@ import CreateComment from "./_components/comment/createComment"
 import LikeToComment from "./_components/comment/likeToComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
-import { useModalStore } from "@/libs/modalStore"
+
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
+import useModalStore from "@/libs/modalStore"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

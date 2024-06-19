@@ -9,7 +9,7 @@ import Button from "@/components/commons/button"
 import useSignin from "@/hook/useSignin"
 import { UserRequest } from "./type"
 import Overlay from "@/components/commons/overlay"
-import FailModal from "@/components/commons/failModal"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 
 const SigninForm = () => {
     const [isChecked, setIsChecked] = useState(false)
@@ -80,19 +80,21 @@ const SigninForm = () => {
                     {isOpen && (
                         <Overlay isOpen={isOpen} onClick={() => handleOverlay(false)} rounded="lg">
                             {formState === "success" && (
-                                <FailModal
-                                    title="로그인성공성공성공성공"
+                                <SuccessToFailModal
+                                    title="로그인"
                                     isOpen={isOpen}
-                                    setIsOpen={handleOverlay}
-                                    context="다양한 사람들의 세계 곳곳의 여행 추억을 여기에서 확인하세요."
+                                    onClick={() => handleOverlay(false)}
+                                    context="다양한 세계여행 추억을"
+                                    state="success"
                                 />
                             )}
                             {formState === "fail" && (
-                                <FailModal
+                                <SuccessToFailModal
                                     title="로그인"
                                     isOpen={isOpen}
-                                    setIsOpen={handleOverlay}
+                                    onClick={() => handleOverlay(false)}
                                     context="이메일과 비밀번호를 다시 한번 확인해주세요."
+                                    state="fail"
                                 />
                             )}
                         </Overlay>

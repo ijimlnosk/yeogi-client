@@ -1,6 +1,6 @@
 import { deleteComment } from "@/apis/commentApi"
 import { deleteCommentProps } from "./type"
-import { useModalStore } from "@/libs/modalStore"
+import useModalStore from "@/libs/modalStore"
 
 const CommentDeleteButton = ({ commentId }: deleteCommentProps) => {
     const { setIsDelete } = useModalStore()

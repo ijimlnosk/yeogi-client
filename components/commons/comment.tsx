@@ -7,8 +7,8 @@ import { formatISODateString } from "@/utils/formatDate"
 import { useEffect, useState } from "react"
 import SuccessToFailModal from "./successToFailModal"
 import LikeButton from "./likeButton"
-import { useModalStore } from "@/libs/modalStore"
 import { useCommentIdStore } from "@/libs/commentStore"
+import useModalStore from "@/libs/modalStore"
 
 const Comment = ({ commentId, content, likes, date, author, initialLiked }: CommentProps) => {
     const [isError, setIsError] = useState(false)
