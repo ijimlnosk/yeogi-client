@@ -21,7 +21,7 @@ const DeleteModal = ({ title, context, isOpen, onClick, onLeftClick }: DeleteMod
                     <div className="w-full flex items-center justify-center">
                         <Image src={"/icons/trash.svg"} alt="unhappy" width={64} height={64} />
                     </div>
-                    <div className="pt-[30px] pb-[20px]">
+                    <div className="pt-[30px] pb-5">
                         <p>
                             정말 해당 {title}을 <span className="text-SYSTEM-error">삭제</span>하시나요?
                         </p>
