@@ -10,11 +10,9 @@ const CommentDeleteButton = ({ commentId }: deleteCommentProps) => {
     }
 
     return (
-        <>
-            <button onClick={() => handleCommentDelete(commentId)} className="text-GREY-80">
-                삭제
-            </button>
-        </>
+        <button onClick={() => handleCommentDelete(commentId)} className="text-GREY-80">
+            삭제
+        </button>
     )
 }
 export default CommentDeleteButton

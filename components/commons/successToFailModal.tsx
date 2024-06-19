@@ -22,7 +22,7 @@ const SuccessToFailModal = ({ title, context, isOpen, onClick, state }: FailModa
                             <Image src="/public/icons/unhappy.svg" alt="unhappy" width={64} height={64} />
                         )}
                     </div>
-                    <div className="pt-[30px] pb-[20px]">
+                    <div className="pt-[30px] pb-5">
                         <p className="font-bold text-sm">
                             {state === "success" ? (
                                 <span>
