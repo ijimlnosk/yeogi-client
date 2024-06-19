@@ -10,8 +10,11 @@ export type FormSelectorProps = {
     onClick: () => void
     label: string
     state: "continent" | "calendar"
+    formData?: createPostTemplate
 }
 
 export type FormBtnProps = {
-    setIsOverlayOpen: (isOpen: boolean) => void
+    setIsOverlayOpen?: (isOpen: boolean) => void
+    handleUpdatePost?: (postId: string) => void
+    postId?: string | null
 }

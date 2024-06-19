@@ -1,40 +1,59 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createPostTemplate } from "@/apis/type"
-import { useFormDataStore } from "@/libs/store"
+import { useFormDataStore, usePostDataStore, useSelectionStore } from "@/libs/store"
 import FormInputs from "@/app/(afterLogin)/createPost/_components/form/formInputs"
 import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/editorQuill"
 import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
-import { Post } from "@/utils/type"
+import { processContentImages } from "@/utils/commonFormUtils"
 
 const UpdateFreePost = () => {
-    const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const { formData, setFormData } = useFormDataStore()
+    const { postId, postDetail } = usePostDataStore()
+    const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const isFreeForm = true
-    const [isEditMode] = useState(true)
+    const isEditMode = true
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const updatePostMutation = useUpdateFreePost()
+
+    useEffect(() => {
+        console.log("postDetail", postDetail)
+        if (postDetail) {
+            setFormData(postDetail)
+        }
+    }, [postDetail, setFormData])
 
     const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
-    const handleUpdatePost = async () => {
+    const handleUpdatePost = async (postId: string) => {
         if (!postId) return
 
-        const editedPost: Partial<Post> = {}
+        const processedContent = await processContentImages(formData.content || "")
+
+        const editedPost: createPostTemplate = {
+            title: formData.title,
+            content: processedContent,
+            continent: selectedContinent || "아시아",
+            country: formData.country || selectedCountry!,
+            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripEndDate: endDate ? endDate.toISOString() : "",
+        }
+
+        console.log("editedPost", editedPost)
 
         try {
             await updatePostMutation.mutateAsync({
                 postId: parseInt(postId),
                 editedFields: editedPost,
             })
-            alert("🟢 게시글 업데이트 성공")
+            setIsSubmitted(true)
             window.location.href = `/detailPost/freeFormDetail/${postId}`
-        } catch (error) {
-            console.error("Error updating post:", error)
-            alert("🔴 게시글 업데이트 실패")
+        } catch {
+            /* 성공실패 오버레이 적용 예정 */
         }
     }
 
@@ -46,14 +65,14 @@ const UpdateFreePost = () => {
                     <QuillEditor
                         index={0}
                         isFreeForm={isFreeForm}
-                        initialContent={formData.content}
+                        formData={formData}
                         handleInputChange={handleInputChange}
                     />
-                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+                    <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
             {/* 수정된 실패성공 오버레이 적용할 부분 */}
-            {isEditMode && isOverlayOpen}
+            {isEditMode && isSubmitted}
         </>
     )
 }

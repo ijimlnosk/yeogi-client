@@ -26,9 +26,9 @@ export type FormState = {
 
 export type PostDataState = {
     postId: string | null
-    postDetail: Post | null
+    postDetail: createPostTemplate | null
     setPostId: (postId: string | null) => void
-    setPostDetail: (postDetail: Post | null) => void
+    setPostDetail: (postDetail: createPostTemplate | null) => void
 }
 
 export type MapStore = {

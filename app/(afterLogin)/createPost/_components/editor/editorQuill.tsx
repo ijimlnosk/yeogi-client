@@ -11,12 +11,12 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 export const QuillEditor = ({
     index,
     isFreeForm,
-    initialContent,
+    formData,
     handleDeleteQuillEditor,
     handleInputChange,
     handleEditorInputChange,
 }: QuillEditorProps) => {
-    const [value, setValue] = useState(initialContent || "")
+    const [value, setValue] = useState(formData?.content || "")
 
     const handleDeleteClick = () => {
         if (handleDeleteQuillEditor && index !== undefined) handleDeleteQuillEditor(index)

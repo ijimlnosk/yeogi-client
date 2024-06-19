@@ -2,6 +2,7 @@ import { deletePost, putFreePost } from "@/apis/postApi"
 import { Post } from "@/utils/type"
 import { useMutation, useQueryClient, UseMutationResult } from "@tanstack/react-query"
 import { updateFreeProps } from "./type"
+import { createPostTemplate } from "@/apis/type"
 
 export const useDeletePost = (): UseMutationResult<void, Error, number> => {
     const queryClient = useQueryClient()
@@ -19,9 +20,8 @@ export const useUpdateFreePost = () => {
 
     return useMutation<Post, Error, updateFreeProps>({
         mutationFn: ({ postId, editedFields }: updateFreeProps) => {
-            const editedPost: Partial<Post> = {
+            const editedPost: createPostTemplate = {
                 ...editedFields,
-                postId: postId,
             }
             return putFreePost(postId, editedPost)
         },

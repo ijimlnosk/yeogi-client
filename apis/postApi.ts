@@ -50,22 +50,14 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     }
 }
 
-export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
+export const putFreePost = async (postId: number, editedPost: createPostTemplate): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
-        body: JSON.stringify({
-            continent: editedPost.continent,
-            country: editedPost.region,
-            tripStartDate: editedPost.tripStarDate,
-            tripEndDate: editedPost.tripEndDate,
-            title: editedPost.title,
-            content: editedPost.content,
-            shortPosts: editedPost.shortPostList,
-        }),
+        body: JSON.stringify(editedPost),
     })
 
     if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
@@ -104,11 +96,7 @@ export const deletePost = async (postId: number): Promise<void> => {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
     })
-    // if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
-    if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Response error:", response.status, errorText)
-    }
+    if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
 }
 
 export const getPostDetail = async (postId: number): Promise<Post> => {
