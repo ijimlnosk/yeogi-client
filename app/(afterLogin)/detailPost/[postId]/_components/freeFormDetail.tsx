@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import { PostDetailProps } from "./type"
 
-const FreeFormDetail = ({ title, content, author, created_At, country, travel_range }: PostDetailProps) => {
+const FreeFormDetail = ({ title, continent, content, author, created_At, country, travel_range }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
 
     const wrapImagesWithDiv = (html: string) => {
@@ -32,41 +32,40 @@ const FreeFormDetail = ({ title, content, author, created_At, country, travel_ra
     }
 
     useEffect(() => {
+        /* 이 부분은 추후 detail 페이지의 스타일을 잡는데 유용하게 쓰일 수 있으므로 남겨두겠습니다. */
         if (content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(content)
             contentRef.current.innerHTML = modifiedContent
-            console.log(modifiedContent, "modifiedContent")
+            // console.log(modifiedContent, "modifiedContent")
         }
     }, [content])
 
     return (
-        <div className="w-[1000px] bg-comment-pattern bg-SYSTEM-beige h-auto flex items-center justify-center flex-col border-2 border-GREY-50 rounded-2xl py-5">
-            <div className="w-[960px] border-2 border-GREY-30 rounded-2xl p-5 ">
-                <div className="w-full flex justify-between border-t-2 border-b-2 p-2 border-GREY-30">
-                    <p>
-                        게시일 : <span className="font-bold">{created_At}</span>
-                    </p>
-                    <p>
-                        작성자 : <span className="text-BRAND-50">{author}</span>
-                    </p>
+        <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto flex items-center justify-center flex-col border-y-2 border-GREY-30">
+            <div>
+                <div className="flex items-center justify-start py-5">
+                    <p className="text-xxl">{title}</p>
+                </div>
+                <div className="w-full flex justify-between border-t-2 border-b-2 py-2 border-GREY-30">
+                    <div>
+                        <p>
+                            <span className="text-BRAND-50 font-bold mx-4">{author}</span>
+                            <span className="text-GREY-70 mx-4">{created_At}</span>
+                        </p>
+                    </div>
+                    <div className="flex flex-row">
+                        <p className="mx-2">
+                            <span className="text-GREY-70 mx-4">여행지</span>
+                            <span className="text-BRAND-50 font-bold">{continent},</span>
+                            <span className="text-BRAND-50 font-bold">{country}</span>
+                        </p>
+                        <p className="mx-4">
+                            <span className="text-GREY-70 mx-4">여행일자</span>
+                            <span className="text-BRAND-50 font-bold">{travel_range}</span>
+                        </p>
+                    </div>
                 </div>
                 <div className="pt-[20px]">
-                    <div className="flex items-center justify-center py-5 border-t-2 border-b-2 border-BRAND-50">
-                        <p className="text-xxl">{title}</p>
-                    </div>
-                    <div className="mt-[10px] py-2.5 flex flex-row justify-between items-center  border-t-2 border-GREY-30">
-                        <div className="w-[143px]">
-                            <p className="flex justify-between">
-                                여행지 <span className="text-BRAND-50 font-bold">{country}</span>
-                            </p>
-                        </div>
-                        <div className="w-[282px]">
-                            <p className="flex justify-between">
-                                여행일자 <span className="text-BRAND-50 font-bold">{travel_range}</span>
-                            </p>
-                        </div>
-                    </div>
-
                     <div>
                         {content && (
                             <div

@@ -25,6 +25,7 @@ const config: Config = {
             },
             extend: {},
             backgroundImage: {
+                "post-pattern": "url(/images/post-bg.svg)",
                 "comment-pattern": "url(/images/comment-bg.svg)",
                 "re-comment-pattern": "url(/images/re-comment-bg.svg)",
             },

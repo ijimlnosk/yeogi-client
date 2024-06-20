@@ -1,10 +1,13 @@
+"use client"
+
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useDeletePost } from "@/hook/usePostMutation"
 import { usePostDataStore } from "@/libs/store"
 import { useHandleClickProps } from "./type"
+import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 
-const useHandleClick = ({ postId, post }: useHandleClickProps) => {
+const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
         like: false,
@@ -19,10 +22,9 @@ const useHandleClick = ({ postId, post }: useHandleClickProps) => {
 
     const handleArrowClick = () => {
         setIsActiveState(prev => ({ ...prev, arrow: true }))
+        setIconState(prevState => prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: true } : icon)))
         window.scrollTo({ top: 0, behavior: "smooth" })
-        setTimeout(() => {
-            setIsActiveState(prev => ({ ...prev, arrow: false }))
-        }, 500)
+        if (window.scrollY === 0) setIsActiveState(prev => ({ ...prev, arrow: false }))
     }
 
     const handleShareClick = async () => {
@@ -49,12 +51,17 @@ const useHandleClick = ({ postId, post }: useHandleClickProps) => {
     const handleUpdatePost = () => {
         if (postId && post) {
             setPostId(postId)
-            setPostDetail(post)
+            setPostDetail(post) // type error: Post & createPostTemplate
             router.push(`/updatePost/freeForm/${postId}`)
         }
     }
 
     const handleClick = (iconName: string) => {
+        setIconState((prevState: FloatingIcon[]) =>
+            prevState.map((icon: FloatingIcon) =>
+                icon.name === iconName ? { ...icon, isActive: !icon.isActive } : icon,
+            ),
+        )
         switch (iconName) {
             case "arrow":
                 handleArrowClick()

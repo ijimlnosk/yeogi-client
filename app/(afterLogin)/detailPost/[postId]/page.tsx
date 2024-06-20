@@ -53,8 +53,9 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         content={post.content || ""}
                         author={post.author}
                         created_At={formatISODateString(post.createdAt)}
+                        continent={post.continent}
                         country={post.region || ""}
-                        travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
+                        travel_range={`${formatISODateString(post.tripStarDate)} ~ ${formatISODateString(post.tripEndDate)}`}
                         shortPosts={[]}
                     />
                 ) : (
@@ -63,8 +64,9 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         author={post.author}
                         content={""}
                         created_At={formatISODateString(post.createdAt)}
+                        continent={post.continent}
                         country={post.region || ""}
-                        travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
+                        travel_range={`${formatISODateString(post.tripStarDate)} ~ ${formatISODateString(post.tripEndDate)}`}
                         shortPosts={post.shortPostList || []}
                     />
                 )}

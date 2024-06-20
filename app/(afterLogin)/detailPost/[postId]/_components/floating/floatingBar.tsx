@@ -2,20 +2,20 @@
 
 import useHandleClick from "@/utils/floatingFunctions"
 import FloatingButton from "./floatingButton"
-import { FloatingBarProps } from "./type"
-import useHandleScroll from "@/hook/useHandleScroll"
+import { FloatingBarProps, FloatingIcon } from "./type"
+import { useState } from "react"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
-    const scrollY = useHandleScroll()
-    const { isActiveState, handleClick } = useHandleClick({ postId, post })
+    const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
+    const { isActiveState, handleClick } = useHandleClick({ postId, post, setIconState })
 
     return (
-        <div className={`relative ${isMine ? "top-[224px]" : ""}`}>
-            <div className="absolute z-50" style={{ top: `${scrollY + 225}px`, left: `561px` }}>
+        <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
+            <div className="absolute z-50" style={{ left: `561px` }}>
                 <div
                     className={` shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
                 >
-                    {icons.map((icon, idx) => (
+                    {iconState.map((icon, idx) => (
                         <FloatingButton key={idx} icon={icon} onClick={() => handleClick(icon.name)} />
                     ))}
                 </div>

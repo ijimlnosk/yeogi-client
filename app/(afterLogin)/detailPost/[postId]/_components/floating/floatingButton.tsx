@@ -12,7 +12,7 @@ import { FloatingButtonType } from "./type"
 const FloatingButton = ({ icon, onClick }: FloatingButtonType) => {
     return (
         <Button
-            className={`bg-SYSTEM-white rounded-[52px] w-[56px] h-[56px] p-[16px] ${icon.isActive ? "active" : ""}`}
+            className={`bg-SYSTEM-white rounded-[52px] w-[56px] h-[56px] p-4 ${icon.isActive ? "active" : ""}`}
             onClick={onClick}
         >
             <Image

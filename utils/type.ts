@@ -1,3 +1,6 @@
+import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
+import { Dispatch, SetStateAction } from "react"
+
 export type Post = {
     continent: string
     postId: number
@@ -22,4 +25,5 @@ export type ShortPosts = {
 export type useHandleClickProps = {
     postId?: string
     post?: Post
+    setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }

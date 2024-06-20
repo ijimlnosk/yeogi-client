@@ -4,14 +4,13 @@ import { useState } from "react"
 import Image from "next/image"
 import { createPostTemplate } from "@/apis/type"
 import { useFormDataStore } from "@/libs/store"
-import FormInputs from "../../createPost/_components/form/formInputs"
-import { QuillEditor } from "../../createPost/_components/editor/editorQuill"
-import FormBtn from "../../createPost/_components/form/formBtn"
+import FormInputs from "@/app/(afterLogin)/createPost/_components/form/formInputs"
+import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/editorQuill"
+import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 
 const Page = () => {
-    const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
-    const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const { formData, setFormData } = useFormDataStore()
 
     const handleAddMemoClick = () => {
         setQuillEditors([...quillEditors, { content: "" }])
@@ -55,7 +54,7 @@ const Page = () => {
                     <Image width={24} height={24} src="plus-circle.svg" alt="add memo icon" />
                     <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                 </div>
-                <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+                <FormBtn />
             </div>
         </div>
     )
