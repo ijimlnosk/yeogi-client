@@ -1,5 +1,5 @@
 import { fetchFormAPI } from "../utils/fetchFormAPI"
-import { createCommentProps, getCommentProps, commentIdProps, deleteCommentProps } from "./type"
+import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
 
 const API_URL = "/comments"
 
@@ -10,7 +10,7 @@ const API_URL = "/comments"
  * @param {number} props.postId - 댓글이 달릴 게시글 ID
  * @description 댓글 생성 API
  */
-export const createComment = async ({ content, postId }: createCommentProps) => {
+export const postComment = async ({ content, postId }: postCommentProps) => {
     await fetchFormAPI(API_URL, "comment/", {
         method: "POST",
         body: JSON.stringify({ content, postId }),
@@ -30,9 +30,28 @@ export const getComment = async ({ postId }: getCommentProps) => {
     return data
 }
 
+/**
+ * @function
+ * @param {deleteCommentProps} props
+ * @param {number} props.postId - 특정 댓글의 ID
+ * @description 특정 게시글 댓글 삭제하는 API
+ */
 export const deleteComment = async ({ commentId }: deleteCommentProps) => {
     await fetchFormAPI(API_URL, `comment/${commentId}`, { method: "DELETE" })
     return { commentId }
+}
+
+/**
+ * @function
+ * @param {putCommentProps} props
+ * @param {number} props.postId - 특정 댓글의 ID
+ * @param {string} props.content - 변경할 content
+ * @param {number} props.postId - 특정 댓글이 있는 postID
+ * @description 특정 게시글 댓글 삭제하는 API
+ */
+export const putComment = async ({ commentId, content, postId }: putCommentProps) => {
+    await fetchFormAPI(API_URL, `comment/${commentId}`, { method: "PUT", body: JSON.stringify({ content, postId }) })
+    return { commentId, content, postId }
 }
 
 /**
@@ -41,7 +60,7 @@ export const deleteComment = async ({ commentId }: deleteCommentProps) => {
  * @param {number} props.commentId - 좋아요를 추가할 댓글 ID
  * @description 댓글에 좋아요 추가하는 API
  */
-export const addCommentLike = async ({ commentId }: commentIdProps) => {
+export const postCommentLike = async ({ commentId }: commentIdProps) => {
     await fetchFormAPI(API_URL, `comment/like/${commentId}`, { method: "POST" })
     return { commentId }
 }
@@ -52,7 +71,7 @@ export const addCommentLike = async ({ commentId }: commentIdProps) => {
  * @param {number} props.commentId - 좋아요를 제거할 댓글 ID
  * @description 댓글에 추가된 좋아요 삭제 API
  */
-export const removeCommentLike = async ({ commentId }: commentIdProps) => {
+export const deleteCommentLike = async ({ commentId }: commentIdProps) => {
     await fetchFormAPI(API_URL, `comment/like/${commentId}`, { method: "DELETE" })
     return { commentId }
 }

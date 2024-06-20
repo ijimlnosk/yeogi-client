@@ -26,7 +26,7 @@ export const initialFormData: createPostTemplate = {
     shortPosts: undefined,
 }
 
-export type createCommentProps = {
+export type postCommentProps = {
     content: string
     postId: number
 }
@@ -37,6 +37,12 @@ export type getCommentProps = {
 
 export type deleteCommentProps = {
     commentId: number
+}
+
+export type putCommentProps = {
+    commentId: number
+    content: string
+    postId: number
 }
 
 export type commentIdProps = {
