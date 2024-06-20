@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useDeletePost } from "@/hook/usePostMutation"
 import { usePostDataStore } from "@/libs/store"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
+import useHandleScroll from "@/hook/useHandleScroll"
 
 const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
@@ -17,23 +18,41 @@ const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => 
     })
 
     const router = useRouter()
+    const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = usePostDataStore()
+
+    useEffect(() => {
+        if (scrollY <= 20) {
+            setIsActiveState(prev => ({ ...prev, arrow: false }))
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
+            )
+        }
+    }, [scrollY, setIconState])
 
     const handleArrowClick = () => {
         setIsActiveState(prev => ({ ...prev, arrow: true }))
         setIconState(prevState => prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: true } : icon)))
         window.scrollTo({ top: 0, behavior: "smooth" })
-        if (window.scrollY === 0) setIsActiveState(prev => ({ ...prev, arrow: false }))
     }
 
     const handleShareClick = async () => {
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(window.location.href)
-            setIsActiveState(prev => ({ ...prev, share: true }))
+            setIsActiveState(prev => {
+                const newState = { ...prev, share: true }
+                return newState
+            })
             setTimeout(() => {
-                setIsActiveState(prev => ({ ...prev, share: false }))
-            }, 500)
+                setIsActiveState(prev => {
+                    const newState = { ...prev, share: false }
+                    return newState
+                })
+                setIconState(prevState =>
+                    prevState.map(icon => (icon.name === "share" ? { ...icon, isActive: false } : icon)),
+                )
+            }, 1000)
         }
     }
 

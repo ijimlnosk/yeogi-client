@@ -22,7 +22,7 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
             </div>
             {isActiveState.share && (
                 <div
-                    className={`absolute left-[540px] top-[50px] w-[279px] h-[59px] rounded-[8px] text-SYSTEM-white bg-BRAND-50 flex items-center justify-center ${
+                    className={`absolute left-[540px] top-[-150px] w-[279px] h-[59px] rounded-[8px] text-SYSTEM-white bg-BRAND-50 flex items-center justify-center ${
                         isActiveState.share ? "opacity-100 transition-opacity duration-300" : "opacity-0"
                     }`}
                 >
