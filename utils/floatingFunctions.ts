@@ -68,10 +68,14 @@ const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => 
     }
 
     const handleUpdatePost = () => {
-        if (postId && post) {
+        if (postId && post?.content) {
             setPostId(postId)
             setPostDetail(post) // type error: Post & createPostTemplate
             router.push(`/updatePost/freeForm/${postId}`)
+        } else if (postId && post?.shortPostList !== null) {
+            setPostId(postId)
+            setPostDetail(post)
+            router.push(`/updatePost/memoForm/${postId}`)
         }
     }
 

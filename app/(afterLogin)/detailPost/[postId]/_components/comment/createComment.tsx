@@ -39,7 +39,7 @@ const CreateComment = ({ postId }: CommentProps) => {
     }
 
     return (
-        <>
+        <div className="flex justify-center items-center pt-[50px]">
             <FailModal isOpen={isError} setIsOpen={setIsError} title="댓글 등록" context="댓글이 등록되지 않았어요" />
             <form
                 className="w-[1000px] rounded-2xl"
@@ -56,7 +56,7 @@ const CreateComment = ({ postId }: CommentProps) => {
                     onKeyDown={handleKeyDown}
                 />
             </form>
-        </>
+        </div>
     )
 }
 export default CreateComment
