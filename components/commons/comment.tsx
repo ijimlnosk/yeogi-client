@@ -32,7 +32,7 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked, postId
                 <div className="relative">
                     <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
                         <div className="w-[952px] flex flex-row">
-                            <div className="min-w-[48px] min-h-[48px]">
+                            <div className="min-w-12 min-h-12">
                                 <Image
                                     width={48}
                                     height={48}
