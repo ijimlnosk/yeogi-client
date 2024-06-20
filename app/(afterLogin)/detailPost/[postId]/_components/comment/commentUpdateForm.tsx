@@ -1,4 +1,4 @@
-import { updateComment } from "@/apis/commentApi"
+import { putComment } from "@/apis/commentApi"
 import { useUpdateComment } from "@/libs/commentStore"
 import Image from "next/image"
 import { CommentUpdateFormProps } from "./type"
@@ -7,7 +7,7 @@ const CommentUpdateForm = ({ commentId, postId }: CommentUpdateFormProps) => {
     const { updatedContent, setIsUpdateComment, setUpdatedContent } = useUpdateComment()
 
     const handleSaveClick = async () => {
-        await updateComment({ commentId, content: updatedContent, postId })
+        await putComment({ commentId, content: updatedContent, postId })
         setIsUpdateComment(false)
         window.location.reload()
     }

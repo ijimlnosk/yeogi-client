@@ -88,12 +88,13 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         />
                     )}
                 </div>
-                <div className="flex justify-center items-center pt-[50px]">
-                    <CreateComment postId={post.postId} />
-                </div>
                 <div className="w-full flex items-center justify-center">
                     <LikeToComment likes={post.likeCount} comments={comments.length} />
                 </div>
+                <div className="flex justify-center items-center pt-[50px]">
+                    <CreateComment postId={post.postId} />
+                </div>
+
                 <div className="flex items-center justify-center">
                     {comments.length > 0 ? <CommentBox comments={comments} /> : <div>댓글이 없습니다</div>}
                 </div>

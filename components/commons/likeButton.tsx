@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { LikeButtonProps } from "./type"
-import { addCommentLike, removeCommentLike } from "@/apis/commentApi"
+import { postCommentLike, deleteCommentLike } from "@/apis/commentApi"
 import Image from "next/image"
 import LikeIcon from "@/public/icons/like.svg"
 
@@ -18,10 +18,10 @@ const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, t
     const handleLikeClick = async () => {
         try {
             if (liked) {
-                await removeCommentLike({ commentId })
+                await deleteCommentLike({ commentId })
                 setLikeCount(likeCount - 1)
             } else {
-                await addCommentLike({ commentId })
+                await postCommentLike({ commentId })
                 setLikeCount(likeCount + 1)
             }
             setLiked(!liked)
