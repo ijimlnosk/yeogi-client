@@ -16,7 +16,7 @@ const CommentUpdateForm = ({ commentId, postId }: CommentUpdateFormProps) => {
         <div className="w-[1000px] h-[218px] bg-SYSTEM-beige relative border-b-[1px] border-GREY-20">
             <div className="absolute top-8  px-6 pb-8">
                 <div className="flex flex-row gap-2">
-                    <div className="min-w-[48px] min-h-[48px]  ">
+                    <div className="min-w-12 min-h-12  ">
                         <Image
                             width={48}
                             height={48}
