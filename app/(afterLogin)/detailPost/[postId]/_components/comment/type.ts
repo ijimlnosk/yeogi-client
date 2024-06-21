@@ -13,7 +13,7 @@ export type Comment = {
 }
 
 export type CommentBoxProps = {
-    comments: Comment[]
+    commentsData: Comment[]
 }
 
 export type CommentType = {
@@ -49,4 +49,15 @@ export type CommentMenuProps = {
 export type CommentUpdateFormProps = {
     commentId: number
     postId: number
+}
+
+export type addUpdateComment = {
+    id: number
+    nickname: string
+    likeCount: number
+    createdAt: string
+}
+
+export type fetchGetCommentProps = {
+    comment: Comment
 }

@@ -1,34 +1,30 @@
 "use client"
 
 import { postComment } from "@/apis/commentApi"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 import Button from "@/components/commons/button"
+import { useCommentStore } from "@/libs/commentStore"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
-    const isLoading = useRef<boolean>(false)
+    const addComment = useCommentStore(state => state.addComment)
 
     const handleSubmit = async () => {
         if (content.trim() === "") {
             return
         }
 
-        if (isLoading.current) return
-
-        isLoading.current = true
-
         try {
-            await postComment({ content, postId })
+            const newComment = await postComment({ content, postId })
+            addComment(newComment)
+            console.log(newComment, "실행됨")
             setContent("")
             setIsError(false)
-            window.location.reload()
         } catch (error) {
             setIsError(true)
-        } finally {
-            isLoading.current = false
         }
     }
 

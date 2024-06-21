@@ -1,19 +1,26 @@
 import Comment from "@/components/commons/comment"
-import { CommentBoxProps } from "./type"
 import Pagination from "@/components/commons/pagination"
 import { useSearchParams } from "next/navigation"
+import { useCommentStore } from "@/libs/commentStore"
+import { CommentBoxProps } from "./type"
 
 /**
  * @function CommentBox
- * @param {CommentBoxProps} comments - api로 받아온 댓글 배열
+ * @param {CommentBoxProps} props.comments - api로 받아온 댓글 배열
  * @returns {JSX.Element}
  */
-const CommentBox = ({ comments }: CommentBoxProps) => {
+const CommentBox = ({ commentsData }: CommentBoxProps) => {
+    const { comments } = useCommentStore()
+
     const searchParams = useSearchParams()
     const currentPage = parseInt(searchParams.get("page") as string, 10) || 1
     const commentsPerPage = 5
 
-    const sortComments = comments.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    const filterComments = comments.filter(comment => commentsData.some(c => c.postId == comment.postId))
+
+    const sortComments = filterComments.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    )
 
     const lastComment = currentPage * commentsPerPage
     const firstComment = lastComment - commentsPerPage

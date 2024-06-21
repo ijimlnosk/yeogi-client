@@ -16,10 +16,13 @@ import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 
 import DeleteModal from "@/components/commons/deleteModal"
-import { useCommentIdStore } from "@/libs/commentStore"
+import { useCommentIdStore, useCommentStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
+import { useEffect } from "react"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
+    const { comments, setComments } = useCommentStore()
+
     const { postId } = params
 
     const { isDelete, setIsDelete } = useModalStore()
@@ -35,7 +38,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     })
 
     const {
-        data: comments = [],
+        data: fetchComments = [],
         error: commentError,
         isLoading: isCommentLoading,
     } = useQuery<Comment[], Error>({
@@ -43,10 +46,16 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         queryFn: () => getComment({ postId: Number(postId) }),
     })
 
+    useEffect(() => {
+        if (fetchComments.length && comments.length === 0) {
+            setComments(fetchComments)
+        }
+    }, [fetchComments, comments, setComments])
+
     const handleDelete = async (commentId: number) => {
         setIsDelete(false)
         await deleteComment({ commentId: commentId })
-        window.location.reload()
+        setComments(comments.filter(comment => comment.id !== commentId))
     }
 
     if (isLoading || isCommentLoading) return <div>Loading...</div>
@@ -96,7 +105,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 </div>
 
                 <div className="flex items-center justify-center">
-                    {comments.length > 0 ? <CommentBox comments={comments} /> : <div>댓글이 없습니다</div>}
+                    {comments.length > 0 ? <CommentBox commentsData={fetchComments} /> : <div>댓글이 없습니다</div>}
                 </div>
                 <div className="w-full flex justify-center items-center pt-[50px] pb-[100px]">
                     <div className="w-[1000px] flex justify-end">
