@@ -8,9 +8,9 @@ import writeIcon from "@/public/icons/write.svg"
 import SearchBar from "../commons/searchBar"
 import LogoText from "@/public/icons/logo_text.svg"
 import Overlay from "../commons/overlay"
-import SigninForm from "@/app/(beforeLogin)/_auth/signin/signinForm"
 import SignupForm from "@/app/(beforeLogin)/_auth/signup/signupForm"
 import ProtectedLink from "../protectedLink"
+import AuthForm from "@/app/auth/page"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
@@ -98,7 +98,7 @@ const Header = () => {
             </header>
             {isOverlayOpen && (
                 <Overlay isOpen={isOverlayOpen} onClick={() => handleOverlay(false)} rounded="lg">
-                    {formType === "signin" && <SigninForm />}
+                    {formType === "signin" && <AuthForm />}
                     {formType === "signup" && <SignupForm />}
                 </Overlay>
             )}
