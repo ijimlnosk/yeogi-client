@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { createPostTemplate } from "@/apis/type"
 import { useFormDataStore, usePostDataStore, useSelectionStore } from "@/libs/store"
 import FormInputs from "@/app/(afterLogin)/createPost/_components/form/formInputs"
 import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/editorQuill"
 import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
 import { processContentImages } from "@/utils/commonFormUtils"
+import { Post } from "@/utils/type"
 
-const Page = () => {
+const UpdatePostPage = () => {
     const { formData, setFormData } = useFormDataStore()
     const { postId, postDetail } = usePostDataStore()
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
@@ -22,10 +22,17 @@ const Page = () => {
     useEffect(() => {
         if (postDetail) {
             setFormData(postDetail)
+            if (postDetail.shortPostList && postDetail.shortPostList.length > 0) {
+                setQuillEditors(
+                    postDetail.shortPostList.map(post => ({
+                        content: post.content,
+                    })),
+                )
+            }
         }
     }, [postDetail, setFormData])
 
-    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+    const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
@@ -46,16 +53,27 @@ const Page = () => {
     const handleUpdatePost = async (postId: string) => {
         if (!postId) return
 
-        const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content)))
-
-        const editedPost: createPostTemplate = {
+        let editedPost: Post = {
             title: formData.title,
             content: "",
             continent: selectedContinent || "아시아",
-            country: formData.country || selectedCountry!,
+            region: formData.region || selectedCountry!,
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
-            shortPosts: processedContent,
+            shortPostList: [],
+        }
+
+        if (formData.content) {
+            const processedContent = await processContentImages(formData.content)
+            editedPost = { ...editedPost, content: processedContent }
+        } else if (formData.shortPostList) {
+            const processedShortPosts = await Promise.all(
+                quillEditors.map(async (editor, index) => {
+                    const content = await processContentImages(editor.content)
+                    return { shortPostId: index, content }
+                }),
+            )
+            editedPost = { ...editedPost, shortPostList: processedShortPosts }
         }
 
         try {
@@ -75,22 +93,37 @@ const Page = () => {
             <div className="flex flex-col justify-center items-center mb-[205px]">
                 <div className="w-[900px] h-full font-pretendard">
                     <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
-                    {quillEditors.map((_, index) => (
-                        <div key={index}>
+                    {formData.content ? (
+                        <QuillEditor
+                            index={0}
+                            isFreeForm={true}
+                            postDetail={formData} // Ensure postDetail is correctly passed here
+                            handleInputChange={handleInputChange}
+                        />
+                    ) : (
+                        quillEditors.map((_, index) => (
                             <QuillEditor
+                                key={index}
                                 index={index}
+                                isFreeForm={false}
+                                postDetail={{
+                                    ...formData,
+                                    shortPostList: quillEditors.map((e, i) => ({ shortPostId: i, content: e.content })),
+                                }}
                                 handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
                                 handleEditorInputChange={handleEditorInputChange}
                             />
+                        ))
+                    )}
+                    {!formData.content && (
+                        <div
+                            onClick={handleAddMemoClick}
+                            className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
+                        >
+                            <Image width={24} height={24} src="/icons/plus-circle.svg" alt="add memo icon" />
+                            <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
-                    ))}
-                    <div
-                        onClick={handleAddMemoClick}
-                        className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
-                    >
-                        <Image width={24} height={24} src="/icons/plus-circle.svg" alt="add memo icon" />
-                        <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
-                    </div>
+                    )}
                     <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
@@ -100,4 +133,4 @@ const Page = () => {
     )
 }
 
-export default Page
+export default UpdatePostPage

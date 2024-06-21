@@ -13,9 +13,12 @@ import LikeToComment from "./_components/comment/likeToComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
+import { usePostDataStore } from "@/libs/store"
+import { useEffect } from "react"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
+    const { setPostDetail } = usePostDataStore()
 
     const {
         data: post,
@@ -34,6 +37,12 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         queryKey: ["comments", { postId: Number(postId) }],
         queryFn: () => getComment({ postId: Number(postId) }),
     })
+
+    useEffect(() => {
+        if (post) {
+            setPostDetail(post)
+        }
+    }, [post, setPostDetail])
 
     if (isLoading || isCommentLoading) return <div>Loading...</div>
     if (error) return <div>Error: {error.message}</div>

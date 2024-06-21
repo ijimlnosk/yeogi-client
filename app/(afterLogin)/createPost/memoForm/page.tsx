@@ -5,7 +5,6 @@ import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
-import { createPostTemplate } from "@/apis/type"
 import { postPost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
@@ -14,6 +13,7 @@ import { QuillEditor } from "../_components/editor/editorQuill"
 import { useMapStore } from "@/libs/storePin"
 import FailModal from "@/components/commons/failModal"
 import RouterOverlay from "../_components/overlay/routerOverlay"
+import { Post } from "@/utils/type"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -38,7 +38,7 @@ const Page = () => {
         setQuillEditors(updatedEditors)
     }
 
-    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+    const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
@@ -47,9 +47,9 @@ const Page = () => {
 
         const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content))) // 유틸리티 함수 사용
 
-        const postData: createPostTemplate = {
+        const postData: Post = {
             continent: selectedContinent || "아시아",
-            country: selectedCountry!,
+            region: selectedCountry!,
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,

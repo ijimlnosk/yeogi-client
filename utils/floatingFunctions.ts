@@ -61,6 +61,7 @@ const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => 
             try {
                 await deletePostMutation.mutateAsync(Number(postId))
                 alert("🟢 게시글이 삭제되었어요!") // 성공 실패 모달 사용 예정
+                router.push(`/`)
             } catch {
                 alert("🔴 게시글 삭제에 실패했어요...") // 성공 실패 모달 사용 예정
             }
@@ -68,14 +69,10 @@ const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => 
     }
 
     const handleUpdatePost = () => {
-        if (postId && post?.content) {
-            setPostId(postId)
-            setPostDetail(post) // type error: Post & createPostTemplate
-            router.push(`/updatePost/freeForm/${postId}`)
-        } else if (postId && post?.shortPostList !== null) {
+        if (postId && post) {
             setPostId(postId)
             setPostDetail(post)
-            router.push(`/updatePost/memoForm/${postId}`)
+            router.push(`/updatePost/${postId}`)
         }
     }
 
