@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { CommentMenuProps } from "./type"
 
-const CommentMenu = ({ commentId, content }: CommentMenuProps) => {
+const CommentMenu = ({ commentId }: CommentMenuProps) => {
     const [isMenu, setIsMenu] = useState(false)
     const { setIsUpdateComment } = useIsUpdateComment()
     const { setIsDelete } = useModalStore()

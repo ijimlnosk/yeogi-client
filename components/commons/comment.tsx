@@ -58,7 +58,7 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked, postId
                             </div>
                             <div>
                                 <div className=" absolute top-4 right-5">
-                                    <CommentMenu commentId={commentId} content={content} />
+                                    <CommentMenu commentId={commentId} />
                                 </div>
                                 <div className="flex flex-row justify-between items-center">
                                     <div className="flex flex-row items-center  absolute bottom-5 right-5">

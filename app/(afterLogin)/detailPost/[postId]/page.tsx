@@ -16,13 +16,10 @@ import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 
 import DeleteModal from "@/components/commons/deleteModal"
-import { useCommentIdStore, useCommentStore } from "@/libs/commentStore"
+import { useCommentIdStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
-import { useEffect } from "react"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
-    const { comments, setComments } = useCommentStore()
-
     const { postId } = params
 
     const { isDelete, setIsDelete } = useModalStore()
@@ -38,7 +35,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     })
 
     const {
-        data: fetchComments = [],
+        data: comments = [],
         error: commentError,
         isLoading: isCommentLoading,
         refetch: refetchComments,
@@ -46,12 +43,6 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         queryKey: ["comments", { postId: Number(postId) }],
         queryFn: () => getComment({ postId: Number(postId) }),
     })
-
-    useEffect(() => {
-        if (fetchComments.length && comments.length === 0) {
-            setComments(fetchComments)
-        }
-    }, [fetchComments, comments, setComments])
 
     const handleDelete = async (commentId: number) => {
         setIsDelete(false)

@@ -13,11 +13,7 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
     const currentPage = parseInt(searchParams.get("page") as string, 10) || 1
     const commentsPerPage = 5
 
-    const filterComments = comments.filter(comment => commentsData.some(c => c.postId == comment.postId))
-
-    const sortComments = filterComments.sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
+    const sortComments = comments.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
     const lastComment = currentPage * commentsPerPage
     const firstComment = lastComment - commentsPerPage

@@ -45,7 +45,6 @@ export type LikeToComments = {
 
 export type CommentMenuProps = {
     commentId: number
-    content: string
 }
 
 export type CommentUpdateFormProps = {
@@ -69,15 +68,4 @@ export type fetchGetCommentProps = {
 export type PostCommentMutate = {
     content: string
     postId: number
-}
-
-export type addUpdateComment = {
-    id: number
-    nickname: string
-    likeCount: number
-    createdAt: string
-}
-
-export type fetchGetCommentProps = {
-    comment: Comment
 }
