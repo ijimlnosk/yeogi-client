@@ -71,20 +71,20 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 context="댓글"
             />
             <div className="flex items-center justify-center flex-col">
-                <div className="relative w-[1300px] flex flex-col items-center justify-center pt-10">
+                <div className="relative w-[1300px] flex flex-col items-center justify-center py-10">
                     <FloatingBar icons={defaultIcons} />
                     <FloatingBar icons={handlePostIcons} isMine={true} postId={postId} post={post} />
                     <PostDetail post={post} />
                 </div>
-                <CreateComment postId={post.postId} />
                 <LikeToComment likes={post.likeCount} comments={comments.length} />
+                <CreateComment postId={post.postId} />
                 <div className="flex items-center justify-center">
                     {comments.length > 0 ? <CommentBox comments={comments} /> : <div>댓글이 없습니다</div>}
                 </div>
                 <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
                     <Link
                         href={"/search"}
-                        className="bg-BRAND-50 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
+                        className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
                     >
                         목록으로
                     </Link>
