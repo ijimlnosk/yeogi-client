@@ -13,7 +13,7 @@ export const initialFormData: Post = {
     tripEndDate: "",
     title: "",
     content: "",
-    shortPostList: undefined,
+    shortPosts: undefined,
     postId: 0,
     author: "",
     likeCount: 0,

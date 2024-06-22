@@ -7,7 +7,7 @@ export type Post = {
     author: string
     title: string
     content?: string
-    shortPostList?: ShortPosts[]
+    shortPosts?: ShortPosts[]
     likeCount: number
     viewCount: number
     createdAt: string

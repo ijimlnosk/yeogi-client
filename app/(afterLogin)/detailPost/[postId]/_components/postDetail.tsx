@@ -33,12 +33,10 @@ const PostDetail = ({ post }: PostDetailProps) => {
     }
 
     useEffect(() => {
-        /* 이 부분은 추후 detail 페이지의 스타일을 잡는데 유용하게 쓰일 수 있으므로 남겨두겠습니다. */
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
             contentRef.current.innerHTML = modifiedContent
         }
-        // console.log(modifiedContent, "modifiedContent")
     }, [post.content])
 
     return (
@@ -65,16 +63,16 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     </p>
                 </div>
             </div>
-            <div className="pt-[20px]">
+            <div className="p-5">
                 {post.content && (
                     <div
                         ref={contentRef}
                         dangerouslySetInnerHTML={{ __html: post.content }}
-                        className="py-5 custom-content"
+                        className="custom-content"
                     />
                 )}
-                {post.shortPostList?.map(post => (
-                    <div className="w-full py-5 flex flex-col items-center justify-center" key={post.shortPostId}>
+                {post.shortPosts?.map(post => (
+                    <div className="w-full flex flex-col items-center justify-center" key={post.shortPostId}>
                         <div
                             ref={contentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"

@@ -60,7 +60,7 @@ const Page = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",
-            shortPostList: processedContent,
+            shortPosts: processedContent,
         }
 
         try {

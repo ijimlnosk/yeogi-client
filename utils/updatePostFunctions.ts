@@ -17,7 +17,7 @@ export const useInitializeFormData = (postDetail: Post | null) => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
-                postDetail.shortPostList?.map(post => ({
+                postDetail.shortPosts?.map(post => ({
                     content: post.content,
                 })) || []
             setFormData(postDetail)
@@ -121,20 +121,20 @@ export const handleUpdatePost = async (
         region: formData.region || selectedCountry!,
         tripStarDate: startDate ? startDate.toISOString() : "",
         tripEndDate: endDate ? endDate.toISOString() : "",
-        shortPostList: [],
+        shortPosts: [],
     }
 
     if (formData.content) {
         const processedContent = await processContentImages(formData.content)
         editedPost = { ...editedPost, content: processedContent }
-    } else if (formData.shortPostList) {
+    } else if (formData.shortPosts) {
         const processedShortPosts = await Promise.all(
             quillEditors.map(async (editor, index) => {
                 const content = await processContentImages(editor.content)
                 return { shortPostId: index, content }
             }),
         )
-        editedPost = { ...editedPost, shortPostList: processedShortPosts }
+        editedPost = { ...editedPost, shortPosts: processedShortPosts }
     }
 
     try {

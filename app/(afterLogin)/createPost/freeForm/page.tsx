@@ -38,7 +38,7 @@ const Page = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: processedContent,
-            shortPostList: [],
+            shortPosts: [],
         }
 
         try {

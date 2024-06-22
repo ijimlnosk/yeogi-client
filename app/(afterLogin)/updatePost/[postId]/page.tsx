@@ -23,7 +23,7 @@ const UpdatePostPage = () => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
-                postDetail.shortPostList?.map(post => ({
+                postDetail.shortPosts?.map(post => ({
                     content: post.content,
                 })) || []
             setFormData(postDetail)
@@ -59,20 +59,20 @@ const UpdatePostPage = () => {
             region: formData.region || selectedCountry!,
             tripStarDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
-            shortPostList: [],
+            shortPosts: [],
         }
 
         if (formData.content) {
             const processedContent = await processContentImages(formData.content)
             editedPost = { ...editedPost, content: processedContent }
-        } else if (formData.shortPostList) {
+        } else if (formData.shortPosts) {
             const processedShortPosts = await Promise.all(
                 quillEditors.map(async (editor, index) => {
                     const content = await processContentImages(editor.content)
                     return { shortPostId: index, content }
                 }),
             )
-            editedPost = { ...editedPost, shortPostList: processedShortPosts }
+            editedPost = { ...editedPost, shortPosts: processedShortPosts }
         }
 
         try {
@@ -107,7 +107,7 @@ const UpdatePostPage = () => {
                                 isFreeForm={false}
                                 postDetail={{
                                     ...formData,
-                                    shortPostList: quillEditors.map((e, i) => ({ shortPostId: i, content: e.content })),
+                                    shortPosts: quillEditors.map((e, i) => ({ shortPostId: i, content: e.content })),
                                 }}
                                 handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
                                 handleEditorInputChange={handleEditorInputChange}
