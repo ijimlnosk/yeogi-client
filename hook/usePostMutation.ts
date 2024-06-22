@@ -24,9 +24,5 @@ export const useUpdateFreePost = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["posts"] })
         },
-        onError: error => {
-            console.error("Error updating post:", error)
-            alert("🔴 게시글 수정에 실패했어요...")
-        },
     })
 }
