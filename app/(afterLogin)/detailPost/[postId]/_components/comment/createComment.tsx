@@ -40,7 +40,7 @@ const CreateComment = ({ postId, refetch }: CommentProps) => {
                 context="댓글이 등록되지 않았어요"
                 state="fail"
             />
-            <form className="w-[1000px] rounded-2xl" onSubmit={handleSubmit}>
+            <form className="w-[1000px] rounded-2xl pt-7" onSubmit={handleSubmit}>
                 <textarea
                     className="w-full h-[180px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-white border-2 border-GREY-30 focus:outline-none "
                     placeholder="댓글을 입력해주세요."

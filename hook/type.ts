@@ -32,6 +32,7 @@ export type useHandleClickProps = {
     postId?: string
     post?: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
+}
 
 export type postCommentResponse = {
     id: number
