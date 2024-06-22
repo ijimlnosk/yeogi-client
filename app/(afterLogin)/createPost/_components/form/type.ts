@@ -2,7 +2,7 @@ import { Post } from "@/utils/type"
 
 export type FormInputsProps = {
     formText: string
-    formData: Post
+    postDetail?: Post
     handleInputChange: <K extends keyof Post>(field: K, value: Post[K]) => void
 }
 
@@ -10,7 +10,7 @@ export type FormSelectorProps = {
     onClick: () => void
     label: string
     state: "continent" | "calendar"
-    formData?: Post
+    postDetail?: Post
 }
 
 export type FormBtnProps = {

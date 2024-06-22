@@ -3,8 +3,13 @@ import { formatISODateString } from "@/utils/formatDate"
 import { FormSelectorProps } from "./type"
 import { TextDisplayProps } from "../overlay/type"
 
-const FormSelector = ({ onClick, label, state }: FormSelectorProps) => {
+const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
+
+    const continent = postDetail?.continent || selectedContinent
+    const country = postDetail?.region || selectedCountry
+    const start = postDetail?.tripStarDate ? new Date(postDetail.tripStarDate) : startDate
+    const end = postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
 
     return (
         <button
@@ -13,16 +18,16 @@ const FormSelector = ({ onClick, label, state }: FormSelectorProps) => {
         >
             {state === "continent" ? (
                 <TextDisplay
-                    condition={!!selectedContinent && !!selectedCountry}
-                    mainText={selectedContinent}
-                    subText={selectedCountry}
+                    condition={!!continent && !!country}
+                    mainText={continent}
+                    subText={country}
                     label={label}
                 />
             ) : (
                 <TextDisplay
-                    condition={!!startDate && !!endDate}
-                    mainText={startDate ? formatISODateString(startDate.toISOString()) : null}
-                    subText={endDate ? formatISODateString(endDate.toISOString()) : null}
+                    condition={!!start && !!end}
+                    mainText={start ? formatISODateString(start.toISOString()) : null}
+                    subText={end ? formatISODateString(end.toISOString()) : null}
                     label={label}
                 />
             )}

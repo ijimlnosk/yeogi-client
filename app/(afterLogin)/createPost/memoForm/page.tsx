@@ -69,10 +69,6 @@ const Page = () => {
         }
     }
 
-    if (!formData) {
-        return <div>Loading...</div>
-    }
-
     return (
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">

@@ -11,7 +11,7 @@ import { processContentImages } from "@/utils/commonFormUtils"
 import { Post } from "@/utils/type"
 
 const UpdatePostPage = () => {
-    const { formData, setFormData } = useFormDataStore()
+    const { formData, setFormData, resetFormData } = useFormDataStore()
     const { postId, postDetail } = usePostDataStore()
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const isEditMode = true
@@ -20,17 +20,17 @@ const UpdatePostPage = () => {
     const updatePostMutation = useUpdateFreePost()
 
     useEffect(() => {
+        resetFormData()
         if (postDetail) {
+            console.log("postDetail", postDetail)
+            const initialQuillEditors =
+                postDetail.shortPostList?.map(post => ({
+                    content: post.content,
+                })) || []
             setFormData(postDetail)
-            if (postDetail.shortPostList && postDetail.shortPostList.length > 0) {
-                setQuillEditors(
-                    postDetail.shortPostList.map(post => ({
-                        content: post.content,
-                    })),
-                )
-            }
+            setQuillEditors(initialQuillEditors)
         }
-    }, [postDetail, setFormData])
+    }, [postDetail, resetFormData, setFormData])
 
     const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
         setFormData({ ...formData, [field]: value })
@@ -53,12 +53,12 @@ const UpdatePostPage = () => {
     const handleUpdatePost = async (postId: string) => {
         if (!postId) return
 
-        let editedPost: Post = {
+        let editedPost: Partial<Post> = {
             title: formData.title,
             content: "",
             continent: selectedContinent || "아시아",
             region: formData.region || selectedCountry!,
-            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripStarDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             shortPostList: [],
         }
@@ -92,12 +92,12 @@ const UpdatePostPage = () => {
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
+                    <FormInputs formText={"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
                     {formData.content ? (
                         <QuillEditor
                             index={0}
                             isFreeForm={true}
-                            postDetail={formData} // Ensure postDetail is correctly passed here
+                            postDetail={formData}
                             handleInputChange={handleInputChange}
                         />
                     ) : (

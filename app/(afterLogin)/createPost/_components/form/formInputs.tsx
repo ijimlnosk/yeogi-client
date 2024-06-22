@@ -6,7 +6,7 @@ import { FormInputsProps } from "./type"
 import SelectedContinent from "../region/selectContinent"
 import SelectCalendar from "../calendar/selectCalendar"
 
-const FormInputs = ({ formText, formData, handleInputChange }: FormInputsProps) => {
+const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
     const [nextStep, setNextStep] = useState<boolean>(false)
@@ -27,12 +27,14 @@ const FormInputs = ({ formText, formData, handleInputChange }: FormInputsProps) 
                     onClick={() => setIsContinentOpen(true)}
                     label="다녀온 지역을 선택해주세요."
                     state={"continent"}
+                    postDetail={postDetail}
                 />
                 <div className="mr-5" />
                 <FormSelector
                     onClick={() => setIsCalendarOpen(true)}
                     label="여행 기간을 선택해주세요."
                     state={"calendar"}
+                    postDetail={postDetail}
                 />
             </div>
             <div className="relative w-full h-[80px] mb-[15px]">
@@ -40,7 +42,7 @@ const FormInputs = ({ formText, formData, handleInputChange }: FormInputsProps) 
                     type="text"
                     className="rounded-xl p-8 w-full h-[80px] bg-SYSTEM-white outline-none placeholder:text-GREY-80 "
                     placeholder="제목을 입력하세요."
-                    value={formData.title || ""}
+                    value={postDetail?.title || ""}
                     onChange={e => handleInputChange("title", e.target.value)}
                 />
             </div>

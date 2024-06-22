@@ -76,6 +76,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                 {post.shortPostList?.map(post => (
                     <div className="w-full py-5 flex flex-col items-center justify-center" key={post.shortPostId}>
                         <div
+                            ref={contentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                             key={post.shortPostId}
