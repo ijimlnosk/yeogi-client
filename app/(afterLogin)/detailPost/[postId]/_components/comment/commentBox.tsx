@@ -1,7 +1,6 @@
 import Comment from "@/components/commons/comment"
 import Pagination from "@/components/commons/pagination"
 import { useSearchParams } from "next/navigation"
-import { useCommentStore } from "@/libs/commentStore"
 import { CommentBoxProps } from "./type"
 
 /**
@@ -9,9 +8,7 @@ import { CommentBoxProps } from "./type"
  * @param {CommentBoxProps} props.comments - api로 받아온 댓글 배열
  * @returns {JSX.Element}
  */
-const CommentBox = ({ commentsData }: CommentBoxProps) => {
-    const { comments } = useCommentStore()
-
+const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
     const searchParams = useSearchParams()
     const currentPage = parseInt(searchParams.get("page") as string, 10) || 1
     const commentsPerPage = 5
@@ -42,6 +39,7 @@ const CommentBox = ({ commentsData }: CommentBoxProps) => {
                                 date={commentWithLike.createdAt}
                                 initialLiked={false}
                                 postId={commentWithLike.postId}
+                                refetch={refetch}
                             />
                         </div>
                     ))}

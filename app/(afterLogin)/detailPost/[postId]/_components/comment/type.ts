@@ -1,5 +1,6 @@
 export type CommentProps = {
     postId: number
+    refetch: () => void
 }
 
 export type Comment = {
@@ -13,7 +14,8 @@ export type Comment = {
 }
 
 export type CommentBoxProps = {
-    commentsData: Comment[]
+    comments: Comment[]
+    refetch: () => void
 }
 
 export type CommentType = {
@@ -48,6 +50,24 @@ export type CommentMenuProps = {
 
 export type CommentUpdateFormProps = {
     commentId: number
+    content: string
+    postId: number
+    refetch: () => void
+}
+
+export type addUpdateComment = {
+    id: number
+    nickname: string
+    likeCount: number
+    createdAt: string
+}
+
+export type fetchGetCommentProps = {
+    comment: Comment
+}
+
+export type PostCommentMutate = {
+    content: string
     postId: number
 }
 

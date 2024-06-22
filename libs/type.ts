@@ -43,8 +43,6 @@ export type ModalStore = {
 }
 
 export type UpdateCommentState = {
-    updatedContent: string
-    setUpdatedContent: (content: string) => void
     isUpdateComment: boolean
     setIsUpdateComment: (isUpdateComment: boolean) => void
 }

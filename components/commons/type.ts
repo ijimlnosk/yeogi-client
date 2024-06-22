@@ -26,6 +26,7 @@ export type CommentProps = {
     author: string
     initialLiked: boolean
     postId: number
+    refetch: () => void
 }
 
 export type ReCommentProps = {

@@ -1,3 +1,4 @@
+import { postCommentResponse } from "@/hook/type"
 import { fetchFormAPI } from "../utils/fetchFormAPI"
 import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
 
@@ -15,9 +16,7 @@ export const postComment = async ({ content, postId }: postCommentProps) => {
         method: "POST",
         body: JSON.stringify({ content, postId }),
     })
-
-    const data = await response.json()
-
+    const data: postCommentResponse = await response.json()
     return data
 }
 
