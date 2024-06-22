@@ -1,13 +1,15 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import "@/styles/editor-content.css"
+import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
 import { formatISODateString } from "@/utils/formatDate"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
+    const [modifiedContent, setModifiedContent] = useState<string>("")
 
-    const wrapImagesWithDiv = (html: string) => {
+    const wrapImagesWithDiv = (html: string): string => {
         const parser = new DOMParser()
         const doc = parser.parseFromString(html, "text/html")
 
@@ -17,16 +19,18 @@ const PostDetail = ({ post }: PostDetailProps) => {
             images.forEach(img => {
                 const div = document.createElement("div")
                 div.className = "image-container"
-                p.parentNode?.insertBefore(div, p)
                 const newImg = document.createElement("img")
                 newImg.src = "/images/tape.svg"
                 newImg.className = "image-tape"
                 div.appendChild(newImg)
-                div.appendChild(img)
+                div.appendChild(img.cloneNode(true))
+                if (p.parentNode) {
+                    p.parentNode.insertBefore(div, p)
+                    if (p.textContent?.trim() === "") {
+                        p.parentNode.removeChild(p)
+                    }
+                }
             })
-            if (p.textContent?.trim() === "") {
-                p.parentNode?.removeChild(p)
-            }
         })
 
         return doc.body.innerHTML
@@ -35,13 +39,13 @@ const PostDetail = ({ post }: PostDetailProps) => {
     useEffect(() => {
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
-            contentRef.current.innerHTML = modifiedContent
+            setModifiedContent(modifiedContent)
         }
     }, [post.content])
 
     return (
-        <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto flex items-center justify-center flex-col border-y-2 border-GREY-30">
-            <div className="flex items-center justify-start py-5">
+        <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
+            <div className="flex items-center justify-start p-5">
                 <p className="text-xxl">{post.title}</p>
             </div>
             <div className="w-full flex justify-between border-t-2 border-b-2 py-2 border-GREY-30">
@@ -67,14 +71,13 @@ const PostDetail = ({ post }: PostDetailProps) => {
                 {post.content && (
                     <div
                         ref={contentRef}
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        dangerouslySetInnerHTML={{ __html: modifiedContent }}
                         className="custom-content"
                     />
                 )}
                 {post.shortPosts?.map(post => (
                     <div className="w-full flex flex-col items-center justify-center" key={post.shortPostId}>
                         <div
-                            ref={contentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                             key={post.shortPostId}

@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
+import "@/styles/editor-content.css"
 import { QuillEditorProps } from "./type"
 import { useEffect, useMemo, useState } from "react"
 import { getFormats, getModules } from "./reactQuill"
