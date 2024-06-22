@@ -8,7 +8,7 @@ import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
 
-const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => {
+const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
         like: false,
@@ -106,4 +106,4 @@ const useHandleClick = ({ postId, post, setIconState }: useHandleClickProps) => 
     return { isActiveState, handleClick }
 }
 
-export default useHandleClick
+export default useFloatingBarHandler

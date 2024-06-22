@@ -1,13 +1,13 @@
 "use client"
 
-import useHandleClick from "@/utils/floatingFunctions"
+import useFloatingBarHandler from "@/hook/useFloatingBarHandler"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
 import { useState } from "react"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
-    const { isActiveState, handleClick } = useHandleClick({ postId, post, setIconState })
+    const { isActiveState, handleClick } = useFloatingBarHandler({ postId, post, setIconState })
 
     return (
         <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
