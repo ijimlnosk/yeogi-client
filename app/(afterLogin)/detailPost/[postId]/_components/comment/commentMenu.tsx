@@ -1,12 +1,12 @@
-import { useCommentIdStore, useUpdateComment } from "@/libs/commentStore"
+import { useCommentIdStore, useIsUpdateComment } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { CommentMenuProps } from "./type"
 
-const CommentMenu = ({ commentId, content }: CommentMenuProps) => {
+const CommentMenu = ({ commentId }: CommentMenuProps) => {
     const [isMenu, setIsMenu] = useState(false)
-    const { setIsUpdateComment, setUpdatedContent } = useUpdateComment()
+    const { setIsUpdateComment } = useIsUpdateComment()
     const { setIsDelete } = useModalStore()
     const { setSaveCommentId } = useCommentIdStore()
     const menuRef = useRef<HTMLDivElement>(null)
@@ -27,7 +27,6 @@ const CommentMenu = ({ commentId, content }: CommentMenuProps) => {
     const handleUpdateClick = () => {
         setIsUpdateComment(true)
         setSaveCommentId(commentId)
-        setUpdatedContent(content)
         setIsMenu(false)
     }
 

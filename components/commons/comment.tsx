@@ -7,13 +7,13 @@ import { useState } from "react"
 import SuccessToFailModal from "./successToFailModal"
 import LikeButton from "./likeButton"
 import CommentMenu from "@/app/(afterLogin)/detailPost/[postId]/_components/comment/commentMenu"
-import { useCommentIdStore, useUpdateComment } from "@/libs/commentStore"
+import { useCommentIdStore, useIsUpdateComment } from "@/libs/commentStore"
 import CommentCount from "./commentCount"
 import CommentUpdateForm from "@/app/(afterLogin)/detailPost/[postId]/_components/comment/commentUpdateForm"
 
-const Comment = ({ commentId, content, likes, date, author, initialLiked, postId }: CommentProps) => {
+const Comment = ({ commentId, content, likes, date, author, initialLiked, postId, refetch }: CommentProps) => {
     const [isError, setIsError] = useState(false)
-    const { isUpdateComment } = useUpdateComment()
+    const { isUpdateComment } = useIsUpdateComment()
     const { saveCommentId } = useCommentIdStore()
 
     return (
@@ -27,7 +27,7 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked, postId
             />
 
             {isUpdateComment && commentId === saveCommentId ? (
-                <CommentUpdateForm commentId={commentId} postId={postId} />
+                <CommentUpdateForm commentId={commentId} content={content} postId={postId} refetch={refetch} />
             ) : (
                 <div className="relative">
                     <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
@@ -58,7 +58,7 @@ const Comment = ({ commentId, content, likes, date, author, initialLiked, postId
                             </div>
                             <div>
                                 <div className=" absolute top-4 right-5">
-                                    <CommentMenu commentId={commentId} content={content} />
+                                    <CommentMenu commentId={commentId} />
                                 </div>
                                 <div className="flex flex-row justify-between items-center">
                                     <div className="flex flex-row items-center  absolute bottom-5 right-5">
