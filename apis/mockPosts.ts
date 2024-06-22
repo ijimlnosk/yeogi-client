@@ -83,7 +83,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-03-10",
         likeCount: 43,
         viewCount: 500,
-        shortPostList: [],
         content: "모비",
     },
     {
@@ -112,7 +111,6 @@ export const samplePosts: Post[] = [
         tripEndDate: "2024-05-10",
         likeCount: 15,
         viewCount: 150,
-        shortPostList: [],
         content: "모비",
     },
     {

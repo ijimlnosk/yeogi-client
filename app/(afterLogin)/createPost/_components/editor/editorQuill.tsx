@@ -2,8 +2,9 @@
 
 import dynamic from "next/dynamic"
 import "react-quill/dist/quill.snow.css"
+import "@/styles/editor-content.css"
 import { QuillEditorProps } from "./type"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getFormats, getModules } from "./reactQuill"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
@@ -11,11 +12,20 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 export const QuillEditor = ({
     index,
     isFreeForm,
+    postDetail,
     handleDeleteQuillEditor,
     handleInputChange,
     handleEditorInputChange,
 }: QuillEditorProps) => {
     const [value, setValue] = useState("")
+
+    useEffect(() => {
+        if (isFreeForm && postDetail?.content !== undefined) {
+            setValue(postDetail.content)
+        } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index]?.content !== undefined) {
+            setValue(postDetail.shortPosts[index].content)
+        }
+    }, [postDetail, isFreeForm, index])
 
     const handleDeleteClick = () => {
         if (handleDeleteQuillEditor && index !== undefined) handleDeleteQuillEditor(index)

@@ -1,4 +1,4 @@
-import { Continent } from "@/constants/continents"
+import { Post } from "@/utils/type"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
@@ -6,24 +6,20 @@ export type getPostProps = {
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
 }
 
-export type createPostTemplate = {
-    continent: Continent
-    country: string
-    tripStartDate: string
-    tripEndDate: string
-    title: string
-    content?: string
-    shortPosts?: string[]
-}
-
-export const initialFormData: createPostTemplate = {
-    continent: "아시아",
-    country: "",
-    tripStartDate: "",
+export const initialFormData: Post = {
+    continent: "",
+    region: "",
+    tripStarDate: "",
     tripEndDate: "",
     title: "",
     content: "",
     shortPosts: undefined,
+    postId: 0,
+    author: "",
+    likeCount: 0,
+    viewCount: 0,
+    createdAt: "",
+    modifiedAt: "",
 }
 
 export type postCommentProps = {

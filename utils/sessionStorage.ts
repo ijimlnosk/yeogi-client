@@ -1,6 +1,7 @@
-import { createPostTemplate, initialFormData } from "@/apis/type"
+import { initialFormData } from "@/apis/type"
+import { Post } from "./type"
 
-export const loadStateFromSession = (): createPostTemplate => {
+export const loadStateFromSession = (): Post => {
     if (typeof window === "undefined") return initialFormData
 
     const savedPost = sessionStorage.getItem("post")
@@ -13,7 +14,7 @@ export const loadStateFromSession = (): createPostTemplate => {
     }
 }
 
-export const saveStateToSession = (post: createPostTemplate) => {
+export const saveStateToSession = (post: Post) => {
     if (typeof window === "undefined") return
 
     sessionStorage.setItem("post", JSON.stringify(post))

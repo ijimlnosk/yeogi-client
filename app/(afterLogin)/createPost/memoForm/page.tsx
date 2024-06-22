@@ -5,7 +5,6 @@ import FormBtn from "../_components/form/formBtn"
 import FormInputs from "../_components/form/formInputs"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import Image from "next/image"
-import { createPostTemplate } from "@/apis/type"
 import { postPost } from "@/apis/postApi"
 import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
@@ -14,6 +13,7 @@ import { QuillEditor } from "../_components/editor/editorQuill"
 import { useMapStore } from "@/libs/pinStore"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import RouterOverlay from "../_components/overlay/routerOverlay"
+import { Post, ShortPosts } from "@/utils/type"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -38,19 +38,25 @@ const Page = () => {
         setQuillEditors(updatedEditors)
     }
 
-    const handleInputChange = <K extends keyof createPostTemplate>(field: K, value: createPostTemplate[K]) => {
+    const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content))) // 유틸리티 함수 사용
+        const processedContentArray = await Promise.all(
+            quillEditors.map(editor => processContentImages(editor.content)),
+        )
+        const processedContent: ShortPosts[] = processedContentArray.map((content, index) => ({
+            shortPostId: index,
+            content,
+        }))
 
-        const postData: createPostTemplate = {
+        const postData: Partial<Post> = {
             continent: selectedContinent || "아시아",
-            country: selectedCountry!,
-            tripStartDate: startDate ? startDate.toISOString() : "",
+            region: selectedCountry!,
+            tripStarDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",
@@ -69,10 +75,6 @@ const Page = () => {
         }
     }
 
-    if (!formData) {
-        return <div>Loading...</div>
-    }
-
     return (
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">
@@ -82,7 +84,7 @@ const Page = () => {
                     handleOverlaySubmit={handleOverlaySubmit}
                 />
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
+                    <FormInputs formText={"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
                     {quillEditors.map((_, index) => (
                         <div key={index}>
                             <QuillEditor

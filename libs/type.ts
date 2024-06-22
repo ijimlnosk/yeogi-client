@@ -1,4 +1,3 @@
-import { createPostTemplate } from "@/apis/type"
 import { Continent } from "@/constants/continents"
 import { Post } from "@/utils/type"
 import { Dayjs } from "dayjs"
@@ -15,13 +14,20 @@ export type SelectionState = {
 }
 
 export type FormState = {
-    formData: createPostTemplate
+    formData: Post
     posts: Post[]
     quillEditors: Array<{ content: string }>
-    setFormData: (data: createPostTemplate) => void
+    setFormData: (data: Post) => void
     setPosts: (posts: Post[]) => void
     setQuillEditors: (editors: Array<{ content: string }>) => void
     resetFormData: () => void
+}
+
+export type PostDataState = {
+    postId: string | null
+    postDetail: Post | null
+    setPostId: (postId: string | null) => void
+    setPostDetail: (postDetail: Post | null) => void
 }
 
 export type MapStore = {

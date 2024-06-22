@@ -32,7 +32,7 @@ const CreateComment = ({ postId, refetch }: CommentProps) => {
     }
 
     return (
-        <>
+        <div>
             <SuccessToFailModal
                 isOpen={isError}
                 onClick={() => setIsError(false)}
@@ -60,7 +60,7 @@ const CreateComment = ({ postId, refetch }: CommentProps) => {
                     </Button>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 export default CreateComment

@@ -1,6 +1,6 @@
 import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
-import { createPostTemplate, getPostProps } from "./type"
+import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
 import { fetchFormAPI } from "@/utils/fetchFormAPI"
 
@@ -24,17 +24,13 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
     return data
 }
 
-export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
+export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
     const response = await fetchFormAPI(POST_API_URL, "posts", {
         method: "POST",
         body: JSON.stringify(newPost),
     })
 
-    if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Response error:", response.status, errorText)
-        throw new Error("게시글 등록에 실패했어요...🥹")
-    }
+    if (!response.ok) throw new Error("게시글 등록에 실패했어요...🥹")
 
     try {
         const data = await response.json()
@@ -42,6 +38,60 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     } catch (error) {
         return getDefaultPost()
     }
+}
+
+export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
+        method: "PUT",
+        body: JSON.stringify(editedPost),
+    })
+
+    if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+    const data = await response.json()
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        continent: editedPost.continent || "",
+        region: editedPost.region || "",
+        tripStarDate: editedPost.tripStarDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        modifiedAt: editedPost.modifiedAt || "",
+        postId: data.postId,
+        author: data.author,
+        likeCount: data.likeCount,
+        viewCount: data.viewCount,
+        createdAt: data.createdAt,
+    }
+}
+
+export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {
+    const response = await fetchFormAPI(POST_API_URL, `posts/short-posts/${shortPostId}`, {
+        method: "PUT",
+        body: JSON.stringify(editedPost),
+    })
+
+    if (!response.ok) throw new Error("memo-form 게시글 수정에 실패했어요...🥹")
+    const data = await response.json()
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        continent: editedPost.continent || "",
+        region: editedPost.region || "",
+        tripStarDate: editedPost.tripStarDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        modifiedAt: editedPost.modifiedAt || "",
+        postId: data.postId,
+        author: data.author,
+        likeCount: data.likeCount,
+        viewCount: data.viewCount,
+        createdAt: data.createdAt,
+    }
+}
+
+export const deletePost = async (postId: number): Promise<void> => {
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "DELETE" })
+
+    if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
 }
 
 export const getPostDetail = async (postId: number): Promise<Post> => {

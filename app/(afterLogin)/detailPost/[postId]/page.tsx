@@ -3,17 +3,18 @@
 import Link from "next/link"
 import { getPostDetail } from "@/apis/postApi"
 import { Post } from "@/utils/type"
-import { formatISODateString } from "@/utils/formatDate"
 import { useQuery } from "@tanstack/react-query"
 import { PostDetailProps } from "./type"
 import { deleteComment, getComment } from "@/apis/commentApi"
-import MemoFormDetail from "./_components/memoFormDetail"
 import FloatingBar from "./_components/floating/floatingBar"
-import FreeFormDetail from "./_components/freeFormDetail"
+import PostDetail from "./_components/postDetail"
 import CreateComment from "./_components/comment/createComment"
 import LikeToComment from "./_components/comment/likeToComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
+import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
+import { usePostDataStore } from "@/libs/store"
+import { useEffect } from "react"
 
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
@@ -21,6 +22,7 @@ import useModalStore from "@/libs/modalStore"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
+    const { setPostDetail } = usePostDataStore()
 
     const { isDelete, setIsDelete } = useModalStore()
     const { saveCommentId } = useCommentIdStore()
@@ -44,6 +46,11 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         queryFn: () => getComment({ postId: Number(postId) }),
     })
 
+    useEffect(() => {
+        if (post) {
+            setPostDetail(post)
+        }
+    }, [post, setPostDetail])
     const handleDelete = async (commentId: number) => {
         setIsDelete(false)
         await deleteComment({ commentId: commentId })
@@ -65,37 +72,13 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 context="댓글"
             />
             <div className="flex items-center justify-center flex-col">
-                <div className="relative w-[1300px] flex flex-col items-center justify-center  pt-10 ">
-                    <FloatingBar />
-                    {post.content !== "" ? (
-                        <FreeFormDetail
-                            title={post.title}
-                            content={post.content || ""}
-                            author={post.author}
-                            created_At={formatISODateString(post.createdAt)}
-                            destination={post.region || ""}
-                            travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
-                            shortPosts={[]}
-                        />
-                    ) : (
-                        <MemoFormDetail
-                            title={post.title}
-                            author={post.author}
-                            content={""}
-                            created_At={formatISODateString(post.createdAt)}
-                            destination={post.region || ""}
-                            travel_range={`${formatISODateString(post.tripStarDate)} - ${formatISODateString(post.tripEndDate)}`}
-                            shortPosts={post.shortPostList || []}
-                        />
-                    )}
+                <div className="relative w-[1300px] flex flex-col items-center justify-center py-10">
+                    <FloatingBar icons={defaultIcons} />
+                    <FloatingBar icons={handlePostIcons} isMine={true} postId={postId} post={post} />
+                    <PostDetail post={post} />
                 </div>
-                <div className="w-full flex items-center justify-center">
-                    <LikeToComment likes={post.likeCount} comments={comments.length} />
-                </div>
-                <div className="flex justify-center items-center pt-[50px]">
-                    <CreateComment postId={post.postId} refetch={refetchComments} />
-                </div>
-
+                <LikeToComment likes={post.likeCount} comments={comments.length} />
+                <CreateComment postId={post.postId} />
                 <div className="flex items-center justify-center">
                     {comments.length > 0 ? (
                         <CommentBox comments={comments} refetch={refetchComments} />
@@ -103,15 +86,13 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                         <div>댓글이 없습니다</div>
                     )}
                 </div>
-                <div className="w-full flex justify-center items-center pt-[50px] pb-[100px]">
-                    <div className="w-[1000px] flex justify-end">
-                        <Link
-                            href={"/search"}
-                            className="bg-BRAND-50 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg "
-                        >
-                            목록으로
-                        </Link>
-                    </div>
+                <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
+                    <Link
+                        href={"/search"}
+                        className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
+                    >
+                        목록으로
+                    </Link>
                 </div>
             </div>
         </>

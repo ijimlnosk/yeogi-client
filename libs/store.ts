@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { initialFormData } from "@/apis/type"
-import { FormState, SelectionState } from "./type"
+import { FormState, PostDataState, SelectionState } from "./type"
 
 export const useSelectionStore = create<SelectionState>(set => ({
     selectedContinent: null,
@@ -21,4 +21,11 @@ export const useFormDataStore = create<FormState>(set => ({
     setPosts: posts => set({ posts }),
     setQuillEditors: editors => set({ quillEditors: editors }),
     resetFormData: () => set({ formData: initialFormData, quillEditors: [] }),
+}))
+
+export const usePostDataStore = create<PostDataState>(set => ({
+    postId: null,
+    postDetail: null,
+    setPostId: postId => set({ postId }),
+    setPostDetail: postDetail => set({ postDetail }),
 }))
