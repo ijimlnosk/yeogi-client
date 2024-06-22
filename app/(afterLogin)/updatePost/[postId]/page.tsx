@@ -22,7 +22,6 @@ const UpdatePostPage = () => {
     useEffect(() => {
         resetFormData()
         if (postDetail) {
-            console.log("postDetail", postDetail)
             const initialQuillEditors =
                 postDetail.shortPostList?.map(post => ({
                     content: post.content,

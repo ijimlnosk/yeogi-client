@@ -13,7 +13,7 @@ import { QuillEditor } from "../_components/editor/editorQuill"
 import { useMapStore } from "@/libs/storePin"
 import FailModal from "@/components/commons/failModal"
 import RouterOverlay from "../_components/overlay/routerOverlay"
-import { Post } from "@/utils/type"
+import { Post, ShortPosts } from "@/utils/type"
 
 const Page = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -45,16 +45,22 @@ const Page = () => {
     const handleOverlaySubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        const processedContent = await Promise.all(quillEditors.map(editor => processContentImages(editor.content))) // 유틸리티 함수 사용
+        const processedContentArray = await Promise.all(
+            quillEditors.map(editor => processContentImages(editor.content)),
+        )
+        const processedContent: ShortPosts[] = processedContentArray.map((content, index) => ({
+            shortPostId: index,
+            content,
+        }))
 
-        const postData: Post = {
+        const postData: Partial<Post> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
-            tripStartDate: startDate ? startDate.toISOString() : "",
+            tripStarDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",
-            shortPosts: processedContent,
+            shortPostList: processedContent,
         }
 
         try {
@@ -78,7 +84,7 @@ const Page = () => {
                     handleOverlaySubmit={handleOverlaySubmit}
                 />
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={"간단하게 "} formData={formData} handleInputChange={handleInputChange} />
+                    <FormInputs formText={"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
                     {quillEditors.map((_, index) => (
                         <div key={index}>
                             <QuillEditor

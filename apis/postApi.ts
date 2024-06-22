@@ -1,6 +1,6 @@
 import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
-import { createPostTemplate, getPostProps } from "./type"
+import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
 
 const POST_API_URL = "/posts"
@@ -29,7 +29,7 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
     return data
 }
 
-export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
+export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts`, {
         method: "POST",
         credentials: "include",
@@ -50,7 +50,7 @@ export const postPost = async (newPost: createPostTemplate): Promise<Post> => {
     }
 }
 
-export const putFreePost = async (postId: number, editedPost: createPostTemplate): Promise<createPostTemplate> => {
+export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
     const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
         method: "PUT",
         headers: {
@@ -61,14 +61,20 @@ export const putFreePost = async (postId: number, editedPost: createPostTemplate
     })
 
     if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
-    // const data = await response.json()
+    const data = await response.json()
     return {
-        title: editedPost.title,
-        content: editedPost.content,
-        continent: editedPost.continent,
-        country: editedPost.country,
-        tripStartDate: editedPost.tripStartDate,
-        tripEndDate: editedPost.tripEndDate,
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        continent: editedPost.continent || "",
+        region: editedPost.region || "",
+        tripStarDate: editedPost.tripStarDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        modifiedAt: editedPost.modifiedAt || "",
+        postId: data.postId,
+        author: data.author,
+        likeCount: data.likeCount,
+        viewCount: data.viewCount,
+        createdAt: data.createdAt,
     }
 }
 
@@ -79,20 +85,25 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
-        body: JSON.stringify({
-            continent: editedPost.continent,
-            country: editedPost.region,
-            tripStartDate: editedPost.tripStarDate,
-            tripEndDate: editedPost.tripEndDate,
-            title: editedPost.title,
-            content: editedPost.content,
-            shortPosts: editedPost.shortPostList,
-        }),
+        body: JSON.stringify(editedPost),
     })
 
     if (!response.ok) throw new Error("memo-form 게시글 수정에 실패했어요...🥹")
     const data = await response.json()
-    return data
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        continent: editedPost.continent || "",
+        region: editedPost.region || "",
+        tripStarDate: editedPost.tripStarDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        modifiedAt: editedPost.modifiedAt || "",
+        postId: data.postId,
+        author: data.author,
+        likeCount: data.likeCount,
+        viewCount: data.viewCount,
+        createdAt: data.createdAt,
+    }
 }
 
 export const deletePost = async (postId: number): Promise<void> => {

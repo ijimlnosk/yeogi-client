@@ -1,6 +1,6 @@
-import { createPostTemplate } from "@/apis/type"
 import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
 import { Continent } from "@/constants/continents"
+import { Post } from "@/utils/type"
 
 export type CountryProps = {
     countriesByContinent: CountryByContinent
@@ -19,5 +19,5 @@ export type SignInProps = {
 
 export type updateFreeProps = {
     postId: number
-    editedFields: createPostTemplate
+    editedFields: Partial<Post>
 }
