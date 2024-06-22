@@ -1,15 +1,25 @@
-import { putComment } from "@/apis/commentApi"
-import { useUpdateComment } from "@/libs/commentStore"
 import Image from "next/image"
 import { CommentUpdateFormProps } from "./type"
+import { useState } from "react"
+import { useUpdateComment } from "@/hook/useCommentMutation"
+import { useIsUpdateComment } from "@/libs/commentStore"
 
-const CommentUpdateForm = ({ commentId, postId }: CommentUpdateFormProps) => {
-    const { updatedContent, setIsUpdateComment, setUpdatedContent } = useUpdateComment()
+const CommentUpdateForm = ({ commentId, content, postId, refetch }: CommentUpdateFormProps) => {
+    const [updatedContent, setUpdatedContent] = useState<string>(content)
+    const { setIsUpdateComment } = useIsUpdateComment()
+    const mutation = useUpdateComment(refetch)
 
     const handleSaveClick = async () => {
-        await putComment({ commentId, content: updatedContent, postId })
-        setIsUpdateComment(false)
-        window.location.reload()
+        mutation.mutate(
+            { commentId, content: updatedContent, postId },
+            {
+                onSuccess: () => {
+                    setUpdatedContent("")
+                    setIsUpdateComment(false)
+                    refetch()
+                },
+            },
+        )
     }
 
     return (

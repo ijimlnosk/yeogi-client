@@ -1,3 +1,4 @@
+import { postCommentResponse } from "@/hook/type"
 import { fetchFormAPI } from "../utils/fetchFormAPI"
 import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
 
@@ -11,11 +12,12 @@ const API_URL = "/comments"
  * @description 댓글 생성 API
  */
 export const postComment = async ({ content, postId }: postCommentProps) => {
-    await fetchFormAPI(API_URL, "comment/", {
+    const response = await fetchFormAPI(API_URL, "comment/", {
         method: "POST",
         body: JSON.stringify({ content, postId }),
     })
-    return { content, postId }
+    const data: postCommentResponse = await response.json()
+    return data
 }
 
 /**

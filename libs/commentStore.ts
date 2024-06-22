@@ -6,9 +6,7 @@ export const useCommentIdStore = create<CommnetState>(set => ({
     setSaveCommentId: (saveCommentId: number) => set({ saveCommentId }),
 }))
 
-export const useUpdateComment = create<UpdateCommentState>(set => ({
+export const useIsUpdateComment = create<UpdateCommentState>(set => ({
     isUpdateComment: false,
     setIsUpdateComment: (isUpdateComment: boolean) => set({ isUpdateComment }),
-    updatedContent: "",
-    setUpdatedContent: content => set({ updatedContent: content }),
 }))

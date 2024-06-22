@@ -38,6 +38,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         data: comments = [],
         error: commentError,
         isLoading: isCommentLoading,
+        refetch: refetchComments,
     } = useQuery<Comment[], Error>({
         queryKey: ["comments", { postId: Number(postId) }],
         queryFn: () => getComment({ postId: Number(postId) }),
@@ -46,7 +47,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     const handleDelete = async (commentId: number) => {
         setIsDelete(false)
         await deleteComment({ commentId: commentId })
-        window.location.reload()
+        refetchComments()
     }
 
     if (isLoading || isCommentLoading) return <div>Loading...</div>
@@ -92,11 +93,15 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                     <LikeToComment likes={post.likeCount} comments={comments.length} />
                 </div>
                 <div className="flex justify-center items-center pt-[50px]">
-                    <CreateComment postId={post.postId} />
+                    <CreateComment postId={post.postId} refetch={refetchComments} />
                 </div>
 
                 <div className="flex items-center justify-center">
-                    {comments.length > 0 ? <CommentBox comments={comments} /> : <div>댓글이 없습니다</div>}
+                    {comments.length > 0 ? (
+                        <CommentBox comments={comments} refetch={refetchComments} />
+                    ) : (
+                        <div>댓글이 없습니다</div>
+                    )}
                 </div>
                 <div className="w-full flex justify-center items-center pt-[50px] pb-[100px]">
                     <div className="w-[1000px] flex justify-end">
