@@ -1,9 +1,10 @@
 "use client"
 
-import { createComment } from "@/apis/commentApi"
+import { postComment } from "@/apis/commentApi"
 import { useRef, useState } from "react"
-import FailModal from "@/components/commons/failModal"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
+import Button from "@/components/commons/button"
 
 const CreateComment = ({ postId }: CommentProps) => {
     const [content, setContent] = useState<string>("")
@@ -20,7 +21,7 @@ const CreateComment = ({ postId }: CommentProps) => {
         isLoading.current = true
 
         try {
-            await createComment({ content, postId })
+            await postComment({ content, postId })
             setContent("")
             setIsError(false)
             window.location.reload()
@@ -31,30 +32,33 @@ const CreateComment = ({ postId }: CommentProps) => {
         }
     }
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault()
-            handleSubmit()
-        }
-    }
-
     return (
-        <div className="flex justify-center items-center pt-[50px]">
-            <FailModal isOpen={isError} setIsOpen={setIsError} title="댓글 등록" context="댓글이 등록되지 않았어요" />
-            <form
-                className="w-[1000px] rounded-2xl"
-                onSubmit={e => {
-                    e.preventDefault()
-                    handleSubmit()
-                }}
-            >
+        <div>
+            <SuccessToFailModal
+                isOpen={isError}
+                onClick={() => setIsError(false)}
+                title="댓글 등록"
+                context="댓글이 등록되지 않았어요"
+                state="fail"
+            />
+            <form className="w-[1000px] rounded-2xl">
                 <textarea
-                    className="w-full h-[260px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-bone border-2 border-GREY-80 focus:outline-none "
-                    placeholder="댓글을 입력해주세요"
+                    className="w-full h-[180px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-white border-2 border-GREY-30 focus:outline-none "
+                    placeholder="댓글을 입력해주세요."
                     value={content}
                     onChange={e => setContent(e.target.value)}
-                    onKeyDown={handleKeyDown}
                 />
+                <div className="w-full flex justify-end py-4">
+                    <Button
+                        onClick={() => handleSubmit()}
+                        rounded={"lg"}
+                        background={"brand50"}
+                        textColor={"white"}
+                        className="w-[107px] h-[45px]"
+                    >
+                        댓글 달기
+                    </Button>
+                </div>
             </form>
         </div>
     )

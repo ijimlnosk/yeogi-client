@@ -2,6 +2,7 @@ import { Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
+import { fetchFormAPI } from "@/utils/fetchFormAPI"
 
 const POST_API_URL = "/posts"
 
@@ -18,25 +19,14 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
 
     if (searchString) queryParams.append("searchString", searchString)
 
-    const response = await fetch(`${POST_API_URL}/posts?${queryParams.toString()}`, {
-        method: "GET",
-        credentials: "include",
-    })
-
-    if (!response.ok) throw new Error("요청에 상응하는 응답이 없어요...🥹")
+    const response = await fetchFormAPI(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
     const data = await response.json()
-
     return data
 }
 
 export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
-    const response = await fetch(`${POST_API_URL}/posts`, {
+    const response = await fetchFormAPI(POST_API_URL, "posts", {
         method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
         body: JSON.stringify(newPost),
     })
 
@@ -51,12 +41,8 @@ export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
 }
 
 export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
-    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
         body: JSON.stringify(editedPost),
     })
 
@@ -79,12 +65,8 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
 }
 
 export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {
-    const response = await fetch(`${POST_API_URL}/posts/short-posts/${shortPostId}`, {
+    const response = await fetchFormAPI(POST_API_URL, `posts/short-posts/${shortPostId}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
         body: JSON.stringify(editedPost),
     })
 
@@ -107,13 +89,8 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
 }
 
 export const deletePost = async (postId: number): Promise<void> => {
-    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-    })
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "DELETE" })
+
     if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
 }
 
@@ -121,12 +98,7 @@ export const getPostDetail = async (postId: number): Promise<Post> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }
-    const response = await fetch(`${POST_API_URL}/posts/${postId}`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
-    })
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "GET" })
 
     if (!response.ok) {
         throw new Error("response not ok")

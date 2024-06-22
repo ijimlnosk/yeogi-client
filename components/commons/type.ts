@@ -25,6 +25,7 @@ export type CommentProps = {
     date: string
     author: string
     initialLiked: boolean
+    postId: number
 }
 
 export type ReCommentProps = {
@@ -44,7 +45,16 @@ export type FailModalProps = {
     title: string
     context: string
     isOpen: boolean
-    setIsOpen: (isOpen: boolean) => void
+    onClick: () => void
+    state: "success" | "fail"
+}
+
+export type DeleteModalProps = {
+    title: string
+    context: string
+    isOpen: boolean
+    onClick: () => void
+    onLeftClick: () => void
 }
 
 export type OverlayProps = {
@@ -60,6 +70,7 @@ export type OverlayProps = {
     textColor?: string
     leftText?: string
     leftImageUrl?: string
+    title?: string
     leftTextColor?: string
     rounded?: string
 }
@@ -103,4 +114,12 @@ export type LikeButtonProps = {
     initialLikes: number
     initialLiked: boolean
     setIsError: (isError: boolean) => void
+    size: number
+    textSize: string
+}
+
+export type CommentCountProps = {
+    size: number
+    commentCount: number
+    textSize: string
 }

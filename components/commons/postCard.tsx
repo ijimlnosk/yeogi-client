@@ -2,10 +2,10 @@ import likeIcon from "@/public/icons/like.svg"
 import commentIcon from "@/public/icons/comment.svg"
 import locationIcon from "@/public/icons/gps.svg"
 import Image from "next/image"
-import Link from "next/link"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
 import SampleProfile from "@/public/images/sampleProfile.svg"
+import ProtectedLink from "../protectedLink"
 import { formatISODateString } from "@/utils/formatDate"
 
 const PostCard = ({
@@ -21,7 +21,7 @@ const PostCard = ({
 }: PostCardProps) => {
     return (
         <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
-            <Link href={`/detailPost/${post_id}`}>
+            <ProtectedLink href={`/detailPost/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image
                     width={360}
@@ -64,7 +64,7 @@ const PostCard = ({
                         <p className="text-SYSTEM-black text-xxs">{user_nickname}</p>
                     </div>
                 </div>
-            </Link>
+            </ProtectedLink>
         </div>
     )
 }

@@ -22,12 +22,22 @@ export const initialFormData: Post = {
     modifiedAt: "",
 }
 
-export type createCommentProps = {
+export type postCommentProps = {
     content: string
     postId: number
 }
 
 export type getCommentProps = {
+    postId: number
+}
+
+export type deleteCommentProps = {
+    commentId: number
+}
+
+export type putCommentProps = {
+    commentId: number
+    content: string
     postId: number
 }
 
