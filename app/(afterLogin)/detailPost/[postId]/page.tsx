@@ -78,7 +78,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                     <PostDetail post={post} />
                 </div>
                 <LikeToComment likes={post.likeCount} comments={comments.length} />
-                <CreateComment postId={post.postId} />
+                <CreateComment postId={post.postId} refetch={refetchComments} />
                 <div className="flex items-center justify-center">
                     {comments.length > 0 ? (
                         <CommentBox comments={comments} refetch={refetchComments} />
