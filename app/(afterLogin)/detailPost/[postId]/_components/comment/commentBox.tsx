@@ -44,12 +44,15 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
                                 postId={commentWithLike.postId}
                                 refetch={refetch}
                                 onReplyClick={handleReplyClick}
+                                isReplying={replyingCommentId === commentWithLike.id}
+                                reComments={commentWithLike.child}
                             />
                             {replyingCommentId === commentWithLike.id && (
                                 <CreateReComment
                                     postId={commentWithLike.postId}
                                     commentId={commentWithLike.id}
                                     refetch={refetch}
+                                    onReplySuccess={() => setReplyingCommentId(null)}
                                 />
                             )}
                         </div>

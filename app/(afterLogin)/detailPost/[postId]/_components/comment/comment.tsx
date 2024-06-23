@@ -10,6 +10,7 @@ import CommentCount from "./commentCount"
 import CommentUpdateForm from "@/app/(afterLogin)/detailPost/[postId]/_components/comment/commentUpdateForm"
 import CommentLikeButton from "./likeButton"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
+import ReComment from "./reComment"
 
 const Comment = ({
     commentId,
@@ -21,16 +22,12 @@ const Comment = ({
     postId,
     refetch,
     onReplyClick,
+    isReplying,
+    reComments,
 }: CommentProps) => {
     const [isError, setIsError] = useState<boolean>(false)
-    const [isReplying, setIsReplying] = useState<boolean>(false)
     const { isUpdateComment } = useIsUpdateComment()
     const { saveCommentId } = useCommentIdStore()
-
-    const handleReplyClick = () => {
-        setIsReplying(prev => !prev)
-        onReplyClick(commentId)
-    }
 
     return (
         <>
@@ -44,48 +41,68 @@ const Comment = ({
             {isUpdateComment && commentId === saveCommentId ? (
                 <CommentUpdateForm commentId={commentId} content={content} postId={postId} refetch={refetch} />
             ) : (
-                <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
-                    <div className="flex flex-row">
-                        <div className="min-w-12 min-h-12">
-                            <Image
-                                width={48}
-                                height={48}
-                                src={"/images/sampleProfile.svg"}
-                                className="rounded-full"
-                                alt="user profile"
-                            />
-                        </div>
-                        <div className="px-3 flex-1">
-                            <div className="flex items-center space-x-2">
-                                <span className="font-semibold">{author}</span>
-                                <span className="text-xxs pt-1 text-GREY-80">{formatISODateString(date)}</span>
-                            </div>
-                            <p className="font-pretendard text-sm font-normal text-SYSTEM-black py-4 whitespace-pre-wrap break-words">
-                                {content}
-                            </p>
-                            <div className="flex items-center justify-end space-x-2">
-                                <CommentLikeButton
-                                    commentId={commentId}
-                                    initialLikes={likes}
-                                    initialLiked={initialLiked}
-                                    setIsError={setIsError}
-                                    size={16}
-                                    textSize="text-xxs"
+                <>
+                    <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
+                        <div className="flex flex-row">
+                            <div className="min-w-12 min-h-12">
+                                <Image
+                                    width={48}
+                                    height={48}
+                                    src={"/images/sampleProfile.svg"}
+                                    className="rounded-full"
+                                    alt="user profile"
                                 />
-                                <CommentCount size={16} commentCount={0} textSize="text-xxs" />
-                                <p
-                                    onClick={handleReplyClick}
-                                    className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"
-                                >
-                                    {isReplying ? "답글 취소" : "답글"}
-                                </p>
                             </div>
-                        </div>
-                        <div className="absolute top-4 right-5">
-                            <CommentMenu commentId={commentId} />
+                            <div className="px-3 flex-1">
+                                <div className="flex items-center space-x-2">
+                                    <span className="font-semibold">{author}</span>
+                                </div>
+                                <p className="font-pretendard text-sm font-normal text-SYSTEM-black py-4 whitespace-pre-wrap break-words">
+                                    {content}
+                                </p>
+                                <div className="flex flex-row items-center bottom-5 ">
+                                    <span className="mr-[18px] text-xxs pt-1 text-GREY-80">
+                                        {formatISODateString(date)}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-end space-x-2">
+                                    <CommentLikeButton
+                                        commentId={commentId}
+                                        initialLikes={likes}
+                                        initialLiked={initialLiked}
+                                        setIsError={setIsError}
+                                        size={16}
+                                        textSize="text-xxs"
+                                    />
+                                    <CommentCount size={16} commentCount={0} textSize="text-xxs" />
+                                    <p
+                                        onClick={() => onReplyClick(commentId)}
+                                        className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"
+                                    >
+                                        {isReplying ? "답글 취소" : "답글"}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="absolute top-4 right-5">
+                                <CommentMenu commentId={commentId} />
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div className="w-full flex flex-col">
+                        {reComments &&
+                            reComments.map(recomment => (
+                                <ReComment
+                                    key={recomment.id}
+                                    id={recomment.id}
+                                    content={recomment.content}
+                                    nickname={recomment.nickname}
+                                    createdAt={recomment.createdAt}
+                                    modifiedAt={recomment.modifiedAt}
+                                    likeCount={recomment.likeCount}
+                                />
+                            ))}
+                    </div>
+                </>
             )}
         </>
     )

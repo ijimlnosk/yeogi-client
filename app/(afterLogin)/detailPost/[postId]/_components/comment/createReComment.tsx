@@ -7,7 +7,7 @@ import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { putCommentRequest } from "@/hook/type"
 import Button from "@/components/commons/button"
 
-const CreateReComment = ({ postId, commentId, refetch }: Partial<CommentProps>) => {
+const CreateReComment = ({ postId, commentId, refetch, onReplySuccess }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
     const mutation = useCreateReComment(refetch)
@@ -26,12 +26,13 @@ const CreateReComment = ({ postId, commentId, refetch }: Partial<CommentProps>) 
             onSuccess: () => {
                 setContent("")
                 setIsError(false)
+                if (onReplySuccess) onReplySuccess()
             },
         })
     }
 
     return (
-        <div className="relative w-full bg-[#EFE9E3B2] mt-4 p-4">
+        <div className="w-full bg-[#EFE9E3B2] p-4">
             <SuccessToFailModal
                 isOpen={isError}
                 onClick={() => setIsError(false)}
