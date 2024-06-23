@@ -50,6 +50,7 @@ export type fetchCommentProps = {
 }
 
 export type postReCommentProps = {
+    postId: number
     commentId: number
     content: string
 }

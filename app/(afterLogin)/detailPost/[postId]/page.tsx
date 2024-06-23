@@ -15,7 +15,6 @@ import { Comment } from "./_components/comment/type"
 import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
 import { usePostDataStore } from "@/libs/store"
 import { useEffect } from "react"
-
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"

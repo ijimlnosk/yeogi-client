@@ -18,25 +18,6 @@ export type PostCardProps = {
     created_At: string
 }
 
-export type CommentProps = {
-    commentId: number
-    content: string
-    likes: number
-    date: string
-    author: string
-    initialLiked: boolean
-    postId: number
-    refetch: () => void
-}
-
-export type ReCommentProps = {
-    content: string
-    likes: number
-    date: string
-    userId: string
-    userProfileImage: string
-}
-
 export type DateRange = {
     start: Date | null
     end: Date | null
@@ -108,19 +89,4 @@ export type PaginationNumberProps = {
     page: number | string
     href: string
     isActive: boolean
-}
-
-export type LikeButtonProps = {
-    commentId: number
-    initialLikes: number
-    initialLiked: boolean
-    setIsError: (isError: boolean) => void
-    size: number
-    textSize: string
-}
-
-export type CommentCountProps = {
-    size: number
-    commentCount: number
-    textSize: string
 }

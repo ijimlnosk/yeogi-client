@@ -1,8 +1,3 @@
-export type CommentProps = {
-    postId: number
-    refetch: () => void
-}
-
 export type Comment = {
     id: number
     content: string
@@ -68,4 +63,40 @@ export type fetchGetCommentProps = {
 export type PostCommentMutate = {
     content: string
     postId: number
+}
+
+export type CommentProps = {
+    commentId: number
+    content: string
+    likes: number
+    date: string
+    author: string
+    initialLiked: boolean
+    postId: number
+    refetch: () => void
+    onReplyClick: (commentId: number) => void
+}
+
+export type ReCommentProps = {
+    postId: number
+    commentId: number
+    content: string
+    date: string
+    author: string
+    userProfileImage?: string
+}
+
+export type LikeButtonProps = {
+    commentId: number
+    initialLikes: number
+    initialLiked: boolean
+    setIsError: (isError: boolean) => void
+    size: number
+    textSize: string
+}
+
+export type CommentCountProps = {
+    size: number
+    commentCount: number
+    textSize: string
 }

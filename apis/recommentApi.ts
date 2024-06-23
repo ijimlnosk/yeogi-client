@@ -10,10 +10,10 @@ const API_URL = "/reply"
  * @param {number} props.commentId
  * @param {string} props.content
  */
-export const postReComment = async ({ commentId, content }: postReCommentProps) => {
-    const response = await fetchFormAPI(API_URL, "reply/", {
+export const postReComment = async ({ commentId, postId, content }: postReCommentProps) => {
+    const response = await fetchFormAPI(API_URL, `reply/${commentId}`, {
         method: "POST",
-        body: JSON.stringify({ commentId, content }),
+        body: JSON.stringify({ postId, content }),
     })
     const data: postCommentResponse = await response.json()
     return data

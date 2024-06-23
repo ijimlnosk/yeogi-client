@@ -6,7 +6,7 @@ import { postCommentLike, deleteCommentLike } from "@/apis/commentApi"
 import Image from "next/image"
 import LikeIcon from "@/public/icons/like.svg"
 
-const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, textSize }: LikeButtonProps) => {
+const CommentLikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, textSize }: LikeButtonProps) => {
     const [likeCount, setLikeCount] = useState(initialLikes)
     const [liked, setLiked] = useState(initialLiked)
 
@@ -46,4 +46,4 @@ const LikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, t
         </>
     )
 }
-export default LikeButton
+export default CommentLikeButton

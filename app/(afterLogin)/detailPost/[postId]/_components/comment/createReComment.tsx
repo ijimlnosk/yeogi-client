@@ -1,17 +1,16 @@
 "use client"
 
+import { useCreateReComment } from "@/hook/useCommentMutation"
+import { CommentProps } from "./type"
 import { useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
-import { CommentProps } from "./type"
+import { putCommentRequest } from "@/hook/type"
 import Button from "@/components/commons/button"
-import { useCreateComment } from "@/hook/useCommentMutation"
-import { postCommentRequest } from "@/hook/type"
 
-const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
+const CreateReComment = ({ postId, commentId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
-
-    const mutation = useCreateComment(refetch)
+    const mutation = useCreateReComment(refetch)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -20,7 +19,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
             return
         }
 
-        mutation.mutate({ content, postId } as postCommentRequest, {
+        mutation.mutate({ postId, commentId, content } as putCommentRequest, {
             onError: () => {
                 setIsError(true)
             },
@@ -32,7 +31,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     }
 
     return (
-        <div>
+        <div className="relative w-full bg-[#EFE9E3B2] mt-4 p-4">
             <SuccessToFailModal
                 isOpen={isError}
                 onClick={() => setIsError(false)}
@@ -40,14 +39,14 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
                 context="댓글이 등록되지 않았어요"
                 state="fail"
             />
-            <form className="w-[1000px] rounded-2xl pt-7" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="w-full flex flex-col items-end justify-end">
                 <textarea
-                    className="w-full h-[180px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-SYSTEM-white border-2 border-GREY-30 focus:outline-none resize-none"
+                    className="w-[888px] h-[150px] rounded-2xl pt-6 pl-5 bg-comment-pattern bg-[#FFFFFF4D] border-2 border-GREY-30 focus:outline-none resize-none"
                     placeholder="댓글을 입력해주세요."
-                    value={content}
                     onChange={e => setContent(e.target.value)}
+                    value={content}
                 />
-                <div className="w-full flex justify-end py-4">
+                <div className="py-4">
                     <Button
                         type="submit"
                         rounded={"lg"}
@@ -63,4 +62,5 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
         </div>
     )
 }
-export default CreateComment
+
+export default CreateReComment

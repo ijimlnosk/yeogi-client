@@ -18,6 +18,7 @@ export const buttonStyle = cva(
                 none: "",
                 gray10: "bg-GREY-10",
                 gray20: "bg-GREY-20",
+                gray70: "bg-GREY-70",
                 black: "bg-SYSTEM-black",
                 white: "bg-SYSTEM-white",
                 brand30: "bg-BRAND-30",
