@@ -9,7 +9,6 @@ import { deleteComment, getComment } from "@/apis/commentApi"
 import FloatingBar from "./_components/floating/floatingBar"
 import PostDetail from "./_components/postDetail"
 import CreateComment from "./_components/comment/createComment"
-import LikeToComment from "./_components/comment/likeToComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
@@ -18,6 +17,7 @@ import { useEffect } from "react"
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
+import LikeToComment from "./_components/comment/_components/likeToComment"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

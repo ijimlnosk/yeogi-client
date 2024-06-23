@@ -1,10 +1,10 @@
 import Image from "next/image"
 
-import CommentMenu from "@/app/(afterLogin)/detailPost/[postId]/_components/comment/commentMenu"
 import { formatISODateString } from "@/utils/formatDate"
-import { Recomment } from "./type"
+import { ReComments } from "./type"
+import CommentMenu from "./_components/commentMenu"
 
-const ReComment = ({ id, content, createdAt, nickname }: Recomment) => {
+const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
     return (
         <div className="relative w-[1000px] bg-comment-pattern bg-[#EFE9E3B2] border-b-[1px] border-GREY-20 px-6 py-8">
             <div className="w-[952px] flex flex-row">

@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { LikeButtonProps } from "./type"
 import { postCommentLike, deleteCommentLike } from "@/apis/commentApi"
 import Image from "next/image"
 import LikeIcon from "@/public/icons/like.svg"
+import { LikeButtonProps } from "./type"
 
 const CommentLikeButton = ({ commentId, initialLikes, initialLiked, setIsError, size, textSize }: LikeButtonProps) => {
     const [likeCount, setLikeCount] = useState(initialLikes)

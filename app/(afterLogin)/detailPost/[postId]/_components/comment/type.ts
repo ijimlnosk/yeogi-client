@@ -6,10 +6,10 @@ export type Comment = {
     createdAt: string
     modifiedAt: string
     likeCount: number
-    child?: Recomment[]
+    child?: ReComments[]
 }
 
-export type Recomment = {
+export type ReComments = {
     id: number
     content: string
     nickname: string
@@ -41,15 +41,6 @@ export type ReCommentType = {
     userId: string
     userProfileImage: string
     parentId: number
-}
-
-export type LikeToComments = {
-    likes: number
-    comments: number
-}
-
-export type CommentMenuProps = {
-    commentId: number
 }
 
 export type CommentUpdateFormProps = {
@@ -87,7 +78,7 @@ export type CommentProps = {
     onReplyClick: (commentId: number) => void
     onReplySuccess?: () => void
     isReplying?: boolean
-    reComments?: Recomment[]
+    reComments?: ReComments[]
 }
 
 export type LikeButtonProps = {
