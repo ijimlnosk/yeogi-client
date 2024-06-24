@@ -80,18 +80,3 @@ export type CommentProps = {
     isReplying?: boolean
     reComments?: ReComments[]
 }
-
-export type LikeButtonProps = {
-    commentId: number
-    initialLikes: number
-    initialLiked: boolean
-    setIsError: (isError: boolean) => void
-    size: number
-    textSize: string
-}
-
-export type CommentCountProps = {
-    size: number
-    commentCount: number
-    textSize: string
-}

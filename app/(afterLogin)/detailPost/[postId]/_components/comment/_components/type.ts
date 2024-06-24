@@ -1,3 +1,5 @@
+import { ReComments } from "../type"
+
 export type CommentContentsProps = {
     author: string
     content: string
@@ -8,6 +10,7 @@ export type CommentContentsProps = {
     isReplying?: boolean
     onReplyClick: (commentId: number) => void
     setIsError: (isError: boolean) => void
+    reComments?: ReComments[] | undefined
 }
 
 export type LikeToComments = {

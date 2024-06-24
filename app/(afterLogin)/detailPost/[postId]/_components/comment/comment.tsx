@@ -48,6 +48,7 @@ const Comment = ({
                         isReplying={isReplying}
                         onReplyClick={onReplyClick}
                         setIsError={setIsError}
+                        reComments={reComments}
                     />
                     <div className="w-full flex flex-col">
                         {reComments &&

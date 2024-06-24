@@ -15,6 +15,7 @@ const CommentContents = ({
     isReplying,
     onReplyClick,
     setIsError,
+    reComments,
 }: CommentContentsProps) => {
     return (
         <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
@@ -47,7 +48,7 @@ const CommentContents = ({
                             size={16}
                             textSize="text-xxs"
                         />
-                        <CommentCount size={16} commentCount={0} textSize="text-xxs" />
+                        <CommentCount size={16} commentCount={reComments ? reComments.length : 0} textSize="text-xxs" />
                         <p
                             onClick={() => onReplyClick(commentId)}
                             className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"
