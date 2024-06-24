@@ -18,7 +18,7 @@ export const useInitializeFormData = (postDetail: Post | null) => {
         if (postDetail) {
             const initialQuillEditors =
                 postDetail.shortPosts?.map(post => ({
-                    content: post.content,
+                    content: post,
                 })) || []
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
@@ -129,9 +129,9 @@ export const handleUpdatePost = async (
         editedPost = { ...editedPost, content: processedContent }
     } else if (formData.shortPosts) {
         const processedShortPosts = await Promise.all(
-            quillEditors.map(async (editor, index) => {
+            quillEditors.map(async editor => {
                 const content = await processContentImages(editor.content)
-                return { shortPostId: index, content }
+                return content
             }),
         )
         editedPost = { ...editedPost, shortPosts: processedShortPosts }
