@@ -1,7 +1,9 @@
-import Comment from "@/components/commons/comment"
 import Pagination from "@/components/commons/pagination"
 import { useSearchParams } from "next/navigation"
 import { CommentBoxProps } from "./type"
+import Comment from "./comment"
+import CreateReComment from "./createReComment"
+import { useState } from "react"
 
 /**
  * @function CommentBox
@@ -9,6 +11,7 @@ import { CommentBoxProps } from "./type"
  * @returns {JSX.Element}
  */
 const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
+    const [replyingCommentId, setReplyingCommentId] = useState<number | null>(null)
     const searchParams = useSearchParams()
     const currentPage = parseInt(searchParams.get("page") as string, 10) || 1
     const commentsPerPage = 5
@@ -20,6 +23,10 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
     const currentComments = sortComments.slice(firstComment, lastComment)
 
     const totalPage = Math.ceil(comments.length / commentsPerPage)
+
+    const handleReplyClick = (commentId: number) => {
+        setReplyingCommentId(prevSelectedCommentId => (prevSelectedCommentId === commentId ? null : commentId))
+    }
 
     return (
         <div className="pt-[30px]">
@@ -36,7 +43,18 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
                                 initialLiked={false}
                                 postId={commentWithLike.postId}
                                 refetch={refetch}
+                                onReplyClick={handleReplyClick}
+                                isReplying={replyingCommentId === commentWithLike.id}
+                                reComments={commentWithLike.child}
                             />
+                            {replyingCommentId === commentWithLike.id && (
+                                <CreateReComment
+                                    postId={commentWithLike.postId}
+                                    commentId={commentWithLike.id}
+                                    refetch={refetch}
+                                    onReplySuccess={() => setReplyingCommentId(null)}
+                                />
+                            )}
                         </div>
                     ))}
                 </div>
