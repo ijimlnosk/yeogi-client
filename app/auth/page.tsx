@@ -7,7 +7,7 @@ import SocialLoginButton from "../(beforeLogin)/_auth/signin/socialLoginButton"
 import { useEffect, useState } from "react"
 import { getCodeFromUrl, postAuthCode } from "@/apis/auth/oauthApi"
 import { setCookieToken, setSessionToken } from "@/apis/auth/storageUtils"
-
+type Provider = "kakao" | "google" | "naver"
 const AuthForm = () => {
     const K_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API
     const G_REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_REST_API
@@ -22,33 +22,27 @@ const AuthForm = () => {
     const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${G_REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
     const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${N_REST_API_KEY}&state=${naverState}&redirect_uri=${REDIRECT_URI}`
 
-    const handleMoveSocialLogin = (url: string, provider: string) => {
+    const handleMoveSocialLogin = (url: string, provider: Provider) => {
         setProvider(provider)
+        window.localStorage.setItem("provider", provider)
         window.location.href = url
     }
 
     useEffect(() => {
         const fetchData = async () => {
             const code = getCodeFromUrl()
-            console.log(code, "난 page에있음 ")
-            if (code) {
-                try {
-                    const data = await postAuthCode("naver")
-                    console.log(data, "authdata페이지에있는 데이터")
-                    setCookieToken(data.accessToken)
-                    setSessionToken(data.accessToken)
-                } catch (error) {
-                    console.error(error, "ㄷㄱ개개객-oauthapi")
-                }
-            } else {
-                console.log("authpage error")
+            const savedProvider = window.localStorage.getItem("provider") as Provider
+            if (code && savedProvider) {
+                const data = await postAuthCode(savedProvider)
+                setCookieToken(data.accessToken)
+                setSessionToken(data.accessToken)
             }
         }
         fetchData()
     }, [provider])
 
     return (
-        <div className="w-[400px] h-[530px] top-[225px] left-[760px] rounded-3xl border-[1px] border-BRAND-70 bg-SYSTEM-white">
+        <div className="w-[400px] h-[530px] top-[225px] left-[760px] rounded-3xl border-[1px] border-BRAND-70 bg-SYSTEM-white ">
             <div className="pt-[71px]">
                 <div className="flex justify-center h-[64px] text-subTitle text-BRAND-70 font-myeongjo items-center top-[68px]">
                     여기

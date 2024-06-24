@@ -74,9 +74,8 @@ const Header = () => {
                                     <Image src={searchIcon} width={24} height={24} alt="search_icon" />
                                 )}
                             </button>
-                            <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signin")}>
-                                로그인
-                            </button>
+                            <ProtectedLink href="/auth">로그인</ProtectedLink>
+
                             <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signup")}>
                                 회원가입
                             </button>
@@ -96,12 +95,12 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            {isOverlayOpen && (
+            {/* {isOverlayOpen && (
                 <Overlay isOpen={isOverlayOpen} onClick={() => handleOverlay(false)} rounded="lg">
                     {formType === "signin" && <AuthForm />}
                     {formType === "signup" && <SignupForm />}
                 </Overlay>
-            )}
+            )} */}
         </>
     )
 }
