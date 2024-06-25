@@ -7,23 +7,14 @@ import searchIcon from "@/public/icons/search.svg"
 import writeIcon from "@/public/icons/write.svg"
 import SearchBar from "../commons/searchBar"
 import LogoText from "@/public/icons/logo_text.svg"
-import Overlay from "../commons/overlay"
-import SignupForm from "@/app/(beforeLogin)/_auth/signup/signupForm"
 import ProtectedLink from "../protectedLink"
-import AuthForm from "@/app/auth/page"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
     const [isSearchbarClicked, setIsSearchbarClicked] = useState(false)
     const [, setSearchKeyword] = useState<string>("")
-    const [isOverlayOpen, setIsOverlayOpen] = useState(false)
-    const [formType, setFormType] = useState<"signin" | "signup" | null>(null)
 
-    const handleOverlay = (isOpen: boolean, type: "signin" | "signup" | null = null) => {
-        setIsOverlayOpen(isOpen)
-        setFormType(type)
-    }
     const handleScroll = () => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
@@ -76,9 +67,7 @@ const Header = () => {
                             </button>
                             <ProtectedLink href="/auth">로그인</ProtectedLink>
 
-                            <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signup")}>
-                                회원가입
-                            </button>
+                            <button className="text-SYSTEM-black">회원가입</button>
                             <ProtectedLink href="/createPost">
                                 <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
                                     <Image
