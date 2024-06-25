@@ -20,7 +20,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
     const handleOverlaySubmit = async (e: FormEvent, quillEditors: { content: string }[]) => {
         e.preventDefault()
 
-        let postData: Partial<Post> = {
+        const postData: Partial<Post> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
             tripStarDate: startDate ? startDate.toISOString() : "",

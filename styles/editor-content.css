@@ -22,7 +22,7 @@
 
 /* free-form editor style */
 .free-editor .ql-container {
-    @apply h-[1060px] !important;
+    @apply h-[760px] !important;
 }
 
 /* editor content style */  

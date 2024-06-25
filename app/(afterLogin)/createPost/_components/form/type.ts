@@ -9,7 +9,7 @@ export type FormInputsProps = {
 export type FormSelectorProps = {
     onClick: () => void
     label: string
-    state: "continent" | "calendar"
+    state: "continent" | "calendar" | "theme" | "address"
     postDetail?: Post
 }
 

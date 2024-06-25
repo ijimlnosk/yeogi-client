@@ -1,6 +1,7 @@
 export type Post = {
-    continent: string
     postId: number
+    continent: string
+    region: string
     author: string
     title: string
     content?: string
@@ -11,12 +12,14 @@ export type Post = {
     modifiedAt: string
     tripStarDate: string
     tripEndDate: string
-    region?: string
+    theme: string
+    address: string
 }
 
 export type DetailPost = {
-    continent: string
     postId: number
+    continent: string
+    region: string
     author: string
     title: string
     content?: string
@@ -27,7 +30,8 @@ export type DetailPost = {
     modifiedAt: string
     tripStarDate: string
     tripEndDate: string
-    region?: string
+    theme: string
+    address: string
 }
 
 export type ShortPosts = {

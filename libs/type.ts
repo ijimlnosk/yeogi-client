@@ -1,4 +1,5 @@
 import { Continent } from "@/constants/continents"
+import { Theme } from "@/constants/theme"
 import { Post } from "@/utils/type"
 import { Dayjs } from "dayjs"
 
@@ -7,10 +8,14 @@ export type SelectionState = {
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
+    selectedTheme: Theme | null
+    selectedAddress: string | null
     setSelectedContinent: (continent: Continent | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
+    setSelectedTheme: (theme: Theme) => void
+    setSelectedAddress: (address: string) => void
 }
 
 export type FormState = {
@@ -36,7 +41,7 @@ export type MapStore = {
     decrementPinCount: () => void
 }
 
-export type CommnetState = {
+export type CommentState = {
     saveCommentId: number
     setSaveCommentId: (saveCommentId: number) => void
 }

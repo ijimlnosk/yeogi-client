@@ -1,8 +1,9 @@
 import { Post } from "./type"
 
 export const getDefaultPost = (): Post => ({
-    continent: "",
     postId: -1,
+    continent: "",
+    region: "",
     author: "",
     title: "",
     content: "",
@@ -12,4 +13,6 @@ export const getDefaultPost = (): Post => ({
     modifiedAt: "",
     tripEndDate: "",
     tripStarDate: "",
+    address: "",
+    theme: "",
 })

@@ -7,14 +7,7 @@ import Image from "next/image"
 import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
-
-export type CommonPostProps = {
-    isFreeForm: boolean
-    quillEditors: Array<{ content: string }>
-    handleDeleteQuillEditor?: (index: number) => void
-    handleEditorInputChange?: (index: number, value: string) => void
-    handleAddMemoClick?: () => void
-}
+import { CommonPostProps } from "./type"
 
 const CommonPost = ({
     isFreeForm,
