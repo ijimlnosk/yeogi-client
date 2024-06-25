@@ -7,6 +7,8 @@ import SocialLoginButton from "../(beforeLogin)/_auth/signin/socialLoginButton"
 import { useEffect, useState } from "react"
 import { getCodeFromUrl, postAuthCode } from "@/apis/auth/oauthApi"
 import { setCookieToken, setSessionToken } from "@/apis/auth/storageUtils"
+import { useRouter } from "next/navigation"
+// import { useRouter } from "next/router"
 type Provider = "kakao" | "google" | "naver"
 const AuthForm = () => {
     const K_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API
@@ -17,6 +19,7 @@ const AuthForm = () => {
 
     // 네이버는 사이트 간 요청 위조 공격 방지를 위해 어플리케이션에서 생성한 상태 토큰값으로 URL 인코딩을 적용한 값을 사용
     const naverState = Math.random().toString(36).substring(2)
+    const router = useRouter()
 
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${K_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
     const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${G_REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
@@ -36,6 +39,7 @@ const AuthForm = () => {
                 const data = await postAuthCode(savedProvider)
                 setCookieToken(data.accessToken)
                 setSessionToken(data.accessToken)
+                router.push("/")
             }
         }
         fetchData()
