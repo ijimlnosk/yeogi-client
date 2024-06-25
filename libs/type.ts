@@ -33,6 +33,7 @@ export type PostDataState = {
 export type MapStore = {
     pinCount: number
     incrementPinCount: () => void
+    decrementPinCount: () => void
 }
 
 export type CommnetState = {

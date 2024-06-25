@@ -1,5 +1,5 @@
-import { Post } from "@/utils/type"
+import { DetailPost } from "@/utils/type"
 
 export type PostDetailProps = {
-    post: Post
+    post: DetailPost
 }

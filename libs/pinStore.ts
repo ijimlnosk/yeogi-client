@@ -7,4 +7,8 @@ export const useMapStore = create<MapStore>(set => ({
         set(state => ({
             pinCount: state.pinCount + 1,
         })),
+    decrementPinCount: () =>
+        set(state => ({
+            pinCount: state.pinCount - 1,
+        })),
 }))

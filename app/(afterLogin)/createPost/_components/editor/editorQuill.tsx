@@ -22,8 +22,8 @@ export const QuillEditor = ({
     useEffect(() => {
         if (isFreeForm && postDetail?.content !== undefined) {
             setValue(postDetail.content)
-        } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index]?.content !== undefined) {
-            setValue(postDetail.shortPosts[index].content)
+        } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index] !== undefined) {
+            setValue(postDetail.shortPosts[index])
         }
     }, [postDetail, isFreeForm, index])
 

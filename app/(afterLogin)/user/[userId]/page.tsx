@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
 import MyPost from "./_components/myPost"
@@ -11,53 +11,34 @@ import EditProfile from "./_components/profile/editProfile"
 import Profile from "./_components/profile/profile"
 import WorldMap from "./_components/myMap/worldMap"
 import UserDetails from "./_components/userDetails"
+import { getUserInfo } from "@/apis/userApi"
+import { getPinLocalStorage } from "@/utils/localStorage"
+import { UserInfoProps } from "./type"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)
+    const [userInfo, setUserInfo] = useState<UserInfoProps>({ nickname: "", email: "" })
+    const [pinCount, setPinCount] = useState(0)
     const [profile, setProfile] = useState<Omit<ProfileProps, "onEdit">>({
         name: "메롱메롱",
         bio: "오늘의 여행을 내일로 미루지 말자",
         profileImage: defaultProfile,
         bgImage: defaultBg,
     })
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            const response = await getUserInfo()
+            setUserInfo(response)
+        }
+        fetchUserInfo()
+    }, [])
+
+    useEffect(() => {
+        setPinCount(getPinLocalStorage())
+    })
+
     const [posts] = useState<Post[]>(samplePosts)
-
-    const user = {
-        nickName: "Gang",
-        posts: [
-            {
-                id: 1,
-                title: "첫 번째 게시글 제목",
-                content: "첫 번째 게시글 내용",
-                thumbnail: "/images/step-01.svg",
-                pin: {
-                    x: 60,
-                    y: 67,
-                },
-            },
-            {
-                id: 2,
-                title: "두 번째 게시글 제목",
-                content: "두 번째 게시글 내용",
-                thumbnail: "/images/step-02.svg",
-                pin: {
-                    x: 78.2,
-                    y: 35.5,
-                },
-            },
-        ],
-    }
-
-    const newPost = {
-        id: 3,
-        title: "세 번째 게시글 제목",
-        content: "세 번째 게시글 내용",
-        thumbnail: "/images/step-03.svg",
-        pin: {
-            x: 0,
-            y: 0,
-        },
-    }
 
     const handleSave = (updatedProfile: Omit<ProfileProps, "onEdit">) => {
         setProfile(updatedProfile)
@@ -85,10 +66,10 @@ const UserPage = () => {
                         onEdit={() => setIsEditing(true)}
                     />
                 )}
-                <UserDetails pinCount={0} />
+                <UserDetails pinCount={pinCount} />
             </div>
             <div className="my-[120px]">
-                <WorldMap user={user} editable={false} newPost={newPost} />
+                <WorldMap userInfo={userInfo} />
             </div>
             <MyPost posts={posts} />
         </div>

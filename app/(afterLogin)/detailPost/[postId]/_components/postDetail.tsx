@@ -75,12 +75,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         className="custom-content"
                     />
                 )}
-                {post.shortPosts?.map(post => (
+                {post.shortPostList?.map(post => (
                     <div className="w-full flex flex-col items-center justify-center" key={post.shortPostId}>
                         <div
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: post.content }}
-                            key={post.shortPostId}
                         />
                     </div>
                 ))}

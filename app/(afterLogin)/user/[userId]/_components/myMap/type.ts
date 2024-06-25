@@ -1,15 +1,11 @@
 import { MouseEvent as ReactMouseEvent } from "react"
 
 export type WorldMapProps = {
-    user: User
-    editable: boolean
-    newPost?: WorldPost
+    userInfo: User
 }
 
 export type MapProps = {
     user: User
-    editable: boolean
-    isUpdate: boolean
     movingPins: WorldPost[]
     setMovingPins: (pins: WorldPost[]) => void
     pinCount: number
@@ -17,8 +13,10 @@ export type MapProps = {
 }
 
 export type Pin = {
-    x: number
-    y: number
+    x: string
+    y: string
+    email: string
+    postId: number
 }
 
 export type WorldPost = {
@@ -30,8 +28,8 @@ export type WorldPost = {
 }
 
 export type User = {
-    nickName: string
-    posts: WorldPost[]
+    nickname: string
+    email: string
 }
 
 export type PinProps = {
@@ -43,7 +41,6 @@ export type PinProps = {
 
 export type HandleMapClickProps = {
     e: ReactMouseEvent<HTMLImageElement>
-    editable: boolean
     isUpdate: boolean
     pinCount: number
     movingPins: WorldPost[]
@@ -51,5 +48,17 @@ export type HandleMapClickProps = {
     setSelectedPin: (pin: WorldPost | null) => void
     setPins: (pins: WorldPost[]) => void
     setMovingPins: (pins: WorldPost[]) => void
-    setPinCount: (count: number) => void
+    userInfo: UserInfo
+}
+
+export type UserInfo = {
+    email: string
+    nickname: string
+}
+
+export type WorldPostPin = {
+    pin: Pin
+    email: string
+    nickname: string
+    postId: number
 }

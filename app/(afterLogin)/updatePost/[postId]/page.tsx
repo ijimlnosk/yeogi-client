@@ -24,7 +24,7 @@ const UpdatePostPage = () => {
         if (postDetail) {
             const initialQuillEditors =
                 postDetail.shortPosts?.map(post => ({
-                    content: post.content,
+                    content: post,
                 })) || []
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
@@ -38,6 +38,10 @@ const UpdatePostPage = () => {
     const handleEditorInputChange = (index: number, value: string) => {
         const updatedEditors = quillEditors.map((editor, i) => (i === index ? { ...editor, content: value } : editor))
         setQuillEditors(updatedEditors)
+        handleInputChange(
+            "shortPosts",
+            updatedEditors.map(editor => editor.content),
+        )
     }
 
     const handleAddMemoClick = () => {
@@ -67,9 +71,9 @@ const UpdatePostPage = () => {
             editedPost = { ...editedPost, content: processedContent }
         } else if (formData.shortPosts) {
             const processedShortPosts = await Promise.all(
-                quillEditors.map(async (editor, index) => {
+                quillEditors.map(async editor => {
                     const content = await processContentImages(editor.content)
-                    return { shortPostId: index, content }
+                    return content
                 }),
             )
             editedPost = { ...editedPost, shortPosts: processedShortPosts }
@@ -107,7 +111,7 @@ const UpdatePostPage = () => {
                                 isFreeForm={false}
                                 postDetail={{
                                     ...formData,
-                                    shortPosts: quillEditors.map((e, i) => ({ shortPostId: i, content: e.content })),
+                                    shortPosts: quillEditors.map(e => e.content),
                                 }}
                                 handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
                                 handleEditorInputChange={handleEditorInputChange}
