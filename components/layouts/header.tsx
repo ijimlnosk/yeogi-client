@@ -8,9 +8,9 @@ import writeIcon from "@/public/icons/write.svg"
 import SearchBar from "../commons/searchBar"
 import LogoText from "@/public/icons/logo_text.svg"
 import Overlay from "../commons/overlay"
-import SigninForm from "@/app/(beforeLogin)/_auth/signin/signinForm"
 import SignupForm from "@/app/(beforeLogin)/_auth/signup/signupForm"
 import ProtectedLink from "../protectedLink"
+import AuthForm from "@/app/auth/page"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
@@ -74,9 +74,8 @@ const Header = () => {
                                     <Image src={searchIcon} width={24} height={24} alt="search_icon" />
                                 )}
                             </button>
-                            <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signin")}>
-                                로그인
-                            </button>
+                            <ProtectedLink href="/auth">로그인</ProtectedLink>
+
                             <button className="text-SYSTEM-black" onClick={() => handleOverlay(true, "signup")}>
                                 회원가입
                             </button>
@@ -96,12 +95,12 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            {isOverlayOpen && (
+            {/* {isOverlayOpen && (
                 <Overlay isOpen={isOverlayOpen} onClick={() => handleOverlay(false)} rounded="lg">
-                    {formType === "signin" && <SigninForm />}
+                    {formType === "signin" && <AuthForm />}
                     {formType === "signup" && <SignupForm />}
                 </Overlay>
-            )}
+            )} */}
         </>
     )
 }
