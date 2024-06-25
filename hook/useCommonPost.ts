@@ -23,7 +23,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
         const postData: Partial<Post> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
-            tripStarDate: startDate ? startDate.toISOString() : "",
+            tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",

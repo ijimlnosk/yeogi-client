@@ -119,7 +119,7 @@ export const handleUpdatePost = async (
         content: "",
         continent: selectedContinent || "아시아",
         region: formData.region || selectedCountry!,
-        tripStarDate: startDate ? startDate.toISOString() : "",
+        tripStartDate: startDate ? startDate.toISOString() : "",
         tripEndDate: endDate ? endDate.toISOString() : "",
         shortPosts: [],
     }

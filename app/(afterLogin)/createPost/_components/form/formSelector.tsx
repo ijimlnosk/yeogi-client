@@ -9,7 +9,7 @@ const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) 
 
     const continent = postDetail?.continent || selectedContinent
     const country = postDetail?.region || selectedCountry
-    const start = postDetail?.tripStarDate ? new Date(postDetail.tripStarDate) : startDate
+    const start = postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
     const end = postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
     const theme = postDetail?.theme || selectedTheme
     const address = postDetail?.address || selectedAddress

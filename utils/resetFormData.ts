@@ -12,7 +12,7 @@ export const getDefaultPost = (): Post => ({
     createdAt: "",
     modifiedAt: "",
     tripEndDate: "",
-    tripStarDate: "",
+    tripStartDate: "",
     address: "",
     theme: "",
 })

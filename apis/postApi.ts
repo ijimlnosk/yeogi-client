@@ -71,7 +71,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
         content: editedPost.content || "",
         continent: editedPost.continent || "",
         region: editedPost.region || "",
-        tripStarDate: editedPost.tripStarDate || "",
+        tripStartDate: editedPost.tripStartDate || "",
         tripEndDate: editedPost.tripEndDate || "",
         modifiedAt: editedPost.modifiedAt || "",
         postId: data.postId,
@@ -79,6 +79,8 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
+        theme: editedPost.theme || "",
+        address: editedPost.address || "",
     }
 }
 
@@ -100,7 +102,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
         content: editedPost.content || "",
         continent: editedPost.continent || "",
         region: editedPost.region || "",
-        tripStarDate: editedPost.tripStarDate || "",
+        tripStartDate: editedPost.tripStartDate || "",
         tripEndDate: editedPost.tripEndDate || "",
         modifiedAt: editedPost.modifiedAt || "",
         postId: data.postId,
@@ -108,6 +110,8 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
+        theme: editedPost.theme || "",
+        address: editedPost.address || "",
     }
 }
 

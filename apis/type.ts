@@ -9,7 +9,7 @@ export type getPostProps = {
 export const initialFormData: Post = {
     continent: "",
     region: "",
-    tripStarDate: "",
+    tripStartDate: "",
     tripEndDate: "",
     title: "",
     content: "",
@@ -20,6 +20,8 @@ export const initialFormData: Post = {
     viewCount: 0,
     createdAt: "",
     modifiedAt: "",
+    address: "",
+    theme: "",
 }
 
 export type postCommentProps = {

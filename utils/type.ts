@@ -10,7 +10,7 @@ export type Post = {
     viewCount: number
     createdAt: string
     modifiedAt: string
-    tripStarDate: string
+    tripStartDate: string
     tripEndDate: string
     theme: string
     address: string
@@ -28,7 +28,7 @@ export type DetailPost = {
     viewCount: number
     createdAt: string
     modifiedAt: string
-    tripStarDate: string
+    tripStartDate: string
     tripEndDate: string
     theme: string
     address: string
