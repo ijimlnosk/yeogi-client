@@ -67,12 +67,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
 
     return (
         <div className="w-[400px]">
-            <input
-                type="text"
-                ref={inputRef}
-                placeholder="주소를 입력하세요"
-                style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
-            />
+            <input type="text" ref={inputRef} placeholder="주소를 입력하세요" className="w-full p-2 m-2.5" />
         </div>
     )
 }
