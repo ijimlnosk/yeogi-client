@@ -17,9 +17,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
     const autoCompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
     useEffect(() => {
-        /**
-         * 구글 맵 JS API 스크립트를 동적 로드
-         */
+        // 구글 맵 JS API 스크립트를 동적 로드
         const loadScript = () => {
             const script = document.createElement("script")
             script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places&callback=initAutocomplete`
@@ -28,9 +26,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
             document.head.appendChild(script)
         }
 
-        /**
-         * Google Places Autocomplete를 초기화
-         */
+        //Google Places Autocomplete를 초기화
         const initializeAutocomplete = () => {
             autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current!)
             autoCompleteRef.current.addListener("place_changed", onPlaceChanged)
