@@ -1,6 +1,6 @@
 import { useFormDataStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { Post } from "@/utils/type"
+import { CreatePost, Post } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 
@@ -9,7 +9,7 @@ import { useState, useEffect } from "react"
  * @param {Post | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
  * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
  */
-export const useInitializeFormData = (postDetail: Post | null) => {
+export const useInitializeFormData = (postDetail: CreatePost | null) => {
     const { setFormData, resetFormData } = useFormDataStore()
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
 
@@ -103,10 +103,10 @@ export const handleDeleteQuillEditor = (
  */
 export const handleUpdatePost = async (
     postId: string,
-    formData: Post,
+    formData: CreatePost,
     quillEditors: Array<{ content: string }>,
     setIsSubmitted: (isSubmitted: boolean) => void,
-    updatePostMutation: UseMutationResult<Post, Error, { postId: number; editedFields: Partial<Post> }>,
+    updatePostMutation: UseMutationResult<CreatePost, Error, { postId: number; editedFields: Partial<CreatePost> }>,
     selectedContinent: string | null,
     selectedCountry: string | null,
     startDate: Date | null,
@@ -114,7 +114,7 @@ export const handleUpdatePost = async (
 ) => {
     if (!postId) return
 
-    let editedPost: Partial<Post> = {
+    let editedPost: Partial<CreatePost> = {
         title: formData.title,
         content: "",
         continent: selectedContinent || "아시아",

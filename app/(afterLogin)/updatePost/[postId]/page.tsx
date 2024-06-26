@@ -8,7 +8,7 @@ import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/ed
 import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 
 const UpdatePostPage = () => {
     const { formData, setFormData, resetFormData } = useFormDataStore()
@@ -26,12 +26,12 @@ const UpdatePostPage = () => {
                 postDetail.shortPosts?.map(post => ({
                     content: post,
                 })) || []
-            setFormData(postDetail)
+            setFormData({ ...postDetail, theme: postDetail.theme || "" })
             setQuillEditors(initialQuillEditors)
         }
     }, [postDetail, resetFormData, setFormData])
 
-    const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
+    const handleInputChange = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
@@ -56,7 +56,7 @@ const UpdatePostPage = () => {
     const handleUpdatePost = async (postId: string) => {
         if (!postId) return
 
-        let editedPost: Partial<Post> = {
+        let editedPost: Partial<CreatePost> = {
             title: formData.title,
             content: "",
             continent: selectedContinent || "아시아",

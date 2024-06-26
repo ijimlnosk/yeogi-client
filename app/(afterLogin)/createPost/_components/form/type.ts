@@ -1,16 +1,16 @@
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 
 export type FormInputsProps = {
     formText: string
-    postDetail?: Post
-    handleInputChange: <K extends keyof Post>(field: K, value: Post[K]) => void
+    postDetail?: CreatePost
+    handleInputChange: <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => void
 }
 
 export type FormSelectorProps = {
     onClick: () => void
     label: string
     state: "continent" | "calendar" | "theme" | "address"
-    postDetail?: Post
+    postDetail?: CreatePost
 }
 
 export type FormBtnProps = {

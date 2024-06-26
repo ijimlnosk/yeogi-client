@@ -1,4 +1,4 @@
-import { Post } from "@/utils/type"
+import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
@@ -58,7 +58,7 @@ export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<Post>} 수정된 post의 내용을 객체로 반환
  */
-export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
+export const putFreePost = async (postId: number, editedPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
@@ -89,7 +89,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<Post>} 수정된 post의 내용을 객체로 반환
  */
-export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {
+export const putMemoPost = async (shortPostId: number, editedPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/short-posts/${shortPostId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),

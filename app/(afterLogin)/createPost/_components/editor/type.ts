@@ -1,4 +1,4 @@
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 
 export type EditorProps = {
     className: string
@@ -6,8 +6,8 @@ export type EditorProps = {
 export type QuillEditorProps = {
     index?: number
     isFreeForm?: boolean
-    postDetail?: Post | null
+    postDetail?: CreatePost | null
     handleDeleteQuillEditor?: (index: number) => void
-    handleInputChange?: <K extends keyof Post>(field: K, value: Post[K]) => void
+    handleInputChange?: <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => void
     handleEditorInputChange?: (index: number, value: string) => void
 }

@@ -1,6 +1,6 @@
-import { Post } from "./type"
+import { CreatePost } from "./type"
 
-export const getDefaultPost = (): Post => ({
+export const getDefaultPost = (): CreatePost => ({
     postId: -1,
     continent: "",
     region: "",
