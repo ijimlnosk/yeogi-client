@@ -3,6 +3,17 @@
 import { useEffect, useRef } from "react"
 import { MapDivProps } from "./type"
 
+/**
+ * MapDiv Component
+ *
+ * @param {MapDivProps} props
+ * @param {Location} props.location - 지도 위치를 표시
+ * {
+ *      lat: number -> 위도,
+ *      lng: number -> 경도
+ * }
+ * @returns
+ */
 const MapDiv = ({ location }: MapDivProps) => {
     const mapRef = useRef<HTMLDivElement>(null)
     const mapInstance = useRef<google.maps.Map | null>(null)
