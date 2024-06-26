@@ -3,7 +3,7 @@ import { AddressAutoCompleteProps } from "./type"
 
 const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
-    const autoCompleteRef = useRef<any>(null)
+    const autoCompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
     useEffect(() => {
         const loadScript = () => {
@@ -28,15 +28,17 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
     }, [])
 
     const onPlaceChanged = () => {
-        const place = autoCompleteRef.current.getPlace()
-        if (!place.geometry) {
-            return
+        if (autoCompleteRef.current) {
+            const place = autoCompleteRef.current.getPlace()
+            if (!place.geometry || !place.geometry.location) {
+                return
+            }
+            const location = {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+            }
+            onSelect(location)
         }
-        const location = {
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
-        }
-        onSelect(location)
     }
 
     return (
