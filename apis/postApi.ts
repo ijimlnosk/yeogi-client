@@ -37,7 +37,7 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
  * @param {Partial<Post>} newPost - 등록할 게시글의 정보 (포스트 객체의 일부 속성만 포함)
  * @returns {Promise<Post>} 등록된 post의 내용을 객체로 반환
  */
-export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
+export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, "posts", {
         method: "POST",
         body: JSON.stringify(newPost),
@@ -47,7 +47,7 @@ export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
 
     try {
         const data = await response.json()
-        return data as Post
+        return data as CreatePost
     } catch (error) {
         return getDefaultPost()
     }
@@ -131,7 +131,7 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @param {number} postId detail 정보를 가져올 게시글의 id
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
-export const getPostDetail = async (postId: number): Promise<Post> => {
+export const getPostDetail = async (postId: number): Promise<CreatePost> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }

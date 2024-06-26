@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { getPostDetail } from "@/apis/postApi"
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
 import { PostDetailProps } from "./type"
 import { deleteComment, getComment } from "@/apis/commentApi"
@@ -30,7 +30,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         data: post,
         error,
         isLoading,
-    } = useQuery<Post, Error>({
+    } = useQuery<CreatePost, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(Number(postId)),
     })
