@@ -7,10 +7,14 @@ export const useSelectionStore = create<SelectionState>(set => ({
     selectedCountry: null,
     startDate: null,
     endDate: null,
+    selectedTheme: null,
+    selectedAddress: null,
     setSelectedContinent: continent => set({ selectedContinent: continent }),
     setSelectedCountry: country => set({ selectedCountry: country }),
     setStartDate: date => set({ startDate: date }),
     setEndDate: date => set({ endDate: date }),
+    setSelectedTheme: theme => set({ selectedTheme: theme }),
+    setSelectedAddress: address => set({ selectedAddress: address }),
 }))
 
 export const useFormDataStore = create<FormState>(set => ({

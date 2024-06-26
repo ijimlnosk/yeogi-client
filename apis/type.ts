@@ -1,4 +1,4 @@
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
@@ -6,10 +6,10 @@ export type getPostProps = {
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
 }
 
-export const initialFormData: Post = {
+export const initialFormData: CreatePost = {
     continent: "",
     region: "",
-    tripStarDate: "",
+    tripStartDate: "",
     tripEndDate: "",
     title: "",
     content: "",
@@ -20,6 +20,8 @@ export const initialFormData: Post = {
     viewCount: 0,
     createdAt: "",
     modifiedAt: "",
+    address: "",
+    theme: "",
 }
 
 export type postCommentProps = {

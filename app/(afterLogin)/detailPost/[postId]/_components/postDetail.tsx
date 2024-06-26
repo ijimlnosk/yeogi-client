@@ -63,7 +63,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     </p>
                     <p className="mx-4">
                         <span className="text-GREY-70 mx-4">여행일자</span>
-                        <span className="text-BRAND-50 font-bold">{`${formatISODateString(post.tripStarDate)} ~ ${formatISODateString(post.tripEndDate)}`}</span>
+                        <span className="text-BRAND-50 font-bold">{`${formatISODateString(post.tripStartDate)} ~ ${formatISODateString(post.tripEndDate)}`}</span>
                     </p>
                 </div>
             </div>

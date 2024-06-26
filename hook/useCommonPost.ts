@@ -3,7 +3,7 @@ import { useFormDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { useMapStore } from "@/libs/pinStore"
-import { Post } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 import { setPinLocalStorage } from "@/utils/localStorage"
 
 export const useCommonPost = (isFreeForm: boolean) => {
@@ -13,17 +13,17 @@ export const useCommonPost = (isFreeForm: boolean) => {
     const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
 
-    const handleInputChange = <K extends keyof Post>(field: K, value: Post[K]) => {
+    const handleInputChange = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent, quillEditors: { content: string }[]) => {
         e.preventDefault()
 
-        let postData: Partial<Post> = {
+        const postData: Partial<CreatePost> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
-            tripStarDate: startDate ? startDate.toISOString() : "",
+            tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             title: formData.title,
             content: "",

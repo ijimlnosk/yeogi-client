@@ -3,7 +3,7 @@ import TempImage from "@/public/images/sampleThumbnail.svg"
 import { Post } from "@/utils/type"
 import SampleProfile from "@/public/images/sampleProfile.svg"
 
-const MyPost = ({ posts }: { posts: Post[] }) => {
+const MyPost = ({ posts }: { posts?: Post[] }) => {
     const currentDate = new Date().toISOString()
 
     if (posts && posts.length > 0)

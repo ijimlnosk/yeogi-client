@@ -2,7 +2,7 @@ import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/re
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type"
 import { Continent } from "@/constants/continents"
-import { Post } from "@/utils/type"
+import { CreatePost, Post } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
@@ -30,7 +30,7 @@ export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> &
 }
 export type useHandleClickProps = {
     postId?: string
-    post?: Post
+    post?: CreatePost
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
 

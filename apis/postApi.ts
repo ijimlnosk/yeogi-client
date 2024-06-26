@@ -1,4 +1,4 @@
-import { Post } from "@/utils/type"
+import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
@@ -37,7 +37,7 @@ export const getPost = async ({ searchType, searchString, sortCondition }: getPo
  * @param {Partial<Post>} newPost - 등록할 게시글의 정보 (포스트 객체의 일부 속성만 포함)
  * @returns {Promise<Post>} 등록된 post의 내용을 객체로 반환
  */
-export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
+export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, "posts", {
         method: "POST",
         body: JSON.stringify(newPost),
@@ -47,7 +47,7 @@ export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
 
     try {
         const data = await response.json()
-        return data as Post
+        return data as CreatePost
     } catch (error) {
         return getDefaultPost()
     }
@@ -58,7 +58,7 @@ export const postPost = async (newPost: Partial<Post>): Promise<Post> => {
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<Post>} 수정된 post의 내용을 객체로 반환
  */
-export const putFreePost = async (postId: number, editedPost: Partial<Post>): Promise<Post> => {
+export const putFreePost = async (postId: number, editedPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
@@ -71,7 +71,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
         content: editedPost.content || "",
         continent: editedPost.continent || "",
         region: editedPost.region || "",
-        tripStarDate: editedPost.tripStarDate || "",
+        tripStartDate: editedPost.tripStartDate || "",
         tripEndDate: editedPost.tripEndDate || "",
         modifiedAt: editedPost.modifiedAt || "",
         postId: data.postId,
@@ -79,6 +79,8 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
+        theme: editedPost.theme || "",
+        address: editedPost.address || "",
     }
 }
 
@@ -87,7 +89,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<Post>): Pr
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<Post>} 수정된 post의 내용을 객체로 반환
  */
-export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>): Promise<Post> => {
+export const putMemoPost = async (shortPostId: number, editedPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/short-posts/${shortPostId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
@@ -100,7 +102,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
         content: editedPost.content || "",
         continent: editedPost.continent || "",
         region: editedPost.region || "",
-        tripStarDate: editedPost.tripStarDate || "",
+        tripStartDate: editedPost.tripStartDate || "",
         tripEndDate: editedPost.tripEndDate || "",
         modifiedAt: editedPost.modifiedAt || "",
         postId: data.postId,
@@ -108,6 +110,8 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Post>
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
+        theme: editedPost.theme || "",
+        address: editedPost.address || "",
     }
 }
 
@@ -127,7 +131,7 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @param {number} postId detail 정보를 가져올 게시글의 id
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
-export const getPostDetail = async (postId: number): Promise<Post> => {
+export const getPostDetail = async (postId: number): Promise<CreatePost> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }

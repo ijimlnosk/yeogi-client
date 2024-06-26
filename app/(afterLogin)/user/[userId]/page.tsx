@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/메롱고.jpeg"
 import MyPost from "./_components/myPost"
-import { samplePosts } from "@/apis/mockPosts"
 import { Post } from "@/utils/type"
 import { ProfileProps } from "./_components/profile/type"
 import EditProfile from "./_components/profile/editProfile"
@@ -38,7 +37,7 @@ const UserPage = () => {
         setPinCount(getPinLocalStorage())
     })
 
-    const [posts] = useState<Post[]>(samplePosts)
+    const [posts] = useState<Post[]>()
 
     const handleSave = (updatedProfile: Omit<ProfileProps, "onEdit">) => {
         setProfile(updatedProfile)

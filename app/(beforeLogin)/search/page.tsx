@@ -1,6 +1,5 @@
 "use client"
 
-import { samplePosts } from "@/apis/mockPosts"
 import SortDropdown from "@/components/commons/sortDropdown"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
@@ -13,14 +12,14 @@ const SearchResults = dynamic(() => import("@/components/commons/searchResults")
 const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("query") || ""
-    const [posts, setPosts] = useState<Post[]>(samplePosts)
+    const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {
         if (searchKeyword) {
-            const results = filterPosts(samplePosts, searchKeyword)
+            const results = filterPosts(posts, searchKeyword)
             setPosts(results)
         }
-    }, [searchKeyword])
+    }, [posts, searchKeyword])
 
     return (
         <div className="px-[120px] py-10">
@@ -29,7 +28,7 @@ const SearchPage = () => {
                     {posts.length > 0 ? (
                         <>
                             <span className="text-BRAND-50">{searchKeyword}</span>과 관련된 총
-                            <span className="text-BRAND-50">{posts.length}</span>의 검색 결과를 찾았어요!
+                            <span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
                             <span className="ml-10">
                                 <SortDropdown />
                             </span>
@@ -45,11 +44,7 @@ const SearchPage = () => {
                     )}
                 </div>
             </div>
-            {posts.length > 0 && (
-                <>
-                    <SearchResults posts={posts} />
-                </>
-            )}
+            {posts && <SearchResults posts={posts} />}
         </div>
     )
 }
