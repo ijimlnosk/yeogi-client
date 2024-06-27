@@ -13,7 +13,7 @@ import { CreatePost } from "@/utils/type"
 const UpdatePostPage = () => {
     const { formData, setFormData, resetFormData } = useFormDataStore()
     const { postId, postDetail } = usePostDataStore()
-    const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } = useSelectionStore()
     const isEditMode = true
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
@@ -22,11 +22,12 @@ const UpdatePostPage = () => {
     useEffect(() => {
         resetFormData()
         if (postDetail) {
+            console.log("postDetail", postDetail)
             const initialQuillEditors =
                 postDetail.shortPosts?.map(post => ({
                     content: post,
                 })) || []
-            setFormData({ ...postDetail, theme: postDetail.theme || "" })
+            setFormData({ ...postDetail})
             setQuillEditors(initialQuillEditors)
         }
     }, [postDetail, resetFormData, setFormData])
@@ -57,13 +58,15 @@ const UpdatePostPage = () => {
         if (!postId) return
 
         let editedPost: Partial<CreatePost> = {
-            title: formData.title,
-            content: "",
+            title: formData.title || "",
+            content: formData.content || "",
             continent: selectedContinent || "아시아",
             region: formData.region || selectedCountry!,
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             shortPosts: [],
+            address: formData.address || selectedAddress!,
+            theme: formData.theme || selectedTheme!
         }
 
         if (formData.content) {
@@ -95,7 +98,7 @@ const UpdatePostPage = () => {
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
+                    <FormInputs formText={formData.content ? "자유롭게 " :"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
                     {formData.content ? (
                         <QuillEditor
                             index={0}
