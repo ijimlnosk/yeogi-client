@@ -16,14 +16,16 @@ export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: 
  * @param {string} params.searchType  검색 타입 (CONTENT, NICKNAME, REGION)
  * @param {string} params.searchString 검색어 (선택 사항)
  * @param {string} params.sortCondition 정렬 조건 (LIKES, VIEWS, RECENT)
+ * @param {string} params.theme 게시글의 theme (EATING, HOT_PLACE, REST, SHOPPING, ACTIVITY, SIGHTSEEING, PACKAGE)
  * @returns {Promise<Post[]>} post들의 배열을 반환
  */
-export const getPost = async ({ searchType, searchString, sortCondition }: getPostProps): Promise<Post[]> => {
+export const getPost = async ({ searchType, searchString, sortCondition, theme }: getPostProps): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
 
     const queryParams = new URLSearchParams()
     queryParams.append("postSearchType", searchType.toUpperCase())
     queryParams.append("postSortCondition", sortCondition.toUpperCase())
+    queryParams.append("theme", theme.toUpperCase())
 
     if (searchString) queryParams.append("searchString", searchString)
 

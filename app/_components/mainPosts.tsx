@@ -21,7 +21,7 @@ const MainPosts = () => {
 
     const { data: posts } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
-        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES" }),
+        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES", theme: "REST" }),
     })
 
     useEffect(() => {
