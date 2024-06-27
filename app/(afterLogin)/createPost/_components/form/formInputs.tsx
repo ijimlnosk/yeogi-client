@@ -6,7 +6,7 @@ import { FormInputsProps } from "./type"
 import SelectedContinent from "../region/selectContinent"
 import SelectCalendar from "../calendar/selectCalendar"
 import SelectedTheme from "../theme/selectedTheme"
-import SelectedAddress from "../address/selectedAddress"
+import SelectedAddress from "../addressSearch/selectedAddress"
 
 const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
