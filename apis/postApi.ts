@@ -36,8 +36,8 @@ export const getPost = async ({ searchType, searchString, sortCondition, theme }
 
 /**
  * @function postPost 새로운 게시글을 등록
- * @param {Partial<Post>} newPost - 등록할 게시글의 정보 (포스트 객체의 일부 속성만 포함)
- * @returns {Promise<Post>} 등록된 post의 내용을 객체로 반환
+ * @param {Partial<CreatePost>} newPost - 등록할 게시글의 정보 (포스트 객체의 일부 속성만 포함)
+ * @returns {Promise<CreatePost>} 등록된 post의 내용을 객체로 반환
  */
 export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost> => {
     const response = await fetchFormAPI(POST_API_URL, "posts", {
