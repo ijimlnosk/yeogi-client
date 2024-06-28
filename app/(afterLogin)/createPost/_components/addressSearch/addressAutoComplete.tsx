@@ -1,5 +1,8 @@
+"use client"
+
 import { useEffect, useRef } from "react"
 import { AddressAutoCompleteProps } from "./type"
+import "@/styles/google-search.css"
 
 /**
  * @Component
