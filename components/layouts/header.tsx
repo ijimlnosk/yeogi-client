@@ -117,7 +117,7 @@ const Header = () => {
                             )}
 
                             <ProtectedLink href="/createPost">
-                                <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
+                                <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-5 py-[13.5px]">
                                     <Image
                                         src={writeIcon}
                                         width={24}
