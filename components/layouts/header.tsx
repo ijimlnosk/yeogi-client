@@ -8,11 +8,16 @@ import writeIcon from "@/public/icons/write.svg"
 import SearchBar from "../commons/searchBar"
 import LogoText from "@/public/icons/logo_text.svg"
 import ProtectedLink from "../protectedLink"
+import { getCookieToken } from "@/apis/auth/storageUtils"
+import { getUserInfo } from "@/apis/userApi"
+import { UserInfoProps } from "./type"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState(true)
     const [lastScrollY, setLastScrollY] = useState(0)
     const [isSearchbarClicked, setIsSearchbarClicked] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [userInfo, setUserInfo] = useState<UserInfoProps>()
     const [, setSearchKeyword] = useState<string>("")
 
     const handleScroll = () => {
@@ -40,6 +45,18 @@ const Header = () => {
         }
     }, [lastScrollY])
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const token = getCookieToken()
+            if (token) {
+                setIsLoggedIn(true)
+                const response = await getUserInfo()
+                setUserInfo(response)
+            }
+        }
+        fetchUserData()
+    }, [])
+
     return (
         <>
             <header
@@ -62,13 +79,45 @@ const Header = () => {
                                 {isSearchbarClicked ? (
                                     <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
                                 ) : (
-                                    <Image src={searchIcon} width={24} height={24} className="w-[24px] h-[24px]" alt="search_icon" />
+                                    <Image
+                                        src={searchIcon}
+                                        width={24}
+                                        height={24}
+                                        className="w-[24px] h-[24px]"
+                                        alt="search_icon"
+                                    />
                                 )}
                             </button>
-                            <ProtectedLink href="/auth">로그인</ProtectedLink>
-                            <button className="text-SYSTEM-black">회원가입</button>
+                            {isLoggedIn ? (
+                                <Link href={`/user/${userInfo?.id}`}>
+                                    {userInfo?.profile ? (
+                                        <Image
+                                            src={userInfo.profile}
+                                            alt="profile"
+                                            width={48}
+                                            height={48}
+                                            className="rounded-full"
+                                        />
+                                    ) : (
+                                        <div>
+                                            <Image
+                                                src={"/images/sampleProfile.svg"}
+                                                alt="Profile"
+                                                width={48}
+                                                height={48}
+                                                className="rounded-full"
+                                            />
+                                        </div>
+                                    )}
+                                </Link>
+                            ) : (
+                                <>
+                                    <ProtectedLink href="/auth">로그인</ProtectedLink>
+                                </>
+                            )}
+
                             <ProtectedLink href="/createPost">
-                                <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
+                                <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-5 py-[13.5px]">
                                     <Image
                                         src={writeIcon}
                                         width={24}
