@@ -14,7 +14,8 @@ import SuccessToFailModal from "@/components/commons/successToFailModal"
 const UpdatePostPage = () => {
     const { formData, setFormData, resetFormData } = useFormDataStore()
     const { postId, postDetail } = usePostDataStore()
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } = useSelectionStore()
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } =
+        useSelectionStore()
     const isEditMode = true
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
@@ -27,7 +28,7 @@ const UpdatePostPage = () => {
                 postDetail.shortPosts?.map(post => ({
                     content: post,
                 })) || []
-            setFormData({ ...postDetail})
+            setFormData({ ...postDetail })
             setQuillEditors(initialQuillEditors)
         }
     }, [postDetail, resetFormData, setFormData])
@@ -66,7 +67,7 @@ const UpdatePostPage = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             shortPosts: [],
             address: formData.address || selectedAddress!,
-            theme: formData.theme || selectedTheme!
+            theme: formData.theme || selectedTheme!,
         }
 
         if (formData.content) {
@@ -86,12 +87,11 @@ const UpdatePostPage = () => {
             await updatePostMutation.mutateAsync({
                 postId: parseInt(postId),
                 editedFields: editedPost,
-            })  
+            })
             setIsSubmitted(true)
             window.location.href = `/detailPost/${postId}`
         } catch {
-            /* 성공실패 오버레이 적용 예정 */
-            
+            setIsSubmitted(false)
         }
     }
 
@@ -99,7 +99,11 @@ const UpdatePostPage = () => {
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={formData.content ? "자유롭게 " :"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
+                    <FormInputs
+                        formText={formData.content ? "자유롭게 " : "간단하게 "}
+                        postDetail={formData}
+                        handleInputChange={handleInputChange}
+                    />
                     {formData.content ? (
                         <QuillEditor
                             index={0}
@@ -134,9 +138,15 @@ const UpdatePostPage = () => {
                     <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
-            {isEditMode && isSubmitted && 
-            <SuccessToFailModal title={"게시글 수정"} context={"수정된 내용이 적용되지 않았어요."} isOpen={false} onClick={() => setIsSubmitted(false)} state={"fail"} />
-            }
+            {isEditMode && !isSubmitted && (
+                <SuccessToFailModal
+                    title={"게시글 수정"}
+                    context={"수정된 내용이 적용되지 않았어요."}
+                    isOpen={false}
+                    onClick={() => setIsSubmitted(false)}
+                    state={"fail"}
+                />
+            )}
         </>
     )
 }

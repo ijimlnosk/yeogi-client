@@ -61,26 +61,25 @@ export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
 export const putFreePost = async (postId: number, editedPost: Partial<CreatePost>): Promise<Partial<CreatePost>> => {
-        const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
-            method: "PUT",
-            body: JSON.stringify(editedPost),
-        })
-    
-        if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
+        method: "PUT",
+        body: JSON.stringify(editedPost),
+    })
 
-        const data = await response.json()
-        return {
-            title: editedPost.title || "",
-            content: editedPost.content || "",
-            shortPosts: [],
-            tripStartDate: editedPost.tripStartDate || "",
-            tripEndDate: editedPost.tripEndDate || "",
-            continent: editedPost.continent || "아시아",
-            region: editedPost.region || "",
-            address: editedPost.address || "",
-            theme: editedPost.theme || "EATING",
-        }
-    
+    if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+
+    // const data = await response.json()
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        shortPosts: [],
+        tripStartDate: editedPost.tripStartDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        continent: editedPost.continent || "아시아",
+        region: editedPost.region || "",
+        address: editedPost.address || "",
+        theme: editedPost.theme || "EATING",
+    }
 }
 
 /**
