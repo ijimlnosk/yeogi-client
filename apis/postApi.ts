@@ -49,7 +49,6 @@ export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost
 
     try {
         const data = await response.json()
-        console.log(data)
         return data as CreatePost
     } catch {
         return getDefaultPost()
@@ -70,7 +69,6 @@ export const putFreePost = async (postId: number, editedPost: Partial<CreatePost
         if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
 
         const data = await response.json()
-        console.log("data", data)
         return {
             title: editedPost.title || "",
             content: editedPost.content || "",

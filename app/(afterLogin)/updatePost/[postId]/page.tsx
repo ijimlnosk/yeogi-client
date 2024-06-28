@@ -9,6 +9,7 @@ import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { CreatePost } from "@/utils/type"
+import SuccessToFailModal from "@/components/commons/successToFailModal"
 
 const UpdatePostPage = () => {
     const { formData, setFormData, resetFormData } = useFormDataStore()
@@ -88,9 +89,9 @@ const UpdatePostPage = () => {
             })  
             setIsSubmitted(true)
             window.location.href = `/detailPost/${postId}`
-        } catch (error) {
+        } catch {
             /* 성공실패 오버레이 적용 예정 */
-            console.error(error)
+            
         }
     }
 
@@ -133,8 +134,9 @@ const UpdatePostPage = () => {
                     <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
-            {/* 수정된 실패성공 오버레이 적용할 부분 */}
-            {isEditMode && isSubmitted}
+            {isEditMode && isSubmitted && 
+            <SuccessToFailModal title={"게시글 수정"} context={"수정된 내용이 적용되지 않았어요."} isOpen={false} onClick={() => setIsSubmitted(false)} state={"fail"} />
+            }
         </>
     )
 }
