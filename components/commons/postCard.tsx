@@ -26,7 +26,7 @@ const PostCard = ({
                 <Image
                     width={360}
                     height={244}
-                    className="h-[244px] object-cover"
+                    className="w-[360px] h-[244px] object-cover"
                     src={thumbnail ?? Sample}
                     alt="post thumbnail"
                 />
@@ -43,17 +43,17 @@ const PostCard = ({
                 {/* 좋아요 코멘트 */}
                 <div className="px-5 flex justify-between items-center ">
                     <div className="bg-SYSTEM-white flex gap-3">
-                        <div className=" flex items-center gap-[3px]">
+                        <div className="flex items-center gap-[3px]">
                             <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
-                        <div className=" flex gap-[3px]">
-                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} />
+                        <div className="flex gap-[3px]">
+                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} className="w-[16px] h-[16px]" />
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>
                     {/* 유저프로필 */}
-                    <div className=" flex gap-2">
+                    <div className="flex gap-2">
                         <Image
                             src={user_profile ? user_profile : SampleProfile}
                             width={24}

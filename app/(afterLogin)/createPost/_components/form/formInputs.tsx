@@ -6,7 +6,7 @@ import { FormInputsProps } from "./type"
 import SelectedContinent from "../region/selectContinent"
 import SelectCalendar from "../calendar/selectCalendar"
 import SelectedTheme from "../theme/selectedTheme"
-import SelectedAddress from "../address/selectedAddress"
+import SelectedAddress from "../addressSearch/selectedAddress"
 
 const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
@@ -73,7 +73,11 @@ const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps
             />
             <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
             <SelectedTheme isOpen={isThemeOpen} onClick={() => setIsThemeOpen(!isThemeOpen)} />
-            <SelectedAddress isOpen={isAddressOpen} onClick={() => setIsAddressOpen(!isAddressOpen)} />
+            <SelectedAddress
+                isOpen={isAddressOpen}
+                setIsOpen={setIsAddressOpen}
+                onClick={() => setIsAddressOpen(!isAddressOpen)}
+            />
         </div>
     )
 }

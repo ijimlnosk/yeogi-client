@@ -38,7 +38,7 @@ const SortDropdown = () => {
                     className=" text-xs inline-flex justify-center w-[120px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="mr-1" />
+                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="w-[24px] h-[24px] mr-1" />
                     {sorts.find(sort => sort.key === activeSort)?.label}
                 </button>
             </div>

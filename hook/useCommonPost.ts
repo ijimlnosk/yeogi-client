@@ -10,7 +10,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
-    const { selectedContinent, selectedCountry, startDate, endDate } = useSelectionStore()
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } = useSelectionStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
 
     const handleInputChange = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
@@ -28,6 +28,8 @@ export const useCommonPost = (isFreeForm: boolean) => {
             title: formData.title,
             content: "",
             shortPosts: [],
+            address: selectedAddress!,
+            theme: selectedTheme || "EATING"
         }
 
         if (isFreeForm) {

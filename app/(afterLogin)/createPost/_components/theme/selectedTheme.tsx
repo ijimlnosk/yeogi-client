@@ -8,19 +8,21 @@ import { useState } from "react"
 import { SelectedThemeProps } from "./type"
 
 const SelectedTheme = ({ isOpen, onClick }: SelectedThemeProps) => {
-    const [theme, setTheme] = useState<string>("")
+    const [theme, setTheme] = useState<string>()
     const { selectedTheme, setSelectedTheme } = useSelectionStore()
 
-    const handleSelectedTheme = (theme: Theme) => {
+    const handleSelectedTheme = (theme: string) => {
         setSelectedTheme(theme)
         setTheme(theme)
     }
 
     const handleSelectClick = () => {
-        if (onClick) {
+        if (onClick && theme)  {
             onClick(theme)
         }
     }
+
+    const ThemeKey = Object.keys(Theme)
 
     return (
         <Overlay
@@ -33,17 +35,17 @@ const SelectedTheme = ({ isOpen, onClick }: SelectedThemeProps) => {
             <div className="flex flex-col w-[448px] h-[397px] px-6 text-sm bg-SYSTEM-white rounded-2xl">
                 <h2 className="text-center my-6">여행 테마 선택</h2>
                 <div className="grid grid-cols-2 gap-5">
-                    {Theme.map(theme => (
+                    {ThemeKey.map((key) => (
                         <Button
-                            key={theme}
+                            key={key}
                             className={`p-4 rounded-2 ${
-                                selectedTheme === theme
+                                selectedTheme === key
                                     ? "bg-BRAND-30 text-SYSTEM-white"
                                     : "bg-GREY-10 hover:bg-BRAND-30 hover:shadow-custom hover:text-SYSTEM-white"
                             }`}
-                            onClick={() => handleSelectedTheme(theme)}
+                            onClick={() => handleSelectedTheme(key)}
                         >
-                            {theme}
+                            {Theme[key]}
                         </Button>
                     ))}
                 </div>

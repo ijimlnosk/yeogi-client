@@ -1,0 +1,20 @@
+/* google map auto search */
+.pac-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.pac-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pac-item:hover {
+  background-color: #f0f0f0;
+}
+
+.pac-item-query {
+  font-weight: bold;
+}

@@ -30,14 +30,16 @@ const Polaroid = ({
     <div className="relative">
         <Image
             width={42}
+            height={76}
             src={TongFront}
-            className={`absolute ${top} left-[166px] ${rotateFront} z-40`}
+            className={`w-auto h-auto absolute ${top} left-[166px] ${rotateFront} z-40`}
             alt="나무 집게 앞면"
         />
         <Image
             width={34}
+            height={71}
             src={TongBack}
-            className={`absolute ${top} left-[178px] ${rotateBack} z-[-2]`}
+            className={`w-auto h-auto absolute ${top} left-[178px] ${rotateBack} z-[-2]`}
             alt="나무 집게 뒷면"
         />
         <div
@@ -52,7 +54,7 @@ const Polaroid = ({
                 },
             )}
         >
-            <Image width={350} src={src} alt={alt} />
+            <Image width={350} height={300} src={src} alt={alt} className="w-[350px] h-[300px]" />
             <p className="pt-[20px] pb-[12px] text-sm font-bold">{step}</p>
             <p className="w-[200px] text-bg font-semibold break-keep">
                 {description} <span className={textColor}>{spanText}</span>.
