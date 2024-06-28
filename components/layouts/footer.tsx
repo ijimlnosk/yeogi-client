@@ -17,8 +17,8 @@ const Footer = () => {
                     </p>
                 </div>
                 <div className="flex flex-col items-center mx-auto font-myeongjo">
-                    <Image src={LogoImage} width={120} height={120} alt="yeogi logo" />
-                    <Image src={LogoText} width={90} height={60} alt="yeogi logo" />
+                    <Image src={LogoImage} width={120} height={120} className="w-auto h-auto" alt="yeogi logo" />
+                    <Image src={LogoText} width={90} height={60} className="w-auto h-auto" alt="yeogi logo" />
                     <p className="text-GREY-50 mt-[16px] text-bg">Record your Trip</p>
                 </div>
                 <div className="font-pretendard flex flex-col text-GREY-50 text-sm place-items-end justify-between mt-auto">

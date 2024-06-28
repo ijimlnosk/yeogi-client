@@ -4,6 +4,7 @@ export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
     searchString?: string
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
+    theme :  "EATING" | "HOT_PLACE" |  "REST" | "SHOPPING" | "ACTIVITY" |  "SIGHTSEEING" | "PACKAGE"
 }
 
 export const initialFormData: CreatePost = {

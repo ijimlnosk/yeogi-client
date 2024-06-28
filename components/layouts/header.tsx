@@ -48,7 +48,7 @@ const Header = () => {
                 <div className="mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                     <div className="flex items-center">
                         <Link href="/">
-                            <Image src={LogoText} width={90} height={60} alt="yeogi logo" />
+                            <Image src={LogoText} width={90} height={60} className="w-auto h-auto" alt="yeogi logo" />
                         </Link>
                         <nav className="ml-8">
                             <Link href="/community" className="text-SYSTEM-black px-4 font-bold">
@@ -62,11 +62,10 @@ const Header = () => {
                                 {isSearchbarClicked ? (
                                     <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
                                 ) : (
-                                    <Image src={searchIcon} width={24} height={24} alt="search_icon" />
+                                    <Image src={searchIcon} width={24} height={24} className="w-[24px] h-[24px]" alt="search_icon" />
                                 )}
                             </button>
                             <ProtectedLink href="/auth">로그인</ProtectedLink>
-
                             <button className="text-SYSTEM-black">회원가입</button>
                             <ProtectedLink href="/createPost">
                                 <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-[20px] py-[13.5px]">
@@ -75,7 +74,7 @@ const Header = () => {
                                         width={24}
                                         height={24}
                                         alt="write_icon"
-                                        className="mr-[8px]"
+                                        className="w-auto h-auto mr-[8px]"
                                     />
                                     글쓰기
                                 </button>

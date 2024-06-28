@@ -1,5 +1,4 @@
 import { Continent } from "@/constants/continents"
-import { Theme } from "@/constants/theme"
 import { CreatePost } from "@/utils/type"
 import { Dayjs } from "dayjs"
 
@@ -8,13 +7,13 @@ export type SelectionState = {
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: Theme | null
+    selectedTheme: string | null
     selectedAddress: string | null
     setSelectedContinent: (continent: Continent | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
-    setSelectedTheme: (theme: Theme) => void
+    setSelectedTheme: (theme: string) => void
     setSelectedAddress: (address: string) => void
 }
 

@@ -1,9 +1,14 @@
+import { getCookieToken } from "@/apis/auth/storageUtils"
+
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
+    
+    const token = getCookieToken()
+
     const response = await fetch(`${api}/${endPoint}`, {
         ...options,
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+            Authorization: `Bearer ${token}`,
         },
         credentials: "include",
     })
