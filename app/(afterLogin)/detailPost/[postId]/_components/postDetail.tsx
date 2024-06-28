@@ -60,6 +60,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         <span className="text-GREY-70 mx-4">여행지</span>
                         <span className="text-BRAND-50 font-bold">{post.continent},</span>
                         <span className="text-BRAND-50 font-bold">{post.region}</span>
+                        <span className="text-BRAND-50 font-bold">{post.address}</span>
+                    </p>
+                    <p className="mx-2">
+                        <span className="text-GREY-70 mx-4">address</span>
+                        <span className="text-BRAND-50 font-bold">{post.address}</span>
                     </p>
                     <p className="mx-4">
                         <span className="text-GREY-70 mx-4">여행일자</span>
@@ -83,6 +88,13 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         />
                     </div>
                 ))}
+                {post.address && (
+                    <div
+                        ref={contentRef}
+                        dangerouslySetInnerHTML={{ __html: post.address }}
+                        className="custom-content"
+                    />
+                )}
             </div>
         </div>
     )
