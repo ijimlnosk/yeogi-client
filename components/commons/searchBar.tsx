@@ -32,7 +32,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
         <form className="max-w-auto mx-auto" onSubmit={handleSubmit}>
             <div className="relative ">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                    <Image width={24} height={24} src={searchIcon} alt="search_icon" />
+                    <Image width={24} height={24} src={searchIcon} className="w-auto h-auto" alt="search_icon" />
                 </div>
                 <div>
                     <input
