@@ -1,5 +1,8 @@
+"use client"
+
 import { useEffect, useRef } from "react"
 import { AddressAutoCompleteProps } from "./type"
+import "@/styles/google-search.css"
 
 /**
  * @Component
@@ -54,6 +57,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
                 return
             }
             const location = {
+                formatted_address: place.formatted_address || "",
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
             }
@@ -63,7 +67,12 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
 
     return (
         <div className="w-[400px]">
-            <input type="text" ref={inputRef} placeholder="주소를 입력하세요" className="w-full p-2 m-2.5" />
+            <input
+                type="text"
+                ref={inputRef}
+                placeholder="주소를 입력하세요"
+                className="w-full px-2 border-2 outline-none"
+            />
         </div>
     )
 }
