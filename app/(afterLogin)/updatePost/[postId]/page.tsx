@@ -85,11 +85,12 @@ const UpdatePostPage = () => {
             await updatePostMutation.mutateAsync({
                 postId: parseInt(postId),
                 editedFields: editedPost,
-            })
+            })  
             setIsSubmitted(true)
             window.location.href = `/detailPost/${postId}`
-        } catch {
+        } catch (error) {
             /* 성공실패 오버레이 적용 예정 */
+            console.error(error)
         }
     }
 

@@ -16,8 +16,6 @@ const SelectedTheme = ({ isOpen, onClick }: SelectedThemeProps) => {
         setTheme(theme)
     }
 
-    console.log(selectedTheme)
-
     const handleSelectClick = () => {
         if (onClick && theme)  {
             onClick(theme)

@@ -6,8 +6,8 @@ export type Post = {
     title: string
     content?: string
     shortPostList?: ShortPosts[]
-    likedMembersInfos?: likedMembersInfos[]
     likeCount: number
+    likedMembersInfos?: likedMembersInfos[]
     viewCount: number
     createdAt: string
     modifiedAt: string
@@ -16,6 +16,7 @@ export type Post = {
     continent: string
     region: string
     address: string
+    theme: string
 }
 
 export type CreatePost = {

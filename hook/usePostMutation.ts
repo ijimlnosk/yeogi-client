@@ -16,13 +16,13 @@ export const useDeletePost = (): UseMutationResult<void, Error, number> => {
 
 export const useUpdateFreePost = () => {
     const queryClient = useQueryClient()
-
-    return useMutation<CreatePost, Error, updateFreeProps>({
+    
+    return useMutation<Partial<CreatePost>, Error, updateFreeProps>({
         mutationFn: ({ postId, editedFields }: updateFreeProps) => {
             return putFreePost(postId, editedFields)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["posts"] })
-        },
+        }
     })
 }
