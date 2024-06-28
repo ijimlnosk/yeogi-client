@@ -73,7 +73,11 @@ const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps
             />
             <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
             <SelectedTheme isOpen={isThemeOpen} onClick={() => setIsThemeOpen(!isThemeOpen)} />
-            <SelectedAddress isOpen={isAddressOpen} onClick={() => setIsAddressOpen(!isAddressOpen)} />
+            <SelectedAddress
+                isOpen={isAddressOpen}
+                setIsOpen={setIsAddressOpen}
+                onClick={() => setIsAddressOpen(!isAddressOpen)}
+            />
         </div>
     )
 }

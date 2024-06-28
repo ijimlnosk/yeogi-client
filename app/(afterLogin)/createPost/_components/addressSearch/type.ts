@@ -4,6 +4,7 @@ export type AddressAutoCompleteProps = {
 export type SelectedAddressProps = {
     isOpen: boolean
     onClick: (address: string) => void
+    setIsOpen: (isOpen: boolean) => void
 }
 
 export type address = {
