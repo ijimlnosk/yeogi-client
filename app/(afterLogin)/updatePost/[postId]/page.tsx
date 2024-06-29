@@ -8,26 +8,28 @@ import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/ed
 import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { CreatePost } from "@/utils/type"
+import { CreatePost, ShortPosts } from "@/utils/type"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 
 const UpdatePostPage = () => {
     const { formData, setFormData, resetFormData } = useFormDataStore()
     const { postId, postDetail } = usePostDataStore()
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } = useSelectionStore()
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } =
+        useSelectionStore()
     const isEditMode = true
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
+    const [quillEditors, setQuillEditors] = useState<Array<ShortPosts>>([])
     const updatePostMutation = useUpdateFreePost()
 
     useEffect(() => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
-                postDetail.shortPosts?.map(post => ({
-                    content: post,
+                postDetail.shortPosts?.map((post, index) => ({
+                    shortPostId: post.shortPostId || index,
+                    content: post.content,
                 })) || []
-            setFormData({ ...postDetail})
+            setFormData({ ...postDetail })
             setQuillEditors(initialQuillEditors)
         }
     }, [postDetail, resetFormData, setFormData])
@@ -41,12 +43,12 @@ const UpdatePostPage = () => {
         setQuillEditors(updatedEditors)
         handleInputChange(
             "shortPosts",
-            updatedEditors.map(editor => editor.content),
+            updatedEditors.map((editor, i) => ({ shortPostId: i, content: editor.content })),
         )
     }
 
     const handleAddMemoClick = () => {
-        setQuillEditors([...quillEditors, { content: "" }])
+        setQuillEditors([...quillEditors, { shortPostId: quillEditors.length, content: "" }])
     }
 
     const handleDeleteQuillEditor = (index: number) => {
@@ -66,7 +68,7 @@ const UpdatePostPage = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             shortPosts: [],
             address: formData.address || selectedAddress!,
-            theme: formData.theme || selectedTheme!
+            theme: formData.theme || selectedTheme!,
         }
 
         if (formData.content) {
@@ -76,7 +78,7 @@ const UpdatePostPage = () => {
             const processedShortPosts = await Promise.all(
                 quillEditors.map(async editor => {
                     const content = await processContentImages(editor.content)
-                    return content
+                    return { shortPostId: editor.shortPostId, content }
                 }),
             )
             editedPost = { ...editedPost, shortPosts: processedShortPosts }
@@ -86,12 +88,11 @@ const UpdatePostPage = () => {
             await updatePostMutation.mutateAsync({
                 postId: parseInt(postId),
                 editedFields: editedPost,
-            })  
+            })
             setIsSubmitted(true)
             window.location.href = `/detailPost/${postId}`
         } catch {
             /* 성공실패 오버레이 적용 예정 */
-            
         }
     }
 
@@ -99,7 +100,11 @@ const UpdatePostPage = () => {
         <>
             <div className="flex flex-col justify-center items-center mb-[205px]">
                 <div className="w-[900px] h-full font-pretendard">
-                    <FormInputs formText={formData.content ? "자유롭게 " :"간단하게 "} postDetail={formData} handleInputChange={handleInputChange} />
+                    <FormInputs
+                        formText={formData.content ? "자유롭게 " : "간단하게 "}
+                        postDetail={formData}
+                        handleInputChange={handleInputChange}
+                    />
                     {formData.content ? (
                         <QuillEditor
                             index={0}
@@ -115,7 +120,7 @@ const UpdatePostPage = () => {
                                 isFreeForm={false}
                                 postDetail={{
                                     ...formData,
-                                    shortPosts: quillEditors.map(e => e.content),
+                                    shortPosts: quillEditors,
                                 }}
                                 handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
                                 handleEditorInputChange={handleEditorInputChange}
@@ -134,9 +139,15 @@ const UpdatePostPage = () => {
                     <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
-            {isEditMode && isSubmitted && 
-            <SuccessToFailModal title={"게시글 수정"} context={"수정된 내용이 적용되지 않았어요."} isOpen={false} onClick={() => setIsSubmitted(false)} state={"fail"} />
-            }
+            {isEditMode && isSubmitted && (
+                <SuccessToFailModal
+                    title={"게시글 수정"}
+                    context={"수정된 내용이 적용되지 않았어요."}
+                    isOpen={false}
+                    onClick={() => setIsSubmitted(false)}
+                    state={"fail"}
+                />
+            )}
         </>
     )
 }

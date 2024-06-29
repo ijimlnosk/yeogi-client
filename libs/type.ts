@@ -1,5 +1,5 @@
 import { Continent } from "@/constants/continents"
-import { CreatePost } from "@/utils/type"
+import { CreatePost, DetailPost } from "@/utils/type"
 import { Dayjs } from "dayjs"
 
 export type SelectionState = {
