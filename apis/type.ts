@@ -1,10 +1,11 @@
+import { ThemeProps } from "@/app/_components/type"
 import { CreatePost } from "@/utils/type"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
     searchString?: string
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
-    theme :  "EATING" | "HOT_PLACE" |  "REST" | "SHOPPING" | "ACTIVITY" |  "SIGHTSEEING" | "PACKAGE"
+    theme?: ThemeProps
 }
 
 export const initialFormData: CreatePost = {
@@ -22,7 +23,7 @@ export const initialFormData: CreatePost = {
     createdAt: "",
     modifiedAt: "",
     address: "",
-    theme: "",
+    theme: undefined,
 }
 
 export type postCommentProps = {

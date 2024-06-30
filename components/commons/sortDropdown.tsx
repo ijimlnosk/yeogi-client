@@ -10,7 +10,7 @@ import { sorts } from "@/constants/sorts"
 const SortDropdown = () => {
     const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
-    const [activeSort, setActiveSort] = useState("latest")
+    const [activeSort, setActiveSort] = useState("RECENT")
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)

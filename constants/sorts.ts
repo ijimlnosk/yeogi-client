@@ -1,5 +1,5 @@
 export const sorts = [
-    { key: "latest", label: "최신 순" },
-    { key: "likes", label: "좋아요 순" },
-    { key: "comments", label: "댓글 순" },
+    { key: "RECENT", label: "최신 순" },
+    { key: "LIKES", label: "좋아요 순" },
+    { key: "VIEWS", label: "조회 순" },
 ]

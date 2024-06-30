@@ -1,41 +1,46 @@
 "use client"
 
 import { getPost } from "@/apis/postApi"
-import Button from "@/components/commons/button"
 import Searchbar from "@/components/commons/searchBar"
-import { Continents } from "@/constants/continents"
 import { Post } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
 import { filterPosts } from "@/utils/filterPosts"
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useState } from "react"
+import { SortConditionType } from "./type"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
 /* const Pagination = dynamic(() => import("@/components/commons/pagination"), { ssr: false }) */
 
 const MainPosts = () => {
-    const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
     const [searchKeyword, setSearchKeyword] = useState<string>("")
-    const [, setSortCondition] = useState<string>("likes")
+    const [sortCondition, setSortCondition] = useState<SortConditionType>("RECENT")
 
-    const { data: posts } = useQuery<Post[], Error>({
+    const { data: posts, refetch } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
-        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES", theme: "REST" }),
+        queryFn: () => getPost({ searchType: "CONTENT", searchString: searchKeyword, sortCondition: sortCondition }),
     })
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
-        const sort = params.get("sort")
+        const sort = params.get("sort") as SortConditionType
+        const query = params.get("query") || ""
+
         if (sort) {
             setSortCondition(sort)
         }
+        setSearchKeyword(query)
     }, [])
+
+    useEffect(() => {
+        refetch()
+    }, [refetch, searchKeyword, sortCondition])
 
     const filteredPosts = filterPosts(posts ?? [], searchKeyword)
 
     return (
-        <div className="w-full h-fit pt-[90px] pb-[134px] flex flex-col items-center">
+        <div className="w-full h-fit min-h-[600px] pt-[90px] pb-[134px] px-[120px] flex flex-col items-center">
             <div className="flex justify-center items-center w-full">
                 <Searchbar
                     onChange={e => setSearchKeyword(e.target.value)}
@@ -43,25 +48,8 @@ const MainPosts = () => {
                     size="lg"
                 />
             </div>
-            <div className="flex py-15 my-[52px]">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="w-[712px] flex justify-between">
-                        {Continents.map((item, idx) => (
-                            <Button
-                                key={item}
-                                onClick={() => setSelectedContinentIndex(idx)}
-                                background={selectedContinentIndex === idx ? "brand30" : "white"}
-                                textColor={selectedContinentIndex === idx ? "white" : "black"}
-                                className={`px-4 py-2.5 gap-2 rounded-lg`}
-                            >
-                                {item}
-                            </Button>
-                        ))}
-                    </div>
-                </div>
-                <div className="pl-[30px]">
-                    <SortDropdown />
-                </div>
+            <div className="w-[1682px] flex justify-end my-8">
+                <SortDropdown />
             </div>
             <div>
                 {filteredPosts && (

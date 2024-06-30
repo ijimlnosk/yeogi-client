@@ -1,6 +1,8 @@
 "use client"
 
+import { getPost } from "@/apis/postApi"
 import SortDropdown from "@/components/commons/sortDropdown"
+import { useSelectionStore } from "@/libs/store"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
 import dynamic from "next/dynamic"
@@ -11,15 +13,25 @@ const SearchResults = dynamic(() => import("@/components/commons/searchResults")
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
-    const searchKeyword = searchParams.get("query") || ""
+    const searchKeyword = searchParams.get("keyword") || ""
+    const { selectedTheme } = useSelectionStore()
     const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {
-        if (searchKeyword) {
-            const results = filterPosts(posts, searchKeyword)
-            setPosts(results)
+        const fetchGetData = async () => {
+            const response = await getPost({
+                searchType: "CONTENT",
+                searchString: searchKeyword,
+                sortCondition: "LIKES",
+                theme: selectedTheme,
+            })
+
+            const filteredResults = filterPosts(response, searchKeyword)
+            setPosts(filteredResults)
         }
-    }, [posts, searchKeyword])
+
+        fetchGetData()
+    }, [searchKeyword, selectedTheme])
 
     return (
         <div className="px-[120px] py-10">
@@ -27,7 +39,8 @@ const SearchPage = () => {
                 <div className="text-bg text-GREY-80 font-medium">
                     {posts.length > 0 ? (
                         <>
-                            <span className="text-BRAND-50">{searchKeyword}</span>과 관련된 총
+                            <span className="text-BRAND-50 mx-1">{searchKeyword}</span>
+                            <span className="text-BRAND-50 mx-1">{selectedTheme}</span>과 관련된 총
                             <span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
                             <span className="ml-10">
                                 <SortDropdown />

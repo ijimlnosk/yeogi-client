@@ -7,7 +7,7 @@ export const useSelectionStore = create<SelectionState>(set => ({
     selectedCountry: null,
     startDate: null,
     endDate: null,
-    selectedTheme: "",
+    selectedTheme: undefined,
     selectedAddress: "",
     setSelectedContinent: continent => set({ selectedContinent: continent }),
     setSelectedCountry: country => set({ selectedCountry: country }),

@@ -92,7 +92,7 @@ const UpdatePostPage = () => {
             setIsSubmitted(true)
             window.location.href = `/detailPost/${postId}`
         } catch {
-            /* 성공실패 오버레이 적용 예정 */
+            setIsSubmitted(false)
         }
     }
 
@@ -139,7 +139,7 @@ const UpdatePostPage = () => {
                     <FormBtn postId={postId} handleUpdatePost={handleUpdatePost} />
                 </div>
             </div>
-            {isEditMode && isSubmitted && (
+            {isEditMode && !isSubmitted && (
                 <SuccessToFailModal
                     title={"게시글 수정"}
                     context={"수정된 내용이 적용되지 않았어요."}

@@ -6,10 +6,10 @@ export const Theme: ThemeType = {
     EATING: "맛집",
     SIGHTSEEING: "관광",
     ACTIVITY: "액티비티",
-} as const;
+} as const
 
-export type Theme = typeof Theme[keyof typeof Theme];
+export type Theme = (typeof Theme)[keyof typeof Theme]
 
 export type ThemeType = {
-    [key: string] : string
+    [key: string]: string
 }

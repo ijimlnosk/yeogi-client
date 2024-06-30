@@ -4,10 +4,13 @@ import "@/styles/editor-content.css"
 import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
 import { formatISODateString } from "@/utils/formatDate"
+import { ShortPosts } from "@/utils/type"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
+    const shortContentRef = useRef<HTMLDivElement>(null)
     const [modifiedContent, setModifiedContent] = useState<string>("")
+    const [modifiedShortPost, setModifiedShortPost] = useState<string[]>([])
 
     const wrapImagesWithDiv = (html: string): string => {
         const parser = new DOMParser()
@@ -36,12 +39,20 @@ const PostDetail = ({ post }: PostDetailProps) => {
         return doc.body.innerHTML
     }
 
+    const processShortPost = (posts: ShortPosts[]) => {
+        return posts.map(post => wrapImagesWithDiv(post.content))
+    }
+
     useEffect(() => {
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
             setModifiedContent(modifiedContent)
         }
-    }, [post.content])
+        if (post.shortPosts) {
+            const modifiedShortPost = processShortPost(post.shortPosts)
+            setModifiedShortPost(modifiedShortPost)
+        }
+    }, [post.content, post.shortPosts])
 
     return (
         <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
@@ -76,11 +87,12 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         className="custom-content "
                     />
                 )}
-                {post.shortPosts?.map(post => (
+                {post.shortPosts?.map((post: ShortPosts, index: number) => (
                     <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
+                            ref={shortContentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
-                            dangerouslySetInnerHTML={{ __html: post.content }}
+                            dangerouslySetInnerHTML={{ __html: modifiedShortPost[index] }}
                         />
                     </div>
                 ))}

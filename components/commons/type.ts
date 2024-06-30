@@ -90,3 +90,9 @@ export type PaginationNumberProps = {
     href: string
     isActive: boolean
 }
+
+export type SearchDropdownMapProps = {
+    dropdownItem: [string, string][]
+    onClick: (index: number) => void
+    index: number | null | number[]
+}

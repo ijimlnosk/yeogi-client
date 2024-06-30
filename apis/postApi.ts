@@ -1,4 +1,4 @@
-import { CreatePost, DetailPost, Post } from "@/utils/type"
+import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
@@ -21,11 +21,15 @@ export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: 
  */
 export const getPost = async ({ searchType, searchString, sortCondition, theme }: getPostProps): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
-
     const queryParams = new URLSearchParams()
-    queryParams.append("postSearchType", searchType.toUpperCase())
-    queryParams.append("postSortCondition", sortCondition.toUpperCase())
-    queryParams.append("theme", theme.toUpperCase())
+    if (!theme) {
+        queryParams.append("postSearchType", searchType.toUpperCase())
+        queryParams.append("postSortCondition", sortCondition.toUpperCase())
+    } else {
+        queryParams.append("postSearchType", searchType.toUpperCase())
+        queryParams.append("postSortCondition", sortCondition.toUpperCase())
+        queryParams.append("theme", theme.toUpperCase())
+    }
 
     if (searchString) queryParams.append("searchString", searchString)
 
@@ -61,26 +65,25 @@ export const postPost = async (newPost: Partial<CreatePost>): Promise<CreatePost
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
 export const putFreePost = async (postId: number, editedPost: Partial<CreatePost>): Promise<Partial<CreatePost>> => {
-        const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
-            method: "PUT",
-            body: JSON.stringify(editedPost),
-        })
-    
-        if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
+        method: "PUT",
+        body: JSON.stringify(editedPost),
+    })
 
-        const data = await response.json()
-        return {
-            title: editedPost.title || "",
-            content: editedPost.content || "",
-            shortPosts: [],
-            tripStartDate: editedPost.tripStartDate || "",
-            tripEndDate: editedPost.tripEndDate || "",
-            continent: editedPost.continent || "아시아",
-            region: editedPost.region || "",
-            address: editedPost.address || "",
-            theme: editedPost.theme || "EATING",
-        }
-    
+    if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
+
+    // const data = await response.json()
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        shortPosts: [],
+        tripStartDate: editedPost.tripStartDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        continent: editedPost.continent || "아시아",
+        region: editedPost.region || "",
+        address: editedPost.address || "",
+        theme: editedPost.theme || undefined,
+    }
 }
 
 /**
@@ -109,7 +112,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Creat
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
-        theme: editedPost.theme || "",
+        theme: editedPost.theme || undefined,
         address: editedPost.address || "",
     }
 }
