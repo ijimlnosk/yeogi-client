@@ -27,7 +27,7 @@ export type CreatePost = {
     author: string
     title: string
     content?: string
-    shortPosts?: string[]
+    shortPosts?: ShortPosts[]
     likeCount: number
     viewCount: number
     createdAt: string
@@ -46,6 +46,7 @@ export type DetailPost = {
     title: string
     content?: string
     shortPostList?: ShortPosts[]
+    likedMembersInfos?:likedMembersInfos[]
     likeCount: number
     viewCount: number
     createdAt: string
@@ -53,6 +54,7 @@ export type DetailPost = {
     tripStartDate: string
     tripEndDate: string
     address: string
+    theme?:string
 }
 
 export type ShortPosts = {

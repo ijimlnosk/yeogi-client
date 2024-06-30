@@ -8,7 +8,7 @@ import { QuillEditor } from "@/app/(afterLogin)/createPost/_components/editor/ed
 import FormBtn from "@/app/(afterLogin)/createPost/_components/form/formBtn"
 import { useUpdateFreePost } from "@/hook/usePostMutation"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { CreatePost } from "@/utils/type"
+import { CreatePost, ShortPosts } from "@/utils/type"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 
 const UpdatePostPage = () => {
@@ -18,15 +18,16 @@ const UpdatePostPage = () => {
         useSelectionStore()
     const isEditMode = true
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
+    const [quillEditors, setQuillEditors] = useState<Array<ShortPosts>>([])
     const updatePostMutation = useUpdateFreePost()
 
     useEffect(() => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
-                postDetail.shortPosts?.map(post => ({
-                    content: post,
+                postDetail.shortPosts?.map((post, index) => ({
+                    shortPostId: post.shortPostId || index,
+                    content: post.content,
                 })) || []
             setFormData({ ...postDetail })
             setQuillEditors(initialQuillEditors)
@@ -42,12 +43,12 @@ const UpdatePostPage = () => {
         setQuillEditors(updatedEditors)
         handleInputChange(
             "shortPosts",
-            updatedEditors.map(editor => editor.content),
+            updatedEditors.map((editor, i) => ({ shortPostId: i, content: editor.content })),
         )
     }
 
     const handleAddMemoClick = () => {
-        setQuillEditors([...quillEditors, { content: "" }])
+        setQuillEditors([...quillEditors, { shortPostId: quillEditors.length, content: "" }])
     }
 
     const handleDeleteQuillEditor = (index: number) => {
@@ -77,7 +78,7 @@ const UpdatePostPage = () => {
             const processedShortPosts = await Promise.all(
                 quillEditors.map(async editor => {
                     const content = await processContentImages(editor.content)
-                    return content
+                    return { shortPostId: editor.shortPostId, content }
                 }),
             )
             editedPost = { ...editedPost, shortPosts: processedShortPosts }
@@ -119,7 +120,7 @@ const UpdatePostPage = () => {
                                 isFreeForm={false}
                                 postDetail={{
                                     ...formData,
-                                    shortPosts: quillEditors.map(e => e.content),
+                                    shortPosts: quillEditors,
                                 }}
                                 handleDeleteQuillEditor={() => handleDeleteQuillEditor(index)}
                                 handleEditorInputChange={handleEditorInputChange}

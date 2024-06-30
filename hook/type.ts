@@ -2,7 +2,7 @@ import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/re
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type"
 import { Continent } from "@/constants/continents"
-import { CreatePost } from "@/utils/type"
+import { CreatePost, DetailPost } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 

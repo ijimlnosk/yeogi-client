@@ -48,11 +48,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
             const modifiedContent = wrapImagesWithDiv(post.content)
             setModifiedContent(modifiedContent)
         }
-        if (post.shortPostList) {
-            const modifiedShortPost = processShortPost(post.shortPostList)
+        if (post.shortPosts) {
+            const modifiedShortPost = processShortPost(post.shortPosts)
             setModifiedShortPost(modifiedShortPost)
         }
-    }, [post.content, post.shortPostList])
+    }, [post.content, post.shortPosts])
 
     return (
         <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
@@ -71,6 +71,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         <span className="text-GREY-70 mx-4">여행지</span>
                         <span className="text-BRAND-50 font-bold">{post.continent},</span>
                         <span className="text-BRAND-50 font-bold">{post.region}</span>
+                        <span className="text-BRAND-50 font-bold">{post.address}</span>
                     </p>
                     <p className="mx-4">
                         <span className="text-GREY-70 mx-4">여행일자</span>
@@ -83,11 +84,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     <div
                         ref={contentRef}
                         dangerouslySetInnerHTML={{ __html: modifiedContent }}
-                        className="custom-content"
+                        className="custom-content "
                     />
                 )}
-                {post.shortPostList?.map((post, index) => (
-                    <div className="w-full flex flex-col items-center justify-center" key={post.shortPostId}>
+                {post.shortPosts?.map((post: ShortPosts, index: number) => (
+                    <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
                             ref={shortContentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
@@ -95,6 +96,10 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         />
                     </div>
                 ))}
+            </div>
+            <div className="   h-[59px] border-t-[1px] pl-[750px] border-GREY-30  flex items-center ">
+                <p className="text-SYSTEM-black text-sm">기록한 여행의 컨셉 :</p>
+                <span className="text-BRAND-50 text-sm font-bold ml-[30px]"> # {post.theme}</span>
             </div>
         </div>
     )
