@@ -5,7 +5,7 @@ import Image from "next/image"
 
 const Footer = () => {
     return (
-        <footer className={clsx("w-full bg-[#F7EDE0] flex flex-col  px-[120px] xl:py-[80px]")}>
+        <footer className={clsx("w-full bg-[#F7EDE0] flex flex-col  px-[120px] xl:py-20")}>
             <div className={clsx("w-full grid xl:grid-cols-3 grid-cols-1 ")}>
                 <div className="flex flex-col text-GREY-80 pt-[100px] xl:pt-[212px]">
                     <h2 className="text-bg font-semibold mb-2 flex justify-center items-center xl:justify-start xl:items-start">

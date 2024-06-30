@@ -94,7 +94,7 @@ const Header = () => {
                                         src={searchIcon}
                                         width={24}
                                         height={24}
-                                        className="min-w-[24px] min-h-[24px] hidden sm:block"
+                                        className="min-w-6 min-h-6 hidden sm:block"
                                         alt="search_icon"
                                     />
                                 )}
@@ -134,7 +134,7 @@ const Header = () => {
                                         width={24}
                                         height={24}
                                         alt="write_icon"
-                                        className="w-[24px] h-[24px] md:mr-[8px] mr-0"
+                                        className="w-6 h-6 md:mr-[8px] mr-0"
                                     />
                                     <span className="hidden md:inline">글쓰기</span>
                                 </button>
