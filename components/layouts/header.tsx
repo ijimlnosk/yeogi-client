@@ -13,11 +13,11 @@ import { getUserInfo } from "@/apis/userApi"
 import { UserInfoProps } from "./type"
 
 const Header = () => {
-    const [isShowHeader, setIsShowHeader] = useState(true)
-    const [lastScrollY, setLastScrollY] = useState(0)
-    const [isSearchbarClicked, setIsSearchbarClicked] = useState(false)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [userInfo, setUserInfo] = useState<UserInfoProps>()
+    const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
+    const [lastScrollY, setLastScrollY] = useState<number>(0)
+    const [isSearchbarClicked, setIsSearchbarClicked] = useState<boolean>(false)
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const [userInfo, setUserInfo] = useState<UserInfoProps | undefined>()
     const [, setSearchKeyword] = useState<string>("")
 
     const handleScroll = () => {
@@ -62,13 +62,22 @@ const Header = () => {
             <header
                 className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50 bg-SYSTEM-beige`}
             >
-                <div className="mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
+                <div className="max-w-[1920px] mx-auto bg-SYSTEM-beige px-[10%] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                     <div className="flex items-center">
-                        <Link href="/">
-                            <Image src={LogoText} width={90} height={60} className="w-auto h-auto" alt="yeogi logo" />
+                        <Link href="/" className="w-[90px] h-[60px]">
+                            <Image
+                                src={LogoText}
+                                width={90}
+                                height={60}
+                                className="w-[90px] h-[60px]"
+                                alt="yeogi logo"
+                            />
                         </Link>
-                        <nav className="ml-8">
-                            <Link href="/community" className="text-SYSTEM-black px-4 font-bold">
+                        <nav className="ml-8 hidden md:block w-[96px] h-[18px]">
+                            <Link
+                                href="/community"
+                                className="text-SYSTEM-black font-bold text-xs xl:text-sm  w-[84px] h-[18px]"
+                            >
                                 커뮤니티
                             </Link>
                         </nav>
@@ -77,13 +86,15 @@ const Header = () => {
                         <div className="ml-4 flex items-center space-x-12 font-medium">
                             <button onClick={() => setIsSearchbarClicked(true)}>
                                 {isSearchbarClicked ? (
-                                    <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
+                                    <div className="hidden sm:block">
+                                        <SearchBar text="" size="sm" onChange={e => handleKeyword(e.target.value)} />
+                                    </div>
                                 ) : (
                                     <Image
                                         src={searchIcon}
                                         width={24}
                                         height={24}
-                                        className="w-[24px] h-[24px]"
+                                        className="min-w-6 min-h-6 hidden sm:block"
                                         alt="search_icon"
                                     />
                                 )}
@@ -111,21 +122,21 @@ const Header = () => {
                                     )}
                                 </Link>
                             ) : (
-                                <>
+                                <div className="min-w-[48px] min-h-[27px]">
                                     <ProtectedLink href="/auth">로그인</ProtectedLink>
-                                </>
+                                </div>
                             )}
 
                             <ProtectedLink href="/createPost">
-                                <button className="bg-SYSTEM-black text-SYSTEM-white w-[120px] h-[46px] rounded-full flex items-center justify-center px-5 py-[13.5px]">
+                                <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
                                     <Image
                                         src={writeIcon}
                                         width={24}
                                         height={24}
                                         alt="write_icon"
-                                        className="w-auto h-auto mr-[8px]"
+                                        className="w-6 h-6 md:mr-[8px] mr-0"
                                     />
-                                    글쓰기
+                                    <span className="hidden md:inline">글쓰기</span>
                                 </button>
                             </ProtectedLink>
                         </div>
