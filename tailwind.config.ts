@@ -27,6 +27,15 @@ const config: Config = {
             backgroundImage: {
                 "post-pattern": "url(/images/post-bg.svg)",
                 "comment-pattern": "url(/images/comment-bg_1.svg)",
+                EATING: "url(/images/EATING.svg)",
+                HOT_PLACE: "url(/images/HOT_PLACE.svg)",
+                REST: "url(/images/REST.svg)",
+                SHOPPING: "url(/images/SHOPPING.svg)",
+                ACTIVITY: "url(/images/ACTIVITY.svg)",
+                SIGHTSEEING: "url(/images/SIGHTSEEING.svg)",
+                PACKAGE: "url(/images/PACKAGE.svg)",
+                SUPER_LUXURY: "url(/images/SUPER_LUXURY.svg)",
+                COST_EFFECTIVENESS: "url(/images/COST_EFFECTIVENESS.svg)",
             },
             scale: {
                 "120": "1.2",
