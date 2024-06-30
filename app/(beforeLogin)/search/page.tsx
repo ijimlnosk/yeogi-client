@@ -13,10 +13,9 @@ const SearchResults = dynamic(() => import("@/components/commons/searchResults")
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
-    const searchKeyword = searchParams.get("query") || ""
+    const searchKeyword = searchParams.get("keyword") || ""
     const { selectedTheme } = useSelectionStore()
     const [posts, setPosts] = useState<Post[]>([])
-    const [isFirstLoad, setIsFirstLoad] = useState(true)
 
     useEffect(() => {
         const fetchGetData = async () => {
@@ -26,18 +25,13 @@ const SearchPage = () => {
                 sortCondition: "LIKES",
                 theme: selectedTheme,
             })
-            setPosts(response)
-            if (searchKeyword) {
-                const results = searchKeyword ? filterPosts(posts, searchKeyword) : response
-                setPosts(results)
-            }
+
+            const filteredResults = filterPosts(response, searchKeyword)
+            setPosts(filteredResults)
         }
 
-        if (isFirstLoad) {
-            fetchGetData()
-            setIsFirstLoad(false)
-        }
-    }, [posts, searchKeyword, selectedTheme, isFirstLoad])
+        fetchGetData()
+    }, [searchKeyword, selectedTheme])
 
     return (
         <div className="px-[120px] py-10">
@@ -45,7 +39,8 @@ const SearchPage = () => {
                 <div className="text-bg text-GREY-80 font-medium">
                     {posts.length > 0 ? (
                         <>
-                            <span className="text-BRAND-50">{searchKeyword || selectedTheme}</span>과 관련된 총
+                            <span className="text-BRAND-50 mx-1">{searchKeyword}</span>
+                            <span className="text-BRAND-50 mx-1">{selectedTheme}</span>과 관련된 총
                             <span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
                             <span className="ml-10">
                                 <SortDropdown />

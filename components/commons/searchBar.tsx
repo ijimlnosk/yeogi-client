@@ -21,7 +21,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        router.push(`/search?query=${keyword}`)
+        router.push(`/search?keyword=${keyword}`)
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

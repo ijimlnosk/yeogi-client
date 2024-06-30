@@ -19,17 +19,23 @@ const MainPosts = () => {
 
     const { data: posts, refetch } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
-        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: sortCondition }),
+        queryFn: () => getPost({ searchType: "CONTENT", searchString: searchKeyword, sortCondition: sortCondition }),
     })
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const sort = params.get("sort") as SortConditionType
+        const query = params.get("query") || ""
+
         if (sort) {
             setSortCondition(sort)
         }
+        setSearchKeyword(query)
+    }, [])
+
+    useEffect(() => {
         refetch()
-    }, [sortCondition])
+    }, [refetch, searchKeyword, sortCondition])
 
     const filteredPosts = filterPosts(posts ?? [], searchKeyword)
 
