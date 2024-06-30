@@ -14,8 +14,9 @@ const SearchResults = dynamic(() => import("@/components/commons/searchResults")
 const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("query") || ""
-    const [posts, setPosts] = useState<Post[]>([])
     const { selectedTheme } = useSelectionStore()
+    const [posts, setPosts] = useState<Post[]>([])
+    const [isFirstLoad, setIsFirstLoad] = useState(true)
 
     useEffect(() => {
         const fetchGetData = async () => {
@@ -27,12 +28,16 @@ const SearchPage = () => {
             })
             setPosts(response)
             if (searchKeyword) {
-                const results = filterPosts(posts, searchKeyword)
+                const results = searchKeyword ? filterPosts(posts, searchKeyword) : response
                 setPosts(results)
             }
         }
-        fetchGetData()
-    })
+
+        if (isFirstLoad) {
+            fetchGetData()
+            setIsFirstLoad(false)
+        }
+    }, [posts, searchKeyword, selectedTheme, isFirstLoad])
 
     return (
         <div className="px-[120px] py-10">
