@@ -1,4 +1,4 @@
-import { CreatePost, Post } from "@/utils/type"
+import { CreatePost, DetailPost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"

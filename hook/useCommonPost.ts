@@ -39,9 +39,11 @@ export const useCommonPost = (isFreeForm: boolean) => {
             const processedContentArray = await Promise.all(
                 quillEditors.map(editor => processContentImages(editor.content)),
             )
-            postData.shortPosts = processedContentArray
+            postData.shortPosts = processedContentArray.map((content, index) => ({
+                shortPostId: index, 
+                content
+            }))
         }
-
         try {
             const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
@@ -70,3 +72,4 @@ export const useCommonPost = (isFreeForm: boolean) => {
         resetFormData,
     }
 }
+ 

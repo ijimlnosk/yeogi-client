@@ -17,13 +17,13 @@ export const QuillEditor = ({
     handleInputChange,
     handleEditorInputChange,
 }: QuillEditorProps) => {
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState<string>("")
 
     useEffect(() => {
         if (isFreeForm && postDetail?.content !== undefined) {
             setValue(postDetail.content)
         } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index] !== undefined) {
-            setValue(postDetail.shortPosts[index])
+            setValue(postDetail.shortPosts[index].content)
         }
     }, [postDetail, isFreeForm, index])
 

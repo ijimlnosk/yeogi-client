@@ -1,6 +1,6 @@
 import { useFormDataStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { CreatePost, Post } from "@/utils/type"
+import { CreatePost, Post, ShortPosts } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 
@@ -11,14 +11,16 @@ import { useState, useEffect } from "react"
  */
 export const useInitializeFormData = (postDetail: CreatePost | null) => {
     const { setFormData, resetFormData } = useFormDataStore()
-    const [quillEditors, setQuillEditors] = useState<Array<{ content: string }>>([])
+    const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([]);
+
 
     useEffect(() => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
                 postDetail.shortPosts?.map(post => ({
-                    content: post,
+                    shortPostId: post.shortPostId,
+                    content: post.content,
                 })) || []
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
@@ -129,9 +131,9 @@ export const handleUpdatePost = async (
         editedPost = { ...editedPost, content: processedContent }
     } else if (formData.shortPosts) {
         const processedShortPosts = await Promise.all(
-            quillEditors.map(async editor => {
+            quillEditors.map(async (editor,index) => {
                 const content = await processContentImages(editor.content)
-                return content
+                return { shortPostId: index+1, content:editor.content} 
             }),
         )
         editedPost = { ...editedPost, shortPosts: processedShortPosts }
