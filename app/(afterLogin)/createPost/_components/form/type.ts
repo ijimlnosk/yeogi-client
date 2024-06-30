@@ -11,6 +11,8 @@ export type FormSelectorProps = {
     label: string
     state: "continent" | "calendar" | "theme" | "address"
     postDetail?: CreatePost
+    isThemeOpen?: boolean
+    isTheme?: boolean
 }
 
 export type FormBtnProps = {

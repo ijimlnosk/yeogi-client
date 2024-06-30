@@ -32,7 +32,7 @@ const CommonPost = ({
 
     return (
         <>
-            <div className="w-[900px] h-[1500px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
+            <div className="w-[900px] min-h-[1500px] mx-auto bg-SYSTEM-beige flex flex-col">
                 <UploadOverlay
                     isOverlayOpen={isOverlayOpen}
                     setIsOverlayOpen={setIsOverlayOpen}
@@ -44,23 +44,40 @@ const CommonPost = ({
                         postDetail={formData}
                         handleInputChange={handleInputChange}
                     />
-                    {quillEditors &&
-                        quillEditors.map((_, index) => (
-                            <div key={index}>
-                                <QuillEditor
-                                    index={index}
-                                    handleDeleteQuillEditor={() =>
-                                        handleDeleteQuillEditor && handleDeleteQuillEditor(index)
-                                    }
-                                    handleEditorInputChange={
-                                        handleEditorInputChange
-                                            ? (_, value) => handleEditorInputChange(index, value)
-                                            : undefined
-                                    }
-                                    postDetail={formData}
-                                />
-                            </div>
-                        ))}
+                    {isFreeForm ? (
+                        <QuillEditor
+                            index={0}
+                            isFreeForm={isFreeForm}
+                            postDetail={formData}
+                            handleInputChange={handleInputChange}
+                        />
+                    ) : (
+                        <>
+                            <QuillEditor
+                                index={0}
+                                postDetail={formData}
+                                handleDeleteQuillEditor={handleDeleteQuillEditor}
+                                handleInputChange={(field, value) => handleInputChange(field, value)}
+                            />
+                            {quillEditors.map((_, index) => (
+                                <div key={index + 1}>
+                                    <QuillEditor
+                                        index={index}
+                                        handleDeleteQuillEditor={() =>
+                                            handleDeleteQuillEditor && handleDeleteQuillEditor(index + 1)
+                                        }
+                                        handleEditorInputChange={
+                                            handleEditorInputChange
+                                                ? (_, value) => handleEditorInputChange(index + 1, value)
+                                                : undefined
+                                        }
+                                        postDetail={formData}
+                                    />
+                                </div>
+                            ))}
+                        </>
+                    )}
+                    <ThemeSelection postDetail={formData} />
                     {quillEditors && handleAddMemoClick && (
                         <div
                             onClick={handleAddMemoClick}
@@ -70,15 +87,7 @@ const CommonPost = ({
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
-                    {isFreeForm && (
-                        <QuillEditor
-                            index={0}
-                            isFreeForm={isFreeForm}
-                            postDetail={formData}
-                            handleInputChange={handleInputChange}
-                        />
-                    )}
-                    <ThemeSelection postDetail={formData} />
+
                     <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>

@@ -2,8 +2,9 @@ import { useSelectionStore } from "@/libs/store"
 import { formatISODateString } from "@/utils/formatDate"
 import { FormSelectorProps } from "./type"
 import { TextDisplayProps } from "../overlay/type"
+import Image from "next/image"
 
-const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) => {
+const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
         useSelectionStore()
 
@@ -17,7 +18,7 @@ const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) 
     return (
         <button
             onClick={onClick}
-            className="rounded-xl p-8 min-w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow"
+            className={`p-8 min-w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
         >
             {state === "continent" && (
                 <TextDisplay condition={!!continent && !!country} textOne={continent} textTwo={country} label={label} />
@@ -34,7 +35,19 @@ const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) 
             {state === "address" && (
                 <TextDisplay condition={!!address} textOne={address} textTwo={null} label={label} />
             )}
-            <span>&gt;</span>
+            <span>
+                {isThemeOpen ? (
+                    <p className="text-xs font-semibold text-BRAND-50">완료</p>
+                ) : (
+                    <Image
+                        width={10}
+                        height={20}
+                        className={` ${isTheme ? "-rotate-90" : "rotate-180"}`}
+                        src={"/icons/chevron.svg"}
+                        alt="more"
+                    />
+                )}
+            </span>
         </button>
     )
 }
@@ -58,9 +71,6 @@ export const TextDisplay = ({ condition, textOne, textTwo, textThree, label }: T
             )}
         </div>
     ) : (
-        <div>
-            <span className="text-[#ff2323] mr-4">*</span>
-            {label}
-        </div>
+        <div>{label}</div>
     )
 }
