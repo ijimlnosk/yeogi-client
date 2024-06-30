@@ -1,7 +1,7 @@
 "use client"
 
 import Overlay from "@/components/commons/overlay"
-import { Continent, Continents } from "@/constants/continents"
+import { Continent } from "@/constants/continents"
 import { useState } from "react"
 import Button from "@/components/commons/button"
 import CountriesSearch from "./countriesSearch"
@@ -27,6 +27,8 @@ const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectCon
         }
     }
 
+    const continentEntries = Object.entries(Continent)
+
     return (
         <>
             <Overlay
@@ -39,17 +41,17 @@ const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectCon
                 <div className="flex flex-col w-[448px] h-[397px] px-6 text-sm bg-SYSTEM-white rounded-2xl">
                     <h2 className="text-center my-6">대륙 선택</h2>
                     <div className="grid grid-cols-2 gap-5">
-                        {Continents.map(continent => (
+                        {continentEntries.map(([key, value]) => (
                             <Button
-                                key={continent}
+                                key={key}
                                 className={`p-4 rounded-2 ${
-                                    selectedContinent === continent
+                                    selectedContinent === value
                                         ? "bg-BRAND-30 text-SYSTEM-white"
                                         : "bg-GREY-10 hover:bg-BRAND-30 hover:shadow-custom hover:text-SYSTEM-white"
                                 }`}
-                                onClick={() => handleContinentSelect(continent)}
+                                onClick={() => handleContinentSelect(value)}
                             >
-                                {continent}
+                                {value}
                             </Button>
                         ))}
                     </div>

@@ -5,7 +5,6 @@ import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 import { Post } from "@/utils/type"
-import { ThemeProps } from "@/app/_components/mainPosts"
 
 export type PostCardProps = {
     post_id: number
@@ -69,7 +68,6 @@ export type SearchBarProps = {
     text: string
     size: "sm" | "lg"
     onChange: ChangeEventHandler<HTMLInputElement>
-    setTheme: (themeProps: ThemeProps) => void
 }
 
 export type SearchResultsProps = {

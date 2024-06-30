@@ -21,11 +21,15 @@ export const fetchSearchResultsAPI = async (samplePosts: Post[], searchKeyword: 
  */
 export const getPost = async ({ searchType, searchString, sortCondition, theme }: getPostProps): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
-
     const queryParams = new URLSearchParams()
-    queryParams.append("postSearchType", searchType.toUpperCase())
-    queryParams.append("postSortCondition", sortCondition.toUpperCase())
-    queryParams.append("theme", theme.toUpperCase())
+    if (!theme) {
+        queryParams.append("postSearchType", searchType.toUpperCase())
+        queryParams.append("postSortCondition", sortCondition.toUpperCase())
+    } else {
+        queryParams.append("postSearchType", searchType.toUpperCase())
+        queryParams.append("postSortCondition", sortCondition.toUpperCase())
+        queryParams.append("theme", theme.toUpperCase())
+    }
 
     if (searchString) queryParams.append("searchString", searchString)
 

@@ -1,6 +1,8 @@
 "use client"
 
+import { getPost } from "@/apis/postApi"
 import SortDropdown from "@/components/commons/sortDropdown"
+import { useSelectionStore } from "@/libs/store"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
 import dynamic from "next/dynamic"
@@ -13,13 +15,24 @@ const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("query") || ""
     const [posts, setPosts] = useState<Post[]>([])
+    const { selectedTheme } = useSelectionStore()
 
     useEffect(() => {
-        if (searchKeyword) {
-            const results = filterPosts(posts, searchKeyword)
-            setPosts(results)
+        const fetchGetData = async () => {
+            const response = await getPost({
+                searchType: "CONTENT",
+                searchString: searchKeyword,
+                sortCondition: "LIKES",
+                theme: selectedTheme,
+            })
+            setPosts(response)
+            if (searchKeyword) {
+                const results = filterPosts(posts, searchKeyword)
+                setPosts(results)
+            }
         }
-    }, [posts, searchKeyword])
+        fetchGetData()
+    })
 
     return (
         <div className="px-[120px] py-10">
@@ -27,7 +40,7 @@ const SearchPage = () => {
                 <div className="text-bg text-GREY-80 font-medium">
                     {posts.length > 0 ? (
                         <>
-                            <span className="text-BRAND-50">{searchKeyword}</span>과 관련된 총
+                            <span className="text-BRAND-50">{searchKeyword || selectedTheme}</span>과 관련된 총
                             <span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
                             <span className="ml-10">
                                 <SortDropdown />

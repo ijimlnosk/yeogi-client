@@ -1,3 +1,4 @@
+import { ThemeProps } from "@/app/_components/type"
 import { Theme } from "@/constants/theme"
 
 export type Post = {
@@ -16,7 +17,7 @@ export type Post = {
     continent: string
     region: string
     address: string
-    theme: string
+    theme: ThemeProps
 }
 
 export type CreatePost = {

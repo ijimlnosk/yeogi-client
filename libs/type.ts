@@ -1,3 +1,4 @@
+import { ThemeProps } from "@/app/_components/type"
 import { Continent } from "@/constants/continents"
 import { CreatePost } from "@/utils/type"
 import { Dayjs } from "dayjs"
@@ -7,13 +8,13 @@ export type SelectionState = {
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: string | null
+    selectedTheme: ThemeProps | undefined
     selectedAddress: string | null
     setSelectedContinent: (continent: Continent | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
-    setSelectedTheme: (theme: string) => void
+    setSelectedTheme: (theme: ThemeProps) => void
     setSelectedAddress: (address: string) => void
 }
 

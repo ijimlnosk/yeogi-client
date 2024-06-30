@@ -7,30 +7,29 @@ import { useQuery } from "@tanstack/react-query"
 import { filterPosts } from "@/utils/filterPosts"
 import dynamic from "next/dynamic"
 import { Suspense, useEffect, useState } from "react"
+import { SortConditionType } from "./type"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
 /* const Pagination = dynamic(() => import("@/components/commons/pagination"), { ssr: false }) */
 
-export type ThemeProps = "REST" | "EATING" | "HOT_PLACE" | "SHOPPING" | "ACTIVITY" | "SIGHTSEEING" | "PACKAGE"
-
 const MainPosts = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")
-    const [, setSortCondition] = useState<string>("likes")
-    const [theme, setTheme] = useState<ThemeProps>("REST")
+    const [sortCondition, setSortCondition] = useState<SortConditionType>("RECENT")
 
-    const { data: posts } = useQuery<Post[], Error>({
+    const { data: posts, refetch } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
-        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: "LIKES", theme }),
+        queryFn: () => getPost({ searchType: "NICKNAME", searchString: searchKeyword, sortCondition: sortCondition }),
     })
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
-        const sort = params.get("sort")
+        const sort = params.get("sort") as SortConditionType
         if (sort) {
             setSortCondition(sort)
         }
-    }, [])
+        refetch()
+    }, [sortCondition])
 
     const filteredPosts = filterPosts(posts ?? [], searchKeyword)
 
@@ -41,7 +40,6 @@ const MainPosts = () => {
                     onChange={e => setSearchKeyword(e.target.value)}
                     text="찾고 싶은 여행 기록을 검색하세요."
                     size="lg"
-                    setTheme={setTheme}
                 />
             </div>
             <div className="w-[1682px] flex justify-end my-8">
