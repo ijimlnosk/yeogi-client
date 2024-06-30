@@ -79,7 +79,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     </>
                 )}
                 {post.shortPosts?.map(post => (
-                    <div className="w-full flex flex-col items-center justify-center bg-red-600" key={post.shortPostId}>
+                    <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: post.content }}
