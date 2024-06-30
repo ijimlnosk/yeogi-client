@@ -82,7 +82,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<CreatePost
         continent: editedPost.continent || "아시아",
         region: editedPost.region || "",
         address: editedPost.address || "",
-        theme: editedPost.theme || "EATING",
+        theme: editedPost.theme || undefined,
     }
 }
 
@@ -112,7 +112,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Creat
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
-        theme: editedPost.theme || "",
+        theme: editedPost.theme || undefined,
         address: editedPost.address || "",
     }
 }

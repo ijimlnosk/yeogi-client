@@ -1,4 +1,6 @@
+import { ThemeProps } from "@/app/_components/type"
+
 export type SelectedThemeProps = {
     isOpen: boolean
-    onClick: (theme: string) => void
+    onClick: (theme: ThemeProps) => void
 }

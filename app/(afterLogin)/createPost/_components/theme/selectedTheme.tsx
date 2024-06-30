@@ -6,23 +6,24 @@ import { useSelectionStore } from "@/libs/store"
 import { Theme } from "@/constants/theme"
 import { useState } from "react"
 import { SelectedThemeProps } from "./type"
+import { ThemeProps } from "@/app/_components/type"
 
 const SelectedTheme = ({ isOpen, onClick }: SelectedThemeProps) => {
-    const [theme, setTheme] = useState<string>()
+    const [theme, setTheme] = useState<ThemeProps | undefined>()
     const { selectedTheme, setSelectedTheme } = useSelectionStore()
 
-    const handleSelectedTheme = (theme: string) => {
+    const handleSelectedTheme = (theme: ThemeProps) => {
         setSelectedTheme(theme)
         setTheme(theme)
     }
 
     const handleSelectClick = () => {
-        if (onClick && theme)  {
+        if (onClick && theme) {
             onClick(theme)
         }
     }
 
-    const ThemeKey = Object.keys(Theme)
+    const ThemeKey: ThemeProps[] = Object.keys(Theme) as ThemeProps[]
 
     return (
         <Overlay
@@ -35,7 +36,7 @@ const SelectedTheme = ({ isOpen, onClick }: SelectedThemeProps) => {
             <div className="flex flex-col w-[448px] h-[397px] px-6 text-sm bg-SYSTEM-white rounded-2xl">
                 <h2 className="text-center my-6">여행 테마 선택</h2>
                 <div className="grid grid-cols-2 gap-5">
-                    {ThemeKey.map((key) => (
+                    {ThemeKey.map(key => (
                         <Button
                             key={key}
                             className={`p-4 rounded-2 ${

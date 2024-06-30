@@ -23,7 +23,7 @@ export const initialFormData: CreatePost = {
     createdAt: "",
     modifiedAt: "",
     address: "",
-    theme: "",
+    theme: undefined,
 }
 
 export type postCommentProps = {
