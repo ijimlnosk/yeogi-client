@@ -70,13 +70,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
             </div>
             <div className="p-5">
                 {post.content && (
-                    <>
-                        <div
-                            ref={contentRef}
-                            dangerouslySetInnerHTML={{ __html: modifiedContent }}
-                            className="custom-content "
-                        />
-                    </>
+                    <div
+                        ref={contentRef}
+                        dangerouslySetInnerHTML={{ __html: modifiedContent }}
+                        className="custom-content "
+                    />
                 )}
                 {post.shortPosts?.map(post => (
                     <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
