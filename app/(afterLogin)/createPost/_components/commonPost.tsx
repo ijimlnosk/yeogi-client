@@ -1,6 +1,9 @@
+"use client"
+
 import { useCommonPost } from "@/hook/useCommonPost"
 import UploadOverlay from "./overlay/uploadOverlay"
-import FormInputs from "./form/formInputs"
+import UpperSelection from "./form/upperSelection"
+import ThemeSelection from "./form/themeSelection"
 import { QuillEditor } from "./editor/editorQuill"
 import FormBtn from "./form/formBtn"
 import Image from "next/image"
@@ -26,16 +29,17 @@ const CommonPost = ({
         handleOverlaySubmit,
         formData,
     } = useCommonPost(isFreeForm)
+
     return (
         <>
-            <div className="w-[900px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
+            <div className="w-[900px] h-[1500px] mx-auto bg-SYSTEM-beige min-h-screen flex flex-col">
                 <UploadOverlay
                     isOverlayOpen={isOverlayOpen}
                     setIsOverlayOpen={setIsOverlayOpen}
                     handleOverlaySubmit={e => handleOverlaySubmit(e, quillEditors)}
                 />
                 <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full font-pretendard"}`}>
-                    <FormInputs
+                    <UpperSelection
                         formText={isFreeForm ? "자유롭게 " : "간단하게 "}
                         postDetail={formData}
                         handleInputChange={handleInputChange}
@@ -74,6 +78,7 @@ const CommonPost = ({
                             handleInputChange={handleInputChange}
                         />
                     )}
+                    <ThemeSelection postDetail={formData} />
                     <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>

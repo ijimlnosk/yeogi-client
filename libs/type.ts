@@ -1,6 +1,6 @@
 import { ThemeProps } from "@/app/_components/type"
 import { Continent } from "@/constants/continents"
-import { CreatePost, DetailPost } from "@/utils/type"
+import { CreatePost } from "@/utils/type"
 import { Dayjs } from "dayjs"
 
 export type SelectionState = {

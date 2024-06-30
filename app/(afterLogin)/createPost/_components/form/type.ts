@@ -1,9 +1,9 @@
 import { CreatePost } from "@/utils/type"
 
-export type FormInputsProps = {
-    formText: string
+export type FormSelectionProps = {
+    formText?: string
     postDetail?: CreatePost
-    handleInputChange: <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => void
+    handleInputChange?: <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => void
 }
 
 export type FormSelectorProps = {

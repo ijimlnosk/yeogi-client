@@ -17,27 +17,22 @@ const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) 
     return (
         <button
             onClick={onClick}
-            className="rounded-xl p-8 w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between"
+            className="rounded-xl p-8 min-w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow"
         >
             {state === "continent" && (
-                <TextDisplay
-                    condition={!!continent && !!country}
-                    mainText={continent}
-                    subText={country}
-                    label={label}
-                />
+                <TextDisplay condition={!!continent && !!country} textOne={continent} textTwo={country} label={label} />
             )}
             {state === "calendar" && (
                 <TextDisplay
                     condition={!!start && !!end}
-                    mainText={start ? formatISODateString(start.toISOString()) : null}
-                    subText={end ? formatISODateString(end.toISOString()) : null}
+                    textOne={start ? formatISODateString(start.toISOString()) : null}
+                    textTwo={end ? formatISODateString(end.toISOString()) : null}
                     label={label}
                 />
             )}
-            {state === "theme" && <TextDisplay condition={!!theme} mainText={theme} subText={null} label={label} />}
+            {state === "theme" && <TextDisplay condition={!!theme} textOne={theme} textTwo={null} label={label} />}
             {state === "address" && (
-                <TextDisplay condition={!!address} mainText={address} subText={null} label={label} />
+                <TextDisplay condition={!!address} textOne={address} textTwo={null} label={label} />
             )}
             <span>&gt;</span>
         </button>
@@ -45,14 +40,20 @@ const FormSelector = ({ onClick, label, state, postDetail }: FormSelectorProps) 
 }
 export default FormSelector
 
-export const TextDisplay = ({ condition, mainText, subText, label }: TextDisplayProps) => {
+export const TextDisplay = ({ condition, textOne, textTwo, textThree, label }: TextDisplayProps) => {
     return condition ? (
         <div className="text-BRAND-50">
-            {mainText}
-            {subText && (
+            {textOne}
+            {textTwo && (
                 <>
                     <span> / </span>
-                    {subText}
+                    {textTwo}
+                </>
+            )}
+            {textThree && (
+                <>
+                    <span> / </span>
+                    {textThree}
                 </>
             )}
         </div>

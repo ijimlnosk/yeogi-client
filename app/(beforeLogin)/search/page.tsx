@@ -39,9 +39,10 @@ const SearchPage = () => {
                 <div className="text-bg text-GREY-80 font-medium">
                     {posts.length > 0 ? (
                         <>
-                            <span className="text-BRAND-50 mx-1">{searchKeyword}</span>
-                            <span className="text-BRAND-50 mx-1">{selectedTheme}</span>과 관련된 총
-                            <span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
+                            <span className="text-BRAND-50">
+                                {searchKeyword} {selectedTheme}
+                            </span>
+                            에 대한 총<span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
                             <span className="ml-10">
                                 <SortDropdown />
                             </span>
@@ -49,8 +50,10 @@ const SearchPage = () => {
                     ) : (
                         <>
                             <p>
-                                <span className="text-BRAND-50">{searchKeyword}</span>과 관련된 검색 결과를 찾을 수
-                                없어요!
+                                <span className="text-BRAND-50">
+                                    {searchKeyword} {selectedTheme}
+                                </span>
+                                에 대한 검색 결과를 찾을 수 없어요!
                             </p>
                             <p>올바른 검색어를 입력하셨나요?</p>
                         </>
