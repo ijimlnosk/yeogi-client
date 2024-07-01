@@ -3,6 +3,7 @@ import { formatISODateString } from "@/utils/formatDate"
 import { FormSelectorProps } from "./type"
 import { TextDisplayProps } from "../overlay/type"
 import Image from "next/image"
+import { Theme } from "@/constants/theme"
 
 const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
@@ -12,8 +13,10 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
     const country = postDetail?.region || selectedCountry
     const start = postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
     const end = postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
-    const theme = postDetail?.theme || selectedTheme
+    const themeList = postDetail?.themeList || selectedTheme
     const address = postDetail?.address || selectedAddress
+
+    const themes = themeList instanceof Array ? themeList.map((theme: string) => Theme[theme]) : []
 
     return (
         <button
@@ -21,20 +24,20 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
             className={`p-8 min-w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
         >
             {state === "continent" && (
-                <TextDisplay condition={!!continent && !!country} textOne={continent} textTwo={country} label={label} />
+                <TextDisplay condition={!!continent && !!country} texts={[continent!, country!]} label={label} />
             )}
             {state === "calendar" && (
                 <TextDisplay
                     condition={!!start && !!end}
-                    textOne={start ? formatISODateString(start.toISOString()) : null}
-                    textTwo={end ? formatISODateString(end.toISOString()) : null}
+                    texts={[
+                        start ? formatISODateString(start.toISOString()) : "",
+                        end ? formatISODateString(end.toISOString()) : "",
+                    ]}
                     label={label}
                 />
             )}
-            {state === "theme" && <TextDisplay condition={!!theme} textOne={theme} textTwo={null} label={label} />}
-            {state === "address" && (
-                <TextDisplay condition={!!address} textOne={address} textTwo={null} label={label} />
-            )}
+            {state === "theme" && <TextDisplay condition={!!themes} texts={themes} label={label} />}
+            {state === "address" && <TextDisplay condition={!!address} texts={[address!]} label={label} />}
             <span>
                 {isThemeOpen ? (
                     <p className="text-xs font-semibold text-BRAND-50">완료</p>
@@ -53,22 +56,15 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
 }
 export default FormSelector
 
-export const TextDisplay = ({ condition, textOne, textTwo, textThree, label }: TextDisplayProps) => {
+export const TextDisplay = ({ condition, texts, label }: TextDisplayProps) => {
     return condition ? (
         <div className="text-BRAND-50">
-            {textOne}
-            {textTwo && (
-                <>
-                    <span> / </span>
-                    {textTwo}
-                </>
-            )}
-            {textThree && (
-                <>
-                    <span> / </span>
-                    {textThree}
-                </>
-            )}
+            {texts.map((text, index) => (
+                <span key={index}>
+                    {text}
+                    {index < texts.length - 1 && <span> / </span>}
+                </span>
+            ))}
         </div>
     ) : (
         <div>{label}</div>

@@ -4,6 +4,7 @@ import { useFormDataStore, usePostDataStore } from "@/libs/store"
 import { useCommonUpdatePost, useInitializeFormData } from "@/hook/updatePostFunctions"
 import { CreatePost, Post } from "@/utils/type"
 import CommonPost from "../../createPost/_components/commonPost"
+import { ThemeProps } from "@/app/_components/type"
 
 const UpdatePostPage = () => {
     const { formData, setFormData } = useFormDataStore()
@@ -12,7 +13,12 @@ const UpdatePostPage = () => {
     const { handleInputChange, handleAddMemoClick, handleDeleteQuillEditor } = useCommonUpdatePost()
 
     const handleInputChangeWrapper = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
-        handleInputChange(field as keyof Post, value as Post[keyof Post], formData, setFormData)
+        if (field === "themeList") {
+            const themeListValue = value as ThemeProps | ThemeProps[] | undefined
+            handleInputChange(field as keyof Post, themeListValue, formData, setFormData)
+        } else {
+            handleInputChange(field as keyof Post, value as Post[keyof Post], formData, setFormData)
+        }
     }
 
     const handleEditorInputChangeWrapper = (index: number, value: string) => {
@@ -20,7 +26,11 @@ const UpdatePostPage = () => {
         setQuillEditors(updatedEditors)
         handleInputChangeWrapper(
             "shortPosts",
-            updatedEditors.map((editor, i) => ({ shortPostId: i, content: editor.content })),
+            updatedEditors.map((editor, i) => ({
+                shortPostId: i,
+                content: editor.content,
+                address: formData.shortPosts ? formData.shortPosts[i].address : "",
+            })),
         )
     }
 

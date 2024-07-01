@@ -14,5 +14,5 @@ export const getDefaultPost = (): CreatePost => ({
     tripEndDate: "",
     tripStartDate: "",
     address: "",
-    theme: undefined,
+    themeList: undefined,
 })

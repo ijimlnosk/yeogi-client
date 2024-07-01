@@ -22,6 +22,7 @@ export const useInitializeFormData = (postDetail: CreatePost | null) => {
                 postDetail.shortPosts?.map(post => ({
                     shortPostId: post.shortPostId,
                     content: post.content,
+                    address: post.address,
                 })) || []
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
@@ -48,6 +49,7 @@ export const useCommonUpdatePost = () => {
                     postDetail.shortPosts?.map(post => ({
                         shortPostId: post.shortPostId,
                         content: post.content,
+                        address: post.address,
                     })) || []
                 setFormData(postDetail)
                 setQuillEditors(initialQuillEditors)
@@ -97,7 +99,7 @@ export const useCommonUpdatePost = () => {
      * @param {(editors: ShortPosts[]) => void} setQuillEditors 에디터가 추가됨에 따라 에디터의 배열을 업데이트
      */
     const handleAddMemoClick = (quillEditors: ShortPosts[], setQuillEditors: (editors: ShortPosts[]) => void) => {
-        setQuillEditors([...quillEditors, { shortPostId: quillEditors.length, content: "" }])
+        setQuillEditors([...quillEditors, { shortPostId: quillEditors.length, content: "", address: "" }])
     }
 
     /**
@@ -148,6 +150,7 @@ export const useCommonUpdatePost = () => {
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
             shortPosts: [],
+            address: formData.address,
         }
 
         if (formData.content) {
@@ -157,7 +160,7 @@ export const useCommonUpdatePost = () => {
             const processedShortPosts = await Promise.all(
                 quillEditors.map(async (editor, index) => {
                     const content = await processContentImages(editor.content)
-                    return { shortPostId: index + 1, content }
+                    return { shortPostId: index + 1, content, address: formData.shortPosts![index].address }
                 }),
             )
             editedPost = { ...editedPost, shortPosts: processedShortPosts }

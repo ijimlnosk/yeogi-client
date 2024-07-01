@@ -39,7 +39,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
             content: "",
             shortPosts: [],
             address: selectedAddress!,
-            theme: selectedTheme || "EATING",
+            themeList: selectedTheme || undefined,
         }
 
         if (isFreeForm) {
@@ -52,6 +52,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
             postData.shortPosts = processedContentArray.map((content, index) => ({
                 shortPostId: index,
                 content,
+                address: selectedAddress!,
             }))
         }
         try {

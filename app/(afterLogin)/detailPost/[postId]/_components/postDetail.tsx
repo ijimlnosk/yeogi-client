@@ -99,7 +99,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
             </div>
             <div className="   h-[59px] border-t-[1px] pl-[750px] border-GREY-30  flex items-center ">
                 <p className="text-SYSTEM-black text-sm">기록한 여행의 컨셉 :</p>
-                <span className="text-BRAND-50 text-sm font-bold ml-[30px]"> # {post.theme}</span>
+                <span className="text-BRAND-50 text-sm font-bold ml-[30px]"> # {post.themeList}</span>
             </div>
         </div>
     )

@@ -17,7 +17,7 @@ export type Post = {
     continent: string
     region: string
     address: string
-    theme: ThemeProps | undefined
+    themeList: ThemeProps | ThemeProps[] | undefined
 }
 
 export type CreatePost = {
@@ -34,13 +34,14 @@ export type CreatePost = {
     modifiedAt: string
     tripStartDate: string
     tripEndDate: string
-    theme: ThemeProps | undefined
+    themeList: ThemeProps | ThemeProps[] | undefined
     address: string
 }
 
 export type ShortPosts = {
     shortPostId: number
     content: string
+    address: string
 }
 
 export type likedMembersInfos = {
@@ -60,5 +61,5 @@ export type PostCardType = {
     continent: string
     region: string
     address: string
-    theme: Theme
+    themeList: Theme[]
 }

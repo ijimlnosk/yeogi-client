@@ -24,9 +24,7 @@ export type UploadOverlayProps = {
 
 export type TextDisplayProps = {
     condition: boolean
-    textOne: string | null | undefined
-    textTwo?: string | null
-    textThree?: string | null
+    texts: string[]
     label: string
 }
 

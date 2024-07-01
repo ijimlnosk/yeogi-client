@@ -5,7 +5,7 @@ export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
     searchString?: string
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
-    theme?: ThemeProps
+    theme?: ThemeProps | ThemeProps[]
 }
 
 export const initialFormData: CreatePost = {
@@ -23,7 +23,7 @@ export const initialFormData: CreatePost = {
     createdAt: "",
     modifiedAt: "",
     address: "",
-    theme: undefined,
+    themeList: undefined,
 }
 
 export type postCommentProps = {

@@ -3,27 +3,34 @@
 import Button from "@/components/commons/button"
 import { useSelectionStore } from "@/libs/store"
 import { Theme } from "@/constants/theme"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ThemeProps } from "@/app/_components/type"
 
 const SelectedTheme = () => {
-    const [, setTheme] = useState<ThemeProps | undefined>()
-    const { selectedTheme, setSelectedTheme } = useSelectionStore()
+    const [themes, setThemes] = useState<ThemeProps[]>([])
+    const { setSelectedTheme } = useSelectionStore()
 
-    const handleSelectedTheme = (theme: ThemeProps) => {
-        setSelectedTheme(theme)
-        setTheme(theme)
+    const handleSelectedTheme = (themeKey: ThemeProps) => {
+        if (themes.includes(themeKey)) {
+            setThemes(themes.filter(theme => theme !== themeKey))
+        } else {
+            setThemes([...themes, themeKey])
+        }
     }
 
-    const ThemeKey: ThemeProps[] = Object.keys(Theme) as ThemeProps[]
+    const ThemeKeys: ThemeProps[] = Object.keys(Theme) as ThemeProps[]
+
+    useEffect(() => {
+        setThemes(themes)
+    }, [themes, setSelectedTheme])
 
     return (
         <div className="flex flex-row w-full h-[80px] justify-start items-center px-6 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">
-            {ThemeKey.map(key => (
+            {ThemeKeys.map(key => (
                 <Button
                     key={key}
                     className={`w-fit h-[42px] p-4 rounded-2 mx-2 ${
-                        selectedTheme === key
+                        themes.includes(key)
                             ? "bg-BRAND-30 text-SYSTEM-white"
                             : "border-[1px] border-BRAND-50 hover:bg-BRAND-30 hover:text-SYSTEM-white"
                     }`}
