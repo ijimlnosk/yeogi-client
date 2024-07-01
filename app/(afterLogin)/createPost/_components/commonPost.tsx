@@ -28,6 +28,7 @@ const CommonPost = ({
         handleInputChange,
         handleOverlaySubmit,
         formData,
+        handleSubmitEditedPost,
     } = useCommonPost(isFreeForm)
 
     return (
@@ -87,8 +88,7 @@ const CommonPost = ({
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
-
-                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
+                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} handleUpdatePost={handleSubmitEditedPost} />
                 </div>
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}

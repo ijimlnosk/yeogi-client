@@ -1,17 +1,27 @@
+"use client"
+
 import { FormEvent, useState } from "react"
-import { useFormDataStore, useSelectionStore } from "@/libs/store"
+import { useFormDataStore, usePostDataStore, useSelectionStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { useMapStore } from "@/libs/pinStore"
 import { CreatePost } from "@/utils/type"
 import { setPinLocalStorage } from "@/utils/localStorage"
+import { useUpdateFreePost } from "./usePostMutation"
+import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
 
 export const useCommonPost = (isFreeForm: boolean) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } = useSelectionStore()
+    const [, setIsSubmitted] = useState(false)
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } =
+        useSelectionStore()
+    const { postId, postDetail } = usePostDataStore()
     const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
+    const { quillEditors } = useInitializeFormData(postDetail)
+    const updatePostMutation = useUpdateFreePost()
+    const { handleUpdatePost } = useCommonUpdatePost()
 
     const handleInputChange = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
         setFormData({ ...formData, [field]: value })
@@ -29,7 +39,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
             content: "",
             shortPosts: [],
             address: selectedAddress!,
-            theme: selectedTheme || "EATING"
+            theme: selectedTheme || "EATING",
         }
 
         if (isFreeForm) {
@@ -40,8 +50,8 @@ export const useCommonPost = (isFreeForm: boolean) => {
                 quillEditors.map(editor => processContentImages(editor.content)),
             )
             postData.shortPosts = processedContentArray.map((content, index) => ({
-                shortPostId: index, 
-                content
+                shortPostId: index,
+                content,
             }))
         }
         try {
@@ -57,6 +67,23 @@ export const useCommonPost = (isFreeForm: boolean) => {
         }
     }
 
+    const handleSubmitEditedPost = async () => {
+        const startDateAsDate: Date | null = startDate ? startDate.toDate() : null
+        const endDateAsDate: Date | null = endDate ? endDate.toDate() : null
+
+        await handleUpdatePost(
+            postId!,
+            formData,
+            quillEditors,
+            setIsSubmitted,
+            updatePostMutation,
+            selectedContinent,
+            selectedCountry,
+            startDateAsDate,
+            endDateAsDate,
+        )
+    }
+
     return {
         isOverlayOpen,
         setIsOverlayOpen,
@@ -70,6 +97,6 @@ export const useCommonPost = (isFreeForm: boolean) => {
         posts,
         setPosts,
         resetFormData,
+        handleSubmitEditedPost,
     }
 }
- 

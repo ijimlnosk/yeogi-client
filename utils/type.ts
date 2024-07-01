@@ -38,25 +38,6 @@ export type CreatePost = {
     address: string
 }
 
-export type DetailPost = {
-    postId: number
-    continent: string
-    region: string
-    author: string
-    title: string
-    content?: string
-    shortPostList?: ShortPosts[]
-    likedMembersInfos?:likedMembersInfos[]
-    likeCount: number
-    viewCount: number
-    createdAt: string
-    modifiedAt: string
-    tripStartDate: string
-    tripEndDate: string
-    address: string
-    theme?:string
-}
-
 export type ShortPosts = {
     shortPostId: number
     content: string

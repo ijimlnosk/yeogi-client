@@ -36,24 +36,11 @@ alt="yeogi logo" />
 
 <h3>🔗 Links</h3> 
 
-<a href="">YEOGI</a> designed with Figma. <br />
-<a href="https://yeogi-client.vercel.app/">YEOGI</a> deployed by Vercel. 
+<a href="/">YEOGI</a> designed with Figma. <br />
+<a href="https://yeogi-client.vercel.app/">YEOGI</a> deployed by Vercel.  <br />
+<a href="https://github.com/mobi-projects/yeogi-server">YEOGI</a> backend github.
 
 
-<br />
-
-<h3>Test Account</h3> 
-
-<table>
-  <tr>
-    <td>ID</td>
-    <td>temp id</td>
-  </tr>
-    <tr>
-    <td>Password</td>
-    <td>temp pasword</td>
-  </tr>
-</table>
 
 <br/>
 <br/>
@@ -90,11 +77,6 @@ alt="yeogi logo" />
         <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/3c49fb91-37bc-4e51-ac49-53a07fe5a338" width="120px" height="120px"/>
       </a>  
     </td>
-     <td>
-      <a href="https://github.com/kiminn">
-        <img src="https://github.com/Manners-Maketh-Market/MMM/assets/134191815/90e1745b-51eb-4e31-8946-93970bcb7af1" width="120px" height="120px"/>
-      </a>  
-    </td>
     <td>
       <a href="https://github.com/hayoung78">
         <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/3385ed36-d314-4f90-bcc2-682abd11da61" width="120px" height="120px"/>
@@ -107,9 +89,6 @@ alt="yeogi logo" />
     </th>
     <th>
       Gang
-    </th>
-    <th>
-      Kimi
     </th>
     <th>
       Wendy
@@ -125,9 +104,6 @@ alt="yeogi logo" />
     <th>
        FE
     </th>
-    <th>
-       FE
-    </th>
   </tr>
 </table>
 
@@ -139,7 +115,7 @@ alt="yeogi logo" />
 
 
 <h6>total</h6> 
-<p>프로젝트 전체 진행 기간 : 2024.05.25 ~ 2024.07.00</p>
+<p>프로젝트 전체 진행 기간 : 2024.05.25 ~ 2024.07.21</p>
 
 <br />
 
@@ -165,33 +141,42 @@ alt="yeogi logo" />
   <tr>
     <td rowspan="2">Week-02</td>
     <td>06.01 - 06.02 </td>
-    <td>2차 스코프 컷다운/기획</td>
+    <td rowspan="2">2차 스코프 컷다운/기획</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>06.03 - 06.14 </td>
-    <td>2차 디자인  및 1차 스코프 개발</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td rowspan="2">Week-03</td>
     <td>06.15 - 06.16 </td>
-    <td>최종 스코프 컷다운/데모데이 준비</td>
-    <td>on progress</td>
+    <td>2차 디자인  및 1차 스코프 개발</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>06.17 - 06.28 </td>
-    <td>최종 디자인/2차 스코프 개발</td>
-    <td>-</td>
+    <td rowspan="2">최종 디자인/2차 스코프 개발</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td rowspan="2">Week-04</td>
     <td>06.29 - 06.30 </td>
+    <td>on progress</td>
+  </tr>
+  <tr>
+    <td>07.01 - 07.07 </td>
     <td>최종 데모데이 준비</td>
     <td>-</td>
   </tr>
   <tr>
-    <td>07.01 - 07.00 </td>
+    <td rowspan="2">Week-05</td>
+    <td>07.01 - 07.14</td>
+    <td>최종 데모데이 준비</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>07.01 - 07.21</td>
     <td>최종 스코프 개발</td>
     <td>-</td>
   </tr>
@@ -250,6 +235,7 @@ alt="yeogi logo" />
       <img src="https://img.shields.io/badge/kakao-FFCD00?style=flat-square&logo=kakao&logoColor=white"> 
       <img src="https://img.shields.io/badge/naver-03C75A?style=flat-square&logo=naver&logoColor=white"> 
       <img src="https://img.shields.io/badge/google-4285F4?style=flat-square&logo=google&logoColor=white"> 
+      <img src="https://img.shields.io/badge/googlemaps-4285F4?style=flat-square&logo=googlemaps&logoColor=white"> 
     </td>
   </tr>
 </table>
