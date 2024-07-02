@@ -65,7 +65,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
                         onClick={() => handleSelectPrediction(prediction.place_id, prediction.description)}
                         className=" hover:text-BRAND-50 hover:cursor-pointer p-2"
                     >
-                        <span className="hover-scroll-text">{removeCountryAddress(prediction.description)}</span>
+                        {removeCountryAddress(prediction.description)}
                     </li>
                 ))}
             </ul>
