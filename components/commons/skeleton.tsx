@@ -1,25 +1,23 @@
-type Props = {
-    width?: number
-    height?: number
-    circle?: boolean // 원형 스켈레톤
-    rounded?: boolean // 모서리
-    unit?: string // px 또는 % 단위
-    animation?: boolean // 애니메이션 유무
-    color?: string
-}
+import React from "react"
+import { Card, Skeleton } from "@nextui-org/react"
 
-const Skeleton = ({ animation = true, width, height, circle, rounded, unit = "px", color = "bg-red-200" }: Props) => {
-    const baseClasses = `${color} ${rounded ? "rounded-lg" : ""} ${circle ? "rounded-full" : ""} ${animation ? "animate-pulse" : ""}`
-    const sizeStyles = {
-        width: width ? `${width}${unit}` : "auto",
-        height: height ? `${height}${unit}` : "auto",
-    }
-
+export const SkeletonCard = () => {
     return (
-        <div className={`skeleton ${baseClasses}`} style={{ ...sizeStyles }}>
-            <span className="opacity-0">.</span>
-        </div>
+        <Card className="w-[300px] h-[381px] space-y-5 p-4 rounded-lg">
+            <Skeleton className="rounded-lg">
+                <div className="h-24 rounded-lg bg-default-300"></div>
+            </Skeleton>
+            <div className="space-y-3">
+                <Skeleton className="w-3/5 rounded-lg">
+                    <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+                </Skeleton>
+                <Skeleton className="w-4/5 rounded-lg">
+                    <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+                </Skeleton>
+                <Skeleton className="w-2/5 rounded-lg">
+                    <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+                </Skeleton>
+            </div>
+        </Card>
     )
 }
-
-export default Skeleton
