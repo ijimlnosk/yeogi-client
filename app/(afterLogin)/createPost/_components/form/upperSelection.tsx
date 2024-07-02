@@ -5,12 +5,10 @@ import FormSelector from "./formSelector"
 import { FormSelectionProps } from "./type"
 import SelectedContinent from "../region/selectContinent"
 import SelectCalendar from "../calendar/selectCalendar"
-import SelectedAddress from "../region/selectedAddress"
 
 const UpperSelection = ({ formText, postDetail, handleInputChange }: FormSelectionProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-    const [isAddressOpen, setIsAddressOpen] = useState<boolean>(false)
     const [nextStep, setNextStep] = useState<boolean>(false)
 
     const handleSelectContinent = () => {
@@ -39,14 +37,6 @@ const UpperSelection = ({ formText, postDetail, handleInputChange }: FormSelecti
                     postDetail={postDetail}
                 />
             </div>
-            <div className="flex w-[900px] my-5">
-                <FormSelector
-                    onClick={() => setIsAddressOpen(true)}
-                    label="다녀왔던 장소를 입력하세요."
-                    state={"address"}
-                    postDetail={postDetail}
-                />
-            </div>
             <div className="relative w-full h-[80px] mb-[15px]">
                 {handleInputChange && (
                     <input
@@ -65,11 +55,6 @@ const UpperSelection = ({ formText, postDetail, handleInputChange }: FormSelecti
                 onClick={handleSelectContinent}
             />
             <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
-            <SelectedAddress
-                isOpen={isAddressOpen}
-                setIsOpen={setIsAddressOpen}
-                onClick={() => setIsAddressOpen(!isAddressOpen)}
-            />
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { TextDisplayProps } from "../overlay/type"
 import Image from "next/image"
 import { Theme } from "@/constants/theme"
 
-const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
+const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme, isAddress }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
         useSelectionStore()
 
@@ -21,7 +21,7 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
     return (
         <button
             onClick={onClick}
-            className={`p-8 min-w-[440px] h-[80px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
+            className={`p-8 min-w-[440px]  bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isAddress ? "h-[59px] rounded-[192px] border-[1px] border-GREY-20" : "h-[80px]"} ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
         >
             {state === "continent" && (
                 <TextDisplay condition={!!continent && !!country} texts={[continent!, country!]} label={label} />
@@ -36,8 +36,13 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
                     label={label}
                 />
             )}
-            {state === "theme" && <TextDisplay condition={!!themes} texts={themes} label={label} />}
-            {state === "address" && <TextDisplay condition={!!address} texts={[address!]} label={label} />}
+            {state === "theme" && <TextDisplay condition={!!themes.length} texts={themes} label={label} />}
+            {state === "address" && (
+                <div className="flex">
+                    <Image width={16} height={16} src={"/icons/gps-grey.svg"} className="mr-2" alt="detail address" />
+                    <TextDisplay condition={!!address} texts={[address!]} label={label} />
+                </div>
+            )}
             <span>
                 {isThemeOpen ? (
                     <p className="text-xs font-semibold text-BRAND-50">완료</p>

@@ -5,7 +5,7 @@ import { useFormDataStore, usePostDataStore, useSelectionStore } from "@/libs/st
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { useMapStore } from "@/libs/pinStore"
-import { CreatePost } from "@/utils/type"
+import { CreatePost, ShortPosts } from "@/utils/type"
 import { setPinLocalStorage } from "@/utils/localStorage"
 import { useUpdateFreePost } from "./usePostMutation"
 import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
@@ -27,7 +27,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
         setFormData({ ...formData, [field]: value })
     }
 
-    const handleOverlaySubmit = async (e: FormEvent, quillEditors: { content: string }[]) => {
+    const handleOverlaySubmit = async (e: FormEvent, shortPosts: Partial<ShortPosts>[]) => {
         e.preventDefault()
 
         const postData: Partial<CreatePost> = {
@@ -46,25 +46,27 @@ export const useCommonPost = (isFreeForm: boolean) => {
             const processedContent = await processContentImages(formData.content || "")
             postData.content = processedContent
         } else {
-            const processedContentArray = await Promise.all(
-                quillEditors.map(editor => processContentImages(editor.content)),
-            )
-            postData.shortPosts = processedContentArray.map((content, index) => ({
+            const processedShortPosts = shortPosts.map(post => ({
+                content: post.content || "",
+            }))
+
+            postData.shortPosts = processedShortPosts.map((post, index) => ({
                 shortPostId: index,
-                content,
+                ...post,
                 address: selectedAddress!,
             }))
-        }
-        try {
-            const newPost = await postPost(postData)
-            const updatedPosts = [newPost, ...posts]
-            setPosts(updatedPosts)
-            resetFormData()
-            setIsRouterOverlayOpen(true)
-            setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
-        } catch {
-            setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
-            setIsFailModalOpen(true)
+
+            try {
+                const newPost = await postPost(postData)
+                const updatedPosts = [newPost, ...posts]
+                setPosts(updatedPosts)
+                resetFormData()
+                setIsRouterOverlayOpen(true)
+                setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
+            } catch {
+                setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
+                setIsFailModalOpen(true)
+            }
         }
     }
 

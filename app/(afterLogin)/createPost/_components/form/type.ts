@@ -1,9 +1,17 @@
-import { CreatePost } from "@/utils/type"
+import { CreatePost, ShortPosts } from "@/utils/type"
 
 export type FormSelectionProps = {
     formText?: string
     postDetail?: CreatePost
     handleInputChange?: <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => void
+}
+
+export type AddressSelectionProps = {
+    formText?: string
+    postDetail?: CreatePost
+    handleInputChange?: (index: number, field: keyof ShortPosts, value: string) => void
+    index: number
+    address?: string
 }
 
 export type FormSelectorProps = {
@@ -13,6 +21,7 @@ export type FormSelectorProps = {
     postDetail?: CreatePost
     isThemeOpen?: boolean
     isTheme?: boolean
+    isAddress?: boolean
 }
 
 export type FormBtnProps = {

@@ -22,6 +22,7 @@ const SelectedTheme = () => {
 
     useEffect(() => {
         setThemes(themes)
+        setSelectedTheme(themes)
     }, [themes, setSelectedTheme])
 
     return (
@@ -29,10 +30,10 @@ const SelectedTheme = () => {
             {ThemeKeys.map(key => (
                 <Button
                     key={key}
-                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 ${
+                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 border-[1px] border-BRAND-30 ${
                         themes.includes(key)
                             ? "bg-BRAND-30 text-SYSTEM-white"
-                            : "border-[1px] border-BRAND-50 hover:bg-BRAND-30 hover:text-SYSTEM-white"
+                            : "hover:bg-BRAND-30 hover:text-SYSTEM-white"
                     }`}
                     onClick={() => handleSelectedTheme(key)}
                 >

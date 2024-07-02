@@ -11,10 +11,11 @@ import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommonPostProps } from "./type"
+import AddressSelection from "./editor/addressSelection"
 
 const CommonPost = ({
     isFreeForm,
-    quillEditors,
+    shortPosts,
     handleDeleteQuillEditor,
     handleEditorInputChange,
     handleAddMemoClick,
@@ -37,7 +38,8 @@ const CommonPost = ({
                 <UploadOverlay
                     isOverlayOpen={isOverlayOpen}
                     setIsOverlayOpen={setIsOverlayOpen}
-                    handleOverlaySubmit={e => handleOverlaySubmit(e, quillEditors)}
+                    handleOverlaySubmit={handleOverlaySubmit}
+                    shortPosts={shortPosts}
                 />
                 <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full font-pretendard"}`}>
                     <UpperSelection
@@ -46,22 +48,33 @@ const CommonPost = ({
                         handleInputChange={handleInputChange}
                     />
                     {isFreeForm ? (
-                        <QuillEditor
-                            index={0}
-                            isFreeForm={isFreeForm}
-                            postDetail={formData}
-                            handleInputChange={handleInputChange}
-                        />
+                        <>
+                            <AddressSelection index={0} postDetail={formData} />
+                            <QuillEditor
+                                index={0}
+                                isFreeForm={isFreeForm}
+                                postDetail={formData}
+                                handleInputChange={handleInputChange}
+                            />
+                        </>
                     ) : (
                         <>
+                            <AddressSelection index={0} postDetail={formData} />
                             <QuillEditor
                                 index={0}
                                 postDetail={formData}
                                 handleDeleteQuillEditor={handleDeleteQuillEditor}
                                 handleInputChange={(field, value) => handleInputChange(field, value)}
                             />
-                            {quillEditors.map((_, index) => (
+                            {shortPosts.map((post, index) => (
                                 <div key={index + 1}>
+                                    <AddressSelection
+                                        index={index + 1}
+                                        address={post.address ?? ""}
+                                        handleInputChange={(index, field, value) =>
+                                            handleEditorInputChange && handleEditorInputChange(index, field, value)
+                                        }
+                                    />
                                     <QuillEditor
                                         index={index}
                                         handleDeleteQuillEditor={() =>
@@ -69,7 +82,7 @@ const CommonPost = ({
                                         }
                                         handleEditorInputChange={
                                             handleEditorInputChange
-                                                ? (_, value) => handleEditorInputChange(index + 1, value)
+                                                ? (_, value) => handleEditorInputChange(index + 1, "content", value)
                                                 : undefined
                                         }
                                         postDetail={formData}
@@ -79,7 +92,7 @@ const CommonPost = ({
                         </>
                     )}
                     <ThemeSelection postDetail={formData} />
-                    {quillEditors && handleAddMemoClick && (
+                    {shortPosts && handleAddMemoClick && (
                         <div
                             onClick={handleAddMemoClick}
                             className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"

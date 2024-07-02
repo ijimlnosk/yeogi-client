@@ -36,6 +36,7 @@ export type SelectedAddressProps = {
     isOpen: boolean
     onClick: (address: string) => void
     setIsOpen: (isOpen: boolean) => void
+    onSelect?: (address: string) => void
 }
 
 export type address = {
