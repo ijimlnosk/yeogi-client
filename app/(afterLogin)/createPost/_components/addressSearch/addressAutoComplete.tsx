@@ -58,14 +58,14 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
                 placeholder="주소를 입력하세요"
                 className="w-full px-2 border-2 outline-none"
             />
-            <ul className="autocomplete-results border-2 p-2 whitespace-nowrap overflow-hidden">
+            <ul className="autocomplete-results">
                 {predictions.map(prediction => (
                     <li
                         key={prediction.place_id}
                         onClick={() => handleSelectPrediction(prediction.place_id, prediction.description)}
-                        className="p-1 hover:bg-GREY-30 hover:cursor-pointer"
+                        className=" hover:text-BRAND-50 hover:cursor-pointer p-2"
                     >
-                        {removeCountryAddress(prediction.description)}
+                        <span className="hover-scroll-text">{removeCountryAddress(prediction.description)}</span>
                     </li>
                 ))}
             </ul>
