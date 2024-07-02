@@ -1,5 +1,3 @@
-import React from "react"
-
 /**
  * @function
  * @param {string} description - 전체 주소 설명
