@@ -47,12 +47,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
             setModifiedContent(modifiedContent)
-        }
-        if (post.shortPosts) {
-            const modifiedShortPost = processShortPost(post.shortPosts)
+        } else if (post.shortPostList && shortContentRef.current) {
+            const modifiedShortPost = processShortPost(post.shortPostList)
             setModifiedShortPost(modifiedShortPost)
         }
-    }, [post.content, post.shortPosts])
+    }, [post.content, post.shortPostList])
 
     return (
         <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
@@ -87,7 +86,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         className="custom-content "
                     />
                 )}
-                {post.shortPosts?.map((post: ShortPosts, index: number) => (
+                {post.shortPostList?.map((post: ShortPosts, index: number) => (
                     <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
                             ref={shortContentRef}

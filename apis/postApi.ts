@@ -1,8 +1,8 @@
 import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
-import { getDefaultPost } from "@/utils/resetFormData"
 import { fetchFormAPI } from "@/utils/fetchFormAPI"
+import { getDefaultPost } from "@/utils/resetFormData"
 
 const POST_API_URL = "/posts"
 
@@ -116,7 +116,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Creat
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
-        themeList: editedPost.themeList || undefined,
+        themeList: editedPost.themeList || [],
         address: editedPost.address || "",
     }
 }

@@ -29,7 +29,6 @@ export const useCommonPost = (isFreeForm: boolean) => {
 
     const handleOverlaySubmit = async (e: FormEvent, shortPosts: Partial<ShortPosts>[]) => {
         e.preventDefault()
-
         const postData: Partial<CreatePost> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
@@ -39,34 +38,37 @@ export const useCommonPost = (isFreeForm: boolean) => {
             content: "",
             shortPosts: [],
             address: selectedAddress!,
-            themeList: selectedTheme || undefined,
+            themeList: selectedTheme || [],
         }
-
-        if (isFreeForm) {
-            const processedContent = await processContentImages(formData.content || "")
-            postData.content = processedContent
-        } else {
-            const processedShortPosts = shortPosts.map(post => ({
-                content: post.content || "",
-            }))
-
-            postData.shortPosts = processedShortPosts.map((post, index) => ({
-                shortPostId: index,
-                ...post,
-                address: selectedAddress!,
-            }))
-
-            try {
-                const newPost = await postPost(postData)
-                const updatedPosts = [newPost, ...posts]
-                setPosts(updatedPosts)
-                resetFormData()
-                setIsRouterOverlayOpen(true)
-                setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
-            } catch {
-                setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
-                setIsFailModalOpen(true)
+        try {
+            if (isFreeForm) {
+                const processedContent = await processContentImages(formData.content!)
+                postData.content = processedContent
+            } else {
+                const processedShortPosts = await Promise.all(
+                    shortPosts.map(async post => {
+                        const processedContent = await processContentImages(post.content!)
+                        return {
+                            content: processedContent,
+                            address: selectedAddress!,
+                        }
+                    }),
+                )
+                postData.shortPosts = processedShortPosts.map(post => ({
+                    ...post,
+                }))
             }
+
+            const newPost = await postPost(postData)
+            const updatedPosts = [newPost, ...posts]
+            setPosts(updatedPosts)
+            resetFormData()
+            setIsRouterOverlayOpen(true)
+            setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
+        } catch {
+            resetFormData()
+            setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
+            setIsFailModalOpen(true)
         }
     }
 

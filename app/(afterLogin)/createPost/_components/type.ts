@@ -9,6 +9,6 @@ export type CommonPostProps = {
     isFreeForm: boolean
     shortPosts: Partial<ShortPosts>[]
     handleDeleteQuillEditor?: (index: number) => void
-    handleEditorInputChange?: (index: number, field: keyof ShortPosts, value: string) => void
+    handleEditorInputChange?: (index: number, value: string) => void
     handleAddMemoClick?: () => void
 }

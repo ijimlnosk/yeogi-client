@@ -41,7 +41,7 @@ const CommonPost = ({
                     handleOverlaySubmit={handleOverlaySubmit}
                     shortPosts={shortPosts}
                 />
-                <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full font-pretendard"}`}>
+                <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full"}`}>
                     <UpperSelection
                         formText={isFreeForm ? "자유롭게 " : "간단하게 "}
                         postDetail={formData}
@@ -59,30 +59,23 @@ const CommonPost = ({
                         </>
                     ) : (
                         <>
-                            <AddressSelection index={0} postDetail={formData} />
-                            <QuillEditor
-                                index={0}
-                                postDetail={formData}
-                                handleDeleteQuillEditor={handleDeleteQuillEditor}
-                                handleInputChange={(field, value) => handleInputChange(field, value)}
-                            />
                             {shortPosts.map((post, index) => (
-                                <div key={index + 1}>
+                                <div key={index}>
                                     <AddressSelection
-                                        index={index + 1}
+                                        index={index}
                                         address={post.address ?? ""}
-                                        handleInputChange={(index, field, value) =>
-                                            handleEditorInputChange && handleEditorInputChange(index, field, value)
+                                        handleInputChange={(index, value) =>
+                                            handleEditorInputChange && handleEditorInputChange(index, value)
                                         }
                                     />
                                     <QuillEditor
                                         index={index}
                                         handleDeleteQuillEditor={() =>
-                                            handleDeleteQuillEditor && handleDeleteQuillEditor(index + 1)
+                                            handleDeleteQuillEditor && handleDeleteQuillEditor(index)
                                         }
                                         handleEditorInputChange={
                                             handleEditorInputChange
-                                                ? (_, value) => handleEditorInputChange(index + 1, "content", value)
+                                                ? (index, value) => handleEditorInputChange(index, value)
                                                 : undefined
                                         }
                                         postDetail={formData}

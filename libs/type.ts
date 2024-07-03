@@ -8,7 +8,7 @@ export type SelectionState = {
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: ThemeProps | ThemeProps[] | undefined
+    selectedTheme: ThemeProps | ThemeProps[] | []
     selectedAddress: string | null
     setSelectedContinent: (continent: Continent | null) => void
     setSelectedCountry: (country: string | null) => void

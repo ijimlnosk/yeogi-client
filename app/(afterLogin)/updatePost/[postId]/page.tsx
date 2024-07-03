@@ -45,7 +45,7 @@ const UpdatePostPage = () => {
     return (
         <CommonPost
             isFreeForm={formData.content ? true : false}
-            quillEditors={quillEditors}
+            shortPosts={quillEditors}
             handleDeleteQuillEditor={handleDeleteQuillEditorWrapper}
             handleEditorInputChange={handleEditorInputChangeWrapper}
             handleAddMemoClick={handleAddMemoClickWrapper}
