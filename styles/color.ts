@@ -4,6 +4,7 @@ export const COLORS = {
         white: "#fff",
         beige: "#F6F2EE",
         bone: "#EADCCE",
+        else: "#F7EDE0",
         error: "#E81A1A",
     },
     GREY: {
