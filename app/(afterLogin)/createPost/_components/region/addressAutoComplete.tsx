@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { AddressAutoCompleteProps } from "./type"
 import "@/styles/google-search.css"
+import Image from "next/image"
 import { removeCountryAddress } from "./address.util"
 import { initializeAutocomplete, loadGoogleMapsScript } from "@/utils/googleMapsUtils"
 
@@ -51,12 +52,15 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
     }
 
     return (
-        <div className="w-[400px]">
+        <div className="relative w-[400px]">
+            <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
+                <Image src={"/icons/search.svg"} alt="search_icon" width={24} height={24} />
+            </div>
             <input
                 type="text"
                 ref={inputRef}
                 placeholder="주소를 입력하세요"
-                className="w-full px-2 border-2 outline-none"
+                className="block border w-[400px] h-[48px] p-2 ps-14 bg-GREY-10 rounded-lg  outline-none focus:ring-transparent focus:ring-0 focus:border-SYSTEM-none "
             />
             <ul className="autocomplete-results">
                 {predictions.map(prediction => (

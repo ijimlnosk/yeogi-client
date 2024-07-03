@@ -6,6 +6,7 @@ import "@/styles/editor-content.css"
 import { QuillEditorProps } from "./type"
 import { useEffect, useMemo, useState } from "react"
 import { getFormats, getModules } from "./reactQuill"
+import Image from "next/image"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -22,7 +23,7 @@ export const QuillEditor = ({
     useEffect(() => {
         if (isFreeForm && postDetail?.content !== undefined) {
             setValue(postDetail.content)
-        } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index] !== undefined) {
+        } else if (!isFreeForm && index !== undefined && postDetail?.shortPosts?.[index - 1] !== undefined) {
             setValue(postDetail.shortPosts[index].content)
         }
     }, [postDetail, isFreeForm, index])
@@ -46,12 +47,12 @@ export const QuillEditor = ({
     return (
         <div className="quill-editor-wrapper my-4">
             <div className="relative top-10 w-[940px] flex justify-end">
-                {!isFreeForm && (
+                {!isFreeForm && index !== -1 && (
                     <button
                         onClick={handleDeleteClick}
-                        className="w-[30px] h-[30px] bg-SYSTEM-white text-GREY-50 rounded-full"
+                        className="absolute -top-3 right-16 w-[30px] h-[30px] flex items-center justify-center hover:border-[2px] rounded-full hover:border-GREY-30 transition-all duration-100"
                     >
-                        x
+                        <Image width={20} height={20} src="/icons/grey-trash.svg" alt="delete button" />
                     </button>
                 )}
             </div>

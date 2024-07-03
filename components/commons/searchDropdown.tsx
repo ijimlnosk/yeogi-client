@@ -20,7 +20,8 @@ const SearchDropdown = () => {
     const selectedThemeKey = selectedThemeIndex !== null ? ThemeEntries[selectedThemeIndex][0] : ""
 
     const handleSearchClick = async () => {
-        setSelectedTheme(selectedThemeKey as ThemeProps)
+        const themeKey = selectedThemeKey as ThemeProps
+        setSelectedTheme(themeKey)
     }
 
     return (

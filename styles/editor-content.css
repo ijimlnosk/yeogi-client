@@ -5,7 +5,7 @@
 
 /* editor common style */
 .quill-editor {
-    @apply bg-SYSTEM-white w-[900px] mt-1 rounded-xl shadow-lg;
+    @apply bg-SYSTEM-white w-[900px] mt-1 rounded-xl shadow-sm;
   }
   
 .quill-editor .ql-snow {

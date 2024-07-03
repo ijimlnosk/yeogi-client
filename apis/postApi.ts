@@ -1,8 +1,8 @@
 import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
-import { getDefaultPost } from "@/utils/resetFormData"
 import { fetchFormAPI } from "@/utils/fetchFormAPI"
+import { getDefaultPost } from "@/utils/resetFormData"
 
 const POST_API_URL = "/posts"
 
@@ -28,7 +28,11 @@ export const getPost = async ({ searchType, searchString, sortCondition, theme }
     } else {
         queryParams.append("postSearchType", searchType.toUpperCase())
         queryParams.append("postSortCondition", sortCondition.toUpperCase())
-        queryParams.append("theme", theme.toUpperCase())
+        if (Array.isArray(theme)) {
+            theme.forEach(t => queryParams.append("theme", t.toUpperCase()))
+        } else {
+            queryParams.append("theme", theme.toUpperCase())
+        }
     }
 
     if (searchString) queryParams.append("searchString", searchString)
@@ -82,7 +86,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<CreatePost
         continent: editedPost.continent || "아시아",
         region: editedPost.region || "",
         address: editedPost.address || "",
-        theme: editedPost.theme || undefined,
+        themeList: editedPost.themeList || undefined,
     }
 }
 
@@ -112,7 +116,7 @@ export const putMemoPost = async (shortPostId: number, editedPost: Partial<Creat
         likeCount: data.likeCount,
         viewCount: data.viewCount,
         createdAt: data.createdAt,
-        theme: editedPost.theme || undefined,
+        themeList: editedPost.themeList || [],
         address: editedPost.address || "",
     }
 }

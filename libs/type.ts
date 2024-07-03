@@ -1,6 +1,6 @@
 import { ThemeProps } from "@/app/_components/type"
 import { Continent } from "@/constants/continents"
-import { CreatePost, DetailPost } from "@/utils/type"
+import { CreatePost, ShortPosts } from "@/utils/type"
 import { Dayjs } from "dayjs"
 
 export type SelectionState = {
@@ -8,23 +8,23 @@ export type SelectionState = {
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: ThemeProps | undefined
+    selectedTheme: ThemeProps | ThemeProps[] | []
     selectedAddress: string | null
     setSelectedContinent: (continent: Continent | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
-    setSelectedTheme: (theme: ThemeProps) => void
+    setSelectedTheme: (themeList: ThemeProps | ThemeProps[] | undefined) => void
     setSelectedAddress: (address: string) => void
 }
 
 export type FormState = {
     formData: CreatePost
     posts: CreatePost[]
-    quillEditors: Array<{ content: string }>
+    quillEditors: ShortPosts[]
     setFormData: (data: CreatePost) => void
     setPosts: (posts: CreatePost[]) => void
-    setQuillEditors: (editors: Array<{ content: string }>) => void
+    setQuillEditors: (editors: ShortPosts[]) => void
     resetFormData: () => void
 }
 

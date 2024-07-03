@@ -1,12 +1,11 @@
 export const getModules = () => ({
     toolbar: [
-        [{ font: ["font-pretendard", "font-myeongjo"] }],
-        [{ header: [1, 2] }, { header: false }],
-        [{ list: "ordered" }, { list: "bullet" }],
+        [{ font: [] }],
+        [{ header: [1, 2] }],
+        [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
         ["bold", "italic", "underline", "strike", "blockquote"],
         [{ align: [] }],
         ["link", "image"],
-        ["clean"],
     ],
 })
 

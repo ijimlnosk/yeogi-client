@@ -7,7 +7,7 @@ export const useSelectionStore = create<SelectionState>(set => ({
     selectedCountry: null,
     startDate: null,
     endDate: null,
-    selectedTheme: undefined,
+    selectedTheme: [],
     selectedAddress: "",
     setSelectedContinent: continent => set({ selectedContinent: continent }),
     setSelectedCountry: country => set({ selectedCountry: country }),
@@ -24,7 +24,9 @@ export const useFormDataStore = create<FormState>(set => ({
     setFormData: data => set({ formData: data }),
     setPosts: posts => set({ posts }),
     setQuillEditors: editors => set({ quillEditors: editors }),
-    resetFormData: () => set({ formData: initialFormData, quillEditors: [] }),
+    resetFormData: () => {
+        set({ formData: initialFormData, quillEditors: [] })
+    },
 }))
 
 export const usePostDataStore = create<PostDataState>(set => ({

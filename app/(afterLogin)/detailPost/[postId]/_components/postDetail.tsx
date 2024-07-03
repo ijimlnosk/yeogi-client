@@ -47,12 +47,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
             setModifiedContent(modifiedContent)
-        }
-        if (post.shortPosts) {
-            const modifiedShortPost = processShortPost(post.shortPosts)
+        } else if (post.shortPostList && shortContentRef.current) {
+            const modifiedShortPost = processShortPost(post.shortPostList)
             setModifiedShortPost(modifiedShortPost)
         }
-    }, [post.content, post.shortPosts])
+    }, [post.content, post.shortPostList])
 
     return (
         <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
@@ -87,7 +86,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         className="custom-content "
                     />
                 )}
-                {post.shortPosts?.map((post: ShortPosts, index: number) => (
+                {post.shortPostList?.map((post: ShortPosts, index: number) => (
                     <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
                             ref={shortContentRef}
@@ -99,7 +98,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
             </div>
             <div className="   h-[59px] border-t-[1px] pl-[750px] border-GREY-30  flex items-center ">
                 <p className="text-SYSTEM-black text-sm">기록한 여행의 컨셉 :</p>
-                <span className="text-BRAND-50 text-sm font-bold ml-[30px]"> # {post.theme}</span>
+                <span className="text-BRAND-50 text-sm font-bold ml-[30px]"> # {post.themeList}</span>
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ import { SelectedAddressProps, address } from "./type"
 import { useSelectionStore } from "@/libs/store"
 import AddressAutoComplete from "./addressAutoComplete"
 
-const SelectedAddress = ({ isOpen, onClick, setIsOpen }: SelectedAddressProps) => {
+const SelectedAddress = ({ isOpen, onClick, setIsOpen, onSelect }: SelectedAddressProps) => {
     const [, setSearchTerm] = useState<string>("")
     const [, setSelectLocation] = useState<{ lat: number; lng: number } | null>(null)
     const { selectedAddress, setSelectedAddress } = useSelectionStore()
@@ -25,6 +25,9 @@ const SelectedAddress = ({ isOpen, onClick, setIsOpen }: SelectedAddressProps) =
         setSearchTerm(address.formatted_address)
         setSelectLocation({ lat: address.lat, lng: address.lng })
         setSelectedAddress(address.formatted_address)
+        if (onSelect) {
+            onSelect(address.formatted_address)
+        }
     }
 
     return (
