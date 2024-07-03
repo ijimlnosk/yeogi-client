@@ -88,7 +88,7 @@ const CommonPost = ({
                     {shortPosts && handleAddMemoClick && (
                         <div
                             onClick={handleAddMemoClick}
-                            className="w-[900px] h-[48px] my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
+                            className="w-[900px] h-12 my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
                         >
                             <Image width={24} height={24} src={AddMemoIcon} alt="add memo icon" />
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>

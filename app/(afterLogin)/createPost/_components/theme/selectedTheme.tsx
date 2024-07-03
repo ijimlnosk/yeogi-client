@@ -26,7 +26,7 @@ const SelectedTheme = () => {
     }, [themes, setSelectedTheme])
 
     return (
-        <div className="flex flex-row w-full h-[80px] justify-start items-center px-6 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">
+        <div className="flex flex-row w-full h-20 justify-start items-center px-6 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">
             {ThemeKeys.map(key => (
                 <Button
                     key={key}
