@@ -1,5 +1,6 @@
 import RecommendText from "@/app/_components/recommendText"
 import SurveyIntroForm from "./_components/surveyIntro"
+import MainSurveyRecommend from "@/app/_components/mainSurveyRecommend"
 
 const Survey = () => {
     return (
@@ -15,7 +16,7 @@ const Survey = () => {
             </div>
             <div className="w-[1680px] h-[1000px] flex justify-between items-center">
                 <div className="flex flex-col justify-start">
-                    <RecommendText />
+                    <MainSurveyRecommend />
                 </div>
                 <div>
                     <SurveyIntroForm />
