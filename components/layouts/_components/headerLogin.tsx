@@ -1,12 +1,7 @@
 import Link from "next/link"
-import { UserInfoProps } from "../type"
 import Image from "next/image"
 import ProtectedLink from "@/components/protectedLink"
-
-export type HeaderLoginProps = {
-    isLoggedIn: boolean
-    userInfo: UserInfoProps | undefined
-}
+import { HeaderLoginProps } from "./type"
 
 const HeaderLogin = ({ isLoggedIn, userInfo }: HeaderLoginProps) => {
     return (
@@ -28,7 +23,7 @@ const HeaderLogin = ({ isLoggedIn, userInfo }: HeaderLoginProps) => {
                     )}
                 </Link>
             ) : (
-                <div className="min-w-[48px] min-h-[27px]">
+                <div className="min-w-12 min-h-[27px]">
                     <ProtectedLink href="/auth">로그인</ProtectedLink>
                 </div>
             )}

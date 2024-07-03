@@ -3,11 +3,7 @@
 import SearchBar from "@/components/commons/searchBar"
 import Image from "next/image"
 import { useState } from "react"
-
-export type HeaderSearchBarProps = {
-    isSearchBarClicked: boolean
-    setIsSearchBarClicked: (isSearchBarClicked: boolean) => void
-}
+import { HeaderSearchBarProps } from "./type"
 
 const HeaderSearchBar = ({ isSearchBarClicked, setIsSearchBarClicked }: HeaderSearchBarProps) => {
     const [, setSearchKeyword] = useState<string>("")

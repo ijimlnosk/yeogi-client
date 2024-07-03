@@ -5,7 +5,7 @@ import RecommendText from "./recommendText"
 import { useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 
-const MainRecommend = () => {
+const MainSurveyRecommend = () => {
     const router = useRouter()
     const videoRef = useRef<HTMLDivElement | null>(null)
 
@@ -61,4 +61,4 @@ const MainRecommend = () => {
         </div>
     )
 }
-export default MainRecommend
+export default MainSurveyRecommend
