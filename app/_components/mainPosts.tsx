@@ -6,8 +6,10 @@ import { Post } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
 import { filterPosts } from "@/utils/filterPosts"
 import dynamic from "next/dynamic"
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useEffect, useMemo, useState } from "react"
 import { SortConditionType } from "./type"
+import { SkeletonCard } from "@/components/commons/skeleton"
+import { debounce } from "lodash"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
@@ -17,6 +19,13 @@ const MainPosts = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")
     const [sortCondition, setSortCondition] = useState<SortConditionType>("RECENT")
 
+    const debouncedSearchKeyword = useMemo(
+        () =>
+            debounce((keyword: string) => {
+                setSearchKeyword(keyword)
+            }, 1000),
+        [],
+    )
     const { data: posts, refetch } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
         queryFn: () => getPost({ searchType: "CONTENT", searchString: searchKeyword, sortCondition: sortCondition }),
@@ -43,7 +52,7 @@ const MainPosts = () => {
         <div className="w-full h-fit min-h-[600px] pt-[90px] pb-[134px] px-[120px] flex flex-col items-center">
             <div className="flex justify-center items-center w-full">
                 <Searchbar
-                    onChange={e => setSearchKeyword(e.target.value)}
+                    onChange={e => debouncedSearchKeyword(e.target.value)}
                     text="찾고 싶은 여행 기록을 검색하세요."
                     size="lg"
                 />
@@ -52,11 +61,9 @@ const MainPosts = () => {
                 <SortDropdown />
             </div>
             <div>
-                {filteredPosts && (
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <SearchResults posts={filteredPosts} />
-                    </Suspense>
-                )}
+                <Suspense fallback={<SkeletonCard />}>
+                    <SearchResults posts={filteredPosts} />
+                </Suspense>
             </div>
             {/* <Pagination totalPages={Math.ceil(filteredPosts.length) / 8} /> */}
         </div>
