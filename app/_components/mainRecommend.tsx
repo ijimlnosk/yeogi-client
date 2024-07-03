@@ -3,8 +3,10 @@
 import Button from "@/components/commons/button"
 import RecommendText from "./recommendText"
 import { useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 
 const MainRecommend = () => {
+    const router = useRouter()
     const videoRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
@@ -41,7 +43,13 @@ const MainRecommend = () => {
         <div className="w-full h-[1000px] flex justify-evenly items-center" ref={videoRef}>
             <div className="flex flex-col justify-start">
                 <RecommendText />
-                <Button background={"black"} textColor={"white"} rounded={"xl"} className="w-[190px] h-12">
+                <Button
+                    onClick={() => router.push("/survey")}
+                    background={"black"}
+                    textColor={"white"}
+                    rounded={"xl"}
+                    className="w-[190px] h-12"
+                >
                     취향 검사하러 가기
                 </Button>
             </div>
