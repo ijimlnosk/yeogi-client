@@ -11,6 +11,7 @@ import ProtectedLink from "../protectedLink"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { getUserInfo } from "@/apis/userApi"
 import { UserInfoProps } from "./type"
+import { useRouter } from "next/navigation"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
@@ -19,6 +20,7 @@ const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [userInfo, setUserInfo] = useState<UserInfoProps | undefined>()
     const [, setSearchKeyword] = useState<string>("")
+    const [activePage, setActivePage] = useState<string>("/")
 
     const handleScroll = () => {
         if (typeof window !== "undefined") {
@@ -30,6 +32,13 @@ const Header = () => {
             }
             setLastScrollY(window.scrollY)
         }
+    }
+
+    const router = useRouter()
+
+    const handleClick = (page: string) => {
+        router.push(page)
+        setActivePage(page)
     }
 
     const handleKeyword = (keyword: string) => {
@@ -73,13 +82,21 @@ const Header = () => {
                                 alt="yeogi logo"
                             />
                         </Link>
-                        <nav className="ml-8 hidden md:block w-[96px] h-[18px]">
-                            <Link
-                                href="/community"
-                                className="text-SYSTEM-black font-bold text-xs xl:text-sm  w-[84px] h-[18px]"
-                            >
-                                커뮤니티
-                            </Link>
+                        <nav className="hidden md:block">
+                            <ul className="w-full h-20  ml-8 flex justify-evenly items-center">
+                                <li
+                                    onClick={() => handleClick("/")}
+                                    className={`text-SYSTEM-black font-bold text-xs xl:text-sm  w-fit px-6 py-8 ${activePage === "/" && "border-b-2 border-SYSTEM-black"}`}
+                                >
+                                    커뮤니티
+                                </li>
+                                <li
+                                    onClick={() => handleClick("/survey")}
+                                    className={`text-SYSTEM-black font-bold text-xs xl:text-sm  w-fit px-6 py-8 ${activePage === "/survey" && "border-b-2 border-SYSTEM-black"}`}
+                                >
+                                    내 취향 찾기
+                                </li>
+                            </ul>
                         </nav>
                     </div>
                     <div className="flex items-center">
@@ -143,12 +160,6 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-            {/* {isOverlayOpen && (
-                <Overlay isOpen={isOverlayOpen} onClick={() => handleOverlay(false)} rounded="lg">
-                    {formType === "signin" && <AuthForm />}
-                    {formType === "signup" && <SignupForm />}
-                </Overlay>
-            )} */}
         </>
     )
 }
