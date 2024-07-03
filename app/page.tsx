@@ -3,12 +3,14 @@
 import MainDesc from "./_components/mainDesc"
 import MainIntro from "./_components/mainIntro"
 import MainPosts from "./_components/mainPosts"
+import MainSurveyRecommend from "./_components/mainSurveyRecommend"
 import MainThemeBanner from "./_components/mainThemeBanner"
 
 const Home = () => {
     return (
         <main className=" overflow-x-hidden">
             <MainIntro />
+            <MainSurveyRecommend />
             <MainDesc />
             <MainThemeBanner />
             <MainPosts />
