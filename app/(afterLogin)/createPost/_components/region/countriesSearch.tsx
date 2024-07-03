@@ -10,11 +10,11 @@ import useCountrySearch from "@/hook/useCountrySearch"
 import { useSelectionStore } from "@/libs/store"
 import { CountrySearchProps } from "./type"
 
-const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchProps) => {
+const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: CountrySearchProps) => {
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [selectedCountry, setSelectedCountry] = useState<string>("")
-    const results = useCountrySearch({ countriesByContinent, searchTerm, selectedContinent })
 
+    const results = useCountrySearch({ countriesByContinent, searchTerm, selectedContinent })
     const setSelectedCountryStore = useSelectionStore(state => state.setSelectedCountry)
 
     const handleCountryClick = (country: string) => {
@@ -27,6 +27,7 @@ const CountriesSearch = ({ isOpen, onSelect, selectedContinent }: CountrySearchP
         }
         if (onSelect) {
             onSelect(selectedCountry)
+            setNextStep(false)
         }
     }
 
