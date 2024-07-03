@@ -37,11 +37,11 @@ const UpperSelection = ({ formText, postDetail, handleInputChange }: FormSelecti
                     postDetail={postDetail}
                 />
             </div>
-            <div className="relative w-full h-[80px] mb-[15px]">
+            <div className="relative w-full h-20 mb-[15px]">
                 {handleInputChange && (
                     <input
                         type="text"
-                        className="rounded-xl p-8 w-full h-[80px] bg-SYSTEM-white outline-none placeholder:text-GREY-80 "
+                        className="rounded-xl p-8 w-full h-20 bg-SYSTEM-white outline-none placeholder:text-GREY-80"
                         placeholder="제목을 입력하세요."
                         value={postDetail?.title || ""}
                         onChange={e => handleInputChange("title", e.target.value)}

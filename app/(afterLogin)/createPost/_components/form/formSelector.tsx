@@ -21,7 +21,7 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme,
     return (
         <button
             onClick={onClick}
-            className={`p-8 min-w-[440px]  bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isAddress ? "h-[59px] rounded-[192px] border-[1px] border-GREY-20" : "h-[80px]"} ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
+            className={`p-8 min-w-[440px]  bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow ${isAddress ? "h-[59px] rounded-[192px] border-[1px] border-GREY-20" : "h-20"} ${isThemeOpen ? "rounded-t-xl " : "rounded-xl"}`}
         >
             {state === "continent" && (
                 <TextDisplay condition={!!continent && !!country} texts={[continent!, country!]} label={label} />
