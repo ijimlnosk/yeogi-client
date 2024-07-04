@@ -2,7 +2,7 @@ import { CreatePost, Post } from "@/utils/type"
 import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
-import { fetchFormAPI } from "@/utils/fetchFormAPI"
+import { fetchFormAPI, fetchFormAPINotToken } from "@/utils/fetchFormAPI"
 
 const POST_API_URL = "/posts"
 
@@ -33,7 +33,7 @@ export const getPost = async ({ searchType, searchString, sortCondition, theme }
 
     if (searchString) queryParams.append("searchString", searchString)
 
-    const response = await fetchFormAPI(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
+    const response = await fetchFormAPINotToken(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
     const data = await response.json()
     return data
 }
@@ -137,7 +137,7 @@ export const getPostDetail = async (postId: number): Promise<CreatePost> => {
     if (!POST_API_URL) {
         throw new Error("api url error")
     }
-    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "GET" })
+    const response = await fetchFormAPINotToken(POST_API_URL, `posts/${postId}`, { method: "GET" })
 
     if (!response.ok) {
         throw new Error("response not ok")
