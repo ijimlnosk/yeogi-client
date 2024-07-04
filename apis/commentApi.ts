@@ -1,5 +1,5 @@
 import { postCommentResponse } from "@/hook/type"
-import { fetchFormAPI } from "../utils/fetchFormAPI"
+import { fetchFormAPI, fetchFormAPINotToken } from "../utils/fetchFormAPI"
 import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
 
 const API_URL = "/comments"
@@ -27,7 +27,7 @@ export const postComment = async ({ content, postId }: postCommentProps) => {
  * @description 특정 게시글 댓글 가져오는 API
  */
 export const getComment = async ({ postId }: getCommentProps) => {
-    const response = await fetchFormAPI(API_URL, `comments/${postId}`, { method: "GET" })
+    const response = await fetchFormAPINotToken(API_URL, `comments/${postId}`, { method: "GET" })
     const data = await response.json()
     return data
 }
