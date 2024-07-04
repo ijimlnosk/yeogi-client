@@ -3,7 +3,7 @@ import { RecommendedTextFieldsType } from "./type"
 export const RecommendedTextFields: RecommendedTextFieldsType[] = [
     {
         theme: "REST",
-        title: "",
+        title: "몸과 마음의 휴식이 필요해!",
         travelType: "휴식 여행",
     },
     {
@@ -13,12 +13,12 @@ export const RecommendedTextFields: RecommendedTextFieldsType[] = [
     },
     {
         theme: "HOT_PLACE",
-        title: "",
+        title: "시끌 벅적, 사람이 좋아!",
         travelType: "인기명소 여행",
     },
     {
         theme: "SHOPPING",
-        title: "",
+        title: "어머, 이건 사야지!",
         travelType: "쇼핑 여행",
     },
     {
@@ -28,17 +28,17 @@ export const RecommendedTextFields: RecommendedTextFieldsType[] = [
     },
     {
         theme: "SIGHTSEEING",
-        title: "",
+        title: "여긴 꼭 가야해!",
         travelType: "관광명소 여행",
     },
     {
         theme: "PACKAGE",
-        title: "",
+        title: "시간이 금! 여행도 알차게!",
         travelType: "패키지 여행",
     },
     {
         theme: "LUXURY",
-        title: "",
+        title: "여행을 위해 돈을 번다!",
         travelType: "초호화 여행",
     },
     {
