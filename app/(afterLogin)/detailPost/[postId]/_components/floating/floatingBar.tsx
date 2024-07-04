@@ -4,10 +4,15 @@ import useFloatingBarHandler from "@/hook/useFloatingBarHandler"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
 import { useState } from "react"
+import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
-    const { isActiveState, handleClick } = useFloatingBarHandler({ postId, post, setIconState })
+    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress } = useFloatingBarHandler({
+        postId,
+        post,
+        setIconState,
+    })
 
     return (
         <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
@@ -29,6 +34,7 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
                     링크가 클립보드에 복사되었습니다
                 </div>
             )}
+            <StillWorkingOverlay isOpen={isUpdateInProgress} onClick={handleModalClose} />
         </div>
     )
 }

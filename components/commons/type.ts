@@ -55,6 +55,12 @@ export type OverlayProps = {
     title?: string
     leftTextColor?: string
     rounded?: string
+    isStillWorkingModal?: boolean
+}
+
+export type StillWorkingOverlayProps = {
+    isOpen: boolean
+    onClick: () => void
 }
 
 export type SortButtonProps = {
