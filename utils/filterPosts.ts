@@ -10,7 +10,6 @@ import { chosungIncludes } from "es-hangul"
 import { Post } from "./type"
 
 export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
-    // if (!searchTerm) return []
 
     const term = searchTerm.toLowerCase()
 

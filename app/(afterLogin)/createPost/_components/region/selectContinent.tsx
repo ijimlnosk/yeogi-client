@@ -18,7 +18,7 @@ const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectCon
 
     const handleCountrySelect = (country: string) => {
         setSelectedCountry(country)
-        setNextStep(false)
+        // setNextStep(false)
     }
 
     const handleSelectClick = () => {
@@ -62,6 +62,7 @@ const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectCon
                     isOpen={nextStep}
                     selectedContinent={selectedContinent}
                     onSelect={handleCountrySelect}
+                    setNextStep={setNextStep}
                 />
             )}
         </>

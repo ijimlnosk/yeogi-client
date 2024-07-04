@@ -2,17 +2,13 @@
 
 import { useState } from "react"
 import FormSelector from "./formSelector"
-import { FormInputsProps } from "./type"
+import { FormSelectionProps } from "./type"
 import SelectedContinent from "../region/selectContinent"
 import SelectCalendar from "../calendar/selectCalendar"
-import SelectedTheme from "../theme/selectedTheme"
-import SelectedAddress from "../addressSearch/selectedAddress"
 
-const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps) => {
+const UpperSelection = ({ formText, postDetail, handleInputChange }: FormSelectionProps) => {
     const [isContinentOpen, setIsContinentOpen] = useState(false)
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-    const [isThemeOpen, setIsThemeOpen] = useState(false)
-    const [isAddressOpen, setIsAddressOpen] = useState(false)
     const [nextStep, setNextStep] = useState<boolean>(false)
 
     const handleSelectContinent = () => {
@@ -41,29 +37,16 @@ const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps
                     postDetail={postDetail}
                 />
             </div>
-            <div className="flex mb-5">
-                <FormSelector
-                    onClick={() => setIsThemeOpen(true)}
-                    label="여행의 테마를 정해주세요."
-                    state={"theme"}
-                    postDetail={postDetail}
-                />
-                <div className="mr-5" />
-                <FormSelector
-                    onClick={() => setIsAddressOpen(true)}
-                    label="다녀왔던 장소를 입력하세요."
-                    state={"address"}
-                    postDetail={postDetail}
-                />
-            </div>
-            <div className="relative w-full h-[80px] mb-[15px]">
-                <input
-                    type="text"
-                    className="rounded-xl p-8 w-full h-[80px] bg-SYSTEM-white outline-none placeholder:text-GREY-80 "
-                    placeholder="제목을 입력하세요."
-                    value={postDetail?.title || ""}
-                    onChange={e => handleInputChange("title", e.target.value)}
-                />
+            <div className="relative w-full h-20 mb-[15px]">
+                {handleInputChange && (
+                    <input
+                        type="text"
+                        className="rounded-xl p-8 w-full h-20 bg-SYSTEM-white outline-none placeholder:text-GREY-80"
+                        placeholder="제목을 입력하세요."
+                        value={postDetail?.title || ""}
+                        onChange={e => handleInputChange("title", e.target.value)}
+                    />
+                )}
             </div>
             <SelectedContinent
                 isOpen={isContinentOpen}
@@ -72,14 +55,8 @@ const FormInputs = ({ formText, postDetail, handleInputChange }: FormInputsProps
                 onClick={handleSelectContinent}
             />
             <SelectCalendar isOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(!isCalendarOpen)} />
-            <SelectedTheme isOpen={isThemeOpen} onClick={() => setIsThemeOpen(!isThemeOpen)} />
-            <SelectedAddress
-                isOpen={isAddressOpen}
-                setIsOpen={setIsAddressOpen}
-                onClick={() => setIsAddressOpen(!isAddressOpen)}
-            />
         </div>
     )
 }
 
-export default FormInputs
+export default UpperSelection

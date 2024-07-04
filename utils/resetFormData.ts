@@ -1,7 +1,7 @@
 import { CreatePost } from "./type"
 
 export const getDefaultPost = (): CreatePost => ({
-    postId: -1,
+    postId: 0,
     continent: "",
     region: "",
     author: "",
@@ -14,5 +14,5 @@ export const getDefaultPost = (): CreatePost => ({
     tripEndDate: "",
     tripStartDate: "",
     address: "",
-    theme: undefined,
+    themeList: [],
 })

@@ -2,7 +2,6 @@
 
 import clsx from "clsx"
 import Image from "next/image"
-import searchIcon from "@/public/icons/searchbar.svg"
 import { SearchBarProps } from "./type"
 import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -48,7 +47,13 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
         <form className="max-w-auto mx-auto" onSubmit={handleSubmit}>
             <div className="relative">
                 <div className="absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                    <Image width={24} height={24} src={searchIcon} className="w-auto h-auto" alt="search_icon" />
+                    <Image
+                        width={24}
+                        height={24}
+                        src={"icons/searchbar.svg"}
+                        className="w-auto h-auto"
+                        alt="search_icon"
+                    />
                 </div>
                 <div>
                     <input
@@ -57,7 +62,9 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         className={clsx(
                             "block border p-2 ps-14 border-none outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
-                            isFocused ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0" : "rounded-[81px]",
+                            size === "lg" && isFocused
+                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
+                                : "rounded-[81px]",
                         )}
                         placeholder={text}
                         onChange={handleChange}
@@ -65,7 +72,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         autoComplete="off"
                     />
                 </div>
-                {isFocused && (
+                {size === "lg" && isFocused && (
                     <div ref={dropdownRef}>
                         <SearchDropdown />
                     </div>
