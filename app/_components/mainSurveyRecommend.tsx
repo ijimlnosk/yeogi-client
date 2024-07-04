@@ -55,7 +55,7 @@ const MainSurveyRecommend = () => {
             </div>
             <div className="w-[1052px] h-[740px] bg-[#F7EDE0] border-[3px] border-[#EADCCE] rounded-3xl flex justify-center items-center overflow-hidden">
                 <video autoPlay loop muted preload="auto" playsInline className="w-full">
-                    <source src="/video/recommendVideo_crop.mp4" type="video/mp4" />
+                    <source src="/video/recommendVideo.mp4" type="video/mp4" />
                 </video>
             </div>
         </div>
