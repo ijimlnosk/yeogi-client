@@ -36,6 +36,7 @@ const config: Config = {
                 PACKAGE: "url(/images/PACKAGE.svg)",
                 SUPER_LUXURY: "url(/images/SUPER_LUXURY.svg)",
                 COST_EFFECTIVENESS: "url(/images/COST_EFFECTIVENESS.svg)",
+                SURVEY_IMAGE: "url(/images/서브비주얼.svg)"
             },
             scale: {
                 "120": "1.2",
