@@ -6,11 +6,9 @@ import { StillWorkingOverlayProps } from "./type"
 import { useState } from "react"
 
 const StillWorkingOverlay = ({ isOpen, onClick }: StillWorkingOverlayProps) => {
-    if (!isOpen) return null
-
-    /* eslint-disable react-hooks/rules-of-hooks */
     const [isStillWorkingModal] = useState<boolean>(true)
 
+    if (!isOpen) return null
     return (
         <div>
             <Overlay
