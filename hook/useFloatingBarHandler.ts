@@ -22,6 +22,8 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = usePostDataStore()
 
+    const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
+
     useEffect(() => {
         if (scrollY <= 20) {
             setIsActiveState(prev => ({ ...prev, arrow: false }))
@@ -30,6 +32,15 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
             )
         }
     }, [scrollY, setIconState])
+
+    // 수정 중을 띄우기 위한 useEffect
+    useEffect(() => {
+        if (isActiveState.update) {
+            setIsUpdateInProgress(true)
+        } else {
+            setIsUpdateInProgress(false)
+        }
+    }, [isActiveState.update])
 
     const handleArrowClick = () => {
         setIsActiveState(prev => ({ ...prev, arrow: true }))
@@ -72,7 +83,8 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         if (postId && post) {
             setPostId(postId)
             setPostDetail(post)
-            router.push(`/updatePost/${postId}`)
+            // router.push(`/updatePost/${postId}`)
+            setIsActiveState(prev => ({ ...prev, update: true })) // 업데이트 활성 상태 설정, 추후 위 기능 활성화시키기
         }
     }
 
@@ -103,7 +115,11 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         }
     }
 
-    return { isActiveState, handleClick }
+    const handleModalClose = () => {
+        setIsActiveState(prev => ({ ...prev, update: false }))
+    }
+
+    return { isActiveState, handleClick, handleModalClose, isUpdateInProgress }
 }
 
 export default useFloatingBarHandler
