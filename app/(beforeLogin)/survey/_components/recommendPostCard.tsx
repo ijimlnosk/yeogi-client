@@ -4,6 +4,7 @@ import Image from "next/image"
 import { RecommendPostCardProps } from "./type"
 
 const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
+    // themes 배열의 각 요소에 대해 적절한 title과 travelType 찾기
     const recommendedDataList = themes.map(theme => {
         const recommendedData = RecommendedTextFields.find(data => data.theme === theme)
         return {
