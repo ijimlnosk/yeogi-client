@@ -99,11 +99,13 @@ const PostDetail = ({ post }: PostDetailProps) => {
             </div>
             <div className="w-full h-[59px] border-t-[1px] border-GREY-30 flex justify-end items-center">
                 <p className="text-SYSTEM-black text-sm">기록한 여행의 컨셉 :</p>
-                {((post.themeList as ThemeProps[]) || []).map((theme, index) => (
-                    <span key={index} className="text-BRAND-50 text-sm font-bold p-2">
-                        {`# ${theme}`}
-                    </span>
-                ))}
+                <p>
+                    {((post.themeList as ThemeProps[]) || []).map((theme, index) => (
+                        <span key={index} className="text-BRAND-50 text-sm font-bold p-2">
+                            {`#${theme}`}
+                        </span>
+                    ))}
+                </p>
             </div>
         </div>
     )

@@ -11,7 +11,7 @@ import { useState, useEffect } from "react"
  * @param {Post | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
  * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
  */
-export const useInitializeFormData = (postDetail: CreatePost | null) => {
+export const useInitializeFormData = (postDetail: CreatePost | null, isUpdateActive?: boolean) => {
     const { setFormData, resetFormData } = useCreatePostStore()
     const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
 
@@ -27,7 +27,7 @@ export const useInitializeFormData = (postDetail: CreatePost | null) => {
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
         }
-    }, [postDetail, resetFormData, setFormData])
+    }, [postDetail, resetFormData, setFormData, isUpdateActive])
 
     return { quillEditors, setQuillEditors }
 }
@@ -53,6 +53,8 @@ export const useCommonUpdatePost = () => {
                     })) || []
                 setFormData(postDetail)
                 setQuillEditors(initialQuillEditors)
+            } else {
+                setQuillEditors([])
             }
         }, [postDetail, resetFormData, setFormData])
 
