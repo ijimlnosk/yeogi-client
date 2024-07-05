@@ -1,9 +1,14 @@
 import Image from "next/image"
 import { CountrySearchBarProps } from "./type"
+import { FormEvent } from "react"
 
 const CountrySearchBar = ({ text, onChange }: CountrySearchBarProps) => {
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault()
+    }
+
     return (
-        <form className="max-w-auto mx-auto">
+        <form className="max-w-auto mx-auto" onSubmit={handleSubmit}>
             <div className="relative ">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
                     <Image src={"/icons/search.svg"} alt="search_icon" width={24} height={24} />
@@ -16,6 +21,7 @@ const CountrySearchBar = ({ text, onChange }: CountrySearchBarProps) => {
                         placeholder={text}
                         required
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </div>
             </div>
