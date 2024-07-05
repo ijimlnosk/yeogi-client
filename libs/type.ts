@@ -74,3 +74,10 @@ export type CreateCommentState<> = {
     addComment: (newComment: CreateCommentProps) => void
     updateComment: (updateComment: CreateCommentProps) => void
 }
+
+export type ThemeState = {
+    showResult: boolean
+    setShowResult: (value: boolean) => void
+    topTags: ThemeProps[]
+    setTopTags: (tags: ThemeProps[]) => void
+}

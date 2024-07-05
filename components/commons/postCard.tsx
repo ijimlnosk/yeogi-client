@@ -5,8 +5,8 @@ import Image from "next/image"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
 import SampleProfile from "@/public/images/sampleProfile.svg"
-import ProtectedLink from "../protectedLink"
 import { formatISODateString } from "@/utils/formatDate"
+import Link from "next/link"
 
 const PostCard = ({
     post_id = 0,
@@ -21,7 +21,7 @@ const PostCard = ({
 }: PostCardProps) => {
     return (
         <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
-            <ProtectedLink href={`/detailPost/${post_id}`}>
+            <Link href={`/detailPost/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image
                     width={360}
@@ -48,7 +48,13 @@ const PostCard = ({
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
                         <div className="flex gap-[3px]">
-                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} className="w-[16px] h-[16px]" />
+                            <Image
+                                src={commentIcon}
+                                alt="comment_Icon"
+                                width={16}
+                                height={16}
+                                className="w-[16px] h-[16px]"
+                            />
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>
@@ -64,7 +70,7 @@ const PostCard = ({
                         <p className="text-SYSTEM-black text-xxs">{user_nickname}</p>
                     </div>
                 </div>
-            </ProtectedLink>
+            </Link>
         </div>
     )
 }

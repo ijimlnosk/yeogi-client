@@ -1,10 +1,15 @@
+"use client"
+
+import { useThemeStore } from "@/libs/themeStore"
+import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
-import SurveyResultForm from "./_components/surveyResult"
+import RecommendPostCard from "./_components/recommendPostCard"
 
 const Survey = () => {
+    const { showResult, topTags } = useThemeStore()
     return (
         <div className="w-full mb-[196px] flex flex-col justify-center items-center">
-            <div className="mx-5 w-[1880px] h-[500px] bg-SURVEY_IMAGE bg-cover bg-center flex items-center justify-center mb-[200px]">
+            <div className="mx-5 w-full h-[500px] bg-SURVEY_IMAGE bg-cover bg-center flex items-center justify-center mb-[200px]">
                 <div className="w-[662px] h-[176px]">
                     <p className="text-bg font-myeongjo text-center text-GREY-50 mb-4">Find My Style</p>
                     <p className=" font-myeongjo text-subTitle text-SYSTEM-black text-center h-[64px]">내 취향 찾기</p>
@@ -13,13 +18,16 @@ const Survey = () => {
                     </p>
                 </div>
             </div>
-            <div className="w-[1680px] h-[1000px] flex justify-between items-center">
-                <div className="flex flex-col justify-start">
-                    <SurveyRecommendText />
+            <div className="p-[120px] flex flex-col items-center justify-center ">
+                <div className="w-[80%] h-[1000px] grid gird-cols-1 4xl:grid-cols-2 justify-center items-center">
+                    <div className="flex flex-col justify-start">
+                        <SurveyRecommendText />
+                    </div>
+                    <div className=" flex justify-center 4xl:justify-start">
+                        <SurveyIntroForm />
+                    </div>
                 </div>
-                <div>
-                    <SurveyResultForm />
-                </div>
+                <div className="w-full">{showResult && <RecommendPostCard themes={topTags} />}</div>
             </div>
         </div>
     )
