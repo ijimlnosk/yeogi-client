@@ -23,6 +23,11 @@ const config: Config = {
                 polaroid: "3px 4px 18px 0 rgba(107, 68, 28, .27)",
                 "polaroid-hover": "3px 4px 22px 0 rgba(107, 68, 28, .1)",
             },
+            screens: {
+                "3xl": "1680px",
+                "4xl": "1850px",
+                "5xl": "1920px",
+            },
             extend: {},
             backgroundImage: {
                 "post-pattern": "url(/images/post-bg.svg)",
@@ -36,7 +41,7 @@ const config: Config = {
                 PACKAGE: "url(/images/PACKAGE.svg)",
                 SUPER_LUXURY: "url(/images/SUPER_LUXURY.svg)",
                 COST_EFFECTIVENESS: "url(/images/COST_EFFECTIVENESS.svg)",
-                SURVEY_IMAGE: "url(/images/서브비주얼.svg)"
+                SURVEY_IMAGE: "url(/images/서브비주얼.svg)",
             },
             scale: {
                 "120": "1.2",
