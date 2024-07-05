@@ -7,7 +7,7 @@ import Overlay from "@/components/commons/overlay"
 import Image from "next/image"
 import backIcon from "@/public/icons/white_arrow-left.svg"
 import useCountrySearch from "@/hook/useCountrySearch"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { CountrySearchProps } from "./type"
 
 const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: CountrySearchProps) => {
@@ -15,7 +15,7 @@ const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: C
     const [selectedCountry, setSelectedCountry] = useState<string>("")
 
     const results = useCountrySearch({ countriesByContinent, searchTerm, selectedContinent })
-    const setSelectedCountryStore = useSelectionStore(state => state.setSelectedCountry)
+    const setSelectedCountryStore = useCreatePostStore(state => state.setSelectedCountry)
 
     const handleCountryClick = (country: string) => {
         setSelectedCountry(country)

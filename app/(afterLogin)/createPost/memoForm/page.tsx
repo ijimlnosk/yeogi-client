@@ -1,17 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import CommonPost from "../_components/commonPost"
 import { ShortPosts } from "@/utils/type"
-import { useFormDataStore } from "@/libs/store"
 
 const Page = () => {
     const [shortPosts, setShortPosts] = useState<Partial<ShortPosts>[]>([])
-    const { resetFormData } = useFormDataStore()
-
-    useEffect(() => {
-        resetFormData()
-    }, [])
 
     const handleAddMemoClick = () => {
         setShortPosts([...shortPosts, { content: "", address: "" }])
@@ -39,5 +33,4 @@ const Page = () => {
         />
     )
 }
-
 export default Page

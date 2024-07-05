@@ -2,7 +2,7 @@
 
 import { getPost } from "@/apis/postApi"
 import SortDropdown from "@/components/commons/sortDropdown"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { filterPosts } from "@/utils/filterPosts"
 import { Post } from "@/utils/type"
 import dynamic from "next/dynamic"
@@ -14,7 +14,7 @@ const SearchResults = dynamic(() => import("@/components/commons/searchResults")
 const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("keyword") || ""
-    const { selectedTheme } = useSelectionStore()
+    const { selectedTheme } = useCreatePostStore()
     const [posts, setPosts] = useState<Post[]>([])
 
     useEffect(() => {

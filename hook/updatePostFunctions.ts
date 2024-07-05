@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormDataStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { CreatePost, Post, ShortPosts } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
@@ -12,7 +12,7 @@ import { useState, useEffect } from "react"
  * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
  */
 export const useInitializeFormData = (postDetail: CreatePost | null) => {
-    const { setFormData, resetFormData } = useFormDataStore()
+    const { setFormData, resetFormData } = useCreatePostStore()
     const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const useCommonUpdatePost = () => {
      * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
      */
     const useInitializeFormData = (postDetail: CreatePost | null) => {
-        const { setFormData, resetFormData } = useFormDataStore()
+        const { setFormData, resetFormData } = useCreatePostStore()
         const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
 
         useEffect(() => {

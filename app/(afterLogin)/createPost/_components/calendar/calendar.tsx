@@ -5,7 +5,7 @@ import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
 import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "./calendarUtils"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)
@@ -15,7 +15,7 @@ const Calendar = () => {
     const [isRange] = useState(true)
     const [currentDate, setCurrentDate] = useState(dayjs())
 
-    const { startDate, endDate, setStartDate, setEndDate } = useSelectionStore()
+    const { startDate, endDate, setStartDate, setEndDate } = useCreatePostStore()
 
     const days = generateDays(currentDate)
 

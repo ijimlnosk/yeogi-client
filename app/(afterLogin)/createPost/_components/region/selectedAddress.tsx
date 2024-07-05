@@ -3,13 +3,13 @@
 import { useState } from "react"
 import Overlay from "../form/formOverlay"
 import { SelectedAddressProps, address } from "./type"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import AddressAutoComplete from "./addressAutoComplete"
 
 const SelectedAddress = ({ isOpen, onClick, setIsOpen, onSelect }: SelectedAddressProps) => {
     const [, setSearchTerm] = useState<string>("")
     const [, setSelectLocation] = useState<{ lat: number; lng: number } | null>(null)
-    const { selectedAddress, setSelectedAddress } = useSelectionStore()
+    const { selectedAddress, setSelectedAddress } = useCreatePostStore()
 
     const handleSelectClick = () => {
         setIsOpen(false)

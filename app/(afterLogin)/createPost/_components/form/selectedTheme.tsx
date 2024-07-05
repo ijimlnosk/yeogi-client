@@ -1,14 +1,14 @@
 "use client"
 
 import Button from "@/components/commons/button"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { Theme } from "@/constants/theme"
 import { useEffect, useState } from "react"
 import { ThemeProps } from "@/app/_components/type"
 
 const SelectedTheme = () => {
     const [themes, setThemes] = useState<ThemeProps[]>([])
-    const { selectedTheme, setSelectedTheme } = useSelectionStore()
+    const { selectedTheme, setSelectedTheme } = useCreatePostStore()
 
     useEffect(() => {
         setThemes(selectedTheme)

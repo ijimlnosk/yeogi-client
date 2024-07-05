@@ -1,13 +1,13 @@
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { formatISODateString } from "@/utils/formatDate"
 import { FormSelectorProps } from "./type"
-import { TextDisplayProps } from "../overlay/type"
 import Image from "next/image"
 import { Theme } from "@/constants/theme"
+import TextDisplay from "./formTextDisplay"
 
 const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
-        useSelectionStore()
+        useCreatePostStore()
 
     const continent = postDetail?.continent || selectedContinent
     const country = postDetail?.region || selectedCountry
@@ -58,7 +58,6 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
                         />
                     )}
                     {state === "theme" && <TextDisplay condition={!!themes.length} texts={themes} label={label} />}
-
                     <span>
                         {isThemeOpen ? (
                             <p className="text-xs font-semibold text-BRAND-50">완료</p>
@@ -78,18 +77,3 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
     )
 }
 export default FormSelector
-
-export const TextDisplay = ({ condition, texts, label }: TextDisplayProps) => {
-    return condition ? (
-        <div className="text-BRAND-50">
-            {texts.map((text, index) => (
-                <span key={index}>
-                    {text}
-                    {index < texts.length - 1 && <span> / </span>}
-                </span>
-            ))}
-        </div>
-    ) : (
-        <div>{label}</div>
-    )
-}
