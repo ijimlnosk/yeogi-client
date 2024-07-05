@@ -5,12 +5,22 @@ import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
 import { formatISODateString } from "@/utils/formatDate"
 import { ShortPosts } from "@/utils/type"
+import { postViews } from "@/apis/postApi"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
     const shortContentRef = useRef<HTMLDivElement>(null)
     const [modifiedContent, setModifiedContent] = useState<string>("")
     const [modifiedShortPost, setModifiedShortPost] = useState<string[]>([])
+
+    const fetchViews = async () => {
+        await postViews(post.postId)
+    }
+
+    useEffect(() => {
+        console.log(post.postId, "postId")
+        fetchViews()
+    }, [post.postId])
 
     const wrapImagesWithDiv = (html: string): string => {
         const parser = new DOMParser()
