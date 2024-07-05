@@ -1,19 +1,7 @@
 import { TongBack, TongFront } from "@/constants/mainImages"
 import clsx from "clsx"
 import Image from "next/image"
-
-type PolaroidProps = {
-    step: string
-    src: { src: string; width: number; height: number }
-    alt: string
-    description: string
-    spanText: string
-    textColor: string
-    top: string
-    rotateFront?: string
-    rotateBack?: string
-    className?: string
-}
+import { PolaroidProps } from "./type"
 
 const Polaroid = ({
     step,
@@ -22,7 +10,6 @@ const Polaroid = ({
     description,
     spanText,
     textColor,
-    top,
     rotateFront,
     rotateBack,
     className,
@@ -32,23 +19,23 @@ const Polaroid = ({
             width={42}
             height={76}
             src={TongFront}
-            className={`w-auto h-auto absolute ${top} left-[166px] ${rotateFront} z-40`}
+            className={`w-auto h-auto absolute ml-[166px] ${rotateFront} z-30`}
             alt="나무 집게 앞면"
         />
         <Image
             width={34}
             height={71}
             src={TongBack}
-            className={`w-auto h-auto absolute ${top} left-[178px] ${rotateBack} z-[-2]`}
+            className={`w-auto h-auto ml-[178px] ${rotateBack} z-[-2]`}
             alt="나무 집게 뒷면"
         />
         <div
             className={clsx(
-                `w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] shadow-polaroid transition-transform duration-300 z-20`,
+                `relative top-[-30px] w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] shadow-polaroid transition-transform duration-300`,
                 className,
                 {
                     "hover:shadow-polaroid-hover": true,
-                    "hover:scale-120": true,
+                    "hover:scale-110": true,
                     "hover:z-100": true,
                     "hover:cursor-pointer": true,
                 },

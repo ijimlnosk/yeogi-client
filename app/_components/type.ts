@@ -10,3 +10,15 @@ export type ThemeProps =
     | "COST_SAVING"
 
 export type SortConditionType = "LIKES" | "VIEWS" | "RECENT"
+
+export type PolaroidProps = {
+    step: string
+    src: { src: string; width: number; height: number }
+    alt: string
+    description: string
+    spanText: string
+    textColor: string
+    rotateFront?: string
+    rotateBack?: string
+    className?: string
+}

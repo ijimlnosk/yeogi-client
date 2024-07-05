@@ -2,7 +2,7 @@ import { LeftGroup, RightGroup } from "./mainImages"
 
 const MainIntro = () => {
     return (
-        <div className="relative w-full flex flex-row mb-[181px]">
+        <div className="relative w-full h-fit flex flex-row mb-[181px]">
             <LeftGroup />
             <div className="absolute flex flex-col justify-center items-center w-full h-full z-10 top-[-14%] font-myeongjo">
                 <p className="text-xl text-GREY-80 opacity-50">Record Your Trip</p>

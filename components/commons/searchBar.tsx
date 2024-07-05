@@ -60,7 +60,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         type="search"
                         id="default-search"
                         className={clsx(
-                            "block border p-2 ps-14 border-none outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
+                            "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
                             size === "lg" && isFocused
                                 ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"

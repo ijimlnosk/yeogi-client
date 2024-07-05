@@ -2,8 +2,8 @@ import { Polaroids } from "./mainImages"
 
 const MainDesc = () => {
     return (
-        <div className="relative w-full h-[1190px]">
-            <div className="absolute flex flex-col justify-center items-center w-full pt-[174px] font-myeongjo">
+        <div className="relative w-full h-[980px] my-[200px]">
+            <div className="absolute w-full flex flex-col justify-center items-center font-myeongjo">
                 <p className="text-xl text-GREY-80 opacity-50 pb-[20px]">How to use YEOGI</p>
                 <p className="text-subTitle">
                     <span className="text-BRAND-50">여기</span>에 어떻게 기록하나요?

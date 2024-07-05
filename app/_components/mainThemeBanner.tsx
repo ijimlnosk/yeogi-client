@@ -17,7 +17,7 @@ const MainThemeBanner = () => {
 
     const ThemeEntries = Object.entries(ThemeBanner)
     return (
-        <div className="pt-[300px]">
+        <div className="py-[200px]">
             <div className="w-full flex flex-col justify-center items-center">
                 <p className="font-myeongjo text-bg text-GREY-50 py-4">Choose your trip style</p>
                 <p className="font-myeongjo text-[44px]">

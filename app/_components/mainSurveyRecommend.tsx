@@ -40,7 +40,7 @@ const MainSurveyRecommend = () => {
     }, [])
 
     return (
-        <div className="w-full h-[1000px] flex justify-evenly items-center" ref={videoRef}>
+        <div className="w-full max-w-[1920px] h-[1000px] flex justify-evenly items-center" ref={videoRef}>
             <div className="flex flex-col justify-start">
                 <RecommendText />
                 <Button

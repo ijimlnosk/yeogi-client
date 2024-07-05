@@ -4,18 +4,11 @@ import { getPost } from "@/apis/postApi"
 import Searchbar from "@/components/commons/searchBar"
 import { Post } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
-import { filterPosts } from "@/utils/filterPosts"
-import dynamic from "next/dynamic"
-import { Suspense, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { SortConditionType } from "./type"
-import { SkeletonCard } from "@/components/commons/skeleton"
 import { debounce } from "lodash"
 
-const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
-const SortDropdown = dynamic(() => import("@/components/commons/sortDropdown"), { ssr: false })
-/* const Pagination = dynamic(() => import("@/components/commons/pagination"), { ssr: false }) */
-
-const MainPosts = () => {
+const MainSearch = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")
     const [sortCondition, setSortCondition] = useState<SortConditionType>("RECENT")
 
@@ -46,27 +39,23 @@ const MainPosts = () => {
         refetch()
     }, [refetch, searchKeyword, sortCondition])
 
-    const filteredPosts = filterPosts(posts ?? [], searchKeyword)
-
     return (
-        <div className="w-full h-fit min-h-[600px] pt-[90px] pb-[134px] px-[120px] flex flex-col items-center">
-            <div className="flex justify-center items-center w-full">
+        <div className="my-[200px]">
+            <div className="w-[1880px] h-[800px] flex flex-col justify-center items-center bg-MAIN_SEARCH bg-center bg-cover bg-no-repeat rounded-3xl">
+                <div className="w-full flex flex-col justify-center items-center py-[6%]">
+                    <p className="text-GREY-20 text-bg font-myeongjo">Search your trip</p>
+                    <h1 className="text-SYSTEM-white text-[44px] pb-[2%]">
+                        찾고 계신 <span className="text-BRAND-10">여행 기록</span>이 있으신가요?
+                    </h1>
+                    <p className="text-SYSTEM-white text-bg">검색을 통해 기록을 찾고 마음껏 공유하세요.</p>
+                </div>
                 <Searchbar
                     onChange={e => debouncedSearchKeyword(e.target.value)}
                     text="찾고 싶은 여행 기록을 검색하세요."
                     size="lg"
                 />
             </div>
-            <div className="w-[1682px] flex justify-end my-8">
-                <SortDropdown />
-            </div>
-            <div>
-                <Suspense fallback={<SkeletonCard />}>
-                    <SearchResults posts={filteredPosts} />
-                </Suspense>
-            </div>
-            {/* <Pagination totalPages={Math.ceil(filteredPosts.length) / 8} /> */}
         </div>
     )
 }
-export default MainPosts
+export default MainSearch
