@@ -17,13 +17,19 @@ import {
 export const LeftGroup = () => {
     return (
         <div className="flex flex-row relative items-start w-[70%] top-[10%]">
-            <Image width={135} height={786} src={Travel01} className="w-auto h-auto" alt="travel image" />
-            <Image width={450} height={665} src={Travel02} className="w-auto h-auto pt-[2%]" alt="travel image" />
+            <Image width={135} height={786} src={Travel01} className="w-auto h-auto xl:hidden" alt="travel image" />
+            <Image
+                width={450}
+                height={665}
+                src={Travel02}
+                className="w-auto h-auto pt-[2%] xl:relative xl:right-[32%]"
+                alt="travel image"
+            />
             <Image
                 width={525}
                 height={340}
                 src={Travel03}
-                className="w-auto h-auto absolute left-[42%] bottom-0"
+                className="w-auto h-auto absolute left-[42%] bottom-0  xl:left-[18%]"
                 alt="travel image"
             />
             <Image
@@ -39,7 +45,7 @@ export const LeftGroup = () => {
 
 export const RightGroup = () => {
     return (
-        <div className="flex flex-col relative w-[30%]">
+        <div className="flex flex-col relative w-[30%] xl:left-[6%]">
             <Image
                 width={215}
                 height={335}
@@ -69,7 +75,7 @@ export const Polaroids = () => {
     return (
         <div className="w-full h-[980px] pt-[40px] flex items-center justify-center">
             <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" />
-            <div className="absolute w-[1680px] h-[600px] top-[29%] flex flex-row items-center justify-between">
+            <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] top-[29%] xl:top-[20%] flex flex-row items-center justify-between">
                 <div>
                     <Polaroid
                         step="STEP 01"

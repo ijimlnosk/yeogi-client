@@ -10,7 +10,7 @@ import SearchDropdown from "./searchDropdown"
 const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({
         "w-[222px] h-[48px] text-sm text-SYSTEM-black": size === "sm",
-        "w-[850px] h-[70px] text-bg text-SYSTEM-black": size === "lg",
+        "w-[850px] h-[70px] xl:w-[740px] xl:h-[52px] text-bg text-SYSTEM-black": size === "lg",
     })
 
     const router = useRouter()
@@ -50,7 +50,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         width={24}
                         height={24}
                         src={"icons/searchbar.svg"}
-                        className="w-auto h-auto"
+                        className="w-auto h-auto xl:w-5 xl:h-5"
                         alt="search_icon"
                     />
                 </div>
@@ -59,7 +59,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         type="search"
                         id="default-search"
                         className={clsx(
-                            "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
+                            "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10 xl:text-sm",
                             sizeClasses,
                             size === "lg" && isFocused
                                 ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
