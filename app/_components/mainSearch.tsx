@@ -11,6 +11,7 @@ import { debounce } from "lodash"
 const MainSearch = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")
     const [sortCondition, setSortCondition] = useState<SortConditionType>("RECENT")
+    const [isFocused, setIsFocused] = useState<boolean>(false)
 
     const debouncedSearchKeyword = useMemo(
         () =>
@@ -41,10 +42,16 @@ const MainSearch = () => {
 
     return (
         <div className="my-[200px]">
-            <div className="w-[1880px] h-[800px] flex flex-col justify-center items-center bg-MAIN_SEARCH bg-center bg-cover bg-no-repeat rounded-3xl">
-                <div className="w-full flex flex-col justify-center items-center py-[6%]">
+            <div
+                className={`w-[1880px] h-[800px] flex flex-col bg-MAIN_SEARCH bg-center bg-cover bg-no-repeat rounded-3xl transition-all duration-[1000ms] ease-in-out delay-75 ${isFocused ? "" : "justify-center items-center"}`}
+            >
+                <div
+                    className={`w-full flex flex-col items-center py-12 transition-transform duration-[300ms] ease-in-out ${
+                        isFocused ? "-translate-y-1" : "translate-y-0"
+                    }`}
+                >
                     <p className="text-GREY-20 text-bg font-myeongjo">Search your trip</p>
-                    <h1 className="text-SYSTEM-white text-[44px] pb-[2%]">
+                    <h1 className="text-SYSTEM-white text-[44px] pb-[2%] font-myeongjo">
                         찾고 계신 <span className="text-BRAND-10">여행 기록</span>이 있으신가요?
                     </h1>
                     <p className="text-SYSTEM-white text-bg">검색을 통해 기록을 찾고 마음껏 공유하세요.</p>
@@ -53,6 +60,8 @@ const MainSearch = () => {
                     onChange={e => debouncedSearchKeyword(e.target.value)}
                     text="찾고 싶은 여행 기록을 검색하세요."
                     size="lg"
+                    isFocused={isFocused}
+                    setIsFocused={setIsFocused}
                 />
             </div>
         </div>

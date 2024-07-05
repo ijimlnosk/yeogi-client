@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import SearchDropdown from "./searchDropdown"
 
-const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
+const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({
         "w-[222px] h-[48px] text-sm text-SYSTEM-black": size === "sm",
         "w-[850px] h-[70px] text-bg text-SYSTEM-black": size === "lg",
@@ -15,7 +15,6 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
 
     const router = useRouter()
     const [keyword, setKeyword] = useState<string>("")
-    const [isFocused, setIsFocused] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -72,8 +71,14 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         autoComplete="off"
                     />
                 </div>
-                {size === "lg" && isFocused && (
-                    <div ref={dropdownRef}>
+                {size === "lg" && (
+                    <div
+                        ref={dropdownRef}
+                        className={clsx(
+                            "transition-all duration-[300ms] transform",
+                            isFocused ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-0",
+                        )}
+                    >
                         <SearchDropdown />
                     </div>
                 )}
