@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormDataStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { CreatePost, Post, ShortPosts } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
@@ -11,8 +11,8 @@ import { useState, useEffect } from "react"
  * @param {Post | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
  * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
  */
-export const useInitializeFormData = (postDetail: CreatePost | null) => {
-    const { setFormData, resetFormData } = useFormDataStore()
+export const useInitializeFormData = (postDetail: CreatePost | null, isUpdateActive?: boolean) => {
+    const { setFormData, resetFormData } = useCreatePostStore()
     const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export const useInitializeFormData = (postDetail: CreatePost | null) => {
             setFormData(postDetail)
             setQuillEditors(initialQuillEditors)
         }
-    }, [postDetail, resetFormData, setFormData])
+    }, [postDetail, resetFormData, setFormData, isUpdateActive])
 
     return { quillEditors, setQuillEditors }
 }
@@ -39,7 +39,7 @@ export const useCommonUpdatePost = () => {
      * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
      */
     const useInitializeFormData = (postDetail: CreatePost | null) => {
-        const { setFormData, resetFormData } = useFormDataStore()
+        const { setFormData, resetFormData } = useCreatePostStore()
         const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
 
         useEffect(() => {
@@ -53,6 +53,8 @@ export const useCommonUpdatePost = () => {
                     })) || []
                 setFormData(postDetail)
                 setQuillEditors(initialQuillEditors)
+            } else {
+                setQuillEditors([])
             }
         }, [postDetail, resetFormData, setFormData])
 

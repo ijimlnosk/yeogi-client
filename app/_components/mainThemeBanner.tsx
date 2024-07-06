@@ -1,18 +1,18 @@
 "use client"
 
 import { ThemeBanner, ThemeBannerContext } from "@/constants/theme"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { ThemeProps } from "./type"
 
 const MainThemeBanner = () => {
     const router = useRouter()
-    const { setSelectedTheme } = useSelectionStore()
+    const { setSelectedTheme } = useCreatePostStore()
 
     const handleClickTheme = (key: string) => {
         router.push(`/search`)
-        setSelectedTheme(key as ThemeProps)
+        setSelectedTheme([key as ThemeProps])
     }
 
     const ThemeEntries = Object.entries(ThemeBanner)

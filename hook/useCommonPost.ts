@@ -1,7 +1,7 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { useFormDataStore, usePostDataStore, useSelectionStore } from "@/libs/store"
+import { useCreatePostStore, usePostDataStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { processContentImages } from "@/utils/commonFormUtils"
 import { useMapStore } from "@/libs/pinStore"
@@ -15,10 +15,21 @@ export const useCommonPost = (isFreeForm: boolean) => {
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
     const [, setIsSubmitted] = useState(false)
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme } =
-        useSelectionStore()
+    const {
+        selectedContinent,
+        selectedCountry,
+        startDate,
+        endDate,
+        selectedAddress,
+        selectedTheme,
+        formData,
+        setFormData,
+        posts,
+        setPosts,
+        resetFormData,
+        resetAll,
+    } = useCreatePostStore()
     const { postId, postDetail } = usePostDataStore()
-    const { formData, setFormData, posts, setPosts, resetFormData } = useFormDataStore()
     const { quillEditors } = useInitializeFormData(postDetail)
     const updatePostMutation = useUpdateFreePost()
     const { handleUpdatePost } = useCommonUpdatePost()
@@ -63,10 +74,12 @@ export const useCommonPost = (isFreeForm: boolean) => {
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)
             resetFormData()
+            resetAll()
             setIsRouterOverlayOpen(true)
             setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
         } catch {
             resetFormData()
+            resetAll()
             setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
             setIsFailModalOpen(true)
         }
@@ -102,6 +115,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
         posts,
         setPosts,
         resetFormData,
+        resetAll,
         handleSubmitEditedPost,
     }
 }

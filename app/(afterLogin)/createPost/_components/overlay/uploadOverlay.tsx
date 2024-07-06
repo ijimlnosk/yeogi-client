@@ -7,13 +7,12 @@ import { useState } from "react"
 import { UploadOverlayProps } from "./type"
 import ThumbnailUploader from "./thumbnailUploader"
 import PreviewPostCard from "./previewPostcard"
-import { useFormDataStore, useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 
 const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit, shortPosts }: UploadOverlayProps) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [isPreviewVisible, setIsPreviewVisible] = useState(false)
-    const { selectedContinent } = useSelectionStore()
-    const { formData } = useFormDataStore()
+    const { selectedContinent, formData } = useCreatePostStore()
 
     const handleComplete = (selectedImage: string | null) => {
         setSelectedImage(selectedImage)

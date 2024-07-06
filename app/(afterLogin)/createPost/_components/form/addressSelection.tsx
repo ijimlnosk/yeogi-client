@@ -7,7 +7,6 @@ import SelectedAddress from "../region/selectedAddress"
 
 const AddressSelection = ({ index, postDetail, handleInputChange }: AddressSelectionProps) => {
     const [isAddressOpen, setIsAddressOpen] = useState<boolean>(false)
-    const [isAddress] = useState<boolean>(true)
 
     const handleAddressSelect = (address: string) => {
         if (handleInputChange) {
@@ -24,7 +23,6 @@ const AddressSelection = ({ index, postDetail, handleInputChange }: AddressSelec
                     label="상세 주소를 검색하세요."
                     state={"address"}
                     postDetail={postDetail}
-                    isAddress={isAddress}
                 />
             </div>
             <SelectedAddress

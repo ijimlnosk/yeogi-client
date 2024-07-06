@@ -5,12 +5,12 @@ import { Continent } from "@/constants/continents"
 import { useState } from "react"
 import Button from "@/components/commons/button"
 import CountriesSearch from "./countriesSearch"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { selectContinentProps } from "./type"
 
 const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectContinentProps) => {
     const [strContinent] = useState<string>("")
-    const { selectedContinent, setSelectedContinent, setSelectedCountry } = useSelectionStore()
+    const { selectedContinent, setSelectedContinent, setSelectedCountry } = useCreatePostStore()
 
     const handleContinentSelect = (continent: Continent) => {
         setSelectedContinent(continent)

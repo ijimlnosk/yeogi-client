@@ -3,7 +3,7 @@
 import { useState } from "react"
 import FormSelector from "./formSelector"
 import { FormSelectionProps } from "./type"
-import SelectedTheme from "../theme/selectedTheme"
+import SelectedTheme from "./selectedTheme"
 
 const ThemeSelection = ({ postDetail }: FormSelectionProps) => {
     const [isThemeOpen, setIsThemeOpen] = useState<boolean>(false)

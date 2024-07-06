@@ -4,24 +4,25 @@ import { useState } from "react"
 import { Theme } from "@/constants/theme"
 import SearchDropdownMap from "./searchDropdownMap"
 import { Continent } from "@/constants/continents"
-import { useSelectionStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/store"
 import { ThemeProps } from "@/app/_components/type"
 
 const SearchDropdown = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
     const [selectedThemeIndex, setSelectedThemeIndex] = useState<number | null>(null)
-    const { setSelectedTheme } = useSelectionStore()
+    const { setSelectedTheme } = useCreatePostStore()
 
     const ContinentEntries = Object.entries(Continent)
     const ThemeEntries = Object.entries(Theme)
 
     const selectedContinent = selectedContinentIndex !== null ? ContinentEntries[selectedContinentIndex][1] : ""
     const selectedTheme = selectedThemeIndex !== null ? ThemeEntries[selectedThemeIndex][1] : ""
-    const selectedThemeKey = selectedThemeIndex !== null ? ThemeEntries[selectedThemeIndex][0] : ""
 
     const handleSearchClick = async () => {
-        const themeKey = selectedThemeKey as ThemeProps
-        setSelectedTheme(themeKey)
+        if (selectedTheme) {
+            const themeProp: ThemeProps = selectedTheme as ThemeProps
+            setSelectedTheme([themeProp])
+        }
     }
 
     return (
