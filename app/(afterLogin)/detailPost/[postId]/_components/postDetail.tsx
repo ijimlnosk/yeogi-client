@@ -18,7 +18,6 @@ const PostDetail = ({ post }: PostDetailProps) => {
     }
 
     useEffect(() => {
-        console.log(post.postId, "postId")
         fetchViews()
     }, [post.postId])
 

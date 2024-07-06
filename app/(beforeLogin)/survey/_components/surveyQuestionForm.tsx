@@ -18,7 +18,7 @@ const SurveyQuestionForm = () => {
     return (
         <div className="w-[894px] h-[750px] flex flex-col items-center overflow-hidden relative">
             <div
-                className="w-[calc(100% + 20px)] h-full flex transition-transform duration-500"
+                className="w-[calc(100% + 20px)] h-full flex transition-transform duration-1000"
                 style={{ transform: `translateX(calc(${-currentIndex * 100}% - ${currentIndex * 20}px))` }}
             >
                 {surveyArr.map((question, index) => (
@@ -29,13 +29,13 @@ const SurveyQuestionForm = () => {
                                 <p className="font-semibold text-xl pb-6">다음 중 더 선호하는 취향을 골라주세요.</p>
                             </div>
                             <div
-                                className={`choice cursor-pointer w-[530px] h-[88px]  rounded-lg flex items-center justify-start hover:border-BRAND-50 hover:text-BRAND-50 ${choices.choices[index] === 0 ? "bg-BRAND-05 border-2 border-BRAND-50" : " border-[1px] border-GREY-30"}`}
+                                className={`choice cursor-pointer w-[530px] h-[88px]  rounded-lg flex items-center justify-start hover:border-BRAND-50  ${choices.choices[index] === 0 ? "bg-BRAND-05 border-2 border-BRAND-50" : " border-[1px] border-GREY-30"}`}
                                 onClick={() => handleChoice(index, 0)}
                             >
                                 <p className="px-6">{question.choice1.title}</p>
                             </div>
                             <div
-                                className={`choice mt-2 cursor-pointer w-[530px] h-[88px] rounded-lg flex items-center justify-start hover:border-BRAND-50 hover:text-BRAND-50 ${choices.choices[index] === 1 ? "bg-BRAND-05 border-2 border-BRAND-50" : "border-[1px] border-GREY-30"}`}
+                                className={`choice mt-2 cursor-pointer w-[530px] h-[88px] rounded-lg flex items-center justify-start hover:border-BRAND-50  ${choices.choices[index] === 1 ? "bg-BRAND-05 border-2 border-BRAND-50" : "border-[1px] border-GREY-30"}`}
                                 onClick={() => handleChoice(index, 1)}
                             >
                                 <p className="px-6">{question.choice2.title}</p>

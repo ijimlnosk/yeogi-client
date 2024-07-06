@@ -16,8 +16,7 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                 const popularPosts = await getPopular(themes)
                 setPosts(popularPosts)
             } catch (error) {
-                console.error("Failed to fetch popular posts:", error)
-                setError("Failed to fetch popular posts")
+                setError("popular posts 불러오기 실패")
             }
         }
 
@@ -85,7 +84,7 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                                             created_At={post.createdAt}
                                         />
                                     ) : (
-                                        <div className="py-[178px] px-[80px] bg-[#ffffff92]  rounded-[24px]">
+                                        <div className="py-[178px] px-[80px] bg-[#ffffff92]  rounded-3xl">
                                             해당 테마의 데이터가 없습니다.
                                         </div>
                                     )
