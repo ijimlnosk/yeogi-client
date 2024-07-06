@@ -17,26 +17,32 @@ import {
 export const LeftGroup = () => {
     return (
         <div className="flex flex-row relative items-start w-[70%] top-[10%]">
-            <Image width={135} height={786} src={Travel01} className="w-auto h-auto xl:hidden" alt="travel image" />
+            <Image
+                width={135}
+                height={786}
+                src={Travel01}
+                className="w-auto h-auto 2xl:visible invisible"
+                alt="travel image"
+            />
             <Image
                 width={450}
                 height={665}
                 src={Travel02}
-                className="w-auto h-auto pt-[2%] xl:relative xl:right-[32%]"
+                className="w-auto h-auto pt-[2%] relative 2xl:right-0 xl:right-[40%] md:right-[50%] sm:right-[96%]"
                 alt="travel image"
             />
             <Image
                 width={525}
                 height={340}
                 src={Travel03}
-                className="w-auto h-auto absolute left-[42%] bottom-0  xl:left-[18%]"
+                className="w-auto h-auto absolute 2xl:left-[36%] bottom-0 xl:left-[18%] md:left-[0] sm:right-[40%]"
                 alt="travel image"
             />
             <Image
                 width={315}
                 height={392}
                 src={Stamp03}
-                className="w-[315px] h-[392px] absolute bottom-[-30%] -z-10"
+                className="w-[315px] h-[392px] absolute bottom-[-30%] -z-10 sm:right-[60%]"
                 alt="travel stamp"
             />
         </div>
@@ -45,7 +51,7 @@ export const LeftGroup = () => {
 
 export const RightGroup = () => {
     return (
-        <div className="flex flex-col relative w-[30%] xl:left-[6%]">
+        <div className="flex flex-col relative w-[30%] 2xl:left-0 xl:left-[6%] md:left-[8%] sm:left-[12%]">
             <Image
                 width={215}
                 height={335}
@@ -73,9 +79,9 @@ export const RightGroup = () => {
 
 export const Polaroids = () => {
     return (
-        <div className="w-full h-[980px] pt-[40px] flex items-center justify-center">
+        <div className="w-full h-[980px] pt-[40px] flex items-center justify-center invisible sm:visible">
             <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" />
-            <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] top-[29%] xl:top-[20%] flex flex-row items-center justify-between">
+            <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] lg:w-[1000px] md:min-w-[720px] sm:min-w-[600px] top-[29%] xl:top-[20%] md:top-[18%] flex flex-row items-center justify-between">
                 <div>
                     <Polaroid
                         step="STEP 01"
