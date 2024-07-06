@@ -1,8 +1,9 @@
-import { getRandomQuestion } from "@/app/(beforeLogin)/survey/_components/surveyForm/getRandomQuestion"
-import { calculateTopTags } from "@/app/(beforeLogin)/survey/_components/surveyForm/survey.util"
+import { getRandomQuestion } from "@/app/(beforeLogin)/survey/_components/getRandomQuestion"
+import { calculateTopTags } from "@/app/(beforeLogin)/survey/_components/survey.util"
 import { SurveyQuestion } from "@/data/surveyQuestion"
 import { SurveyOption } from "@/data/type"
-import { useState } from "react"
+import { useThemeStore } from "@/libs/themeStore"
+import { useEffect, useState } from "react"
 
 export const useSurvey = () => {
     const surveyArr: SurveyOption[] = (() => {
@@ -21,6 +22,13 @@ export const useSurvey = () => {
         tags: Array(5).fill([]),
     })
 
+    const { setTopTags } = useThemeStore()
+
+    useEffect(() => {
+        const topTags = calculateTopTags(choices.tags)
+        setTopTags(topTags)
+    }, [choices.tags, setTopTags])
+  
     const handleNext = () => {
         setCurrentIndex(prev => prev + 1)
     }
@@ -41,8 +49,6 @@ export const useSurvey = () => {
         setChoices({ choices: newChoices, tags: newTags })
         handleNext()
     }
-
-    const topTags = calculateTopTags(choices.tags)
 
     return {
         surveyArr,
