@@ -3,11 +3,14 @@
 import Button from "@/components/commons/button"
 import Image from "next/image"
 import { useSurvey } from "@/hook/useSurvey"
+import { useThemeStore } from "@/libs/themeStore"
 
 const SurveyQuestionForm = () => {
-    const { surveyArr, currentIndex, choices, topTags, handleChoice, handlePrev } = useSurvey()
+    const { surveyArr, currentIndex, choices, handleChoice, handlePrev } = useSurvey()
 
     const showResults = currentIndex >= surveyArr.length
+
+    const { topTags } = useThemeStore()
 
     if (showResults) {
         return (
