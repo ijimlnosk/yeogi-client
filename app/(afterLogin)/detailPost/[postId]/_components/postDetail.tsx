@@ -97,15 +97,21 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     </div>
                 ))}
             </div>
-            <div className="w-full h-[59px] border-t-[1px] border-GREY-30 flex justify-end items-center">
-                <p className="text-SYSTEM-black text-sm">기록한 여행의 컨셉 :</p>
-                <p>
+            <div
+                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeProps[]) || []).length > 7 ? "flex-col" : "flex-row"} justify-end`}
+            >
+                <span
+                    className={`w-fit text-SYSTEM-black text-sm ${((post.themeList as ThemeProps[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
+                >
+                    기록한 여행의 컨셉 :
+                </span>
+                <span className="px-2">
                     {((post.themeList as ThemeProps[]) || []).map((theme, index) => (
-                        <span key={index} className="text-BRAND-50 text-sm font-bold p-2">
+                        <span key={index} className="text-BRAND-50 text-sm font-bold p-1">
                             {`#${theme}`}
                         </span>
                     ))}
-                </p>
+                </span>
             </div>
         </div>
     )
