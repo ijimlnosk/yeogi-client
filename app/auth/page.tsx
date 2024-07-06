@@ -22,7 +22,7 @@ const AuthForm = () => {
     const router = useRouter()
 
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${K_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-    const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${G_REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
+    const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20profile&client_id=${G_REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
     const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${N_REST_API_KEY}&state=${naverState}&redirect_uri=${REDIRECT_URI}`
 
     const handleMoveSocialLogin = (url: string, provider: Provider) => {
@@ -39,7 +39,7 @@ const AuthForm = () => {
                 const data = await postAuthCode(savedProvider)
                 setCookieToken(data.accessToken)
                 setSessionToken(data.accessToken)
-                router.push("/")
+                // router.push("/")
             }
         }
         fetchData()
