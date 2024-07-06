@@ -1,4 +1,5 @@
 import { CreatePost, ShortPosts } from "@/utils/type"
+import { ThemeProps } from "@/app/_components/type"
 
 export type FormSelectionProps = {
     formText?: string
@@ -21,11 +22,15 @@ export type FormSelectorProps = {
     postDetail?: CreatePost
     isThemeOpen?: boolean
     isTheme?: boolean
-    isAddress?: boolean
 }
 
 export type FormBtnProps = {
     setIsOverlayOpen?: (isOpen: boolean) => void
     handleUpdatePost?: (postId: string) => void
     postId?: string | null
+}
+
+export type SelectedThemeProps = {
+    isOpen: boolean
+    onClick: (theme: ThemeProps) => void
 }

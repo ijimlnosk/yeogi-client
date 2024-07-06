@@ -52,27 +52,33 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
     }
 
     return (
-        <div className="relative w-[400px]">
-            <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                <Image src={"/icons/search.svg"} alt="search_icon" width={24} height={24} />
-            </div>
+        <div>
+            <Image
+                src={"/icons/search.svg"}
+                alt="search_icon"
+                className="relative top-9 left-2"
+                width={24}
+                height={24}
+            />
             <input
                 type="text"
                 ref={inputRef}
                 placeholder="주소를 입력하세요"
                 className="block border w-[400px] h-[48px] p-2 ps-14 bg-GREY-10 rounded-lg  outline-none focus:ring-transparent focus:ring-0 focus:border-SYSTEM-none "
             />
-            <ul className="autocomplete-results">
-                {predictions.map(prediction => (
-                    <li
-                        key={prediction.place_id}
-                        onClick={() => handleSelectPrediction(prediction.place_id, prediction.description)}
-                        className=" hover:text-BRAND-50 hover:cursor-pointer p-2"
-                    >
-                        {removeCountryAddress(prediction.description)}
-                    </li>
-                ))}
-            </ul>
+            <div className="w-full h-[280px] overflow-y-scroll">
+                <ul className="autocomplete-results">
+                    {predictions.map(prediction => (
+                        <li
+                            key={prediction.place_id}
+                            onClick={() => handleSelectPrediction(prediction.place_id, prediction.description)}
+                            className=" hover:text-BRAND-50 hover:cursor-pointer p-2"
+                        >
+                            {removeCountryAddress(prediction.description)}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }

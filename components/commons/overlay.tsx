@@ -32,6 +32,7 @@ const Overlay = ({
     leftImageUrl,
     title,
     rounded = "rounded-lg",
+    isStillWorkingModal,
 }: OverlayProps) => {
     useEffect(() => {
         if (isOpen) {
@@ -51,7 +52,7 @@ const Overlay = ({
 
     return (
         <div
-            className="font-pretendard fixed inset-0 flex justify-center items-center z-[999] bg-black bg-opacity-70"
+            className={`font-pretendard fixed inset-0 flex justify-center items-center z-[999] ${isStillWorkingModal ? "bg-SYSTEM-beige" : "bg-SYSTEM-black bg-opacity-70"}`}
             onClick={onClick}
             aria-modal="true"
             role="dialog"

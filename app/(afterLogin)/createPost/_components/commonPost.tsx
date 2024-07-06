@@ -11,7 +11,7 @@ import AddMemoIcon from "@/public/icons/plus-circle.svg"
 import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommonPostProps } from "./type"
-import AddressSelection from "./editor/addressSelection"
+import AddressSelection from "./form/addressSelection"
 
 const CommonPost = ({
     isFreeForm,

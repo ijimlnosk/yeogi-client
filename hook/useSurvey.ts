@@ -28,7 +28,7 @@ export const useSurvey = () => {
         const topTags = calculateTopTags(choices.tags)
         setTopTags(topTags)
     }, [choices.tags, setTopTags])
-
+  
     const handleNext = () => {
         setCurrentIndex(prev => prev + 1)
     }
@@ -54,6 +54,7 @@ export const useSurvey = () => {
         surveyArr,
         currentIndex,
         choices,
+        topTags,
         handleChoice,
         handlePrev,
     }
