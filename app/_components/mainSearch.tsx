@@ -43,7 +43,7 @@ const MainSearch = () => {
     return (
         <div className="my-[200px] xl:my-[50px]">
             <div
-                className={`w-[1880px] h-[800px] xl:w-[1200px] xl:h-[600px] md:w-[1000px] md:h-[780px] sm:w-[620px] sm:h-[820px] flex flex-col bg-MAIN_SEARCH bg-center bg-cover bg-no-repeat rounded-3xl xl:rounded-2xl transition-all duration-[1000ms] ease-in-out delay-75 ${isFocused ? "" : "justify-center items-center"}`}
+                className={`w-[1880px] h-[800px] xl:w-[1200px] xl:h-[860px] md:w-[1000px] md:h-[780px] sm:w-[620px] sm:h-[820px] flex flex-col bg-MAIN_SEARCH bg-center bg-cover bg-no-repeat rounded-3xl xl:rounded-2xl transition-all duration-[1000ms] ease-in-out delay-75 ${isFocused ? "" : "justify-center items-center"}`}
             >
                 <div
                     className={`w-full flex flex-col items-center py-12 transition-transform duration-[300ms] ease-in-out ${

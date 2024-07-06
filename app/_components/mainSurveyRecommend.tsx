@@ -41,7 +41,7 @@ const MainSurveyRecommend = () => {
 
     return (
         <div
-            className="w-full max-w-[1920px] h-[980px] xl:max-w-[1200px] md:h-fit md:max-w-[1000px] sm:max-w-[620px] py-[100px] flex justify-evenly items-center sm:flex-col"
+            className="w-full max-w-[1920px] h-[980px] xl:max-w-[1200px] md:h-fit md:max-w-[1000px] sm:max-w-[620px] py-[100px] flex justify-evenly items-center lg:flex-row sm:flex-col"
             ref={videoRef}
         >
             <div className="flex flex-col justify-start">
