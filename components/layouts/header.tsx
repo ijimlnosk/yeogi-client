@@ -9,6 +9,7 @@ import { UserInfoProps } from "./type"
 import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
+import { useRouter } from "next/navigation"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
@@ -17,6 +18,7 @@ const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [userInfo, setUserInfo] = useState<UserInfoProps | undefined>()
 
+    const router = useRouter()
     const handleScroll = () => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
@@ -60,8 +62,9 @@ const Header = () => {
                         src={"/icons/logo_text.svg"}
                         width={90}
                         height={60}
-                        className="w-[90px] h-[60px]"
+                        className="w-[90px] h-[60px] cursor-pointer"
                         alt="yeogi logo"
+                        onClick={() => router.push("/")}
                     />
                     <HeaderNavigate />
                 </div>

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 import { getCodeFromUrl, postAuthCode } from "@/apis/auth/oauthApi"
 import { setCookieToken, setSessionToken } from "@/apis/auth/storageUtils"
 import { useRouter } from "next/navigation"
-// import { useRouter } from "next/router"
+
 type Provider = "kakao" | "google" | "naver"
 const AuthForm = () => {
     const K_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API
