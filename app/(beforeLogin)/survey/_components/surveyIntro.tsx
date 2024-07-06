@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import carrier from "@/public/images/캐리어.gif"
+import carrier from "@/public/images/carrier.gif"
 import Button from "@/components/commons/button"
 import { useState } from "react"
 import SurveyQuestionForm from "./surveyQuestionForm"

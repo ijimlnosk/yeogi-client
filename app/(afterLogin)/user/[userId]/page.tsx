@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import defaultBg from "@/public/images/p_bg.png"
-import defaultProfile from "@/public/images/메롱고.jpeg"
+import defaultProfile from "@/public/images/sampleCat.jpeg"
 import MyPost from "./_components/myPost"
 import { Post } from "@/utils/type"
 import { ProfileProps } from "./_components/profile/type"
