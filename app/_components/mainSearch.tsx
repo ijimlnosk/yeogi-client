@@ -20,7 +20,7 @@ const MainSearch = () => {
             }, 1000),
         [],
     )
-    const { data: posts, refetch } = useQuery<Post[], Error>({
+    const { refetch } = useQuery<Post[], Error>({
         queryKey: ["posts", searchKeyword],
         queryFn: () => getPost({ searchType: "CONTENT", searchString: searchKeyword, sortCondition: sortCondition }),
     })

@@ -1,5 +1,5 @@
 const POST_API_URL = "/auth"
-const redirect_uri = "https://yeogi-client.vercel.app/auth";
+const redirect_uri = "https://yeogi-client.vercel.app/auth"
 
 /**
  * @function
@@ -46,21 +46,13 @@ export const getNaverStateUrl = (): string | null => {
 export const postAuthCode = async (provider: string) => {
     const code = getCodeFromUrl()
     const state = getNaverStateUrl()
-    try {
-        const data = await fetchAuthToken(provider, code, redirect_uri, state, "POST")
-        return data
-    } catch (error) {
-        throw error
-    }
+    const data = await fetchAuthToken(provider, code, redirect_uri, state, "POST")
+    return data
 }
 
 // 백엔드에서 토큰 값 받아오는 함수
 export const getAuthToken = async (provider: string) => {
     const code = getCodeFromUrl()
-    try {
-        const data = await fetchAuthToken(provider, code, redirect_uri, undefined, "GET")
-        return data
-    } catch (error) {
-        throw error
-    }
+    const data = await fetchAuthToken(provider, code, redirect_uri, undefined, "GET")
+    return data
 }
