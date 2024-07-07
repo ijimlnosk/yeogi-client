@@ -10,7 +10,7 @@ import SearchDropdown from "./searchDropdown"
 const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({
         "w-[222px] h-[48px] text-sm text-SYSTEM-black": size === "sm",
-        "w-[850px] h-[70px] xl:w-[740px] xl:h-[52px] sm:w-[590px] sm:h-[48px] text-bg xl:text-sm sm:text-md text-SYSTEM-black":
+        "w-[850px] h-[70px] xl:w-[740px] xl:h-[52px] sm:w-[590px] sm:h-12 text-bg xl:text-sm sm:text-md text-SYSTEM-black":
             size === "lg",
     })
 
@@ -62,9 +62,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         className={clsx(
                             "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
-                            size === "lg" && isFocused
-                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
-                                : "rounded-[81px]",
+                            size === "lg" && isFocused ? "border-t-GREY-10 rounded-t-9 rounded-b-0" : "rounded-[81px]",
                         )}
                         placeholder={text}
                         onChange={handleChange}

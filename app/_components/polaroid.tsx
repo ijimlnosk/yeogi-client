@@ -48,8 +48,8 @@ const Polaroid = ({
                 alt={alt}
                 className="w-[350px] h-[300px] xl:w-[300px] xl:h-[257px] md:w-[320px] md:h-[200px]"
             />
-            <div className="w-full flex flex-col items-start pl-[10px]">
-                <p className="pt-[20px] pb-[12px] sm:pl-4 text-sm xl:text-xs md:text-xxs font-bold">{step}</p>
+            <div className="w-full flex flex-col items-start pl-2.5">
+                <p className="pt-5 pb-3 sm:pl-4 text-sm xl:text-xs md:text-xxs font-bold">{step}</p>
                 <p className="w-[200px] md:w-[240px sm:pl-4 text-bg xl:text-sm md:text-xxsfont-semibold break-keep">
                     {description} <span className={textColor}>{spanText}</span>.
                 </p>

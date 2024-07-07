@@ -79,7 +79,7 @@ export const RightGroup = () => {
 
 export const Polaroids = () => {
     return (
-        <div className="w-full h-[980px] pt-[40px] flex items-center justify-center invisible sm:visible">
+        <div className="w-full h-[980px] pt-10 flex items-center justify-center invisible sm:visible">
             <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" />
             <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] lg:w-[1000px] md:min-w-[720px] sm:min-w-[600px] top-[29%] xl:top-[20%] md:top-[18%] flex flex-row items-center justify-between">
                 <div>
@@ -104,7 +104,7 @@ export const Polaroids = () => {
                         rotateFront={"rotate-[-30deg]"}
                     />
                 </div>
-                <div className="mt-[36px]">
+                <div className="mt-9">
                     <Polaroid
                         step="STEP 03"
                         src={Step03}
