@@ -1,19 +1,7 @@
 import { TongBack, TongFront } from "@/constants/mainImages"
 import clsx from "clsx"
 import Image from "next/image"
-
-type PolaroidProps = {
-    step: string
-    src: { src: string; width: number; height: number }
-    alt: string
-    description: string
-    spanText: string
-    textColor: string
-    top: string
-    rotateFront?: string
-    rotateBack?: string
-    className?: string
-}
+import { PolaroidProps } from "./type"
 
 const Polaroid = ({
     step,
@@ -22,7 +10,6 @@ const Polaroid = ({
     description,
     spanText,
     textColor,
-    top,
     rotateFront,
     rotateBack,
     className,
@@ -32,33 +19,41 @@ const Polaroid = ({
             width={42}
             height={76}
             src={TongFront}
-            className={`w-auto h-auto absolute ${top} left-[166px] ${rotateFront} z-40`}
+            className={`w-auto h-auto xl:w-7 absolute ml-[166px] xl:ml-[150px] md:ml-[120px] ${rotateFront} z-30`}
             alt="나무 집게 앞면"
         />
         <Image
             width={34}
             height={71}
             src={TongBack}
-            className={`w-auto h-auto absolute ${top} left-[178px] ${rotateBack} z-[-2]`}
+            className={`w-auto h-auto xl:w-6 ml-[178px] xl:ml-[156px] md:ml-[130px] ${rotateBack} z-[-2]`}
             alt="나무 집게 뒷면"
         />
         <div
             className={clsx(
-                `w-[390px] h-[464px] bg-SYSTEM-white flex flex-col items-start pt-[20px] pl-[20px] shadow-polaroid transition-transform duration-300 z-20`,
+                `relative top-[-30px] xl:top-[-20px] w-[390px] h-[480px] xl:w-[336px] xl:h-[400px] md:w-[300px] md:h-[390px] bg-SYSTEM-white flex flex-col items-center pt-[20px] md:pt-[20px] shadow-polaroid transition-transform duration-300`,
                 className,
                 {
                     "hover:shadow-polaroid-hover": true,
-                    "hover:scale-120": true,
+                    "hover:scale-110": true,
                     "hover:z-100": true,
                     "hover:cursor-pointer": true,
                 },
             )}
         >
-            <Image width={350} height={300} src={src} alt={alt} className="w-[350px] h-[300px]" />
-            <p className="pt-[20px] pb-[12px] text-sm font-bold">{step}</p>
-            <p className="w-[200px] text-bg font-semibold break-keep">
-                {description} <span className={textColor}>{spanText}</span>.
-            </p>
+            <Image
+                width={350}
+                height={300}
+                src={src}
+                alt={alt}
+                className="w-[350px] h-[300px] xl:w-[300px] xl:h-[257px] md:w-[320px] md:h-[200px]"
+            />
+            <div className="w-full flex flex-col items-start pl-2.5">
+                <p className="pt-5 pb-3 sm:pl-4 text-sm xl:text-xs md:text-xxs font-bold">{step}</p>
+                <p className="w-[200px] md:w-[240px sm:pl-4 text-bg xl:text-sm md:text-xxsfont-semibold break-keep">
+                    {description} <span className={textColor}>{spanText}</span>.
+                </p>
+            </div>
         </div>
     </div>
 )

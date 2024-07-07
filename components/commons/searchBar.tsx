@@ -7,15 +7,15 @@ import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import SearchDropdown from "./searchDropdown"
 
-const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
+const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({
         "w-[222px] h-[48px] text-sm text-SYSTEM-black": size === "sm",
-        "w-[850px] h-[70px] text-bg text-SYSTEM-black": size === "lg",
+        "w-[850px] h-[70px] xl:w-[740px] xl:h-[52px] sm:w-[590px] sm:h-12 text-bg xl:text-sm sm:text-md text-SYSTEM-black":
+            size === "lg",
     })
 
     const router = useRouter()
     const [keyword, setKeyword] = useState<string>("")
-    const [isFocused, setIsFocused] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -51,7 +51,7 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         width={24}
                         height={24}
                         src={"icons/searchbar.svg"}
-                        className="w-auto h-auto"
+                        className="w-auto h-auto xl:w-5 xl:h-5"
                         alt="search_icon"
                     />
                 </div>
@@ -60,11 +60,9 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         type="search"
                         id="default-search"
                         className={clsx(
-                            "block border p-2 ps-14 border-none outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
+                            "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
-                            size === "lg" && isFocused
-                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
-                                : "rounded-[81px]",
+                            size === "lg" && isFocused ? "border-t-GREY-10 rounded-t-9 rounded-b-0" : "rounded-[81px]",
                         )}
                         placeholder={text}
                         onChange={handleChange}
@@ -72,8 +70,14 @@ const SearchBar = ({ text, size, onChange }: SearchBarProps) => {
                         autoComplete="off"
                     />
                 </div>
-                {size === "lg" && isFocused && (
-                    <div ref={dropdownRef}>
+                {size === "lg" && (
+                    <div
+                        ref={dropdownRef}
+                        className={clsx(
+                            "transition-all duration-[300ms] transform",
+                            isFocused ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-0",
+                        )}
+                    >
                         <SearchDropdown />
                     </div>
                 )}

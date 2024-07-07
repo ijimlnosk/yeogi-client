@@ -41,6 +41,8 @@ const config: Config = {
                 PACKAGE: "url(/images/PACKAGE.svg)",
                 SUPER_LUXURY: "url(/images/SUPER_LUXURY.svg)",
                 COST_EFFECTIVENESS: "url(/images/COST_EFFECTIVENESS.svg)",
+                MAIN_SEARCH: "url(/images/search-bg.svg)",
+                MAIN_POLAROID_LINE: "url(/images/line.svg)",
                 SURVEY_IMAGE: "url(/images/subVisual.svg)",
             },
             scale: {

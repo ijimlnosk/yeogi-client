@@ -74,6 +74,8 @@ export type SearchBarProps = {
     text: string
     size: "sm" | "lg"
     onChange: ChangeEventHandler<HTMLInputElement>
+    isFocused: boolean
+    setIsFocused: (isFocused: boolean) => void
 }
 
 export type SearchResultsProps = {

@@ -40,7 +40,10 @@ const MainSurveyRecommend = () => {
     }, [])
 
     return (
-        <div className="w-full h-[1000px] flex justify-evenly items-center" ref={videoRef}>
+        <div
+            className="w-full max-w-[1920px] h-[980px] xl:max-w-[1200px] md:h-fit md:max-w-[1000px] sm:max-w-[620px] py-[100px] flex justify-evenly items-center lg:flex-row sm:flex-col"
+            ref={videoRef}
+        >
             <div className="flex flex-col justify-start">
                 <RecommendText />
                 <Button
@@ -48,12 +51,12 @@ const MainSurveyRecommend = () => {
                     background={"black"}
                     textColor={"white"}
                     rounded={"xl"}
-                    className="w-[190px] h-12"
+                    className="w-[190px] h-12 sm:mb-10"
                 >
                     취향 검사하러 가기
                 </Button>
             </div>
-            <div className="w-[1052px] h-[740px] bg-[#F7EDE0] border-[3px] border-[#EADCCE] rounded-3xl flex justify-center items-center overflow-hidden">
+            <div className="w-[1052px] h-[740px] xl:w-[850px] xl:h-[540px] md:w-[760px] md:h-[480px] sm:w-[570px] sm:h-[450px] bg-[#F7EDE0] border-[3px] border-[#EADCCE] rounded-3xl flex justify-center items-center overflow-hidden">
                 <video autoPlay loop muted preload="auto" playsInline className="w-full">
                     <source src="/video/recommendVideo.mp4" type="video/mp4" />
                 </video>
