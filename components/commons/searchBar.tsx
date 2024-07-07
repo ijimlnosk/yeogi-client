@@ -31,7 +31,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
     }
 
     const handleClickOutside = (e: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node) && setIsFocused) {
             setIsFocused(false)
         }
     }
@@ -60,13 +60,15 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         type="search"
                         id="default-search"
                         className={clsx(
-                            "block border p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
+                            "block p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
                             size === "lg" && isFocused ? "border-t-GREY-10 rounded-t-9 rounded-b-0" : "rounded-[81px]",
                         )}
                         placeholder={text}
                         onChange={handleChange}
-                        onFocus={() => setIsFocused(true)}
+                        onFocus={() => {
+                            setIsFocused && setIsFocused(true)
+                        }}
                         autoComplete="off"
                     />
                 </div>
