@@ -9,6 +9,10 @@ import { CreatePost, ShortPosts } from "@/utils/type"
 import { setPinLocalStorage } from "@/utils/localStorage"
 import { useUpdateFreePost } from "./usePostMutation"
 import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+
+dayjs.extend(utc)
 
 export const useCommonPost = (isFreeForm: boolean) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -43,14 +47,17 @@ export const useCommonPost = (isFreeForm: boolean) => {
         const postData: Partial<CreatePost> = {
             continent: selectedContinent || "아시아",
             region: selectedCountry!,
-            tripStartDate: startDate ? startDate.toISOString() : "",
-            tripEndDate: endDate ? endDate.toISOString() : "",
+            tripStartDate: startDate
+                ? dayjs(startDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+                : "",
+            tripEndDate: endDate ? dayjs(endDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") : "",
             title: formData.title,
             content: "",
             shortPosts: [],
             address: selectedAddress!,
             themeList: selectedTheme || [],
         }
+
         try {
             if (isFreeForm) {
                 const processedContent = await processContentImages(formData.content!)
