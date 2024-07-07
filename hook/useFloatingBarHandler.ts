@@ -21,7 +21,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = usePostDataStore()
-
     const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
 
     useEffect(() => {

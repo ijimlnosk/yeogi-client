@@ -1,13 +1,13 @@
 "use client"
 
-import { useFormDataStore, usePostDataStore } from "@/libs/store"
+import { useCreatePostStore, usePostDataStore } from "@/libs/store"
 import { useCommonUpdatePost, useInitializeFormData } from "@/hook/updatePostFunctions"
 import { CreatePost, Post } from "@/utils/type"
 import CommonPost from "../../createPost/_components/commonPost"
 import { ThemeProps } from "@/app/_components/type"
 
 const UpdatePostPage = () => {
-    const { formData, setFormData } = useFormDataStore()
+    const { formData, setFormData } = useCreatePostStore()
     const { postDetail } = usePostDataStore()
     const { quillEditors, setQuillEditors } = useInitializeFormData(postDetail)
     const { handleInputChange, handleAddMemoClick, handleDeleteQuillEditor } = useCommonUpdatePost()

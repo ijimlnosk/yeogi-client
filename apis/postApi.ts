@@ -3,6 +3,7 @@ import { filterPosts } from "@/utils/filterPosts"
 import { getPostProps } from "./type"
 import { getDefaultPost } from "@/utils/resetFormData"
 import { fetchFormAPI, fetchFormAPINotToken } from "@/utils/fetchFormAPI"
+import { ThemeProps } from "@/app/_components/type"
 
 const POST_API_URL = "/posts"
 
@@ -76,7 +77,6 @@ export const putFreePost = async (postId: number, editedPost: Partial<CreatePost
 
     if (!response.ok) throw new Error("free-form 게시글 수정에 실패했어요...🥹")
 
-    // const data = await response.json()
     return {
         title: editedPost.title || "",
         content: editedPost.content || "",
@@ -148,4 +148,39 @@ export const getPostDetail = async (postId: number): Promise<CreatePost> => {
     }
     const data = await response.json()
     return data
+}
+
+export const getPopular = async (themes: ThemeProps[]): Promise<Post[]> => {
+    if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
+
+    const queryParams = new URLSearchParams()
+    themes.forEach(theme => queryParams.append("themeList", theme))
+
+    const response = await fetchFormAPINotToken(POST_API_URL, `posts/popular?${queryParams.toString()}`, {
+        method: "GET",
+    })
+    const data = await response.json()
+    return data
+}
+
+/**
+ * @function
+ * @param {commentIdProps} props
+ * @param {number} props.postId - 조회수를 추가할 게시글 ID
+ * @description 게시글에 조회수 추가하는 API
+ */
+export const postViews = async (postId: number) => {
+    await fetchFormAPINotToken(POST_API_URL, `posts/${postId}/views`, { method: "POST" })
+    return postId
+}
+
+/**
+ * @function
+ * @param {commentIdProps} props
+ * @param {number} props.commentId - 좋아요를 추가할 게시글 ID
+ * @description 게시글에 좋아요 추가하는 API
+ */
+export const postLike = async (postId: number) => {
+    await fetchFormAPINotToken(POST_API_URL, `posts/${postId}likes`, { method: "POST" })
+    return postId
 }
