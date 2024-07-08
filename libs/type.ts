@@ -1,4 +1,5 @@
 import { ThemeProps } from "@/app/_components/type"
+import { UserInfoProps } from "@/components/layouts/type"
 import { Continent } from "@/constants/continents"
 import { CreatePost, ShortPosts } from "@/utils/type"
 import { Dayjs } from "dayjs"
@@ -83,4 +84,11 @@ export type ThemeState = {
     setShowResult: (value: boolean) => void
     topTags: ThemeProps[]
     setTopTags: (tags: ThemeProps[]) => void
+}
+
+export type LoginState = {
+    isLoggedIn: boolean
+    setIsLoggedIn: (isLoggedIn: boolean) => void
+    userInfo: UserInfoProps | undefined
+    setUserInfo: (userInfo: UserInfoProps) => void
 }
