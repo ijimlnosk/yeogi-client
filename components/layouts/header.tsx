@@ -5,18 +5,17 @@ import Image from "next/image"
 import ProtectedLink from "../protectedLink"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { getUserInfo } from "@/apis/userApi"
-import { UserInfoProps } from "./type"
 import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
+import { useLoggedIn } from "@/libs/loginStore"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
     const [lastScrollY, setLastScrollY] = useState<number>(0)
     const [isSearchBarClicked, setIsSearchBarClicked] = useState<boolean>(false)
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-    const [userInfo, setUserInfo] = useState<UserInfoProps | undefined>()
+    const { setIsLoggedIn, setUserInfo } = useLoggedIn()
 
     const router = useRouter()
     const handleScroll = () => {
@@ -42,6 +41,7 @@ const Header = () => {
 
     useEffect(() => {
         const fetchUserData = async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000))
             const token = getCookieToken()
             if (token) {
                 setIsLoggedIn(true)
@@ -50,7 +50,7 @@ const Header = () => {
             }
         }
         fetchUserData()
-    }, [])
+    }, [setIsLoggedIn, setUserInfo])
 
     return (
         <header
@@ -74,7 +74,7 @@ const Header = () => {
                             isSearchBarClicked={isSearchBarClicked}
                             setIsSearchBarClicked={setIsSearchBarClicked}
                         />
-                        <HeaderLogin isLoggedIn={isLoggedIn} userInfo={userInfo} />
+                        <HeaderLogin />
                         <ProtectedLink href="/createPost">
                             <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
                                 <Image
