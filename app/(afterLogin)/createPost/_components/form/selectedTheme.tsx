@@ -2,9 +2,9 @@
 
 import Button from "@/components/commons/button"
 import { useCreatePostStore } from "@/libs/store"
-import { Theme } from "@/constants/theme"
 import { useEffect, useState } from "react"
 import { ThemeProps } from "@/app/_components/type"
+import { Theme } from "@/types/theme"
 
 const SelectedTheme = () => {
     const [themes, setThemes] = useState<ThemeProps[]>([])

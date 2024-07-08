@@ -1,6 +1,6 @@
 import { getPost } from "@/apis/postApi"
 import { ThemeProps } from "@/app/_components/type"
-import { Post } from "@/utils/type"
+import { Post } from "@/types/post"
 
 export const recommendPosts = async (themes: ThemeProps[]): Promise<Post[]> => {
     const postsByTheme = await Promise.all(

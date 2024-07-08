@@ -82,8 +82,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         if (postId && post) {
             setPostId(postId)
             setPostDetail(post)
-            // router.push(`/updatePost/${postId}`)
-            setIsActiveState(prev => ({ ...prev, update: true })) // 업데이트 활성 상태 설정, 추후 위 기능 활성화시키기
+            router.push(`/updatePost/${postId}`)
         }
     }
 

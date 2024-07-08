@@ -2,7 +2,7 @@ import { useCreatePostStore } from "@/libs/store"
 import { formatISODateString } from "@/utils/formatDate"
 import { FormSelectorProps } from "./type"
 import Image from "next/image"
-import { Theme } from "@/constants/theme"
+import { Theme } from "@/types/theme"
 import TextDisplay from "./formTextDisplay"
 
 const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {

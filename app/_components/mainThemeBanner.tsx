@@ -1,10 +1,11 @@
 "use client"
 
-import { ThemeBanner, ThemeBannerContext } from "@/constants/theme"
+import { ThemeBannerContext } from "@/constants/theme"
 import { useCreatePostStore } from "@/libs/store"
+import { Theme, ThemeProps } from "@/types/theme"
+
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { ThemeProps } from "./type"
 
 const MainThemeBanner = () => {
     const router = useRouter()
@@ -15,7 +16,7 @@ const MainThemeBanner = () => {
         setSelectedTheme([key as ThemeProps])
     }
 
-    const ThemeEntries = Object.entries(ThemeBanner)
+    const ThemeEntries = Object.entries(Theme)
     return (
         <div className="py-[200px] xl:py-[100px]">
             <div className="w-full flex flex-col justify-center items-center">
@@ -23,7 +24,7 @@ const MainThemeBanner = () => {
                     Choose your trip style
                 </p>
                 <p className="font-myeongjo text-[44px] xl:text-[36px] md:text-[30px] sm:text-lg">
-                    <span className="text-BRAND-50 font-nomal">취향</span>에 맞는 여행 기록을 확인하세요.
+                    <span className="text-BRAND-50 font-normal">취향</span>에 맞는 여행 기록을 확인하세요.
                 </p>
                 <p className="text-bg xl:text-md md:text-sm sm:text-xs font-normal pt-6 pb-10">
                     여행 취향을 선택해 필요한 기록들을 확인하세요

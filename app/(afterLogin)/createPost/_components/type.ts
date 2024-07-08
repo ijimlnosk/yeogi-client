@@ -1,4 +1,4 @@
-import { ShortPosts } from "@/utils/type"
+import { memos } from "@/types/post"
 
 export type TemplateBoxProps = {
     type: "type1" | "type2"
@@ -7,7 +7,7 @@ export type TemplateBoxProps = {
 
 export type CommonPostProps = {
     isFreeForm: boolean
-    shortPosts: Partial<ShortPosts>[]
+    memos: memos[]
     handleDeleteQuillEditor?: (index: number) => void
     handleEditorInputChange?: (index: number, value: string) => void
     handleAddMemoClick?: () => void

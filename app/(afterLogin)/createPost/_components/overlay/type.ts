@@ -1,5 +1,5 @@
 import { Continent } from "@/constants/continents"
-import { ShortPosts } from "@/utils/type"
+import { memos } from "@/types/post"
 import { FormEvent } from "react"
 
 export type ThumbnailProps = {
@@ -19,9 +19,9 @@ export type ThumbnailUploaderProps = {
 
 export type UploadOverlayProps = {
     isOverlayOpen: boolean
-    shortPosts: Partial<ShortPosts>[]
+    memos: memos[]
     setIsOverlayOpen: (isOpen: boolean) => void
-    handleOverlaySubmit: (e: FormEvent, shortPosts: Partial<ShortPosts>[]) => void
+    handleOverlaySubmit: (e: FormEvent, memos: memos[]) => void
 }
 
 export type TextDisplayProps = {

@@ -12,10 +12,11 @@ import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommonPostProps } from "./type"
 import AddressSelection from "./form/addressSelection"
+import { useUpdatePost } from "@/hook/useUpdatePost"
 
 const CommonPost = ({
     isFreeForm,
-    shortPosts,
+    memos,
     handleDeleteQuillEditor,
     handleEditorInputChange,
     handleAddMemoClick,
@@ -29,8 +30,8 @@ const CommonPost = ({
         handleInputChange,
         handleOverlaySubmit,
         formData,
-        handleSubmitEditedPost,
     } = useCommonPost(isFreeForm)
+    const { handleSubmitEditedPost } = useUpdatePost(isFreeForm)
 
     return (
         <>
@@ -39,7 +40,7 @@ const CommonPost = ({
                     isOverlayOpen={isOverlayOpen}
                     setIsOverlayOpen={setIsOverlayOpen}
                     handleOverlaySubmit={handleOverlaySubmit}
-                    shortPosts={shortPosts}
+                    memos={memos}
                 />
                 <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full"}`}>
                     <UpperSelection
@@ -59,7 +60,7 @@ const CommonPost = ({
                         </>
                     ) : (
                         <>
-                            {shortPosts.map((post, index) => (
+                            {memos.map((post, index) => (
                                 <div key={index}>
                                     <AddressSelection
                                         index={index}
@@ -85,7 +86,7 @@ const CommonPost = ({
                         </>
                     )}
                     <ThemeSelection postDetail={formData} />
-                    {shortPosts && handleAddMemoClick && (
+                    {memos && handleAddMemoClick && (
                         <div
                             onClick={handleAddMemoClick}
                             className="w-[900px] h-12 my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"

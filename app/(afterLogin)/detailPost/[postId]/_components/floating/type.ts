@@ -1,4 +1,4 @@
-import { CreatePost } from "@/utils/type"
+import { Post } from "@/types/post"
 
 export type FloatingIcon = {
     name: string
@@ -15,5 +15,5 @@ export type FloatingBarProps = {
     icons: { name: string; icon: string; isActive: boolean }[]
     isMine?: boolean
     postId?: string
-    post?: CreatePost
+    post?: Post
 }

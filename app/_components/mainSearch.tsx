@@ -2,11 +2,11 @@
 
 import { getPost } from "@/apis/postApi"
 import Searchbar from "@/components/commons/searchBar"
-import { Post } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect, useMemo, useState } from "react"
 import { SortConditionType } from "./type"
 import { debounce } from "lodash"
+import { Post } from "@/types/post"
 
 const MainSearch = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")

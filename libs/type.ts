@@ -1,17 +1,17 @@
 import { ThemeProps } from "@/app/_components/type"
 import { UserInfoProps } from "@/components/layouts/type"
 import { Continent } from "@/constants/continents"
-import { CreatePost, ShortPosts } from "@/utils/type"
+import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
 import { Dayjs } from "dayjs"
 
 export type CreatePostState = {
     // formData 관련 상태
     formData: CreatePost
     posts: CreatePost[]
-    quillEditors: ShortPosts[]
+    quillEditors: memos[]
     setFormData: (data: CreatePost) => void
     setPosts: (posts: CreatePost[]) => void
-    setQuillEditors: (editors: ShortPosts[]) => void
+    setQuillEditors: (editors: memos[]) => void
     resetFormData: () => void
 
     // selection 관련 상태
@@ -34,9 +34,16 @@ export type CreatePostState = {
 
 export type PostDataState = {
     postId: string | null
-    postDetail: CreatePost | null
+    postDetail: Post | null
     setPostId: (postId: string | null) => void
-    setPostDetail: (postDetail: CreatePost | null) => void
+    setPostDetail: (postDetail: Post | null) => void
+}
+
+export type UpdatePostDataState = {
+    postId: string | null
+    postDetail: UpdatePost | null
+    setPostId: (postId: string | null) => void
+    setPostDetail: (postDetail: UpdatePost | null) => void
 }
 
 export type MapStore = {

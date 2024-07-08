@@ -2,30 +2,28 @@
 
 import { useState } from "react"
 import CommonPost from "../_components/commonPost"
-import { ShortPosts } from "@/utils/type"
+import { memos } from "@/types/post"
 
 const Page = () => {
-    const [shortPosts, setShortPosts] = useState<Partial<ShortPosts>[]>([])
+    const [memos, setMemos] = useState<memos[]>([])
 
     const handleAddMemoClick = () => {
-        setShortPosts([...shortPosts, { content: "", address: "" }])
+        setMemos([...memos, { content: "", address: "" }])
     }
 
     const handleDeleteQuillEditor = (index: number) => {
-        const updatedShortPosts = shortPosts.filter((_, i) => i !== index)
-        setShortPosts(updatedShortPosts)
+        const updatedMemos = memos.filter((_, i) => i !== index)
+        setMemos(updatedMemos)
     }
 
     const handleEditorInputChange = (index: number, value: string) => {
-        const updatedShortPosts = shortPosts.map((shortPost, i) =>
-            i === index ? { ...shortPost, content: value } : shortPost,
-        )
-        setShortPosts(updatedShortPosts)
+        const updatedMemos = memos.map((shortPost, i) => (i === index ? { ...shortPost, content: value } : shortPost))
+        setMemos(updatedMemos)
     }
 
     return (
         <CommonPost
-            shortPosts={shortPosts}
+            memos={memos}
             handleAddMemoClick={handleAddMemoClick}
             handleDeleteQuillEditor={handleDeleteQuillEditor}
             handleEditorInputChange={handleEditorInputChange}

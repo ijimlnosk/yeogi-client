@@ -1,4 +1,6 @@
+import { Post } from "@/types/post"
 import { ResizeImageProps, resizeBase64Image } from "@/utils/resizeImage"
+import { SetStateAction } from "react"
 
 /**
  * @function processContentImages 이미지 태그를 추출하여 base64 형식의 이미지를 리사이징
@@ -38,9 +40,6 @@ export const processContentImages = async (content: string): Promise<string> => 
 
     return processedContent
 }
-
-import { Post } from "./type"
-import { SetStateAction } from "react"
 
 /**
  * @function useFormHandler 입력 필드 변경 핸들러

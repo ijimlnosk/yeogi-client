@@ -1,4 +1,4 @@
-import { CreatePost } from "@/utils/type"
+import { CreatePost } from "@/types/post"
 
 export type EditorProps = {
     className: string

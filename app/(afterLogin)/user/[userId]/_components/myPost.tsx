@@ -1,7 +1,7 @@
 import PostCard from "@/components/commons/postCard"
 import TempImage from "@/public/images/sampleThumbnail.svg"
-import { Post } from "@/utils/type"
 import SampleProfile from "@/public/images/sampleProfile.svg"
+import { Post } from "@/types/post"
 
 const MyPost = ({ posts }: { posts?: Post[] }) => {
     const currentDate = new Date().toISOString()

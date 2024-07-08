@@ -4,9 +4,9 @@ import "@/styles/editor-content.css"
 import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
 import { formatISODateString } from "@/utils/formatDate"
-import { ShortPosts } from "@/utils/type"
 import { postViews } from "@/apis/postApi"
 import { ThemeProps } from "@/app/_components/type"
+import { memos } from "@/types/post"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
@@ -49,7 +49,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
         return doc.body.innerHTML
     }
 
-    const processShortPost = (posts: ShortPosts[]) => {
+    const processShortPost = (posts: memos[]) => {
         return posts.map(post => wrapImagesWithDiv(post.content))
     }
 
@@ -57,11 +57,11 @@ const PostDetail = ({ post }: PostDetailProps) => {
         if (post.content && contentRef.current) {
             const modifiedContent = wrapImagesWithDiv(post.content)
             setModifiedContent(modifiedContent)
-        } else if (post.shortPostList && shortContentRef.current) {
-            const modifiedShortPost = processShortPost(post.shortPostList)
+        } else if (post.memos && shortContentRef.current) {
+            const modifiedShortPost = processShortPost(post.memos)
             setModifiedShortPost(modifiedShortPost)
         }
-    }, [post.content, post.shortPostList])
+    }, [post.content, post.memos])
 
     return (
         <div className="w-[1000px] bg-post-pattern bg-SYSTEM-beige h-auto border-y-2 border-GREY-30">
@@ -96,7 +96,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                         className="custom-content "
                     />
                 )}
-                {post.shortPostList?.map((post: ShortPosts, index: number) => (
+                {post.memos?.map((post: memos, index: number) => (
                     <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
                         <div
                             ref={shortContentRef}
