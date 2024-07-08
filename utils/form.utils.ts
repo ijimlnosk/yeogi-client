@@ -1,6 +1,6 @@
 import { Post } from "@/types/post"
-import { ResizeImageProps, resizeBase64Image } from "@/utils/resizeImage"
 import { SetStateAction } from "react"
+import { ResizeImageProps, resizeBase64Image } from "./resizeImage.utils"
 
 /**
  * @function processContentImages 이미지 태그를 추출하여 base64 형식의 이미지를 리사이징

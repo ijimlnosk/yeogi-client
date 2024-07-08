@@ -5,8 +5,8 @@ import Image from "next/image"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
 import SampleProfile from "@/public/images/sampleProfile.svg"
-import { formatISODateString } from "@/utils/formatDate"
 import Link from "next/link"
+import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
 
 const PostCard = ({
     post_id = 0,

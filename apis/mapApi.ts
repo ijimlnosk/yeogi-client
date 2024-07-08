@@ -1,4 +1,5 @@
-import { fetchFormAPI } from "../utils/fetchFormAPI"
+
+import { fetchFormAPI } from "./api.utils"
 import { getPinProps, postPinProps } from "./type"
 
 const MAP_API_URL = "/pins"

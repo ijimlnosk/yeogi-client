@@ -1,4 +1,4 @@
-import { fetchFormAPI } from "@/utils/fetchFormAPI"
+import { fetchFormAPI } from "./api.utils"
 import { postReCommentProps } from "./type"
 import { postCommentResponse } from "@/hook/type"
 

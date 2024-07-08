@@ -3,10 +3,10 @@
 import kakaoIcon from "@/public/icons/kakao.svg"
 import naverIcon from "@/public/icons/naver_icon 1.svg"
 import googleIcon from "@/public/icons/google.svg"
-import SocialLoginButton from "../(beforeLogin)/_auth/signin/socialLoginButton"
+import SocialLoginButton from "./_components/signin/socialLoginButton"
 import { useEffect, useState } from "react"
 import { getCodeFromUrl, postAuthCode } from "@/apis/auth/oauthApi"
-import { setCookieToken, setSessionToken } from "@/apis/auth/storageUtils"
+import { setCookieToken } from "@/apis/auth/storageUtils"
 import { useRouter } from "next/navigation"
 
 type Provider = "kakao" | "google" | "naver"
@@ -39,7 +39,6 @@ const AuthForm = () => {
             if (code && savedProvider) {
                 const data = await postAuthCode(savedProvider)
                 setCookieToken(data.accessToken)
-                setSessionToken(data.accessToken)
                 router.push("/")
             }
         }

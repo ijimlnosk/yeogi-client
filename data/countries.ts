@@ -203,6 +203,10 @@ export const countriesByContinent: CountryByContinent = {
         { name: "투발루" },
         { name: "바누아투" },
     ],
-    남극: [],
-    북극: [],
+    남극: [
+        {name: "남극"}
+    ],
+    북극: [
+        {name: "북극"}
+    ],
 }

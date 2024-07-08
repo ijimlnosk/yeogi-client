@@ -5,7 +5,7 @@ import { AddressAutoCompleteProps } from "./type"
 import "@/styles/google-search.css"
 import Image from "next/image"
 import { removeCountryAddress } from "./address.util"
-import { initializeAutocomplete, loadGoogleMapsScript } from "@/utils/googleMapsUtils"
+import { initializeAutocomplete, loadGoogleMapsScript } from "@/utils/map.utils"
 
 /**
  * @Component

@@ -4,11 +4,11 @@ import { FormEvent, useState } from "react"
 import { useCreatePostStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { CreatePost, memos } from "@/types/post"
-import { processContentImages } from "@/utils/commonFormUtils"
 import { useMapStore } from "@/libs/pinStore"
-import { setPinLocalStorage } from "@/utils/localStorage"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
+import { processContentImages } from "@/utils/form.utils"
+import { setPinLocalStorage } from "@/utils/storage.utils"
 
 dayjs.extend(utc)
 

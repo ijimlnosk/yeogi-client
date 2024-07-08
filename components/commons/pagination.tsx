@@ -1,10 +1,10 @@
 "use client"
 
-import { generatePagination, hasNextGroup } from "@/utils/generatePages"
 import clsx from "clsx"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { PaginationNumberProps, PaginationProps } from "./type"
+import { generatePagination, hasNextGroup } from "@/utils/pagination.utils"
 
 /**
  * @function Pagination

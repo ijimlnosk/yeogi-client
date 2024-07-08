@@ -1,6 +1,7 @@
 import { postCommentResponse } from "@/hook/type"
-import { fetchFormAPI, fetchFormAPINotToken } from "../utils/fetchFormAPI"
+
 import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
+import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
 
 const API_URL = "/comments"
 

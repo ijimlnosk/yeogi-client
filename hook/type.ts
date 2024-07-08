@@ -1,6 +1,6 @@
 import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
-import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type"
+import { UserRequest } from "@/app/auth/_components/signin/type"
 import { Continent } from "@/constants/continents"
 import { Post, UpdatePost } from "@/types/post"
 import { UseMutationResult } from "@tanstack/react-query"

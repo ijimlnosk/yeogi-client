@@ -10,9 +10,9 @@ import Profile from "./_components/profile/profile"
 import WorldMap from "./_components/myMap/worldMap"
 import UserDetails from "./_components/userDetails"
 import { getUserInfo } from "@/apis/userApi"
-import { getPinLocalStorage } from "@/utils/localStorage"
 import { UserInfoProps } from "./type"
 import { Post } from "@/types/post"
+import { getPinLocalStorage } from "@/utils/storage.utils"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)

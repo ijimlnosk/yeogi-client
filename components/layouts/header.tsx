@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import ProtectedLink from "../protectedLink"
+import ProtectedLink from "../commons/protectedLink"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { getUserInfo } from "@/apis/userApi"
 import HeaderSearchBar from "./_components/headerSearch"
