@@ -40,6 +40,7 @@ const AuthForm = () => {
                 const data = await postAuthCode(savedProvider)
                 setCookieToken(data.accessToken)
                 setSessionToken(data.accessToken)
+                router.push("/")
             }
         }
         fetchData()
