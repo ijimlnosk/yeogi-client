@@ -1,5 +1,5 @@
 import { ThemeProps } from "@/app/_components/type"
-import { CreatePost } from "@/utils/type"
+import { CreatePost } from "@/types/post"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
@@ -9,20 +9,14 @@ export type getPostProps = {
 }
 
 export const initialFormData: CreatePost = {
+    title: "",
+    content: "",
+    address: "",
+    memos: [],
     continent: "",
     region: "",
     tripStartDate: "",
     tripEndDate: "",
-    title: "",
-    content: "",
-    shortPosts: [],
-    postId: 0,
-    author: "",
-    likeCount: 0,
-    viewCount: 0,
-    createdAt: "",
-    modifiedAt: "",
-    address: "",
     themeList: [],
 }
 

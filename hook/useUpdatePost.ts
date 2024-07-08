@@ -1,21 +1,22 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
-import { CreatePost, memos } from "@/types/post"
+import { memos, UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { useMapStore } from "@/libs/pinStore"
-import { setPinLocalStorage } from "@/utils/localStorage"
+import { useUpdateFreePost } from "./usePostMutation"
+import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 
 dayjs.extend(utc)
 
-export const useCommonPost = (isFreeForm: boolean) => {
+export const useUpdatePost = (isFreeForm: boolean) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
+    const [, setIsSubmitted] = useState(false)
     const {
         selectedContinent,
         selectedCountry,
@@ -30,14 +31,18 @@ export const useCommonPost = (isFreeForm: boolean) => {
         resetFormData,
         resetAll,
     } = useCreatePostStore()
+    const { postId, postDetail } = useUpdatePostDataStore()
+    const { quillEditors } = useInitializeFormData(postDetail)
+    const updatePostMutation = useUpdateFreePost()
+    const { handleUpdatePost } = useCommonUpdatePost()
 
-    const handleInputChange = <K extends keyof CreatePost>(field: K, value: CreatePost[K]) => {
+    const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
     const handleOverlaySubmit = async (e: FormEvent, shortPosts: memos[]) => {
         e.preventDefault()
-        const postData: CreatePost = {
+        const postData: UpdatePost = {
             title: formData.title,
             content: "",
             address: selectedAddress!,
@@ -76,11 +81,28 @@ export const useCommonPost = (isFreeForm: boolean) => {
             resetFormData()
             resetAll()
             setIsRouterOverlayOpen(true)
-            setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
         } catch {
-            setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
+            resetFormData()
+            resetAll()
             setIsFailModalOpen(true)
         }
+    }
+
+    const handleSubmitEditedPost = async () => {
+        const startDateAsDate: Date | null = startDate ? startDate.toDate() : null
+        const endDateAsDate: Date | null = endDate ? endDate.toDate() : null
+
+        await handleUpdatePost(
+            postId!,
+            formData,
+            quillEditors,
+            setIsSubmitted,
+            updatePostMutation,
+            selectedContinent,
+            selectedCountry,
+            startDateAsDate,
+            endDateAsDate,
+        )
     }
 
     return {
@@ -97,5 +119,6 @@ export const useCommonPost = (isFreeForm: boolean) => {
         setPosts,
         resetFormData,
         resetAll,
+        handleSubmitEditedPost,
     }
 }

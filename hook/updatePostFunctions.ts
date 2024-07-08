@@ -1,25 +1,25 @@
 "use client"
 
 import { useCreatePostStore } from "@/libs/store"
+import { memos, UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/commonFormUtils"
-import { CreatePost, Post, ShortPosts } from "@/utils/type"
 import { UseMutationResult } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 
 /**
  * @function useInitializeFormData quill editor에 postDetail 내용을 세팅하는 함수
- * @param {Post | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
+ * @param {UpdatePost | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
  * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
  */
-export const useInitializeFormData = (postDetail: CreatePost | null, isUpdateActive?: boolean) => {
+export const useInitializeFormData = (postDetail: UpdatePost | null, isUpdateActive?: boolean) => {
     const { setFormData, resetFormData } = useCreatePostStore()
-    const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
+    const [quillEditors, setQuillEditors] = useState<memos[]>([])
 
     useEffect(() => {
         resetFormData()
         if (postDetail) {
             const initialQuillEditors =
-                postDetail.shortPosts?.map(post => ({
+                postDetail.memos?.map(post => ({
                     shortPostId: post.shortPostId,
                     content: post.content,
                     address: post.address,
@@ -35,18 +35,18 @@ export const useInitializeFormData = (postDetail: CreatePost | null, isUpdateAct
 export const useCommonUpdatePost = () => {
     /**
      * @function useInitializeFormData quill editor에 postDetail 내용을 세팅하는 함수
-     * @param {Post | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
+     * @param {UpdatePost | null} postDetail  사용자가 수정하고자 하는 PostId에 해당하는 게시글의 정보를 저장하는 전역 상태
      * @returns {{ quillEditors: Array<{ content: string }>, setQuillEditors: (editors: Array<{ content: string }>) => void }}
      */
-    const useInitializeFormData = (postDetail: CreatePost | null) => {
+    const useInitializeFormData = (postDetail: UpdatePost | null) => {
         const { setFormData, resetFormData } = useCreatePostStore()
-        const [quillEditors, setQuillEditors] = useState<ShortPosts[]>([])
+        const [quillEditors, setQuillEditors] = useState<memos[]>([])
 
         useEffect(() => {
             resetFormData()
             if (postDetail) {
                 const initialQuillEditors =
-                    postDetail.shortPosts?.map(post => ({
+                    postDetail.memos?.map(post => ({
                         shortPostId: post.shortPostId,
                         content: post.content,
                         address: post.address,
@@ -65,15 +65,15 @@ export const useCommonUpdatePost = () => {
      * @function handleInputChange form fields에 해당하는 변화를 감지해 input의 value로 저장하는 함수
      * @template K
      * @param {K} field 변경되는 필드
-     * @param {Post[K]} value 필드의 새로운 값
-     * @param {Post} formData 사용자가 작성 중인 게시글의 내용을 담을 전역 상태 (current formData)
-     * @param {(formData: Post) => void} setFormData 사용자가 작성 중인 게시글의 내용을 저장하는 전역 상태 (formData update)
+     * @param {UpdatePost[K]} value 필드의 새로운 값
+     * @param {UpdatePost} formData 사용자가 작성 중인 게시글의 내용을 담을 전역 상태 (current formData)
+     * @param {(formData: UpdatePost) => void} setFormData 사용자가 작성 중인 게시글의 내용을 저장하는 전역 상태 (formData update)
      */
-    const handleInputChange = <K extends keyof Post>(
+    const handleInputChange = <K extends keyof UpdatePost>(
         field: K,
-        value: Post[K],
-        formData: Post,
-        setFormData: (formData: Post) => void,
+        value: UpdatePost[K],
+        formData: UpdatePost,
+        setFormData: (formData: UpdatePost) => void,
     ) => {
         setFormData({ ...formData, [field]: value })
     }
@@ -82,14 +82,14 @@ export const useCommonUpdatePost = () => {
      * @function handleEditorInputChange memo-form에서 사용하는 에디터의 변경된 내용을 적용하는 함수
      * @param {number} index 변경된 에디터의 index
      * @param {string} value 변경된 내용
-     * @param {ShortPosts[]} quillEditors 현재 에디터의 배열
-     * @param {(editors: ShortPosts[]) => void} setQuillEditors 변경된 내용을 에디터에 적용
+     * @param {memos[]} quillEditors 현재 에디터의 배열
+     * @param {(editors: memos[]) => void} setQuillEditors 변경된 내용을 에디터에 적용
      */
     const handleEditorInputChange = (
         index: number,
         value: string,
-        quillEditors: ShortPosts[],
-        setQuillEditors: (editors: ShortPosts[]) => void,
+        quillEditors: memos[],
+        setQuillEditors: (editors: memos[]) => void,
     ) => {
         const updatedEditors = quillEditors.map((editor, i) => (i === index ? { ...editor, content: value } : editor))
         setQuillEditors(updatedEditors)
@@ -97,23 +97,23 @@ export const useCommonUpdatePost = () => {
 
     /**
      * @function handleAddMemoClick memo-form에서 버튼 클릭 시 에디터가 추가되는 함수
-     * @param {ShortPosts[]} quillEditors 현재 에디터의 배열
-     * @param {(editors: ShortPosts[]) => void} setQuillEditors 에디터가 추가됨에 따라 에디터의 배열을 업데이트
+     * @param {memos[]} quillEditors 현재 에디터의 배열
+     * @param {(editors: memos[]) => void} setQuillEditors 에디터가 추가됨에 따라 에디터의 배열을 업데이트
      */
-    const handleAddMemoClick = (quillEditors: ShortPosts[], setQuillEditors: (editors: ShortPosts[]) => void) => {
+    const handleAddMemoClick = (quillEditors: memos[], setQuillEditors: (editors: memos[]) => void) => {
         setQuillEditors([...quillEditors, { shortPostId: quillEditors.length, content: "", address: "" }])
     }
 
     /**
      * @function handleDeleteQuillEditor memo-form에서 추가된 quill editor를 삭제하는 함수
      * @param {number} index 삭제될 에디터의 index
-     * @param {ShortPosts[]} quillEditors 현재 존재하는 에디터의 배열
-     * @param {(editors: ShortPosts[]) => void} setQuillEditors 삭제된 에디터를 제외한 에디터의 배열을 반환
+     * @param {memos[]} quillEditors 현재 존재하는 에디터의 배열
+     * @param {(editors: memos[]) => void} setQuillEditors 삭제된 에디터를 제외한 에디터의 배열을 반환
      */
     const handleDeleteQuillEditor = (
         index: number,
-        quillEditors: ShortPosts[],
-        setQuillEditors: (editors: ShortPosts[]) => void,
+        quillEditors: memos[],
+        setQuillEditors: (editors: memos[]) => void,
     ) => {
         const updatedEditors = quillEditors.filter((_, i) => i !== index)
         setQuillEditors(updatedEditors)
@@ -133,10 +133,10 @@ export const useCommonUpdatePost = () => {
      */
     const handleUpdatePost = async (
         postId: string,
-        formData: CreatePost,
+        formData: UpdatePost,
         quillEditors: Array<{ content: string }>,
         setIsSubmitted: (isSubmitted: boolean) => void,
-        updatePostMutation: UseMutationResult<CreatePost, Error, { postId: number; editedFields: Partial<CreatePost> }>,
+        updatePostMutation: UseMutationResult<UpdatePost, Error, { postId: number; editedFields: Partial<UpdatePost> }>,
         selectedContinent: string | null,
         selectedCountry: string | null,
         startDate: Date | null,
@@ -144,28 +144,28 @@ export const useCommonUpdatePost = () => {
     ) => {
         if (!postId) return
 
-        let editedPost: Partial<CreatePost> = {
+        let editedPost: Partial<UpdatePost> = {
             title: formData.title,
             content: "",
             continent: selectedContinent || "아시아",
             region: formData.region || selectedCountry!,
             tripStartDate: startDate ? startDate.toISOString() : "",
             tripEndDate: endDate ? endDate.toISOString() : "",
-            shortPosts: [],
+            memos: [],
             address: formData.address,
         }
 
         if (formData.content) {
             const processedContent = await processContentImages(formData.content)
             editedPost = { ...editedPost, content: processedContent }
-        } else if (formData.shortPosts) {
-            const processedShortPosts = await Promise.all(
+        } else if (formData.memos) {
+            const processedmemos = await Promise.all(
                 quillEditors.map(async (editor, index) => {
                     const content = await processContentImages(editor.content)
-                    return { shortPostId: index + 1, content, address: formData.shortPosts![index].address }
+                    return { shortPostId: index + 1, content, address: formData.memos![index].address }
                 }),
             )
-            editedPost = { ...editedPost, shortPosts: processedShortPosts }
+            editedPost = { ...editedPost, memos: processedmemos }
         }
 
         try {

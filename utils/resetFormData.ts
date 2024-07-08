@@ -1,18 +1,13 @@
-import { CreatePost } from "./type"
+import { CreatePost } from "@/types/post"
 
 export const getDefaultPost = (): CreatePost => ({
-    postId: 0,
-    continent: "",
-    region: "",
-    author: "",
     title: "",
     content: "",
-    likeCount: 0,
-    viewCount: 0,
-    createdAt: "",
-    modifiedAt: "",
+    address: "",
+    memos: [],
+    continent: "",
+    region: "",
     tripEndDate: "",
     tripStartDate: "",
-    address: "",
     themeList: [],
 })

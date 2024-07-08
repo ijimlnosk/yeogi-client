@@ -1,5 +1,6 @@
 const POST_API_URL = "/auth"
-const redirect_uri = "https://yeogi-client.vercel.app/auth"
+// const redirect_uri = "https://yeogi-client.vercel.app/auth"
+const redirect_uri = "http://localhost:3000/auth"
 
 /**
  * @function

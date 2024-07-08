@@ -4,7 +4,7 @@
 import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "react"
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
-import { Post } from "@/utils/type"
+import { Post } from "@/types/post"
 
 export type PostCardProps = {
     post_id: number

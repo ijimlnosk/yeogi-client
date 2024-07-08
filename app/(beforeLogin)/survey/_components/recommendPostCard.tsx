@@ -3,8 +3,8 @@ import { RecommendedTextFields } from "@/constants/recommendedTextFields"
 import Image from "next/image"
 import { RecommendPostCardProps } from "./type"
 import { useEffect, useState } from "react"
-import { Post } from "@/utils/type"
 import { getPopular } from "@/apis/postApi"
+import { Post } from "@/types/post"
 
 const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
     const [posts, setPosts] = useState<Post[]>([])

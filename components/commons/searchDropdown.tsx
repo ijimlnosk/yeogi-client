@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Theme } from "@/constants/theme"
 import SearchDropdownMap from "./searchDropdownMap"
 import { Continent } from "@/constants/continents"
 import { useCreatePostStore } from "@/libs/store"
 import { ThemeProps } from "@/app/_components/type"
+import { Theme } from "@/types/theme"
 
 const SearchDropdown = () => {
     const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)

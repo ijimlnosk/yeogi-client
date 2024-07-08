@@ -1,5 +1,5 @@
-import { CreatePost, ShortPosts } from "@/utils/type"
 import { ThemeProps } from "@/app/_components/type"
+import { CreatePost, memos } from "@/types/post"
 
 export type FormSelectionProps = {
     formText?: string
@@ -10,7 +10,7 @@ export type FormSelectionProps = {
 export type AddressSelectionProps = {
     formText?: string
     postDetail?: CreatePost
-    handleInputChange?: (index: number, field: keyof ShortPosts, value: string) => void
+    handleInputChange?: (index: number, field: keyof memos, value: string) => void
     index: number
     address?: string
 }

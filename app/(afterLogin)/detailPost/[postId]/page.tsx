@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { getPostDetail } from "@/apis/postApi"
-import { CreatePost } from "@/utils/type"
 import { useQuery } from "@tanstack/react-query"
 import { PostDetailProps } from "./type"
 import { deleteComment, getComment } from "@/apis/commentApi"
@@ -18,11 +17,11 @@ import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
 import LikeToComment from "./_components/comment/_components/likeToComment"
+import { Post } from "@/types/post"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
     const { setPostDetail } = usePostDataStore()
-
     const { isDelete, setIsDelete } = useModalStore()
     const { saveCommentId } = useCommentIdStore()
 
@@ -30,7 +29,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         data: post,
         error,
         isLoading,
-    } = useQuery<CreatePost, Error>({
+    } = useQuery<Post, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(Number(postId)),
     })

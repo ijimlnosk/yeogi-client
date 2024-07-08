@@ -1,4 +1,4 @@
-import { Post } from "@/utils/type"
+import { Post } from "@/types/post"
 
 export const samplePosts: Partial<Post>[] = [
     {

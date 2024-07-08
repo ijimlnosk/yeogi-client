@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import defaultBg from "@/public/images/p_bg.png"
 import defaultProfile from "@/public/images/sampleCat.jpeg"
 import MyPost from "./_components/myPost"
-import { Post } from "@/utils/type"
 import { ProfileProps } from "./_components/profile/type"
 import EditProfile from "./_components/profile/editProfile"
 import Profile from "./_components/profile/profile"
@@ -13,6 +12,7 @@ import UserDetails from "./_components/userDetails"
 import { getUserInfo } from "@/apis/userApi"
 import { getPinLocalStorage } from "@/utils/localStorage"
 import { UserInfoProps } from "./type"
+import { Post } from "@/types/post"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState(false)

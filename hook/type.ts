@@ -2,7 +2,7 @@ import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/re
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type"
 import { Continent } from "@/constants/continents"
-import { CreatePost } from "@/utils/type"
+import { Post, UpdatePost } from "@/types/post"
 import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
@@ -21,7 +21,7 @@ export type SignInProps = {
 }
 export type updateFreeProps = {
     postId: number
-    editedFields: Partial<CreatePost>
+    editedFields: Partial<UpdatePost>
 }
 export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
     isOpen: boolean
@@ -30,7 +30,7 @@ export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> &
 }
 export type useHandleClickProps = {
     postId?: string
-    post?: CreatePost
+    post?: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
 

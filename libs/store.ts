@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { initialFormData } from "@/apis/type"
-import { CreatePostState, PostDataState } from "./type"
+import { CreatePostState, PostDataState, UpdatePostDataState } from "./type"
 
 export const useCreatePostStore = create<CreatePostState>(set => ({
     // formData 관련 상태
@@ -51,6 +51,13 @@ export const useCreatePostStore = create<CreatePostState>(set => ({
 }))
 
 export const usePostDataStore = create<PostDataState>(set => ({
+    postId: null,
+    postDetail: null,
+    setPostId: postId => set({ postId }),
+    setPostDetail: postDetail => set({ postDetail }),
+}))
+
+export const useUpdatePostDataStore = create<UpdatePostDataState>(set => ({
     postId: null,
     postDetail: null,
     setPostId: postId => set({ postId }),
