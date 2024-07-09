@@ -5,7 +5,8 @@ import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 const Profile = ({ userInfo, onEdit }: ProfileProps) => {
     return (
         <div className="relative">
-            <div>
+            <div className="relative">
+                <div className="absolute inset-0 bg-black opacity-20" />
                 <Image
                     width={1920}
                     height={400}

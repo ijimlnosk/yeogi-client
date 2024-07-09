@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation } from "@tanstack/react-query"
-import { postCommentRequest, postCommentResponse, putCommentRequest, putCommentResponse } from "./type"
 import { postComment, putComment } from "@/apis/commentApi"
 import { postReComment } from "@/apis/recommentApi"
+import { postCommentRequest, postCommentResponse, putCommentRequest, putCommentResponse } from "./type"
 
 export const useCreateComment = (
     refetch: (() => void) | undefined,

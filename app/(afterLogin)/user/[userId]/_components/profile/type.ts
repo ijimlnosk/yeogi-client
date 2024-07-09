@@ -1,8 +1,8 @@
-import { UserInfoProps } from "@/components/layouts/type"
+import { UserInfoType } from "@/types/user"
 import { ChangeEvent } from "react"
 
 export type ProfileProps = {
-    userInfo: UserInfoProps
+    userInfo: UserInfoType
     onEdit: () => void
 }
 
@@ -21,8 +21,8 @@ export type EditFieldProps = {
 }
 
 export type EditProfileProps = {
-    userInfo: UserInfoProps
-    setUserInfo: (userInfo: UserInfoProps) => void
+    userInfo: UserInfoType
+    setUserInfo: (userInfo: UserInfoType) => void
     onCancel: () => void
 }
 

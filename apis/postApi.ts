@@ -1,4 +1,3 @@
-
 import { getPostProps } from "./type"
 import { ThemeProps } from "@/app/_components/type"
 import { CreatePost, Post, UpdatePost } from "@/types/post"

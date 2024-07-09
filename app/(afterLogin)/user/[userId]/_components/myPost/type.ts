@@ -1,7 +1,7 @@
-import { UserInfoProps } from "@/components/layouts/type"
+import { UserInfoType } from "@/types/user"
 import { Post } from "@/types/post"
 
 export type MyPostProps = {
-    userInfo: UserInfoProps
+    userInfo: UserInfoType
     posts?: Post[]
 }

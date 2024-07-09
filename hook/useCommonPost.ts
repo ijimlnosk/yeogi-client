@@ -7,7 +7,7 @@ import { CreatePost, memos } from "@/types/post"
 import { useMapStore } from "@/libs/pinStore"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
-import { processContentImages } from "@/utils/form.utils"
+import { processContentImages } from "@/utils/setImage.utils"
 import { setPinLocalStorage } from "@/utils/storage.utils"
 
 dayjs.extend(utc)

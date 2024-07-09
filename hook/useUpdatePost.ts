@@ -4,11 +4,11 @@ import { FormEvent, useState } from "react"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/store"
 import { postPost } from "@/apis/postApi"
 import { memos, UpdatePost } from "@/types/post"
-import { useUpdateFreePost } from "./usePostMutation"
 import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
-import { processContentImages } from "@/utils/form.utils"
+import { processContentImages } from "@/utils/setImage.utils"
+import { useUpdateFreePost } from "@/libs/reactQuery/usePostMutation"
 
 dayjs.extend(utc)
 

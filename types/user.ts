@@ -1,4 +1,4 @@
-export type UserInfoProps = {
+export type UserInfoType = {
     id: number
     email: string
     nickname: string

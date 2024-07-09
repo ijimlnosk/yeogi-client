@@ -1,7 +1,7 @@
 import { ThemeProps } from "@/app/_components/type"
-import { UserInfoProps } from "@/components/layouts/type"
 import { Continent } from "@/constants/continents"
 import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
+import { UserInfoType } from "@/types/user"
 import { Dayjs } from "dayjs"
 
 export type CreatePostState = {
@@ -62,7 +62,7 @@ export type ModalStore = {
     openLoginModal: () => void
     closeModal: () => void
     isDelete: boolean
-    setIsDelete: (isDelte: boolean) => void
+    setIsDelete: (isDelete: boolean) => void
 }
 
 export type UpdateCommentState = {
@@ -96,6 +96,6 @@ export type ThemeState = {
 export type LoginState = {
     isLoggedIn: boolean
     setIsLoggedIn: (isLoggedIn: boolean) => void
-    userInfo: UserInfoProps | undefined
-    setUserInfo: (userInfo: UserInfoProps) => void
+    userInfo: UserInfoType | undefined
+    setUserInfo: (userInfo: UserInfoType) => void
 }
