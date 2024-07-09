@@ -1,27 +1,15 @@
-import { StaticImageData } from "next/image"
+import { UserInfoProps } from "@/components/layouts/type"
 import { ChangeEvent } from "react"
 
 export type ProfileProps = {
-    name: string
-    bio: string
-    profileImage: string | StaticImageData
-    bgImage: string | StaticImageData
+    userInfo: UserInfoProps
     onEdit: () => void
 }
 
 export type ProfileImageProps = {
-    image: string | StaticImageData
+    image: string
     onImageChange: (e: ChangeEvent<HTMLInputElement>) => void
     className?: string
-}
-
-export type EditProfileProps = {
-    name: string
-    bio: string
-    profileImage: string | StaticImageData
-    bgImage: string | StaticImageData
-    onSave: (profile: Omit<ProfileProps, "onEdit">) => void
-    onCancel: () => void
 }
 
 export type EditFieldProps = {
@@ -30,4 +18,16 @@ export type EditFieldProps = {
     type?: "input" | "textarea"
     maxLength?: number
     className?: string
+}
+
+export type EditProfileProps = {
+    userInfo: UserInfoProps
+    setUserInfo: (userInfo: UserInfoProps) => void
+    onCancel: () => void
+}
+
+export type ProfileDetailsProps = {
+    ageRange: string
+    gender: string
+    pinCount: number
 }

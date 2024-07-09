@@ -1,14 +1,13 @@
 "use client"
 
 import React, { useEffect, useState, MouseEvent } from "react"
-import { WorldMapProps, Pin } from "./type"
+import { Pin, UserInfo } from "./type"
 import { useMapStore } from "@/libs/pinStore"
 import { getPin, postPin } from "@/apis/mapApi"
 import Image from "next/image"
 import { getPinLocalStorage, setPinLocalStorage } from "@/utils/storage.utils"
 
-const WorldMap: React.FC<WorldMapProps> = ({ userInfo }) => {
-    const { email, nickname } = userInfo
+const WorldMap = ({ email, nickname }: UserInfo) => {
     const { pinCount, incrementPinCount } = useMapStore()
     const [pins, setPins] = useState<Pin[]>([])
     const [isEditMode, setIsEditMode] = useState(false) // 수정 모드 상태

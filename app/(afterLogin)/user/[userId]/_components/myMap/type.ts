@@ -1,11 +1,7 @@
 import { MouseEvent as ReactMouseEvent } from "react"
 
-export type WorldMapProps = {
-    userInfo: User
-}
-
 export type MapProps = {
-    user: User
+    user: UserInfo
     movingPins: WorldPost[]
     setMovingPins: (pins: WorldPost[]) => void
     pinCount: number
@@ -25,11 +21,6 @@ export type WorldPost = {
     content: string
     thumbnail: string
     pin: Pin
-}
-
-export type User = {
-    nickname: string
-    email: string
 }
 
 export type PinProps = {

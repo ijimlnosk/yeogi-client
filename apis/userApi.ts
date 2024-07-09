@@ -1,6 +1,5 @@
 import { fetchFormAPI } from "./api.utils"
 
-
 const USER_API_URL = "/posts"
 
 export const getUserInfo = async () => {

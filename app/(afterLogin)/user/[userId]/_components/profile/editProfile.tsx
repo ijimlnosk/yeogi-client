@@ -1,27 +1,22 @@
-import { useState, useRef, ChangeEvent } from "react"
-import { StaticImageData } from "next/image"
+"use client"
+
+import { useRef, ChangeEvent, useState } from "react"
 import photoIcon from "@/public/icons/photoIcon.svg"
 import EditField from "./editField"
 import { EditProfileProps } from "./type"
 import ProfileImage from "./profileImage"
+import { UserInfoProps } from "@/components/layouts/type"
+import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 
-const EditProfile = ({
-    name: initialName,
-    bio: initialBio,
-    profileImage: initialProfileImage,
-    bgImage: initialBgImage,
-    onSave,
-    onCancel,
-}: EditProfileProps) => {
-    const [name, setName] = useState(initialName)
-    const [bio, setBio] = useState(initialBio)
-    const [profileImage, setProfileImage] = useState<string | StaticImageData>(initialProfileImage)
-    const [bgImage, setBgImage] = useState<string | StaticImageData>(initialBgImage)
-
+const EditProfile = ({ userInfo, setUserInfo, onCancel }: EditProfileProps) => {
+    const [, setName] = useState(userInfo.nickname)
+    const [, setMotto] = useState(userInfo.motto)
+    const [, setProfileImage] = useState(userInfo.profile || userInfo.profile_image)
+    const [, setBgImage] = useState(userInfo.banner || DefaultBanner)
     const bgImageInputRef = useRef<HTMLInputElement>(null)
 
     // 공통된 이미지 업데이트 함수
-    const updateImage = (e: ChangeEvent<HTMLInputElement>, setImage: (image: string | StaticImageData) => void) => {
+    const updateImage = (e: ChangeEvent<HTMLInputElement>, setImage: (image: string) => void) => {
         if (e.target.files && e.target.files[0]) {
             const reader = new FileReader()
             reader.onload = (event: ProgressEvent<FileReader>) => {
@@ -43,20 +38,18 @@ const EditProfile = ({
         updateImage(e, setBgImage)
     }
 
-    const handleSaveClick = () => {
-        const updatedProfile = { name, bio, profileImage, bgImage }
-        onSave(updatedProfile)
+    const submitEditedUserInfo = (updatedProfile: UserInfoProps) => {
+        setUserInfo(updatedProfile)
     }
 
     return (
-        <div className="relative font-pretendard">
-            <div className="relative group">
+        <div>
+            <div className="relative">
                 <img
-                    src={typeof bgImage === "string" ? bgImage : bgImage.src}
+                    src={userInfo.banner ? userInfo.banner : ""}
                     alt="Background"
                     className="w-full h-[440px] object-cover"
                 />
-                <div className="absolute inset-0 bg-black opacity-60"></div>
                 <div
                     className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
                     onClick={() => bgImageInputRef.current?.click()}
@@ -65,19 +58,22 @@ const EditProfile = ({
                 </div>
                 <input type="file" ref={bgImageInputRef} className="hidden" onChange={handleBgImageChange} />
             </div>
-            <div className="absolute left-[120px] top-[360px] flex items-center group">
-                <ProfileImage image={profileImage} onImageChange={handleProfileImageChange} />
+            <div className="absolute left-[120px] top-[360px] flex items-center">
+                <ProfileImage
+                    image={`${userInfo.profile}` || `${userInfo.profile_image}`}
+                    onImageChange={handleProfileImageChange}
+                />
                 <div className="ml-12 mt-36">
                     <EditField
-                        value={name}
+                        value={userInfo.nickname}
                         onChange={e => setName(e.target.value)}
                         type="input"
                         maxLength={10}
                         className="mb-4 text-4xl font-semibold w-fit"
                     />
                     <EditField
-                        value={bio}
-                        onChange={e => setBio(e.target.value)}
+                        value={userInfo.motto}
+                        onChange={e => setMotto(e.target.value)}
                         type="input"
                         maxLength={40}
                         className="text-lg w-fit"
@@ -87,7 +83,7 @@ const EditProfile = ({
             <div className="absolute top-[60px] right-[120px] flex space-x-2 z-20">
                 <button
                     className="bg-SYSTEM-black text-SYSTEM-white py-2 px-4 rounded-xl text-md font-medium"
-                    onClick={handleSaveClick}
+                    onClick={() => submitEditedUserInfo}
                 >
                     프로필 저장
                 </button>
