@@ -56,7 +56,7 @@ const Header = () => {
         <header
             className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50 bg-SYSTEM-beige`}
         >
-            <div className="max-w-[1920px] mx-auto bg-SYSTEM-beige px-[10%] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
+            <div className="max-w-[1920px] mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                 <div className="flex items-center">
                     <Image
                         src={"/icons/logo_text.svg"}

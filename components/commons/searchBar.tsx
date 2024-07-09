@@ -16,11 +16,19 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
 
     const router = useRouter()
     const [keyword, setKeyword] = useState<string>("")
+    const [selectedTheme, setSelectedTheme] = useState<string>("")
     const dropdownRef = useRef<HTMLDivElement>(null)
+
+    const handleSearch = () => {
+        const searchParams = new URLSearchParams()
+        if (keyword) searchParams.set("keyword", keyword)
+        if (selectedTheme) searchParams.set("theme", selectedTheme)
+        router.push(`/search?${searchParams.toString()}`)
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        router.push(`/search?keyword=${keyword}`)
+        handleSearch()
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +70,9 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         className={clsx(
                             "block p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
                             sizeClasses,
-                            size === "lg" && isFocused ? "border-t-GREY-10 rounded-t-9 rounded-b-0" : "rounded-[81px]",
+                            size === "lg" && isFocused
+                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
+                                : "rounded-[81px]",
                         )}
                         placeholder={text}
                         onChange={handleChange}
@@ -80,7 +90,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                             isFocused ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-0",
                         )}
                     >
-                        <SearchDropdown />
+                        <SearchDropdown onThemeSelect={setSelectedTheme} onSearch={handleSearch} />
                     </div>
                 )}
             </div>
