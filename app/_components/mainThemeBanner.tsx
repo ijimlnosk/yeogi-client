@@ -1,6 +1,6 @@
 "use client"
 
-import { ThemeBannerContext } from "@/constants/theme"
+import { ThemeBannerContext } from "@/constants/themeBannerTexts"
 import { useCreatePostStore } from "@/libs/store"
 import { Theme, ThemeProps } from "@/types/theme"
 
