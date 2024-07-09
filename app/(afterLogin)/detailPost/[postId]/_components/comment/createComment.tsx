@@ -1,18 +1,37 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 import Button from "@/components/commons/button"
 import { useCreateComment } from "@/hook/useCommentMutation"
 import { postCommentRequest } from "@/hook/type"
+import { getCookieToken } from "@/apis/auth/storageUtils"
 
 const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
     const mutation = useCreateComment(refetch)
 
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const token = getCookieToken()
+            if (token) {
+                setIsLoggedIn(true)
+            } else {
+                setIsLoggedIn(false)
+            }
+        }
+        checkLoginStatus()
+    }, [])
+    const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+        if (!isLoggedIn) {
+            alert("로그인 이후에 이용가능합니다.")
+            e.target.blur()
+        }
+    }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
@@ -46,6 +65,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
                     placeholder="댓글을 입력해주세요."
                     value={content}
                     onChange={e => setContent(e.target.value)}
+                    onFocus={handleFocus}
                 />
                 <div className="w-full flex justify-end py-4">
                     <Button
