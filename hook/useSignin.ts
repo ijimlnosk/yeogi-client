@@ -1,5 +1,5 @@
 import { postLogin } from '@/apis/auth/signin';
-import { UserRequest } from '@/app/(beforeLogin)/_auth/signin/type';
+import { UserRequest } from '@/app/auth/_components/signin/type';
 import { useMutation } from '@tanstack/react-query';
 import { SigninResult, UserResponse } from './type';
 import { setCookieToken, setSessionToken } from '@/apis/auth/storageUtils';

@@ -1,9 +1,9 @@
 import Image from "next/image"
 import CommentLikeButton from "./likeButton"
 import CommentCount from "./commentCount"
-import { formatISODateString } from "@/utils/formatDate"
 import CommentMenu from "./commentMenu"
 import { CommentContentsProps } from "./type"
+import { formatISODateString } from "../../../date.utils"
 
 const CommentContents = ({
     author,

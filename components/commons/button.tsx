@@ -1,4 +1,4 @@
-import { cn } from "@/utils/tailwindUtils"
+import { cn } from "@/utils/tailwind.utils"
 import { ButtonProps } from "./type"
 import { buttonStyle } from "@/styles/common-button"
 

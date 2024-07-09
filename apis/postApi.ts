@@ -1,8 +1,9 @@
-import { getDefaultPost } from "@/utils/resetFormData"
-import { fetchFormAPI, fetchFormAPINotToken } from "@/utils/fetchFormAPI"
+
 import { getPostProps } from "./type"
 import { ThemeProps } from "@/app/_components/type"
 import { CreatePost, Post, UpdatePost } from "@/types/post"
+import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
+import { getDefaultPost } from "@/utils/reset.utils"
 
 const POST_API_URL = "/posts"
 

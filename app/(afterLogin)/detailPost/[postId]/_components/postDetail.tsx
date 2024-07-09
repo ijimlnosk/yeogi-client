@@ -3,10 +3,10 @@
 import "@/styles/editor-content.css"
 import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
-import { formatISODateString } from "@/utils/formatDate"
 import { postViews } from "@/apis/postApi"
 import { ThemeProps } from "@/app/_components/type"
 import { memos } from "@/types/post"
+import { formatISODateString } from "../date.utils"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)

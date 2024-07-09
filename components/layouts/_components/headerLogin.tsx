@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import ProtectedLink from "@/components/protectedLink"
+import ProtectedLink from "@/components/commons/protectedLink"
 import { useEffect, useState } from "react"
 import { useLoggedIn } from "@/libs/loginStore"
 

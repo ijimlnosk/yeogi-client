@@ -1,4 +1,4 @@
-import { UserRequest } from "@/app/(beforeLogin)/_auth/signin/type";
+import { UserRequest } from "@/app/auth/_components/signin/type";
 import { UserResponse } from "@/hook/type";
 const BASE_URL = "/auth"
 

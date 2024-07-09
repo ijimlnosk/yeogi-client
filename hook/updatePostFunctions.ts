@@ -2,7 +2,7 @@
 
 import { useCreatePostStore } from "@/libs/store"
 import { memos, UpdatePost } from "@/types/post"
-import { processContentImages } from "@/utils/commonFormUtils"
+import { processContentImages } from "@/utils/form.utils"
 import { UseMutationResult } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 
