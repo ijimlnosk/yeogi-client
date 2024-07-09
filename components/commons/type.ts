@@ -104,3 +104,8 @@ export type SearchDropdownMapProps = {
     onClick: (index: number) => void
     index: number | null | number[]
 }
+
+export type SearchDropdownProps = {
+    onThemeSelect: (theme: string) => void
+    onSearch: () => void
+}

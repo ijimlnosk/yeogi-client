@@ -2,48 +2,32 @@
 
 import { useState } from "react"
 import SearchDropdownMap from "./searchDropdownMap"
-import { Continent } from "@/constants/continents"
-import { useCreatePostStore } from "@/libs/store"
-import { ThemeProps } from "@/app/_components/type"
 import { Theme } from "@/types/theme"
+import { SearchDropdownProps } from "./type"
 
-const SearchDropdown = () => {
-    const [selectedContinentIndex, setSelectedContinentIndex] = useState<number | null>(null)
+const SearchDropdown = ({ onThemeSelect, onSearch }: SearchDropdownProps) => {
     const [selectedThemeIndex, setSelectedThemeIndex] = useState<number | null>(null)
-    const { setSelectedTheme } = useCreatePostStore()
 
-    const ContinentEntries = Object.entries(Continent)
     const ThemeEntries = Object.entries(Theme)
 
-    const selectedContinent = selectedContinentIndex !== null ? ContinentEntries[selectedContinentIndex][1] : ""
-    const selectedTheme = selectedThemeIndex !== null ? ThemeEntries[selectedThemeIndex][1] : ""
-
-    const handleSearchClick = async () => {
-        if (selectedTheme) {
-            const themeProp: ThemeProps = selectedTheme as ThemeProps
-            setSelectedTheme([themeProp])
+    const handleThemeSelect = (index: number) => {
+        if (index !== selectedThemeIndex) {
+            setSelectedThemeIndex(index)
+            onThemeSelect(ThemeEntries[index][0])
         }
     }
+
+    const selectedTheme = selectedThemeIndex !== null ? ThemeEntries[selectedThemeIndex][1] : ""
 
     return (
         <div className="absolute top-full left-0 w-full bg-white shadow-sm rounded-b-[36px] z-50">
             <div className="p-8">
                 <div className="mb-7">
-                    <h1 className="text-sm">여행 대륙</h1>
-                    <div className="flex flex-col items-center justify-center">
-                        <SearchDropdownMap
-                            dropdownItem={ContinentEntries}
-                            onClick={setSelectedContinentIndex}
-                            index={selectedContinentIndex}
-                        />
-                    </div>
-                </div>
-                <div className="mb-7">
-                    <h1 className="text-sm">여행 컨셉</h1>
+                    <p className="text-sm">여행 컨셉</p>
                     <div className="flex flex-col items-center justify-start">
                         <SearchDropdownMap
                             dropdownItem={ThemeEntries}
-                            onClick={setSelectedThemeIndex}
+                            onClick={handleThemeSelect}
                             index={selectedThemeIndex}
                         />
                     </div>
@@ -53,11 +37,10 @@ const SearchDropdown = () => {
                 <div className="flex flex-row">
                     <h1 className="font-light pr-7">선택된 검색어:</h1>
                     <div className="text-BRAND-50">
-                        <span className="mx-[14px]">{`${selectedContinent}`}</span>
-                        <span className="mx-[14px]">{`${selectedTheme}`}</span>
+                        <span className="mx-[14px]">{selectedTheme}</span>
                     </div>
                 </div>
-                <button onClick={handleSearchClick}>검색</button>
+                <button onClick={onSearch}>검색</button>
             </div>
         </div>
     )

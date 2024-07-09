@@ -9,6 +9,11 @@ import { chosungIncludes } from "es-hangul"
  * @returns {Post[]} 필터링된 게시글 배열
  */
 export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
+    if (!Array.isArray(posts)) {
+        console.error("posts is not an array:", posts)
+        return []
+    }
+
     const term = searchTerm.toLowerCase()
 
     return posts.filter(post => {
