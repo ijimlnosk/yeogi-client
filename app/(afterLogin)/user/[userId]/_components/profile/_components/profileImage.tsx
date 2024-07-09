@@ -16,7 +16,7 @@ const ProfileImage = ({ image, onImageChange, className }: ProfileImageProps) =>
                 alt="profile image"
                 className="rounded-full border-[5px] border-SYSTEM-white shadow-profile"
             />
-            <div className="absolute inset-0 bg-black opacity-60 rounded-full"></div>
+            <div className="absolute inset-0 bg-black opacity-60 rounded-full" />
             <div
                 className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
                 onClick={() => imageInputRef.current?.click()}

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ProfileProps } from "./type"
+import DefaultProfile from "@/public/images/user/sampleProfile.svg"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 
 const Profile = ({ userInfo, onEdit }: ProfileProps) => {
@@ -7,13 +8,15 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
         <div className="relative">
             <div className="relative">
                 <div className="absolute inset-0 bg-black opacity-20" />
-                <Image
-                    width={1920}
-                    height={400}
-                    src={userInfo.banner ? userInfo.banner : DefaultBanner}
-                    alt="background image"
-                    className="w-full object-cover"
-                />
+                <div className="w-full h-[440px] flex justify-center items-center overflow-hidden">
+                    <Image
+                        width={1920}
+                        height={400}
+                        src={userInfo.banner ? userInfo.banner : DefaultBanner}
+                        alt="banner image"
+                        className="w-full"
+                    />
+                </div>
                 <button
                     className="absolute top-[60px] right-[120px] bg-SYSTEM-black text-SYSTEM-white py-2 px-4 rounded-xl text-md font-medium"
                     onClick={onEdit}
@@ -25,7 +28,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                 <Image
                     width={240}
                     height={240}
-                    src={`${userInfo.profile}` || `${userInfo.profile_image}`}
+                    src={`${userInfo.profile}` || `${userInfo.profile_image}` || DefaultProfile}
                     alt="profile image"
                     className="rounded-full border-[5px] border-white shadow-profile"
                 />

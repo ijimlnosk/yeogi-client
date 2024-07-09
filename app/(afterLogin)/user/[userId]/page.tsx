@@ -11,8 +11,8 @@ import { getPinLocalStorage } from "@/utils/storage.utils"
 import { useLoggedIn } from "@/libs/loginStore"
 
 const UserPage = () => {
-    const [isEditing, setIsEditing] = useState(false)
-    const [pinCount, setPinCount] = useState(0)
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const [pinCount, setPinCount] = useState<number>(0)
     const { isLoggedIn, userInfo, setUserInfo } = useLoggedIn()
 
     useEffect(() => {
@@ -32,11 +32,7 @@ const UserPage = () => {
             <div>
                 <div>
                     {isEditing ? (
-                        <EditProfile
-                            userInfo={userInfo}
-                            setUserInfo={setUserInfo}
-                            onCancel={() => setIsEditing(false)}
-                        />
+                        <EditProfile userInfo={userInfo} setUserInfo={setUserInfo} setIsEditing={setIsEditing} />
                     ) : (
                         <Profile userInfo={userInfo} onEdit={() => setIsEditing(true)} />
                     )}

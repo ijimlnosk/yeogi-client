@@ -23,7 +23,11 @@ export const getUserInfo = async () => {
 export const putUserInfo = async (userInfo: UserInfoType, editedUserInfo: UserInfoType): Promise<UserInfoType> => {
     const response = await fetchFormAPI(USER_API_URL, "member/", {
         method: "PUT",
-        body: JSON.stringify(editedUserInfo),
+        body: JSON.stringify({
+            id: userInfo.id,
+            nickname: editedUserInfo.nickname,
+            motto: editedUserInfo.motto,
+        }),
     })
     if (!response.ok) throw new Error("유저 정보 수정에 실패했어요...🥹")
 
@@ -49,7 +53,7 @@ export const putUserInfo = async (userInfo: UserInfoType, editedUserInfo: UserIn
 export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: string) => {
     const response = await fetchFormAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
-        body: JSON.stringify(profileImage),
+        body: JSON.stringify({ profileImage }),
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     return {
@@ -74,7 +78,7 @@ export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: 
 export const putUserBannerImage = async (userInfo: UserInfoType, bannerImage: string) => {
     const response = await fetchFormAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
-        body: JSON.stringify(bannerImage),
+        body: JSON.stringify({ bannerImage }),
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     return {
