@@ -23,6 +23,8 @@ const SearchPage = () => {
     const [totalPage, setTotalPage] = useState(1)
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+
         const fetchGetData = async () => {
             const response = await getPost({
                 searchType: "CONTENT",
@@ -44,7 +46,7 @@ const SearchPage = () => {
     const paginationPosts = posts.slice((currentPage - 1) * ITMES_PER_PAGE, currentPage * ITMES_PER_PAGE)
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className=" w-full flex flex-col justify-center items-center">
             <div className="w-[1920px] px-[120px] py-10 ">
                 <div className="flex flex-row items-center">
                     <div className="w-full flex items-center text-bg px-[550px] sm:px-[550px] md:px-[550px] lg:px-[450px] xl:px-[450px] 2xl:px-[210px] 4xl:px-0 text-GREY-80 font-medium">
