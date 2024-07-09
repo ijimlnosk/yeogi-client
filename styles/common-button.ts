@@ -29,6 +29,7 @@ export const buttonStyle = cva(
                 black: "text-SYSTEM-black",
                 brand50: "text-BRAND-50",
                 white: "text-SYSTEM-white",
+                gray80:"text-GREY-80",
             },
         },
         defaultVariants: {
