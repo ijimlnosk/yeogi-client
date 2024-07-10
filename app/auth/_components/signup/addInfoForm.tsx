@@ -21,7 +21,7 @@ const AddInfoForm = () => {
                 <div className=" w-[400px] h-[480px]">
                     <div className="flex text-xs text-BRAND-70  items-center ">가입 정보를 입력해주세요.</div>
                     <div className=" flex flex-col text-xs justify-center  pt-8 ">
-                        <div className="flex flex-col  w-full gap-[10px] pb-6">
+                        <div className="flex flex-col  w-full gap-2.5 pb-6">
                             <div>
                                 <span className="text-SYSTEM-error mr-1">*</span>이메일
                             </div>
@@ -30,7 +30,7 @@ const AddInfoForm = () => {
                                 className="w-[400px] h-[46px] border-[1px]  rounded-s focus:outline-none focus:border-BRAND-50"
                             />
                         </div>
-                        <div className="flex flex-col  w-full gap-[10px] pb-6">
+                        <div className="flex flex-col  w-full gap-2.5 pb-6">
                             <div>
                                 <span className="text-SYSTEM-error mr-1">*</span>닉네임
                             </div>
@@ -44,13 +44,13 @@ const AddInfoForm = () => {
                                 </Button>
                             </div>
                         </div>
-                        <div className="flex flex-col  w-full gap-[10px] pb-6">
+                        <div className="flex flex-col  w-full gap-2.5 pb-6">
                             <div>
                                 <span className="text-SYSTEM-error mr-1">*</span>연령대
                             </div>
                             <SignupAgeButton onAgeSelect={handleAgeSelect} />
                         </div>
-                        <div className="flex flex-col  w-full gap-[10px] pb-6 ">
+                        <div className="flex flex-col  w-full gap-2.5 pb-6 ">
                             <GenderSelect selectedGender={selectedGender} onGenderChange={handleGenderChange} />
                         </div>
                         <div className="flex justify-end">
