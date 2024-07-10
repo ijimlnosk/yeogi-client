@@ -36,7 +36,7 @@ const HeaderLogin = () => {
     return (
         <>
             {isLoggedIn ? (
-                <Link href={`/user/${userInfo?.id}`} className="w-12 h-12 relative">
+                <Link href={`/user/${userInfo?.id}`} className="w-12 h-12 overflow-hidden rounded-full relative ">
                     {isImageLoading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-full">
                             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
