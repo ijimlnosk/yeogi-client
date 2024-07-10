@@ -1,4 +1,4 @@
-import { GenderSelectProps, SelectedGender } from "./type"
+import { GenderSelectProps } from "./type"
 
 const GenderSelect = ({ selectedGender, onGenderChange }: GenderSelectProps) => {
     return (
