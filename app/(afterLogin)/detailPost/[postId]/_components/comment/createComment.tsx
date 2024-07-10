@@ -7,11 +7,12 @@ import Button from "@/components/commons/button"
 import { useCreateComment } from "@/hook/useCommentMutation"
 import { postCommentRequest } from "@/hook/type"
 import { getCookieToken } from "@/apis/auth/storageUtils"
+import { useLoggedIn } from "@/libs/loginStore"
 
 const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const { isLoggedIn, setIsLoggedIn } = useLoggedIn()
 
     const mutation = useCreateComment(refetch)
 
@@ -25,7 +26,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
             }
         }
         checkLoginStatus()
-    }, [])
+    }, [setIsLoggedIn])
     const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
         if (!isLoggedIn) {
             alert("로그인 이후에 이용가능합니다.")
