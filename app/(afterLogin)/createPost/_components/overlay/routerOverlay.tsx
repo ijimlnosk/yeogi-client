@@ -11,7 +11,7 @@ const RouterOverlay = ({ isRouterOverlayOpen }: RouterOverlayProps) => {
     return (
         <Overlay
             isOpen={isRouterOverlayOpen}
-            onClick={() => router.push("/user/0")}
+            onClick={() => router.push(`/user/0`)}
             text="마이페이지 가기"
             textColor="text-SYSTEM-white"
             imageUrl="/icons/white_check.svg"

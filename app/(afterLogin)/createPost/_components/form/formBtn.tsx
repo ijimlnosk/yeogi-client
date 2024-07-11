@@ -1,17 +1,12 @@
 import { FormBtnProps } from "./type"
 
-const FormBtn = ({ postId, handleUpdatePost, setIsOverlayOpen, mode }: FormBtnProps) => {
+const FormBtn = ({ setIsOverlayOpen, handleUpdatePost, postId }: FormBtnProps) => {
     const handleClick = () => {
-        if (mode === "create") {
-            if (setIsOverlayOpen) {
-                setIsOverlayOpen(true)
-            }
-            console.log("생성 클릭")
-        } else {
-            if (handleUpdatePost && postId) {
-                handleUpdatePost(postId)
-            }
-            console.log("수정 클릭")
+        if (setIsOverlayOpen) {
+            setIsOverlayOpen(true)
+        }
+        if (handleUpdatePost && postId) {
+            handleUpdatePost(postId)
         }
     }
     return (

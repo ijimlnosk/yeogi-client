@@ -32,4 +32,5 @@ export type TextDisplayProps = {
 
 export type RouterOverlayProps = {
     isRouterOverlayOpen: boolean
+    postId?: number
 }

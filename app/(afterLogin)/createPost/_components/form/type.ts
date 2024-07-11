@@ -28,7 +28,7 @@ export type FormBtnProps = {
     setIsOverlayOpen?: (isOpen: boolean) => void
     handleUpdatePost?: (postId: number) => void
     postId?: number | null
-    mode: "create" | "update"
+    mode?: "create" | "update"
 }
 
 export type SelectedThemeProps = {

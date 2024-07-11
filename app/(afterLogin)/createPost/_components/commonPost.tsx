@@ -10,9 +10,7 @@ import UploadOverlay from "./overlay/uploadOverlay"
 import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { useCommonPost } from "@/hook/useCommonPost"
-import { useUpdatePost } from "@/hook/useUpdatePost"
 import { CommonPostProps } from "./type"
-import { useUpdatePostDataStore } from "@/libs/zustand/post"
 
 const CommonPost = ({
     isFreeForm,
@@ -22,9 +20,6 @@ const CommonPost = ({
     handleAddMemoClick,
     mode,
 }: CommonPostProps) => {
-    const createHook = useCommonPost(isFreeForm)
-    const updateHook = useUpdatePost(isFreeForm)
-
     const {
         isOverlayOpen,
         setIsOverlayOpen,
@@ -34,11 +29,7 @@ const CommonPost = ({
         handleInputChange,
         handleOverlaySubmit,
         formData,
-    } = mode === "create" ? createHook : updateHook
-    const { handleSubmitEditedPost } = useUpdatePost(isFreeForm)
-    const { postId } = useUpdatePostDataStore()
-
-    // const handleSubmit = mode === "create" ? handleOverlaySubmit : updateHook.handleSubmitEditedPost
+    } = useCommonPost(isFreeForm)
 
     return (
         <>
@@ -102,12 +93,7 @@ const CommonPost = ({
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
-                    <FormBtn
-                        mode={mode}
-                        setIsOverlayOpen={setIsOverlayOpen}
-                        handleUpdatePost={handleSubmitEditedPost}
-                        postId={postId}
-                    />
+                    <FormBtn mode={mode} setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}

@@ -9,7 +9,7 @@ import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
-import { useLoggedIn } from "@/libs/loginStore"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)

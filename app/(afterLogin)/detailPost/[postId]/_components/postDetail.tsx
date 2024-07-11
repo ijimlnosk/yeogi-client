@@ -107,10 +107,10 @@ const PostDetail = ({ post }: PostDetailProps) => {
                 ))}
             </div>
             <div
-                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeProps[]) || []).length > 7 ? "flex-col" : "flex-row"} justify-end`}
+                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeProps[]) || []).length > 7 ? "flex-col items-start" : "flex-row items-center"} justify-end`}
             >
                 <span
-                    className={`w-fit text-SYSTEM-black text-sm ${((post.themeList as ThemeProps[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
+                    className={`w-fit flex text-SYSTEM-black text-sm ${((post.themeList as ThemeProps[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
                 >
                     기록한 여행의 컨셉 :
                 </span>

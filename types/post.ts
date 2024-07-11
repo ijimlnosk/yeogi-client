@@ -21,7 +21,7 @@ export type Post = {
     themeList: ThemeProps | ThemeProps[]
 }
 export type memosList = {
-    shortPostId: number
+    memoId: number
     content: string
     address: string
 }
@@ -59,7 +59,7 @@ export type CreatePost = {
     themeList: ThemeProps | ThemeProps[]
 }
 export type memos = {
-    shortPostId?: number
+    id?: number
     content: string
     address: string
 }
@@ -71,7 +71,7 @@ export type UpdatePost = {
     address?: string | ""
     memos?: memos[] | []
     continent: string
-    region: string
+    region: string | ""
     tripStartDate: string
     tripEndDate: string
     themeList: ThemeProps | ThemeProps[]

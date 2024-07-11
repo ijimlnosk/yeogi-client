@@ -69,7 +69,6 @@ export const useCommonPost = (isFreeForm: boolean) => {
                     ...post,
                 }))
             }
-
             const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)

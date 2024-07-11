@@ -59,6 +59,30 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
+export const putPost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
+    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
+        method: "PUT",
+        body: JSON.stringify(editedPost),
+    })
+    if (!response.ok) throw new Error("게시글 수정에 실패했어요...🥹")
+    return {
+        title: editedPost.title || "",
+        content: editedPost.content || "",
+        address: editedPost.address,
+        memos: editedPost.memos || [],
+        continent: editedPost.continent || "",
+        region: editedPost.region || "",
+        tripStartDate: editedPost.tripStartDate || "",
+        tripEndDate: editedPost.tripEndDate || "",
+        themeList: editedPost.themeList || [],
+    }
+}
+
+/**
+ * @function putFreePost free-form으로 작성한 게시글의 수정
+ * @param {number} postId 수정할 게시글의 ID
+ * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
+ */
 export const putFreePost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
         method: "PUT",
