@@ -7,7 +7,7 @@ import Overlay from "@/components/commons/overlay"
 import Image from "next/image"
 import backIcon from "@/public/icons/white_arrow-left.svg"
 import useCountrySearch from "@/hook/useCountrySearch"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/zustand/post"
 import { CountrySearchProps } from "./type"
 
 const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: CountrySearchProps) => {

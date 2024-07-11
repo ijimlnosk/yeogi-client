@@ -5,7 +5,7 @@ import dayjs, { Dayjs } from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import isBetween from "dayjs/plugin/isBetween"
 import { generateCalendarOptions, generateDays, renderDay, renderDayOfWeek } from "./calendarUtils"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/zustand/post"
 
 dayjs.extend(advancedFormat)
 dayjs.extend(isBetween)

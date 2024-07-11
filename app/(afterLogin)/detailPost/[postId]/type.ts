@@ -1,1 +1,1 @@
-export type PostDetailProps = { params: { postId: string } }
+export type PostDetailProps = { params: { postId: number } }

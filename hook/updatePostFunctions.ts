@@ -1,7 +1,8 @@
 "use client"
 
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/zustand/post"
 import { memos, UpdatePost } from "@/types/post"
+import { ThemeProps } from "@/types/theme"
 import { processContentImages } from "@/utils/form.utils"
 import { UseMutationResult } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
@@ -121,30 +122,31 @@ export const useCommonUpdatePost = () => {
 
     /**
      * @function handleUpdatePost 게시글을 업데이트하는 함수
-     * @param {string} postId 게시글의 ID
+     * @param {number} postId 게시글의 ID
      * @param {Post} formData 사용자가 작성 중인 게시글의 내용을 담을 전역 상태 (current formData)
      * @param {Array<{ content: string }>} quillEditors 현재 존재하는 에디터의 배열
      * @param {(isSubmitted: boolean) => void} setIsSubmitted 게시글이 성공적으로 업데이트되었는지 여부를 설정
-     * @param {UseMutationResult<Post, Error, { postId: number; editedFields: Partial<Post> }>} updatePostMutation 게시글 업데이트 mutation 함수
+     * @param {UseMutationResult<Post, Error, { postId: number; editedFields: UpdatePost }>} updatePostMutation 게시글 업데이트 mutation 함수
      * @param {string | null} selectedContinent 사용자가 선택한 대륙
      * @param {string | null} selectedCountry 사용자가 선택한 국가
      * @param {Date | null} startDate 여행 시작 날짜
      * @param {Date | null} endDate 여행 종료 날짜
      */
     const handleUpdatePost = async (
-        postId: string,
+        postId: number,
         formData: UpdatePost,
         quillEditors: Array<{ content: string }>,
         setIsSubmitted: (isSubmitted: boolean) => void,
-        updatePostMutation: UseMutationResult<UpdatePost, Error, { postId: number; editedFields: Partial<UpdatePost> }>,
+        updatePostMutation: UseMutationResult<UpdatePost, Error, { postId: number; editedFields: UpdatePost }>,
         selectedContinent: string | null,
         selectedCountry: string | null,
         startDate: Date | null,
         endDate: Date | null,
+        themeList: ThemeProps[] | ThemeProps,
     ) => {
         if (!postId) return
 
-        let editedPost: Partial<UpdatePost> = {
+        let editedPost: UpdatePost = {
             title: formData.title,
             content: "",
             continent: selectedContinent || "아시아",
@@ -153,24 +155,24 @@ export const useCommonUpdatePost = () => {
             tripEndDate: endDate ? endDate.toISOString() : "",
             memos: [],
             address: formData.address,
+            themeList: themeList,
         }
 
         if (formData.content) {
             const processedContent = await processContentImages(formData.content)
             editedPost = { ...editedPost, content: processedContent }
         } else if (formData.memos) {
-            const processedmemos = await Promise.all(
+            const processedMemos = await Promise.all(
                 quillEditors.map(async (editor, index) => {
                     const content = await processContentImages(editor.content)
                     return { shortPostId: index + 1, content, address: formData.memos![index].address }
                 }),
             )
-            editedPost = { ...editedPost, memos: processedmemos }
+            editedPost = { ...editedPost, memos: processedMemos }
         }
-
         try {
             await updatePostMutation.mutateAsync({
-                postId: parseInt(postId),
+                postId: postId,
                 editedFields: editedPost,
             })
             setIsSubmitted(true)

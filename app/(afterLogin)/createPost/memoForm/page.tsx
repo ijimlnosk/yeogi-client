@@ -23,6 +23,7 @@ const Page = () => {
 
     return (
         <CommonPost
+            mode={"create"}
             memos={memos}
             handleAddMemoClick={handleAddMemoClick}
             handleDeleteQuillEditor={handleDeleteQuillEditor}

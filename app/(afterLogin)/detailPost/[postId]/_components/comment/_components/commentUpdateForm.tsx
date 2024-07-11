@@ -1,8 +1,8 @@
 import Image from "next/image"
 import { useState } from "react"
-import { useUpdateComment } from "@/hook/useCommentMutation"
 import { useIsUpdateComment } from "@/libs/commentStore"
 import { CommentUpdateFormProps } from "../type"
+import { useUpdateComment } from "@/libs/reactQuery/useCommentMutation"
 
 const CommentUpdateForm = ({ commentId, content, postId, refetch }: CommentUpdateFormProps) => {
     const [updatedContent, setUpdatedContent] = useState<string>(content)

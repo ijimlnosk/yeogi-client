@@ -1,14 +1,14 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/store"
-import { postPost } from "@/apis/postApi"
+import { useUpdatePostDataStore, useUpdatePostStore } from "@/libs/zustand/post"
+import { putFreePost, putMemoPost } from "@/apis/postApi"
 import { memos, UpdatePost } from "@/types/post"
-import { useUpdateFreePost } from "./usePostMutation"
 import { useCommonUpdatePost, useInitializeFormData } from "./updatePostFunctions"
+import { processContentImages } from "@/utils/form.utils"
+import { useUpdateFreePost } from "@/libs/reactQuery/usePostMutation"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
-import { processContentImages } from "@/utils/form.utils"
 
 dayjs.extend(utc)
 
@@ -17,6 +17,9 @@ export const useUpdatePost = (isFreeForm: boolean) => {
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
     const [, setIsSubmitted] = useState(false)
+    const { postId, postDetail } = useUpdatePostDataStore()
+
+    const useUpdatePost = useUpdatePostStore(postDetail)
     const {
         selectedContinent,
         selectedCountry,
@@ -28,10 +31,7 @@ export const useUpdatePost = (isFreeForm: boolean) => {
         setFormData,
         posts,
         setPosts,
-        resetFormData,
-        resetAll,
-    } = useCreatePostStore()
-    const { postId, postDetail } = useUpdatePostDataStore()
+    } = useUpdatePost()
     const { quillEditors } = useInitializeFormData(postDetail)
     const updatePostMutation = useUpdateFreePost()
     const { handleUpdatePost } = useCommonUpdatePost()
@@ -43,24 +43,28 @@ export const useUpdatePost = (isFreeForm: boolean) => {
     const handleOverlaySubmit = async (e: FormEvent, shortPosts: memos[]) => {
         e.preventDefault()
         const postData: UpdatePost = {
-            title: formData.title,
-            content: "",
-            address: selectedAddress!,
+            title: postDetail?.title || "",
+            content: postDetail?.content,
+            address: selectedAddress || postDetail?.address,
             memos: [],
-            continent: selectedContinent || "아시아",
-            region: selectedCountry!,
+            continent: selectedContinent || postDetail?.continent || "아시아",
+            region: selectedCountry || postDetail?.region || "",
             tripStartDate: startDate
                 ? dayjs(startDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-                : "",
-            tripEndDate: endDate ? dayjs(endDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") : "",
+                : postDetail?.tripStartDate || "",
+            tripEndDate: endDate
+                ? dayjs(endDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+                : postDetail?.tripEndDate || "",
             themeList: selectedTheme || [],
         }
 
         try {
+            let editedPost: UpdatePost
             if (isFreeForm) {
                 const processedContent = await processContentImages(formData.content!)
                 postData.content = processedContent
-            } else {
+                editedPost = await putFreePost(postId, postData)
+            } else if (!isFreeForm) {
                 const processedShortPosts = await Promise.all(
                     shortPosts.map(async post => {
                         const processedContent = await processContentImages(post.content!)
@@ -73,17 +77,12 @@ export const useUpdatePost = (isFreeForm: boolean) => {
                 postData.memos = processedShortPosts.map(post => ({
                     ...post,
                 }))
+                editedPost = await putMemoPost(postId, postData)
             }
-
-            const newPost = await postPost(postData)
-            const updatedPosts = [newPost, ...posts]
+            const updatedPosts = posts.map(post => (postDetail?.postId === postId ? editedPost : post))
             setPosts(updatedPosts)
-            resetFormData()
-            resetAll()
             setIsRouterOverlayOpen(true)
         } catch {
-            resetFormData()
-            resetAll()
             setIsFailModalOpen(true)
         }
     }
@@ -93,7 +92,7 @@ export const useUpdatePost = (isFreeForm: boolean) => {
         const endDateAsDate: Date | null = endDate ? endDate.toDate() : null
 
         await handleUpdatePost(
-            postId!,
+            postId,
             formData,
             quillEditors,
             setIsSubmitted,
@@ -102,7 +101,9 @@ export const useUpdatePost = (isFreeForm: boolean) => {
             selectedCountry,
             startDateAsDate,
             endDateAsDate,
+            selectedTheme,
         )
+        console.log(selectedTheme, "selectedTheme")
     }
 
     return {
@@ -117,8 +118,6 @@ export const useUpdatePost = (isFreeForm: boolean) => {
         setFormData,
         posts,
         setPosts,
-        resetFormData,
-        resetAll,
         handleSubmitEditedPost,
     }
 }

@@ -5,7 +5,7 @@ import { Continent } from "@/constants/continents"
 import { useState } from "react"
 import Button from "@/components/commons/button"
 import CountriesSearch from "./countriesSearch"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/zustand/post"
 import { selectContinentProps } from "./type"
 
 const SelectedContinent = ({ isOpen, onClick, nextStep, setNextStep }: selectContinentProps) => {

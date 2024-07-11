@@ -1,4 +1,4 @@
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/zustand/post"
 import { FormSelectorProps } from "./type"
 import Image from "next/image"
 import { Theme } from "@/types/theme"

@@ -1,18 +1,18 @@
 "use client"
 
-import { useCommonPost } from "@/hook/useCommonPost"
-import UploadOverlay from "./overlay/uploadOverlay"
+import Image from "next/image"
 import UpperSelection from "./form/upperSelection"
 import ThemeSelection from "./form/themeSelection"
+import AddressSelection from "./form/addressSelection"
 import { QuillEditor } from "./editor/editorQuill"
 import FormBtn from "./form/formBtn"
-import Image from "next/image"
-import AddMemoIcon from "@/public/icons/plus-circle.svg"
+import UploadOverlay from "./overlay/uploadOverlay"
 import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
-import { CommonPostProps } from "./type"
-import AddressSelection from "./form/addressSelection"
+import { useCommonPost } from "@/hook/useCommonPost"
 import { useUpdatePost } from "@/hook/useUpdatePost"
+import { CommonPostProps } from "./type"
+import { useUpdatePostDataStore } from "@/libs/zustand/post"
 
 const CommonPost = ({
     isFreeForm,
@@ -20,7 +20,11 @@ const CommonPost = ({
     handleDeleteQuillEditor,
     handleEditorInputChange,
     handleAddMemoClick,
+    mode,
 }: CommonPostProps) => {
+    const createHook = useCommonPost(isFreeForm)
+    const updateHook = useUpdatePost(isFreeForm)
+
     const {
         isOverlayOpen,
         setIsOverlayOpen,
@@ -30,8 +34,11 @@ const CommonPost = ({
         handleInputChange,
         handleOverlaySubmit,
         formData,
-    } = useCommonPost(isFreeForm)
+    } = mode === "create" ? createHook : updateHook
     const { handleSubmitEditedPost } = useUpdatePost(isFreeForm)
+    const { postId } = useUpdatePostDataStore()
+
+    // const handleSubmit = mode === "create" ? handleOverlaySubmit : updateHook.handleSubmitEditedPost
 
     return (
         <>
@@ -86,16 +93,21 @@ const CommonPost = ({
                         </>
                     )}
                     <ThemeSelection postDetail={formData} />
-                    {memos && handleAddMemoClick && (
+                    {memos.length > 0 && handleAddMemoClick && (
                         <div
                             onClick={handleAddMemoClick}
                             className="w-[900px] h-12 my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
                         >
-                            <Image width={24} height={24} src={AddMemoIcon} alt="add memo icon" />
+                            <Image width={24} height={24} src={"/icons/plus-circle.svg"} alt="add memo icon" />
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
-                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} handleUpdatePost={handleSubmitEditedPost} />
+                    <FormBtn
+                        mode={mode}
+                        setIsOverlayOpen={setIsOverlayOpen}
+                        handleUpdatePost={handleSubmitEditedPost}
+                        postId={postId}
+                    />
                 </div>
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}

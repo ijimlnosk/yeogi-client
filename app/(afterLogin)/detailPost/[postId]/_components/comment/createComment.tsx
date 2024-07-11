@@ -4,10 +4,10 @@ import { useEffect, useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 import Button from "@/components/commons/button"
-import { useCreateComment } from "@/hook/useCommentMutation"
-import { postCommentRequest } from "@/hook/type"
+import { useCreateComment } from "@/libs/reactQuery/useCommentMutation"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { useLoggedIn } from "@/libs/loginStore"
+import { postCommentRequest } from "@/libs/reactQuery/comment.type"
 
 const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")

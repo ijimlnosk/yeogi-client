@@ -1,4 +1,3 @@
-
 import { getPostProps } from "./type"
 import { ThemeProps } from "@/app/_components/type"
 import { CreatePost, Post, UpdatePost } from "@/types/post"
@@ -60,7 +59,7 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
-export const putFreePost = async (postId: number, editedPost: Partial<UpdatePost>): Promise<UpdatePost> => {
+export const putFreePost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
@@ -83,7 +82,7 @@ export const putFreePost = async (postId: number, editedPost: Partial<UpdatePost
  * @param {number} postId 수정할 게시글의 ID
  * @returns {Promise<Partial<UpdatePost>>} 수정된 post의 내용을 객체로 반환
  */
-export const putMemoPost = async (shortPostId: number, editedPost: Partial<UpdatePost>): Promise<UpdatePost> => {
+export const putMemoPost = async (shortPostId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
     const response = await fetchFormAPI(POST_API_URL, `posts/short-posts/${shortPostId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),

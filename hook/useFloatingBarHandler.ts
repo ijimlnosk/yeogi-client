@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { useDeletePost } from "@/hook/usePostMutation"
-import { usePostDataStore } from "@/libs/store"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
+import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
+import { useUpdatePostDataStore } from "@/libs/zustand/post"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
@@ -20,7 +20,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const router = useRouter()
     const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
-    const { setPostId, setPostDetail } = usePostDataStore()
+    const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
 
     useEffect(() => {

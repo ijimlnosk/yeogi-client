@@ -11,13 +11,13 @@ import CreateComment from "./_components/comment/createComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
-import { usePostDataStore } from "@/libs/store"
 import { useEffect } from "react"
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
 import useModalStore from "@/libs/modalStore"
 import LikeToComment from "./_components/comment/_components/likeToComment"
 import { Post } from "@/types/post"
+import { usePostDataStore } from "@/libs/zustand/post"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

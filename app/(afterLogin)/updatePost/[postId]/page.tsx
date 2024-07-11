@@ -1,6 +1,6 @@
 "use client"
 
-import { useCreatePostStore, usePostDataStore } from "@/libs/store"
+import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
 import { useCommonUpdatePost, useInitializeFormData } from "@/hook/updatePostFunctions"
 import CommonPost from "../../createPost/_components/commonPost"
 import { ThemeProps } from "@/app/_components/type"
@@ -8,7 +8,7 @@ import { UpdatePost } from "@/types/post"
 
 const UpdatePostPage = () => {
     const { formData, setFormData } = useCreatePostStore()
-    const { postDetail } = usePostDataStore()
+    const { postDetail } = useUpdatePostDataStore()
     const { quillEditors, setQuillEditors } = useInitializeFormData(postDetail)
     const { handleInputChange, handleAddMemoClick, handleDeleteQuillEditor } = useCommonUpdatePost()
 
@@ -44,6 +44,7 @@ const UpdatePostPage = () => {
 
     return (
         <CommonPost
+            mode={"update"}
             isFreeForm={formData.content ? true : false}
             memos={quillEditors}
             handleDeleteQuillEditor={handleDeleteQuillEditorWrapper}
