@@ -1,4 +1,4 @@
-import { fetchFormAPI } from "./api.utils"
+import { fetchFormAPI, fetchFormMultipartAPI } from "./api.utils"
 import { UserInfoType } from "@/types/user"
 
 const USER_API_URL = "/member"
@@ -50,22 +50,16 @@ export const putUserInfo = async (userInfo: UserInfoType, editedUserInfo: UserIn
  * @param profileImage 수정될 유저의 프로필 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: string) => {
-    const response = await fetchFormAPI(USER_API_URL, "member/profileImage", {
+export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: FormData) => {
+    const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
-        body: JSON.stringify({ profileImage }),
+        body: profileImage,
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     return {
-        id: userInfo.id,
-        email: userInfo.email,
-        nickname: userInfo.nickname,
-        motto: userInfo.motto,
-        ageRange: userInfo.ageRange,
-        gender: userInfo.gender,
-        profile: profileImage,
-        profile_image: profileImage,
-        banner: userInfo.banner,
+        ...userInfo,
+        profile: URL.createObjectURL(profileImage.get("image") as Blob),
+        profile_image: URL.createObjectURL(profileImage.get("image") as Blob),
     }
 }
 
@@ -75,21 +69,14 @@ export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: 
  * @param bannerImage 수정될 유저의 배너 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserBannerImage = async (userInfo: UserInfoType, bannerImage: string) => {
-    const response = await fetchFormAPI(USER_API_URL, "member/profileImage", {
+export const putUserBannerImage = async (userInfo: UserInfoType, bannerImage: FormData) => {
+    const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
         body: JSON.stringify({ bannerImage }),
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     return {
-        id: userInfo.id,
-        email: userInfo.email,
-        nickname: userInfo.nickname,
-        motto: userInfo.motto,
-        ageRange: userInfo.ageRange,
-        gender: userInfo.gender,
-        profile: userInfo.profile,
-        profile_image: userInfo.profile_image,
-        banner: bannerImage,
+        ...userInfo,
+        banner: URL.createObjectURL(bannerImage.get("image") as Blob),
     }
 }

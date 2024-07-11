@@ -23,6 +23,8 @@ const UserPage = () => {
         fetchUserInfo()
     }, [setUserInfo])
 
+    console.log(userInfo, "user info")
+
     useEffect(() => {
         setPinCount(getPinLocalStorage())
     }, [])

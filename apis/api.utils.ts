@@ -24,3 +24,16 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
     })
     return response
 }
+
+export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
+    const token = getCookieToken()
+
+    const response = await fetch(`${api}/${endPoint}`, {
+        ...options,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+    })
+    return response
+}

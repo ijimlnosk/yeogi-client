@@ -1,9 +1,23 @@
+"use client"
+
 import Image from "next/image"
 import { ProfileProps } from "./type"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 
 const Profile = ({ userInfo, onEdit }: ProfileProps) => {
+    // const [profileImageUrl, setProfileImageUrl] = useState(userInfo.profile || userInfo.profile_image || DefaultProfile)
+    //
+    // useEffect(() => {
+    //     if (userInfo.profile instanceof File) {
+    //         const reader = new FileReader()
+    //         reader.onloadend = () => {
+    //             setProfileImageUrl(reader.result as string)
+    //         }
+    //         reader.readAsDataURL(userInfo.profile)
+    //     }
+    // }, [userInfo.profile])
+
     return (
         <div className="relative">
             <div className="relative">
@@ -28,7 +42,8 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                 <Image
                     width={240}
                     height={240}
-                    src={`${userInfo.profile}` || `${userInfo.profile_image}` || DefaultProfile}
+                    // src={profileImageUrl ? profileImageUrl : DefaultProfile}
+                    src={userInfo.profile || userInfo.profile_image || DefaultProfile}
                     alt="profile image"
                     className="rounded-full border-[5px] border-white shadow-profile"
                 />

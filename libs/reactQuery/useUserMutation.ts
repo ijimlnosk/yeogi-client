@@ -23,11 +23,11 @@ export const useUpdateUserInfo = (): UseMutationResult<
 export const useUpdateUserProfileImage = (): UseMutationResult<
     UserInfoType,
     Error,
-    { userInfo: UserInfoType; profileImage: string }
+    { userInfo: UserInfoType; profileImage: FormData }
 > => {
     const queryClient = useQueryClient()
 
-    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; profileImage: string }>({
+    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; profileImage: FormData }>({
         mutationFn: async ({ userInfo, profileImage }) => {
             const response = await putUserProfileImage(userInfo, profileImage)
             return response
@@ -41,11 +41,11 @@ export const useUpdateUserProfileImage = (): UseMutationResult<
 export const useUpdateUserBannerImage = (): UseMutationResult<
     UserInfoType,
     Error,
-    { userInfo: UserInfoType; bannerImage: string }
+    { userInfo: UserInfoType; bannerImage: FormData }
 > => {
     const queryClient = useQueryClient()
 
-    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; bannerImage: string }>({
+    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; bannerImage: FormData }>({
         mutationFn: async ({ userInfo, bannerImage }) => {
             const response = await putUserBannerImage(userInfo, bannerImage)
             return response

@@ -4,7 +4,6 @@ import { useState } from "react"
 import { EditProfileProps } from "./type"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
-import { resizeAndSetImage } from "@/utils/setImage.utils"
 import {
     useUpdateUserBannerImage,
     useUpdateUserInfo,
@@ -44,13 +43,26 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
     const handleImageChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         field: "profile" | "banner",
-        mutateFn: (params: { userInfo: UserInfoType; image: string }) => void,
+        mutateFn: (params: { userInfo: UserInfoType; image: FormData }) => void,
     ) => {
-        resizeAndSetImage(e, (base64Str: string) => {
-            setPreviewImages(prev => ({ ...prev, [field]: base64Str })) // 미리보기 이미지 설정
-            setEditedUserInfo(prev => ({ ...prev, [field]: base64Str })) // 수정된 유저 정보 업데이트
-            mutateFn({ userInfo, image: base64Str }) // 서버로 이미지 전송
-        })
+        // resizeAndSetImage(e, (base64Str: string) => {
+        //     setPreviewImages(prev => ({ ...prev, [field]: base64Str })) // 미리보기 이미지 설정
+        //     setEditedUserInfo(prev => ({ ...prev, [field]: base64Str })) // 수정된 유저 정보 업데이트
+        //     mutateFn({ userInfo, image: base64Str }) // 서버로 이미지 전송
+        // })
+        const file = e.target.files?.[0]
+        if (file) {
+            const formData = new FormData()
+            formData.append("image", file)
+
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setPreviewImages(prev => ({ ...prev, [field]: URL.createObjectURL(file) }))
+            }
+            reader.readAsDataURL(file)
+
+            mutateFn({ userInfo, image: formData })
+        }
     }
     const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleImageChange(e, "profile", ({ userInfo, image }) =>
@@ -86,7 +98,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             },
         )
         updateUserBannerImage.mutate(
-            { userInfo, bannerImage: editedUserInfo.banner },
+            { userInfo, bannerImage: editedUserInfo.banner || DefaultBanner },
             {
                 onError: () => {
                     setUserInfo(previousUserInfo)
@@ -98,7 +110,10 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
 
     return (
         <div className="relative">
-            <Banner banner={previewImages.banner || editedUserInfo.banner} onImageChange={handleBannerImageChange} />
+            <Banner
+                banner={previewImages.banner || editedUserInfo.banner || DefaultBanner}
+                onImageChange={handleBannerImageChange}
+            />
             <div className="absolute left-[120px] top-[360px] flex items-center">
                 <ProfileImage
                     image={previewImages.profile || userInfo.profile || userInfo.profile_image || DefaultProfile}
