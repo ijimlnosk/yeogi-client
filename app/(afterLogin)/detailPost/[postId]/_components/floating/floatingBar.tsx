@@ -3,16 +3,26 @@
 import useFloatingBarHandler from "@/hook/useFloatingBarHandler"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
+import { useLikeStore } from "@/libs/likeStore"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
+    const numericPostId = Number(postId)
     const { isActiveState, handleClick, handleModalClose, isUpdateInProgress } = useFloatingBarHandler({
-        postId,
+        postId: numericPostId,
         post,
         setIconState,
     })
+    const { likes, setLikes } = useLikeStore()
+
+    useEffect(() => {
+        // 초기 좋아요 수 설정
+        if (postId && post && !likes[numericPostId]) {
+            setLikes(numericPostId, post.likeCount)
+        }
+    }, [])
 
     return (
         <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
