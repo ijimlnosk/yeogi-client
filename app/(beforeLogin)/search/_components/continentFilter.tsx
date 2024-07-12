@@ -21,9 +21,8 @@ const ContinentFilterTabs = () => {
                 <Button
                     key={idx + 1}
                     onClick={() => handleContinentSelect(idx)}
-                    background={selectedContinentIndex === idx ? "brand70" : "gray20"}
                     textColor={selectedContinentIndex === idx ? "white" : "black"}
-                    className={`w-fit h-fit px-8 py-4 rounded-lg text-sm leading-[27px] ${selectedContinentIndex === idx ? "font-semibold" : ""}`}
+                    className={`w-fit h-fit px-8 py-4 rounded-lg text-sm leading-[27px] ${selectedContinentIndex === idx ? "font-semibold bg-BRAND-70" : "bg-GREY-20"}`}
                 >
                     {value}
                 </Button>

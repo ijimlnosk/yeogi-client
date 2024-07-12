@@ -62,7 +62,8 @@ export type putCommentRequest = {
     postId: number
 }
 export type useGetPostProps = {
+    searchType: "CONTENT"
     sortCondition: "LIKES" | "VIEWS" | "RECENT"
     searchKeyword: string
-    searchTheme: ThemeProps | ThemeProps[]
+    theme: ThemeProps | ThemeProps[]
 }

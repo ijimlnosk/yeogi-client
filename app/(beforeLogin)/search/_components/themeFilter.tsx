@@ -1,7 +1,6 @@
 "use client"
 
 import { Theme } from "@/types/theme"
-import { FilterTabsProps } from "./type"
 import Button from "@/components/commons/button"
 import { useRouter } from "next/navigation"
 import { useState } from "react"

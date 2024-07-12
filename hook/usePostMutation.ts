@@ -7,15 +7,15 @@ export const useGetPost = (): UseMutationResult<Post[], Error, useGetPostProps> 
     const queryClient = useQueryClient()
 
     return useMutation<Post[], Error, useGetPostProps>({
-        mutationFn: ({ sortCondition, searchKeyword, searchTheme }: useGetPostProps) =>
+        mutationFn: ({ searchType, sortCondition, searchKeyword, theme }: useGetPostProps) =>
             getPost({
-                searchType: "CONTENT",
+                searchType,
                 searchString: searchKeyword,
-                sortCondition: sortCondition,
-                theme: searchTheme,
+                sortCondition,
+                theme,
             }),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["posts"] })
+        onSuccess: data => {
+            queryClient.setQueryData(["posts"], data)
         },
     })
 }

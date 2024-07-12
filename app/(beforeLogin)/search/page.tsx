@@ -1,19 +1,20 @@
 "use client"
 
-import { getPost } from "@/apis/postApi"
 import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
 import { Post } from "@/types/post"
-import { Theme, ThemeProps } from "@/types/theme"
+import { ThemeProps } from "@/types/theme"
 import { filterPosts } from "@/utils/search.utils"
 import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import FilterTabs from "./_components/filterTabs"
+import { useGetPost } from "@/hook/usePostMutation"
+import { useGetPostProps } from "@/hook/type"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 
-const ITMES_PER_PAGE = 8
+const ITEMS_PER_PAGE = 8
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
@@ -22,25 +23,39 @@ const SearchPage = () => {
     const currentPage = Number(searchParams.get("page") || "1")
     const [posts, setPosts] = useState<Post[]>([])
     const [totalPage, setTotalPage] = useState(1)
+    const { mutate, data: mutationData } = useGetPost()
 
     useEffect(() => {
         window.scrollTo(0, 0)
         const fetchGetData = async () => {
-            const response = await getPost({
+            const response: useGetPostProps = {
                 searchType: "CONTENT",
-                searchString: searchKeyword,
+                searchKeyword: searchKeyword,
                 sortCondition: "RECENT",
                 theme: searchTheme as ThemeProps,
-            })
-            const filteredResults = filterPosts(response, searchKeyword)
-            setPosts(filteredResults)
-            setTotalPage(Math.ceil(filteredResults.length / ITMES_PER_PAGE))
+            }
+            mutate(response)
         }
         fetchGetData()
-    }, [searchKeyword, searchTheme])
+    }, [searchKeyword, searchTheme, mutate])
 
-    const themeValue = Theme[searchTheme as keyof typeof Theme] || searchTheme
-    const paginationPosts = posts.slice((currentPage - 1) * ITMES_PER_PAGE, currentPage * ITMES_PER_PAGE)
+    useEffect(() => {
+        if (mutationData) {
+            let filteredResults = filterPosts(mutationData, searchKeyword)
+            if (searchTheme) {
+                filteredResults = filteredResults.filter(post =>
+                    Array.isArray(post.themeList)
+                        ? post.themeList.includes(searchTheme as ThemeProps)
+                        : post.themeList === searchTheme,
+                )
+            }
+            setPosts(filteredResults)
+            setTotalPage(Math.ceil(filteredResults.length / ITEMS_PER_PAGE))
+        }
+    }, [mutationData, searchKeyword, searchTheme])
+
+    // const themeValue = Theme[searchTheme as keyof typeof Theme] || searchTheme
+    const paginationPosts = posts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
 
     return (
         <div className=" w--[1920px] px-[120px] flex flex-col justify-center items-center">
@@ -52,7 +67,7 @@ const SearchPage = () => {
                 </div>
                 <div className="w-full h-[2px] bg-SYSTEM-else02 my-[55px]" />
                 <div className="w-full flex flex-col justify-center items-center">
-                    {/* relatied posts */}
+                    {/* related posts */}
                     <div className="w-full h-fit flex justify-between items-center">
                         <h1 className="text-bg leading-[34px] font-semibold">게시물</h1>
                         <SortDropdown />
