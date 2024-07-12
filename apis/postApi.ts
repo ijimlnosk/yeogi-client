@@ -1,5 +1,5 @@
 
-import { getPostProps } from "./type"
+import { getPostProps, postIdProps } from "./type"
 import { ThemeProps } from "@/app/_components/type"
 import { CreatePost, Post, UpdatePost } from "@/types/post"
 import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
@@ -154,11 +154,22 @@ export const postViews = async (postId: number) => {
 
 /**
  * @function
- * @param {commentIdProps} props
+ * @param {postIdProps} props
  * @param {number} props.commentId - 좋아요를 추가할 게시글 ID
  * @description 게시글에 좋아요 추가하는 API
  */
-export const postLike = async (postId: number) => {
-    await fetchFormAPINotToken(POST_API_URL, `posts/${postId}likes`, { method: "POST" })
+export const postPostLike = async ({postId}: postIdProps) => {
+    await fetchFormAPI(POST_API_URL, `posts/${postId}/likes`, { method: "POST" })
     return postId
+}
+
+/**
+ * @function
+ * @param {postIdProps} props
+ * @param {number} props.commentId - 좋아요를 제거할 댓글 ID
+ * @description 게시글에 추가된 좋아요 삭제 API
+ */
+export const deletePostLike = async ({ postId }: postIdProps) => {
+    await fetchFormAPI(POST_API_URL, `post/${postId}/likes`, { method: "DELETE" })
+    return { postId }
 }

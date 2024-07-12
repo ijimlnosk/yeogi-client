@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Overlay from "../form/formOverlay"
 import { SelectedAddressProps, address } from "./type"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/postStore"
 import AddressAutoComplete from "./addressAutoComplete"
 
 const SelectedAddress = ({ isOpen, onClick, setIsOpen, onSelect }: SelectedAddressProps) => {
