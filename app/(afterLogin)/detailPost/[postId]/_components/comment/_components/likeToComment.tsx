@@ -3,7 +3,7 @@ import { LikeToComments } from "./type"
 
 const LikeToComment = ({ likes, comments }: LikeToComments) => {
     return (
-        <div className="w-full flex items-center justify-center bg-red-300">
+        <div className="w-full flex items-center justify-center ">
             <div className="w-[1000px] flex flex-row pt-[50px]">
                 <div className="w-[80px] flex flex-row items-center">
                     <Image src={"/icons/like.svg"} alt="Like" width={24} height={24} />
