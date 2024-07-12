@@ -24,12 +24,13 @@ export const buttonStyle = cva(
                 white: "bg-SYSTEM-white",
                 brand30: "bg-BRAND-30",
                 brand50: "bg-BRAND-50",
+                brand70: "bg-BRAND-70",
             },
             textColor: {
                 black: "text-SYSTEM-black",
                 brand50: "text-BRAND-50",
                 white: "text-SYSTEM-white",
-                gray80:"text-GREY-80",
+                gray80: "text-GREY-80",
             },
         },
         defaultVariants: {

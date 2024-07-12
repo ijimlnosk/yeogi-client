@@ -3,6 +3,7 @@ import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components
 import { UserRequest } from "@/app/auth/_components/signin/type"
 import { Continent } from "@/constants/continents"
 import { Post, UpdatePost } from "@/types/post"
+import { ThemeProps } from "@/types/theme"
 import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
@@ -59,4 +60,9 @@ export type putCommentRequest = {
     commentId: number
     content: string
     postId: number
+}
+export type useGetPostProps = {
+    sortCondition: "LIKES" | "VIEWS" | "RECENT"
+    searchKeyword: string
+    searchTheme: ThemeProps | ThemeProps[]
 }
