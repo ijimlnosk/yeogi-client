@@ -12,7 +12,7 @@ import usePostLikeHandler from "./usePostLikeHandler"
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
-        like: false,
+        like: post?.liked || false,
         share: false,
         delete: false,
         update: false,
@@ -30,9 +30,14 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
      if(postId === undefined) {
         throw new Error
      }
-    const { handleLikeClick } = usePostLikeHandler(postId , post?.likeCount || 0, post?.liked|| false, setIsError);
+    const { handleLikeClick,liked } = usePostLikeHandler(postId , post?.likeCount || 0, post?.liked || false, setIsError);
+    useEffect(() => {
+        // liked 값에 따라 isActiveState 업데이트
+        setIsActiveState(prev => ({ ...prev, like: liked }));
+        console.log(isActiveState,"isActivestate")
+    }, [liked]);
 
-    console.log(postId,"handler")
+    console.log(liked, "liked1")
     useEffect(() => {
         if (scrollY <= 20) {
             setIsActiveState(prev => ({ ...prev, arrow: false }))

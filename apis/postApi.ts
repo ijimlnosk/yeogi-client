@@ -170,6 +170,6 @@ export const postPostLike = async ({postId}: postIdProps) => {
  * @description 게시글에 추가된 좋아요 삭제 API
  */
 export const deletePostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `post/${postId}/likes`, { method: "DELETE" })
+    await fetchFormAPI(POST_API_URL, `posts/${postId}/likes`, { method: "DELETE" })
     return { postId }
 }
