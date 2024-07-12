@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useDeletePost } from "@/hook/usePostMutation"
-import { usePostDataStore } from "@/libs/store"
+import { usePostDataStore } from "@/libs/postStore"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
+import usePostLikeHandler from "./usePostLikeHandler"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
@@ -22,7 +23,16 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = usePostDataStore()
     const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
+    const setIsError = (error: boolean) => {
+        console.log(error, "error")
+     };
 
+     if(postId === undefined) {
+        throw new Error
+     }
+    const { handleLikeClick } = usePostLikeHandler(postId , post?.likeCount || 0, post?.liked|| false, setIsError);
+
+    console.log(postId,"handler")
     useEffect(() => {
         if (scrollY <= 20) {
             setIsActiveState(prev => ({ ...prev, arrow: false }))
@@ -97,8 +107,9 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 handleArrowClick()
                 break
             case "like":
-                setIsActiveState(prev => ({ ...prev, like: !prev.like }))
-                break
+                handleLikeClick()
+                setIsActiveState(prev => ({ ...prev, like: !prev.like }));
+                    break
             case "share":
                 handleShareClick()
                 break

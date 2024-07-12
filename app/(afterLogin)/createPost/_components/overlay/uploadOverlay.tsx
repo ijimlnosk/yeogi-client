@@ -7,7 +7,7 @@ import { useState } from "react"
 import { UploadOverlayProps } from "./type"
 import ThumbnailUploader from "./thumbnailUploader"
 import PreviewPostCard from "./previewPostcard"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/postStore"
 
 const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit, memos }: UploadOverlayProps) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null)

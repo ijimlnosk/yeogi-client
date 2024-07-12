@@ -19,6 +19,7 @@ export type Post = {
     region: string
     address: string
     themeList: ThemeProps | ThemeProps[]
+    liked? :boolean
 }
 export type memosList = {
     shortPostId: number

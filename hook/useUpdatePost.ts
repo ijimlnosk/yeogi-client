@@ -1,7 +1,7 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/store"
+import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/postStore"
 import { postPost } from "@/apis/postApi"
 import { memos, UpdatePost } from "@/types/post"
 import { useUpdateFreePost } from "./usePostMutation"
