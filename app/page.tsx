@@ -5,11 +5,13 @@ import MainIntro from "./_components/mainIntro"
 import MainSearch from "./_components/mainSearch"
 import MainSurveyRecommend from "./_components/mainSurveyRecommend"
 import MainThemeBanner from "./_components/mainThemeBanner"
+import RealTimeRecommendation from "./_components/realTimeRecommendation"
 
 const Home = () => {
     return (
         <main className="w-full flex justify-center items-center flex-col overflow-x-hidden">
             <MainIntro />
+            <RealTimeRecommendation />
             <MainSurveyRecommend />
             <MainDesc />
             <MainSearch />
