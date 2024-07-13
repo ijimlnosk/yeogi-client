@@ -3,7 +3,7 @@
 import Button from "@/components/commons/button"
 import Image from "next/image"
 import { useSurvey } from "@/hook/useSurvey"
-import { useThemeStore } from "@/libs/themeStore"
+import { useThemeStore } from "@/libs/zustand/theme"
 
 const SurveyQuestionForm = () => {
     const { surveyArr, currentIndex, choices, handleChoice, handlePrev } = useSurvey()

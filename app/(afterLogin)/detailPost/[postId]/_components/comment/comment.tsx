@@ -2,7 +2,7 @@
 
 import { CommentProps } from "./type"
 import { useState } from "react"
-import { useCommentIdStore, useIsUpdateComment } from "@/libs/commentStore"
+import { useCommentIdStore, useIsUpdateComment } from "@/libs/zustand/comment"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import ReComment from "./reComment"
 import CommentUpdateForm from "./_components/commentUpdateForm"

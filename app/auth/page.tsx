@@ -14,8 +14,8 @@ const AuthForm = () => {
     const K_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API
     const G_REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_REST_API
     const N_REST_API_KEY = process.env.NEXT_PUBLIC_NAVER_REST_API
-    // const REDIRECT_URI = `http://localhost:3000/auth`
-    const REDIRECT_URI = `https://yeogi-client.vercel.app/auth`
+    const REDIRECT_URI = `http://localhost:3000/auth`
+    // const REDIRECT_URI = `https://yeogi-client.vercel.app/auth`
     const [provider, setProvider] = useState<string | null>(null)
 
     // 네이버는 사이트 간 요청 위조 공격 방지를 위해 어플리케이션에서 생성한 상태 토큰값으로 URL 인코딩을 적용한 값을 사용

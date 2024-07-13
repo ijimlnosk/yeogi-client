@@ -1,6 +1,6 @@
 "use client"
 
-import useModalStore from "@/libs/modalStore"
+import { useModalStore } from "@/libs/zustand/modal"
 import Overlay from "@/components/commons/overlay"
 import { ReactNode } from "react"
 import AuthForm from "./auth/page"

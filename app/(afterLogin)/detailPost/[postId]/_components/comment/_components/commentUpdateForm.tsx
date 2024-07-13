@@ -1,6 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import { useState } from "react"
-import { useIsUpdateComment } from "@/libs/commentStore"
+import { useIsUpdateComment } from "@/libs/zustand/comment"
 import { CommentUpdateFormProps } from "../type"
 import { useUpdateComment } from "@/libs/reactQuery/useCommentMutation"
 

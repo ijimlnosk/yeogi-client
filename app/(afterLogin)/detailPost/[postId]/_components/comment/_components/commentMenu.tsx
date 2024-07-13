@@ -1,5 +1,7 @@
-import { useCommentIdStore, useIsUpdateComment } from "@/libs/commentStore"
-import useModalStore from "@/libs/modalStore"
+"use client"
+
+import { useCommentIdStore, useIsUpdateComment } from "@/libs/zustand/comment"
+import { useModalStore } from "@/libs/zustand/modal"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { CommentMenuProps } from "./type"

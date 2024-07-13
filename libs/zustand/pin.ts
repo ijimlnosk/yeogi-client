@@ -1,5 +1,10 @@
 import { create } from "zustand"
-import { MapStore } from "./type"
+
+export type MapStore = {
+    pinCount: number
+    incrementPinCount: () => void
+    decrementPinCount: () => void
+}
 
 export const useMapStore = create<MapStore>(set => ({
     pinCount: 0,

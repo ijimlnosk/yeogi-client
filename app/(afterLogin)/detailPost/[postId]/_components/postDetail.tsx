@@ -97,7 +97,7 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     />
                 )}
                 {post.memos?.map((post: memos, index: number) => (
-                    <div className="w-full flex flex-col items-center justify-center " key={post.shortPostId}>
+                    <div className="w-full flex flex-col items-center justify-center " key={post.id}>
                         <div
                             ref={shortContentRef}
                             className="py-5 flex flex-row items-center justify-center gap-2 custom-content"

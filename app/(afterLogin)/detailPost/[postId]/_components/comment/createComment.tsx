@@ -7,7 +7,7 @@ import Button from "@/components/commons/button"
 import { useCreateComment } from "@/libs/reactQuery/useCommentMutation"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { useLoggedIn } from "@/libs/zustand/login"
-import { postCommentRequest } from "@/libs/reactQuery/comment.type"
+import { postCommentRequest } from "@/libs/reactQuery/type"
 
 const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")

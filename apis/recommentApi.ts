@@ -1,6 +1,6 @@
+import { postCommentResponse } from "@/libs/reactQuery/type"
 import { fetchFormAPI } from "./api.utils"
 import { postReCommentProps } from "./type"
-import { postCommentResponse } from "@/hook/type"
 
 const API_URL = "/reply"
 

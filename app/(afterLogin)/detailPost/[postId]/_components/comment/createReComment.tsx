@@ -4,7 +4,7 @@ import { useCreateReComment } from "@/libs/reactQuery/useCommentMutation"
 import { CommentProps } from "./type"
 import { useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
-import { putCommentRequest } from "@/libs/reactQuery/comment.type"
+import { putCommentRequest } from "@/libs/reactQuery/type"
 import Button from "@/components/commons/button"
 
 const CreateReComment = ({ postId, commentId, refetch, onReplySuccess }: Partial<CommentProps>) => {
