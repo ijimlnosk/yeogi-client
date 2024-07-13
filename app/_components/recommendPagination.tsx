@@ -5,13 +5,12 @@ const RecommendPagination = ({ currentPage, totalPages, onChangePage }: Recommen
     const maxVisiblePages = 12
 
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2))
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
 
     if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1)
     }
 
-    const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
     return (
         <div className="flex justify-end items-center pb-10 gap-4">
             <button
