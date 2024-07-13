@@ -2,6 +2,7 @@ import { getPost } from "@/apis/postApi"
 import RankCard from "@/components/commons/rankCard"
 import { Post } from "@/types/post"
 import { useQuery } from "@tanstack/react-query"
+import UserRecommendation from "./userRecommendation"
 
 const RealTimeRecommendation = () => {
     const ranks = ["Top1", "Top2", "Top3"] as const
@@ -22,7 +23,7 @@ const RealTimeRecommendation = () => {
 
     return (
         <>
-            <div className="w-full justify-start">
+            <div className="w-[1680px] justify-start pb-6">
                 <p className=" font-myeongjo text-xl">실시간 인기 기록</p>
             </div>
             <div className="flex flex-row gap-[81px]">
@@ -30,6 +31,7 @@ const RealTimeRecommendation = () => {
                     <RankCard key={index} topPosts={top} rank={ranks[index]} />
                 ))}
             </div>
+            <UserRecommendation />
         </>
     )
 }
