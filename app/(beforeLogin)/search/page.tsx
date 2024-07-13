@@ -54,7 +54,6 @@ const SearchPage = () => {
         }
     }, [mutationData, searchKeyword, searchTheme])
 
-    // const themeValue = Theme[searchTheme as keyof typeof Theme] || searchTheme
     const paginationPosts = posts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
 
     return (

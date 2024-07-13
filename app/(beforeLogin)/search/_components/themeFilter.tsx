@@ -2,13 +2,26 @@
 
 import { Theme } from "@/types/theme"
 import Button from "@/components/commons/button"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const ThemeFilterTabs = () => {
     const [selectedThemeIndex, setSelectedThemeIndex] = useState<number>(0)
     const ThemeEntries = Object.entries(Theme)
     const router = useRouter()
+    const searchParams = useSearchParams()
+
+    useEffect(() => {
+        const theme = searchParams.get("theme")
+        if (theme) {
+            const index = ThemeEntries.findIndex(([key]) => key === theme)
+            if (index !== -1) {
+                setSelectedThemeIndex(index)
+            }
+        } else {
+            setSelectedThemeIndex(0)
+        }
+    }, [searchParams])
 
     const handleThemeSelect = (index: number) => {
         if (index !== selectedThemeIndex) {
