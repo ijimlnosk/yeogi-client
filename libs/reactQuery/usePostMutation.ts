@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, UseMutationResult } from "@tanstack/react-query"
-import { deletePost, putFreePost } from "@/apis/postApi"
+import { deletePost, putPost } from "@/apis/postApi"
 import { UpdatePost } from "@/types/post"
-import { updateFreeProps } from "./type"
+import { updatePostProps } from "./type"
 
 export const useDeletePost = (): UseMutationResult<void, Error, number> => {
     const queryClient = useQueryClient()
@@ -14,16 +14,16 @@ export const useDeletePost = (): UseMutationResult<void, Error, number> => {
     })
 }
 
-export const useUpdateFreePost = (): UseMutationResult<UpdatePost, Error, updateFreeProps> => {
+export const useUpdateFreePost = (): UseMutationResult<UpdatePost, Error, updatePostProps> => {
     const queryClient = useQueryClient()
 
-    return useMutation<UpdatePost, Error, updateFreeProps>({
-        mutationFn: async ({ postId, editedFields }: updateFreeProps) => {
+    return useMutation<UpdatePost, Error, updatePostProps>({
+        mutationFn: async ({ postId, editedFields }: updatePostProps) => {
             const editedPostData = {
                 ...editedFields,
                 postId: postId,
             }
-            const response = await putFreePost(postId, editedPostData)
+            const response = await putPost(postId, editedPostData)
             return response as UpdatePost
         },
         onSuccess: () => {

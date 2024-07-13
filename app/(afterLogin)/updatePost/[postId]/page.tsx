@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { getPostDetail, putPost } from "@/apis/postApi"
 import { UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/form.utils"
-import { useUpdatePostDataStore, useUpdatePostStore } from "@/libs/zustand/post"
-import dayjs from "dayjs"
+import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
+import dayjs, { Dayjs } from "dayjs"
 import utc from "dayjs/plugin/utc"
 import FormBtn from "../../createPost/_components/form/formBtn"
 import ThemeSelection from "../../createPost/_components/form/themeSelection"
@@ -33,17 +33,13 @@ const UpdatePage = () => {
         quillEditors,
         setQuillEditors,
         resetAll,
-    } = useUpdatePostStore()
+    } = useCreatePostStore()
 
     useEffect(() => {
-        // const searchParams = new URLSearchParams(window.location.search)
-        // const postId = searchParams.get("id")
         const fetchUpdate = async () => {
             if (postId) {
                 try {
-                    console.log("Fetching post details...")
                     const post = await getPostDetail(postId)
-                    console.log("Post details fetched:", post)
                     setFormData(post)
                     setIsFreeForm(post.content !== "")
                     setQuillEditors(post.memos || [])
@@ -59,53 +55,40 @@ const UpdatePage = () => {
             }
         }
         fetchUpdate()
-    }, [setFormData, setQuillEditors])
+    }, [postId, setFormData, setQuillEditors])
 
     const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
 
+    const formatDate = (date: Dayjs) => dayjs(date).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+
     const handleUpdate = async () => {
         try {
             const postData: UpdatePost = {
                 ...formData,
-                content: "",
-                continent: selectedContinent || "",
-                region: selectedCountry || "",
-                address: selectedAddress || "",
-                memos: [],
-                tripStartDate: startDate
-                    ? dayjs(startDate).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[z]")
-                    : formData.tripEndDate,
-                tripEndDate: endDate
-                    ? dayjs(endDate).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[z]")
-                    : formData.tripEndDate,
+                continent: selectedContinent || formData.continent,
+                region: selectedCountry || formData.region,
+                address: selectedAddress || formData.address,
+                tripStartDate: startDate ? formatDate(startDate) : formData.tripStartDate,
+                tripEndDate: endDate ? formatDate(endDate) : formData.tripEndDate,
                 themeList: Array.isArray(selectedTheme) ? selectedTheme : [selectedTheme],
+                content: isFreeForm ? await processContentImages(formData.content) : "",
+                memos: isFreeForm
+                    ? []
+                    : await Promise.all(
+                          quillEditors.map(async editor => ({
+                              ...editor,
+                              content: await processContentImages(editor.content),
+                              address: selectedAddress || editor.address,
+                          })),
+                      ),
             }
-
-            console.log(postData, "post data")
-            if (postData.content) {
-                const processedContent = await processContentImages(formData.content!)
-                postData.content = processedContent
-                await putPost(postId, postData)
-            } else {
-                const processedQuillEditors = await Promise.all(
-                    quillEditors.map(async editor => {
-                        const processedContent = await processContentImages(editor.content!)
-                        return {
-                            ...editor,
-                            content: processedContent,
-                            address: selectedAddress || editor.address,
-                        }
-                    }),
-                )
-                postData.memos = processedQuillEditors
-                await putPost(postId, postData)
-            }
+            await putPost(postId, postData)
             resetAll()
-            window.location.href = `/post/${postId}`
+            window.location.href = `/detailPost/${postId}`
         } catch (error) {
-            console.error(error)
+            console.error("Error updating post:", error)
         }
     }
 
@@ -126,7 +109,7 @@ const UpdatePage = () => {
                         <AddressSelection index={0} postDetail={formData} />
                         <QuillEditor
                             index={0}
-                            isFreeForm={isFreeForm}
+                            isFreeForm={true}
                             postDetail={formData}
                             handleInputChange={handleInputChange}
                         />

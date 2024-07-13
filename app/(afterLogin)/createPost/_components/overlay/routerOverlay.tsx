@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation"
 
 const RouterOverlay = ({ isRouterOverlayOpen }: RouterOverlayProps) => {
     const router = useRouter()
-
     return (
         <Overlay
             isOpen={isRouterOverlayOpen}

@@ -1,4 +1,3 @@
-import { ThemeProps } from "@/app/_components/type"
 import { Theme } from "./theme"
 
 // get method (post detail)
@@ -6,8 +5,8 @@ export type Post = {
     postId: number
     author: string
     title: string
-    content: string | ""
-    memos: memosList[] | []
+    content: string
+    memos: memosList[]
     likeCount: number
     likedMembersInfos?: likedMembersInfos[]
     viewCount: number
@@ -18,7 +17,7 @@ export type Post = {
     continent: string
     region: string
     address: string
-    themeList: ThemeProps | ThemeProps[]
+    themeList: Theme[]
 }
 export type memosList = {
     memoId: number
@@ -49,14 +48,14 @@ export type PostCardType = {
 // post method (create post)
 export type CreatePost = {
     title: string
-    content?: string | ""
-    address?: string | ""
-    memos?: memos[] | []
+    content: string
+    address: string
+    memos: memos[]
     continent: string
     region: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeProps | ThemeProps[]
+    themeList: Theme[]
 }
 export type memos = {
     id?: number
@@ -67,12 +66,12 @@ export type memos = {
 // put method (update post)
 export type UpdatePost = {
     title: string
-    content?: string | ""
-    address?: string | ""
-    memos?: memos[] | []
+    content: string
+    address: string
+    memos: memos[]
     continent: string
-    region: string | ""
+    region: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeProps | ThemeProps[]
+    themeList: Theme[]
 }

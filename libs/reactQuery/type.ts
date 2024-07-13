@@ -1,7 +1,7 @@
 import { UpdatePost } from "@/types/post"
 
 /* post mutation type */
-export type updateFreeProps = {
+export type updatePostProps = {
     postId: number
     editedFields: UpdatePost
 }

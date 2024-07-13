@@ -9,13 +9,13 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
         useCreatePostStore()
 
-    const continent = postDetail?.continent || selectedContinent
-    const country = postDetail?.region || selectedCountry
-    const start = postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
-    const end = postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
-    const themeList = selectedTheme
-    const address = postDetail?.address || selectedAddress
-    const themes = Array.isArray(themeList) ? themeList.map((theme: string) => Theme[theme]) : []
+    const continent = selectedContinent || postDetail?.continent
+    const country = selectedCountry || postDetail?.region
+    const start = startDate ? startDate : postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
+    const end = endDate ? endDate : postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
+    const themeList = selectedTheme && selectedTheme.length > 0 ? selectedTheme : postDetail?.themeList || []
+    const address = selectedAddress || postDetail?.address
+    const themes = themeList.map((themeKey: keyof typeof Theme) => Theme[themeKey])
 
     return (
         <>
@@ -57,7 +57,7 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
                             label={label}
                         />
                     )}
-                    {state === "theme" && <TextDisplay condition={!!themes.length} texts={themes} label={label} />}
+                    {state === "theme" && <TextDisplay condition={themes.length > 0} texts={themes} label={label} />}
                     <span>
                         {isThemeOpen ? (
                             <p className="text-xs font-semibold text-BRAND-50">완료</p>
