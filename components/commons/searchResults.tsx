@@ -1,7 +1,7 @@
 import PostCard from "@/components/commons/postCard"
 import TempImage from "@/public/images/sampleThumbnail.svg"
 import { SearchResultsProps } from "./type"
-import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
+import { formatISODateString } from "@/utils/date.utils"
 
 const SearchResults = ({ posts }: SearchResultsProps) => {
     if (!posts || posts.length === 0) {

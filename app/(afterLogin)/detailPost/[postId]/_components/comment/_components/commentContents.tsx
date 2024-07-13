@@ -3,7 +3,7 @@ import CommentLikeButton from "./likeButton"
 import CommentCount from "./commentCount"
 import CommentMenu from "./commentMenu"
 import { CommentContentsProps } from "./type"
-import { formatISODateString } from "../../../date.utils"
+import { formatISODateString } from "@/utils/date.utils"
 
 const CommentContents = ({
     author,

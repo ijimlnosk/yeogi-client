@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { MapDivProps } from "./type"
+import { MapSectionProps } from "./type"
 
 /**
  * MapDiv Component
@@ -14,7 +14,7 @@ import { MapDivProps } from "./type"
  * }
  * @returns
  */
-const MapDiv = ({ location }: MapDivProps) => {
+const MapSection = ({ location }: MapSectionProps) => {
     const mapRef = useRef<HTMLDivElement>(null)
     const mapInstance = useRef<google.maps.Map | null>(null)
 
@@ -45,4 +45,4 @@ const MapDiv = ({ location }: MapDivProps) => {
     return <div ref={mapRef} className="w-full h-[500px]"></div>
 }
 
-export default MapDiv
+export default MapSection

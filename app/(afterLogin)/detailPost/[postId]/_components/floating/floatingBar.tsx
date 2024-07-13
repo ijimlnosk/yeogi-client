@@ -15,7 +15,7 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     })
 
     return (
-        <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
+        <div className={`fixed top-[28%] ${isMine ? "mt-[220px]" : ""}`}>
             <div className="absolute z-50" style={{ left: `561px` }}>
                 <div
                     className={` shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}

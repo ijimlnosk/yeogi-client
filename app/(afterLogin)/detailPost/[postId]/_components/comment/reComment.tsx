@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { ReComments } from "./type"
 import CommentMenu from "./_components/commentMenu"
-import { formatISODateString } from "../../date.utils"
+import { formatISODateString } from "@/utils/date.utils"
 
 const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
     return (

@@ -3,7 +3,7 @@ import { FormSelectorProps } from "./type"
 import Image from "next/image"
 import { Theme } from "@/types/theme"
 import TextDisplay from "./formTextDisplay"
-import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
+import { formatISODateString } from "@/utils/date.utils"
 
 const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =

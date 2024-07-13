@@ -58,11 +58,11 @@ const CommonPost = ({
                         </>
                     ) : (
                         <>
-                            {memos.map((post, index) => (
+                            {memos.map((memo, index) => (
                                 <div key={index}>
                                     <AddressSelection
                                         index={index}
-                                        address={post.address ?? ""}
+                                        address={memo.address ?? ""}
                                         handleInputChange={(index, value) =>
                                             handleEditorInputChange && handleEditorInputChange(index, value)
                                         }
@@ -84,7 +84,7 @@ const CommonPost = ({
                         </>
                     )}
                     <ThemeSelection postDetail={formData} />
-                    {memos.length > 0 && handleAddMemoClick && (
+                    {!isFreeForm && (
                         <div
                             onClick={handleAddMemoClick}
                             className="w-[900px] h-12 my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"

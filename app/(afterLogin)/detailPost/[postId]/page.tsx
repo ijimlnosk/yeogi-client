@@ -5,19 +5,16 @@ import { getPostDetail } from "@/apis/postApi"
 import { useQuery } from "@tanstack/react-query"
 import { PostDetailProps } from "./type"
 import { deleteComment, getComment } from "@/apis/commentApi"
-import FloatingBar from "./_components/floating/floatingBar"
-import PostDetail from "./_components/postDetail"
-import CreateComment from "./_components/comment/createComment"
-import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
-import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
 import { useEffect } from "react"
 import DeleteModal from "@/components/commons/deleteModal"
 import { useModalStore } from "@/libs/zustand/modal"
 import { useCommentIdStore } from "@/libs/zustand/comment"
-import LikeToComment from "./_components/comment/_components/likeToComment"
 import { Post } from "@/types/post"
 import { usePostDataStore } from "@/libs/zustand/post"
+import FloatingSection from "./_components/section/floatingSection"
+import PostDetailSection from "./_components/section/detailSection"
+import CommentSection from "./_components/section/commentSection"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
@@ -71,20 +68,9 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
                 context="댓글"
             />
             <div className="flex items-center justify-center flex-col">
-                <div className="relative w-[1300px] flex flex-col items-center justify-center py-10">
-                    <FloatingBar icons={defaultIcons} />
-                    <FloatingBar icons={handlePostIcons} isMine={true} postId={postId} post={post} />
-                    <PostDetail post={post} />
-                </div>
-                <LikeToComment likes={post.likeCount} comments={comments.length} />
-                <CreateComment postId={post.postId} refetch={refetchComments} />
-                <div className="flex items-center justify-center">
-                    {comments.length > 0 ? (
-                        <CommentBox comments={comments} refetch={refetchComments} />
-                    ) : (
-                        <div>댓글이 없습니다</div>
-                    )}
-                </div>
+                <FloatingSection postId={postId} post={post} />
+                <PostDetailSection post={post} />
+                <CommentSection postId={postId} post={post} comments={comments} refetchComments={refetchComments} />
                 <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
                     <Link
                         href={"/search"}

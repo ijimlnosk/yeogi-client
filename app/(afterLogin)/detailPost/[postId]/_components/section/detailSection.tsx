@@ -2,17 +2,19 @@
 
 import "@/styles/editor-content.css"
 import { useEffect, useRef, useState } from "react"
-import { PostDetailProps } from "./type"
+import { PostDetailSectionProps } from "./type"
 import { postViews } from "@/apis/postApi"
-import { ThemeProps } from "@/app/_components/type"
+import { formatISODateString } from "@/utils/date.utils"
 import { memos } from "@/types/post"
-import { formatISODateString } from "../date.utils"
+import { Theme } from "@/types/theme"
+import Image from "next/image"
 
-const PostDetail = ({ post }: PostDetailProps) => {
+const PostDetailSection = ({ post }: PostDetailSectionProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
     const shortContentRef = useRef<HTMLDivElement>(null)
     const [modifiedContent, setModifiedContent] = useState<string>("")
     const [modifiedShortPost, setModifiedShortPost] = useState<string[]>([])
+    const themeValueList = (post.themeList as (keyof typeof Theme)[]) || []
 
     const fetchViews = async () => {
         await postViews(post.postId)
@@ -80,7 +82,6 @@ const PostDetail = ({ post }: PostDetailProps) => {
                             <span className="text-BRAND-50 font-bold">{post.continent},</span>
                             <span className="text-BRAND-50 font-bold p-2">{post.region}</span>
                         </p>
-                        <span className="text-BRAND-50 font-bold max-w-[410px] break-keep">{post.address}</span>
                     </div>
                 </div>
                 <div>
@@ -88,36 +89,56 @@ const PostDetail = ({ post }: PostDetailProps) => {
                     <span className="text-BRAND-50 font-bold">{`${formatISODateString(post.tripStartDate)} ~ ${formatISODateString(post.tripEndDate)}`}</span>
                 </div>
             </div>
-            <div className="min-h-[280px] p-5">
+            <div className="min-h-[280px] p-3">
+                <p className="w-max px-5 py-2 my-5 text-BRAND-70 bg-BRAND-05 rounded-full border-[1px] border-BRAND-50 flex">
+                    <Image
+                        width={16}
+                        height={16}
+                        src={"/icons/darkgreen_gps.svg"}
+                        alt="detail location"
+                        className="mr-2"
+                    />
+                    {post.address}
+                </p>
                 {post.content && (
                     <div
                         ref={contentRef}
                         dangerouslySetInnerHTML={{ __html: modifiedContent }}
-                        className="custom-content "
+                        className="custom-content py-2"
                     />
                 )}
                 {post.memos?.map((post: memos, index: number) => (
-                    <div className="w-full flex flex-col items-center justify-center " key={post.id}>
+                    <div className="w-full flex flex-col justify-center items-start" key={post.id}>
+                        <p className="w-max px-5 py-2 my-5 text-BRAND-70 bg-BRAND-05 rounded-full border-[1px] border-BRAND-50 flex">
+                            <Image
+                                width={16}
+                                height={16}
+                                src={"/icons/darkgreen_gps.svg"}
+                                alt="detail location"
+                                className="mr-2"
+                            />
+                            {post.address}
+                        </p>
                         <div
                             ref={shortContentRef}
-                            className="py-5 flex flex-row items-center justify-center gap-2 custom-content"
+                            className="py-5 flex flex-row gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: modifiedShortPost[index] }}
                         />
                     </div>
                 ))}
             </div>
             <div
-                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeProps[]) || []).length > 7 ? "flex-col items-start" : "flex-row items-center"} justify-end`}
+                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${themeValueList.length > 7 ? "flex-col items-start" : "flex-row items-center"} justify-end`}
             >
                 <span
-                    className={`w-fit flex text-SYSTEM-black text-sm ${((post.themeList as ThemeProps[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
+                    className={`w-fit flex text-SYSTEM-black text-sm ${themeValueList.length > 7 ? "items-start pl-3" : "items-center"}`}
                 >
                     기록한 여행의 컨셉 :
                 </span>
                 <span className="px-2">
-                    {((post.themeList as ThemeProps[]) || []).map((theme, index) => (
+                    {themeValueList.map((themeValue, index) => (
                         <span key={index} className="text-BRAND-50 text-sm font-bold p-1">
-                            {`#${theme}`}
+                            {`#${Theme[themeValue]}`}
                         </span>
                     ))}
                 </span>
@@ -126,4 +147,4 @@ const PostDetail = ({ post }: PostDetailProps) => {
     )
 }
 
-export default PostDetail
+export default PostDetailSection
