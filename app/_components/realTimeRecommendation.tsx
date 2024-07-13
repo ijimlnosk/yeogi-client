@@ -4,7 +4,7 @@ import { getPost } from "@/apis/postApi"
 import RankCard from "@/components/commons/rankCard"
 import { Post } from "@/types/post"
 import { useQuery } from "@tanstack/react-query"
-import UserRecommendation from "./userRecommendation"
+import UserRecommendation from "./userRecommendation/userRecommendation"
 import Image from "next/image"
 import { useState } from "react"
 
