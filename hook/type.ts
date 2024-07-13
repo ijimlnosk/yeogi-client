@@ -2,8 +2,7 @@ import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/re
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/auth/_components/signin/type"
 import { Continent } from "@/constants/continents"
-import { Post, UpdatePost } from "@/types/post"
-import { ThemeProps } from "@/types/theme"
+import { Post } from "@/types/post"
 import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
@@ -20,10 +19,6 @@ export type SignInProps = {
     email: string
     password: string
 }
-export type updateFreeProps = {
-    postId: number
-    editedFields: Partial<UpdatePost>
-}
 export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
     isOpen: boolean
     formState: "success" | "fail" | null
@@ -33,37 +28,4 @@ export type useHandleClickProps = {
     postId?: string
     post?: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
-}
-
-export type postCommentResponse = {
-    id: number
-    content: string
-    nickname: string
-    createdAt: string
-    modifiedAt: string
-    likeCount: number
-    postId: number
-}
-
-export type postCommentRequest = {
-    content: string
-    postId: number
-}
-
-export type putCommentResponse = {
-    commentId: number
-    content: string
-    postId: number
-}
-
-export type putCommentRequest = {
-    commentId: number
-    content: string
-    postId: number
-}
-export type useGetPostProps = {
-    searchType: "CONTENT"
-    sortCondition: "LIKES" | "VIEWS" | "RECENT"
-    searchKeyword: string
-    theme: ThemeProps | ThemeProps[]
 }

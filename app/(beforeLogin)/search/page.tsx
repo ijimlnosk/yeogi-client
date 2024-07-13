@@ -9,8 +9,8 @@ import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import FilterTabs from "./_components/filterTabs"
-import { useGetPost } from "@/hook/usePostMutation"
-import { useGetPostProps } from "@/hook/type"
+import { useGetPost } from "@/libs/reactQuery/usePostMutation"
+import { useGetPostProps } from "@/libs/reactQuery/type"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
 

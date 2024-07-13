@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { useState } from "react"
-import { useUpdateComment } from "@/hook/useCommentMutation"
+import { useUpdateComment } from "@/libs/reactQuery/useCommentMutation"
 import { useIsUpdateComment } from "@/libs/commentStore"
 import { CommentUpdateFormProps } from "../type"
 
