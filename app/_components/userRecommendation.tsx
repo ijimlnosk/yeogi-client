@@ -7,10 +7,12 @@ import PostCard from "@/components/commons/postCard"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import RecommendPagination from "./recommendPagination"
 import { useRecommendPagination } from "@/hook/useRecommendPagination"
+import Image from "next/image"
 
 const UserRecommendation = () => {
     const [userInfo, setUserInfo] = useState<User>()
     const [posts, setPosts] = useState<Post[]>([])
+    const [isHovered, setIsHovered] = useState(false)
     const postsPerPage = 4
 
     const {
@@ -44,7 +46,7 @@ const UserRecommendation = () => {
 
     return (
         <div className="w-[1680px] mt-24">
-            <div>
+            <div className="w-full flex flex-row">
                 <p className="font-myeongjo text-xl">
                     {getToken ? (
                         <p>
@@ -56,9 +58,37 @@ const UserRecommendation = () => {
                         </p>
                     )}
                 </p>
+                <div
+                    className="relative  ml-4 flex items-center cursor-pointer"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <Image
+                        src={"/icons/gt-black.svg"}
+                        alt="gt-black"
+                        width={24}
+                        height={24}
+                        className={`${isHovered ? "opacity-0" : "opacity-100"}`}
+                    />
+                    <div
+                        className={`absolute text-BRAND-50 left-0 ml-2 whitespace-nowrap overflow-hidden transition-all duration-100 ease-in-out flex flex-row ${
+                            isHovered ? "w-20 opacity-100" : "w-0 opacity-0"
+                        }`}
+                    >
+                        <p>모두보기</p>
+                        <Image src={"/icons/gt-BRAND.svg"} alt="gt-BRAND" width={24} height={24} />
+                    </div>
+                </div>
             </div>
-            <RecommendPagination currentPage={currentPage} totalPages={totalPages} onChangePage={onChangePage} />
-            <div className="flex flex-row gap-20">
+
+            <div className=" relative flex flex-row gap-20 pt-5 pb-40">
+                <div className=" absolute -top-10 right-0">
+                    <RecommendPagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onChangePage={onChangePage}
+                    />
+                </div>
                 {currentPosts.map(post => (
                     <PostCard
                         key={post.postId}

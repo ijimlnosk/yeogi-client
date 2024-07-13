@@ -1,13 +1,15 @@
 import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
 import { Post } from "@/types/post"
 import Image from "next/image"
+import Link from "next/link"
 
 export type RankCardProps = {
     topPosts: Post
     rank: "Top1" | "Top2" | "Top3"
+    topPostId: number
 }
 
-const RankCard = ({ topPosts, rank }: RankCardProps) => {
+const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
     const getTopStyle = () => {
         switch (rank) {
             case "Top1":
@@ -23,7 +25,10 @@ const RankCard = ({ topPosts, rank }: RankCardProps) => {
 
     return (
         <>
-            <div className="w-[506px] h-[400px] relative bg-SYSTEM-white rounded-3xl p-4 overflow-hidden cursor-pointer group">
+            <Link
+                href={`/detailPost/${topPostId}`}
+                className="w-[506px] h-[400px] relative bg-SYSTEM-white rounded-3xl p-4 overflow-hidden cursor-pointer group"
+            >
                 <div className=" absolute w-full h-full top-0 left-0 bg-SYSTEM-black">
                     <Image
                         src={"/images/rankCardThumbnail.svg"}
@@ -63,7 +68,7 @@ const RankCard = ({ topPosts, rank }: RankCardProps) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </>
     )
 }

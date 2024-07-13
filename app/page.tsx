@@ -12,8 +12,8 @@ const Home = () => {
         <main className="w-full flex justify-center items-center flex-col overflow-x-hidden">
             <MainIntro />
             <RealTimeRecommendation />
-            <MainSurveyRecommend />
             <MainDesc />
+            <MainSurveyRecommend />
             <MainSearch />
             <MainThemeBanner />
         </main>
