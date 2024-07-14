@@ -31,7 +31,7 @@ export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> &
 export type useHandleClickProps = {
     postId: number
     liked? : boolean
-    post?: Post
+    post: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
 

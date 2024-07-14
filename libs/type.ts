@@ -95,6 +95,7 @@ export type ThemeState = {
 
 export type LoginState = {
     isLoggedIn: boolean
+    isLoading: boolean
     setIsLoggedIn: (isLoggedIn: boolean) => void
     userInfo: UserInfoProps | undefined
     setUserInfo: (userInfo: UserInfoProps) => void
