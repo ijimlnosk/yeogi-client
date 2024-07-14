@@ -1,37 +1,48 @@
-import { useState, useEffect } from "react";
-import { useLikeStore } from "@/libs/likeStore";
+"use client"
+
+import { useState, useEffect, useCallback } from "react";
 import { deletePostLike, postPostLike } from "@/apis/postApi";
+import { useLoggedIn } from "@/libs/loginStore";
+import { Post } from "@/types/post";
 
-const usePostLikeHandler = (postId: number , initialLikes: number, initialLiked: boolean, setIsError: (error: boolean) => void) => {
-    const { likes, setLikes } = useLikeStore();
-    const [liked, setLiked] = useState(initialLiked);
-   
+export type LikeUserId = {
+    id: number
+}
+
+const usePostLikeHandler = (postId: number, initialLiked: boolean, post: Post) => {
+    const { userInfo, isLoading } = useLoggedIn();
+    const [liked, setLiked] = useState<boolean>(initialLiked);
+    const [isProcessing, setIsProcessing] = useState(false);
+
     useEffect(() => {
-        if(likes[postId] === undefined){
-            setLikes(postId, initialLikes); // 초기 좋아요 수 설정
+        if (!isLoading && userInfo && post.likedMembersInfos) {
+            const isLiked = post.likedMembersInfos.some(member => member.userId === userInfo.id);
+            setLiked(isLiked);
         }
-        setLiked(initialLiked);
-    }, [postId, initialLikes, initialLiked, setLikes]);
+    }, [post.likedMembersInfos, userInfo, isLoading]);
 
-    const handleLikeClick = async () => {
+    const handleLikeClick = useCallback(async () => {
+        if (isProcessing) return;
+        setIsProcessing(true);
+
         try {
             if (liked) {
                 await deletePostLike({ postId });
-                setLikes(postId, (likes[postId] || initialLikes) - 1); // 좋아요 수 감소
             } else {
                 await postPostLike({ postId });
-                setLikes(postId, (likes[postId] || initialLikes) + 1); // 좋아요 수 증가
             }
-            setLiked(!liked);
+            setLiked(prev => !prev);
         } catch (error) {
-            setIsError(true);
+            throw new Error
+        } finally {
+            setIsProcessing(false);
         }
-    };
+    }, [liked, postId]);
 
     return {
-        likes: likes[postId] || initialLikes,
         liked,
         handleLikeClick,
+        isLoading,
     };
 };
 

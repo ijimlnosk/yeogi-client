@@ -71,7 +71,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
             />
             <div className="flex items-center justify-center flex-col">
                 <div className="relative w-[1300px] flex flex-col items-center justify-center py-10">
-                    <FloatingBar icons={defaultIcons} postId={Number(postId)} />
+                    <FloatingBar icons={defaultIcons} postId={Number(postId)} post={post} />
                     <FloatingBar icons={handlePostIcons} isMine={true} postId={Number(postId)} post={post} />
                     <PostDetail post={post} />
                 </div>

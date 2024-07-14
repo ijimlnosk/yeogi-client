@@ -8,11 +8,13 @@ import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
 import usePostLikeHandler from "./usePostLikeHandler"
+import { useLoggedIn } from "@/libs/loginStore"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
+    const { handleLikeClick, liked, isLoading } = usePostLikeHandler(postId, post.hasLiked || false, post);
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
-        like: post?.liked || false,
+        like: liked,
         share: false,
         delete: false,
         update: false,
@@ -22,22 +24,26 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = usePostDataStore()
+    const { userInfo } = useLoggedIn()
     const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
-    const setIsError = (error: boolean) => {
-        console.log(error, "error")
-     };
 
-     if(postId === undefined) {
+    if (postId === undefined) {
         throw new Error
-     }
-    const { handleLikeClick,liked } = usePostLikeHandler(postId , post?.likeCount || 0, post?.liked || false, setIsError);
-    useEffect(() => {
-        // liked 값에 따라 isActiveState 업데이트
-        setIsActiveState(prev => ({ ...prev, like: liked }));
-        console.log(isActiveState,"isActivestate")
-    }, [liked]);
+    }
 
-    console.log(liked, "liked1")
+    useEffect(() => {
+        if (!isLoading && post?.likedMembersInfos && userInfo?.id) {
+            const isLiked = post.likedMembersInfos.some(member => member.userId === userInfo.id);
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: isLiked } : icon))
+            );
+        } else {
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: false } : icon))
+            );
+        }
+    }, [post.likedMembersInfos, userInfo, isLoading]);
+
     useEffect(() => {
         if (scrollY <= 20) {
             setIsActiveState(prev => ({ ...prev, arrow: false }))
@@ -47,7 +53,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         }
     }, [scrollY, setIconState])
 
-    // 수정 중을 띄우기 위한 useEffect
     useEffect(() => {
         if (isActiveState.update) {
             setIsUpdateInProgress(true)
@@ -65,15 +70,9 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const handleShareClick = async () => {
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(window.location.href)
-            setIsActiveState(prev => {
-                const newState = { ...prev, share: true }
-                return newState
-            })
+            setIsActiveState(prev => ({ ...prev, share: true }))
             setTimeout(() => {
-                setIsActiveState(prev => {
-                    const newState = { ...prev, share: false }
-                    return newState
-                })
+                setIsActiveState(prev => ({ ...prev, share: false }))
                 setIconState(prevState =>
                     prevState.map(icon => (icon.name === "share" ? { ...icon, isActive: false } : icon)),
                 )
@@ -113,8 +112,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 break
             case "like":
                 handleLikeClick()
-                setIsActiveState(prev => ({ ...prev, like: !prev.like }));
-                    break
+                break
             case "share":
                 handleShareClick()
                 break
@@ -133,7 +131,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         setIsActiveState(prev => ({ ...prev, update: false }))
     }
 
-    return { isActiveState, handleClick, handleModalClose, isUpdateInProgress }
+    return { isActiveState, handleClick, handleModalClose, isUpdateInProgress, isLoading }
 }
 
 export default useFloatingBarHandler

@@ -10,7 +10,7 @@ import { useLikeStore } from "@/libs/likeStore"
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
     const numericPostId = Number(postId)
-    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress } = useFloatingBarHandler({
+    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress, isLoading } = useFloatingBarHandler({
         postId: numericPostId,
         post,
         setIconState,
@@ -24,11 +24,15 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
         }
     }, [])
 
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
             <div className="absolute z-50" style={{ left: `561px` }}>
                 <div
-                    className={` shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
+                    className={`shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
                 >
                     {iconState.map((icon, idx) => (
                         <FloatingButton key={idx} icon={icon} onClick={() => handleClick(icon.name)} />
