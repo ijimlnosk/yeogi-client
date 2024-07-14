@@ -1,7 +1,7 @@
 "use client"
 
 import Button from "@/components/commons/button"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/postStore"
 import { useEffect, useState } from "react"
 import { ThemeProps } from "@/app/_components/type"
 import { Theme } from "@/types/theme"

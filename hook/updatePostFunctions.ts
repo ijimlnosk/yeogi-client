@@ -1,6 +1,6 @@
 "use client"
 
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/postStore"
 import { memos, UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/form.utils"
 import { UseMutationResult } from "@tanstack/react-query"
@@ -132,7 +132,7 @@ export const useCommonUpdatePost = () => {
      * @param {Date | null} endDate 여행 종료 날짜
      */
     const handleUpdatePost = async (
-        postId: string,
+        postId: number,
         formData: UpdatePost,
         quillEditors: Array<{ content: string }>,
         setIsSubmitted: (isSubmitted: boolean) => void,
@@ -170,7 +170,7 @@ export const useCommonUpdatePost = () => {
 
         try {
             await updatePostMutation.mutateAsync({
-                postId: parseInt(postId),
+                postId: postId,
                 editedFields: editedPost,
             })
             setIsSubmitted(true)
