@@ -5,10 +5,6 @@ import { deletePostLike, postPostLike } from "@/apis/postApi";
 import { useLoggedIn } from "@/libs/loginStore";
 import { Post } from "@/types/post";
 
-export type LikeUserId = {
-    id: number
-}
-
 const usePostLikeHandler = (postId: number, initialLiked: boolean, post: Post) => {
     const { userInfo, isLoading } = useLoggedIn();
     const [liked, setLiked] = useState<boolean>(initialLiked);
