@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { useDeletePost } from "@/hook/usePostMutation"
+import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { usePostDataStore } from "@/libs/postStore"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
