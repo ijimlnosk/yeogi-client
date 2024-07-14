@@ -60,3 +60,17 @@ export type putCommentRequest = {
     content: string
     postId: number
 }
+
+export type UseRecommendPaginationProps<T> = {
+    items: T[]
+    itemsPerPage: number
+    initialPage?: number
+}
+
+export type UseRecommendPaginationReturn<T> = {
+    currentPage: number
+    setCurrentPage: (page: number) => void
+    currentItems: T[]
+    totalPages: number
+    onChangePage: (direction: "prev" | "next") => void
+}

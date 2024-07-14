@@ -22,3 +22,9 @@ export type PolaroidProps = {
     rotateBack?: string
     className?: string
 }
+
+export type RecommendPaginationProps = {
+    currentPage: number
+    totalPages: number
+    onChangePage: (direction: "prev" | "next") => void
+}
