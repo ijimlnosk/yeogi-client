@@ -5,12 +5,12 @@ import { getPostDetail, putPost } from "@/apis/postApi"
 import { UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/form.utils"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
-import FormBtn from "../../createPost/_components/form/formBtn"
-import ThemeSelection from "../../createPost/_components/form/themeSelection"
-import AddressSelection from "../../createPost/_components/form/addressSelection"
-import { QuillEditor } from "../../createPost/_components/editor/editorQuill"
-import UpperSelection from "../../createPost/_components/form/upperSelection"
 import { formatDate } from "@/utils/date.utils"
+import UpperSelection from "../../_components/form/upperSelection"
+import AddressSelection from "../../_components/form/addressSelection"
+import { QuillEditor } from "../../_components/editor/editorQuill"
+import ThemeSelection from "../../_components/form/themeSelection"
+import FormBtn from "../../_components/form/formBtn"
 
 const UpdatePage = () => {
     const [loading, setLoading] = useState<boolean>(true)
@@ -73,7 +73,7 @@ const UpdatePage = () => {
                     ? []
                     : await Promise.all(
                           quillEditors.map(async editor => ({
-                              ...editor,
+                              id: editor.id,
                               content: await processContentImages(editor.content),
                               address: selectedAddress || editor.address,
                           })),
@@ -82,7 +82,7 @@ const UpdatePage = () => {
             console.log("postData", postData)
             await putPost(postId, postData)
             resetAll()
-            // window.location.href = `/detailPost/${postId}`
+            // window.location.href = `/post/detail/${postId}`
         } catch (error) {
             console.error("Error updating post:", error)
         }

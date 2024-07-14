@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useHandleClickProps } from "./type"
-import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
+import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
 import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useUpdatePostDataStore } from "@/libs/zustand/post"
@@ -82,7 +82,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         if (postId && post) {
             setPostId(postId)
             setPostDetail(post)
-            router.push(`/updatePost/${postId}`)
+            router.push(`/post/edit/${postId}`)
         }
     }
 

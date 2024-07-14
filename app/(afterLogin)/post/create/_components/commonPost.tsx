@@ -1,16 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import UpperSelection from "./form/upperSelection"
-import ThemeSelection from "./form/themeSelection"
-import AddressSelection from "./form/addressSelection"
-import { QuillEditor } from "./editor/editorQuill"
-import FormBtn from "./form/formBtn"
-import UploadOverlay from "./overlay/uploadOverlay"
-import RouterOverlay from "./overlay/routerOverlay"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { useCommonPost } from "@/hook/useCommonPost"
 import { CommonPostProps } from "./type"
+import UploadOverlay from "../../_components/overlay/uploadOverlay"
+import UpperSelection from "../../_components/form/upperSelection"
+import AddressSelection from "../../_components/form/addressSelection"
+import { QuillEditor } from "../../_components/editor/editorQuill"
+import ThemeSelection from "../../_components/form/themeSelection"
+import FormBtn from "../../_components/form/formBtn"
+import RouterOverlay from "../../_components/overlay/routerOverlay"
 
 const CommonPost = ({
     isFreeForm,

@@ -21,7 +21,7 @@ const PostCard = ({
 }: PostCardProps) => {
     return (
         <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
-            <Link href={`/detailPost/${post_id}`}>
+            <Link href={`/post/detail/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
                 <Image
                     width={360}

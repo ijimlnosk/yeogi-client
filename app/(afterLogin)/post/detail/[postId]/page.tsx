@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { getPostDetail } from "@/apis/postApi"
 import { useQuery } from "@tanstack/react-query"
-import { PostDetailProps } from "./type"
 import { deleteComment, getComment } from "@/apis/commentApi"
 import { Comment } from "./_components/comment/type"
 import { useEffect } from "react"
@@ -15,6 +14,7 @@ import { usePostDataStore } from "@/libs/zustand/post"
 import FloatingSection from "./_components/section/floatingSection"
 import PostDetailSection from "./_components/section/detailSection"
 import CommentSection from "./_components/section/commentSection"
+import { PostDetailProps } from "./type"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

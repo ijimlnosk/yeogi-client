@@ -75,7 +75,7 @@ const Header = () => {
                             setIsSearchBarClicked={setIsSearchBarClicked}
                         />
                         <HeaderLogin />
-                        <ProtectedLink href="/createPost">
+                        <ProtectedLink href="/post/create">
                             <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
                                 <Image
                                     src={"/icons/write.svg"}

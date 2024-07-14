@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import CommonPost from "../_components/commonPost"
 import { memos } from "@/types/post"
+import { CommonPostForm } from "../../_components/common/postForm"
 
 const Page = () => {
     const [memos, setMemos] = useState<memos[]>([])
@@ -25,13 +25,13 @@ const Page = () => {
     }
 
     return (
-        <CommonPost
+        <CommonPostForm
+            isFreeForm={false}
             memos={memos}
             handleAddMemoClick={handleAddMemoClick}
             handleDeleteQuillEditor={handleDeleteQuillEditor}
             handleEditorInputChange={handleEditorInputChange}
             handleAddressInputChange={handleAddressInputChange}
-            isFreeForm={false}
         />
     )
 }

@@ -1,5 +1,5 @@
-import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
-import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
+import { CountryByContinent } from "@/app/(afterLogin)/post/_components/region/type"
+import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/auth/_components/signin/type"
 import { Continent } from "@/constants/continents"
 import { Post } from "@/types/post"
