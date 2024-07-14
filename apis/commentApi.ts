@@ -1,6 +1,4 @@
-import { postCommentResponse } from "@/hook/type"
-import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps, postIdProps } from "./type"
-
+import { postCommentProps, getCommentProps, commentIdProps, deleteCommentProps, putCommentProps } from "./type"
 import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
 import { postCommentResponse } from "@/libs/reactQuery/type"
 
