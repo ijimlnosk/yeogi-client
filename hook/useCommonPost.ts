@@ -7,10 +7,7 @@ import { useMapStore } from "@/libs/zustand/pin"
 import { processContentImages } from "@/utils/form.utils"
 import { setPinLocalStorage } from "@/utils/storage.utils"
 import { useCreatePostStore } from "@/libs/zustand/post"
-import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-
-dayjs.extend(utc)
+import { formatDate } from "@/utils/date.utils"
 
 export const useCommonPost = (isFreeForm: boolean) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -39,36 +36,24 @@ export const useCommonPost = (isFreeForm: boolean) => {
         e.preventDefault()
         const postData: CreatePost = {
             title: formData.title,
-            content: "",
-            address: selectedAddress!,
-            memos: [],
+            content: isFreeForm ? await processContentImages(formData.content) : "",
+            address: isFreeForm ? selectedAddress! : "",
+            memos: isFreeForm
+                ? []
+                : await Promise.all(
+                      shortPosts.map(async post => ({
+                          ...post,
+                          content: await processContentImages(post.content),
+                          address: selectedAddress || post.address,
+                      })),
+                  ),
             continent: selectedContinent || "아시아",
-            region: selectedCountry!,
-            tripStartDate: startDate
-                ? dayjs(startDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-                : "",
-            tripEndDate: endDate ? dayjs(endDate.toDate()).startOf("day").format("YYYY-MM-DDTHH:mm:ss.SSS[Z]") : "",
+            country: selectedCountry!,
+            tripStartDate: startDate ? formatDate(startDate) : "",
+            tripEndDate: endDate ? formatDate(endDate) : "",
             themeList: selectedTheme || [],
         }
-
         try {
-            if (isFreeForm) {
-                const processedContent = await processContentImages(formData.content!)
-                postData.content = processedContent
-            } else {
-                const processedShortPosts = await Promise.all(
-                    shortPosts.map(async post => {
-                        const processedContent = await processContentImages(post.content!)
-                        return {
-                            content: processedContent,
-                            address: selectedAddress!,
-                        }
-                    }),
-                )
-                postData.memos = processedShortPosts.map(post => ({
-                    ...post,
-                }))
-            }
             const newPost = await postPost(postData)
             const updatedPosts = [newPost, ...posts]
             setPosts(updatedPosts)

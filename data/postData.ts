@@ -6,7 +6,7 @@ export const initialFormData: CreatePost = {
     address: "",
     memos: [],
     continent: "",
-    region: "",
+    country: "",
     tripStartDate: "",
     tripEndDate: "",
     themeList: [],

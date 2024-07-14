@@ -21,7 +21,6 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     const { setPostDetail } = usePostDataStore()
     const { isDelete, setIsDelete } = useModalStore()
     const { saveCommentId } = useCommentIdStore()
-    // const { userInfo } = useLoggedIn()
 
     const {
         data: post,

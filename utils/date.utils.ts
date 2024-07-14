@@ -1,3 +1,8 @@
+import dayjs, { Dayjs } from "dayjs"
+import utc from "dayjs/plugin/utc"
+
+dayjs.extend(utc)
+
 export const formatISODateString = (dateString: string) => {
     const date = new Date(dateString)
 
@@ -7,3 +12,6 @@ export const formatISODateString = (dateString: string) => {
 
     return `${year}. ${month}. ${day}`
 }
+
+// create & update post 시 사용하는 date-formatter
+export const formatDate = (date: Dayjs) => dayjs(date).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")

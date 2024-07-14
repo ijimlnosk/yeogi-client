@@ -15,7 +15,7 @@ export type Post = {
     tripStartDate: string
     tripEndDate: string
     continent: string
-    region: string
+    country: string
     address: string
     themeList: Theme[]
 }
@@ -40,7 +40,7 @@ export type PostCardType = {
     createdAt: string
     modifiedAt: string
     continent: string
-    region: string
+    country: string
     address: string
     themeList: Theme[]
 }
@@ -52,7 +52,7 @@ export type CreatePost = {
     address: string
     memos: memos[]
     continent: string
-    region: string
+    country: string
     tripStartDate: string
     tripEndDate: string
     themeList: Theme[]
@@ -70,7 +70,7 @@ export type UpdatePost = {
     address: string
     memos: memos[]
     continent: string
-    region: string
+    country: string
     tripStartDate: string
     tripEndDate: string
     themeList: Theme[]

@@ -5,15 +5,12 @@ import { getPostDetail, putPost } from "@/apis/postApi"
 import { UpdatePost } from "@/types/post"
 import { processContentImages } from "@/utils/form.utils"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
-import dayjs, { Dayjs } from "dayjs"
-import utc from "dayjs/plugin/utc"
 import FormBtn from "../../createPost/_components/form/formBtn"
 import ThemeSelection from "../../createPost/_components/form/themeSelection"
 import AddressSelection from "../../createPost/_components/form/addressSelection"
 import { QuillEditor } from "../../createPost/_components/editor/editorQuill"
 import UpperSelection from "../../createPost/_components/form/upperSelection"
-
-dayjs.extend(utc)
+import { formatDate } from "@/utils/date.utils"
 
 const UpdatePage = () => {
     const [loading, setLoading] = useState<boolean>(true)
@@ -61,14 +58,12 @@ const UpdatePage = () => {
         setFormData({ ...formData, [field]: value })
     }
 
-    const formatDate = (date: Dayjs) => dayjs(date).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-
     const handleUpdate = async () => {
         try {
             const postData: UpdatePost = {
                 ...formData,
                 continent: selectedContinent || formData.continent,
-                region: selectedCountry || formData.region,
+                country: selectedCountry || formData.country,
                 address: selectedAddress || formData.address,
                 tripStartDate: startDate ? formatDate(startDate) : formData.tripStartDate,
                 tripEndDate: endDate ? formatDate(endDate) : formData.tripEndDate,
@@ -84,9 +79,10 @@ const UpdatePage = () => {
                           })),
                       ),
             }
+            console.log("postData", postData)
             await putPost(postId, postData)
             resetAll()
-            window.location.href = `/detailPost/${postId}`
+            // window.location.href = `/detailPost/${postId}`
         } catch (error) {
             console.error("Error updating post:", error)
         }

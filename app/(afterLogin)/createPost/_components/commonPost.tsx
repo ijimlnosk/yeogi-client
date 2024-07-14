@@ -18,7 +18,7 @@ const CommonPost = ({
     handleDeleteQuillEditor,
     handleEditorInputChange,
     handleAddMemoClick,
-    mode,
+    handleAddressInputChange,
 }: CommonPostProps) => {
     const {
         isOverlayOpen,
@@ -57,31 +57,29 @@ const CommonPost = ({
                             />
                         </>
                     ) : (
-                        <>
-                            {memos.map((memo, index) => (
-                                <div key={index}>
-                                    <AddressSelection
-                                        index={index}
-                                        address={memo.address ?? ""}
-                                        handleInputChange={(index, value) =>
-                                            handleEditorInputChange && handleEditorInputChange(index, value)
-                                        }
-                                    />
-                                    <QuillEditor
-                                        index={index}
-                                        handleDeleteQuillEditor={() =>
-                                            handleDeleteQuillEditor && handleDeleteQuillEditor(index)
-                                        }
-                                        handleEditorInputChange={
-                                            handleEditorInputChange
-                                                ? (index, value) => handleEditorInputChange(index, value)
-                                                : undefined
-                                        }
-                                        postDetail={formData}
-                                    />
-                                </div>
-                            ))}
-                        </>
+                        memos.map((memo, index) => (
+                            <div key={index}>
+                                <AddressSelection
+                                    index={index}
+                                    address={memo.address}
+                                    handleInputChange={(index, field, value) =>
+                                        handleAddressInputChange && handleAddressInputChange(index, field, value)
+                                    }
+                                />
+                                <QuillEditor
+                                    index={index}
+                                    handleDeleteQuillEditor={() =>
+                                        handleDeleteQuillEditor && handleDeleteQuillEditor(index)
+                                    }
+                                    handleEditorInputChange={
+                                        handleEditorInputChange
+                                            ? (index, value) => handleEditorInputChange(index, value)
+                                            : undefined
+                                    }
+                                    postDetail={formData}
+                                />
+                            </div>
+                        ))
                     )}
                     <ThemeSelection postDetail={formData} />
                     {!isFreeForm && (
@@ -93,7 +91,7 @@ const CommonPost = ({
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
-                    <FormBtn mode={mode} setIsOverlayOpen={setIsOverlayOpen} />
+                    <FormBtn setIsOverlayOpen={setIsOverlayOpen} />
                 </div>
             </div>
             {isRouterOverlayOpen && <RouterOverlay isRouterOverlayOpen={isRouterOverlayOpen} />}

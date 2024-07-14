@@ -10,7 +10,7 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
         useCreatePostStore()
 
     const continent = selectedContinent || postDetail?.continent
-    const country = selectedCountry || postDetail?.region
+    const country = selectedCountry || postDetail?.country
     const start = startDate ? startDate : postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
     const end = endDate ? endDate : postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
     const themeList = selectedTheme && selectedTheme.length > 0 ? selectedTheme : postDetail?.themeList || []

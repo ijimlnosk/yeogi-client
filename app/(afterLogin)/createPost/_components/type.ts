@@ -11,5 +11,5 @@ export type CommonPostProps = {
     handleDeleteQuillEditor?: (index: number) => void
     handleEditorInputChange?: (index: number, value: string) => void
     handleAddMemoClick?: () => void
-    mode: "create" | "update"
+    handleAddressInputChange?: (index: number, field: string, value: string) => void
 }
