@@ -51,15 +51,15 @@ export const useCreatePostStore = create<CreatePostState>(set => ({
 }))
 
 export const usePostDataStore = create<PostDataState>(set => ({
-    postId: null,
+    postId: 0 ,
     postDetail: null,
     setPostId: postId => set({ postId }),
     setPostDetail: postDetail => set({ postDetail }),
 }))
 
 export const useUpdatePostDataStore = create<UpdatePostDataState>(set => ({
-    postId: null,
+    postId: 0,
     postDetail: null,
-    setPostId: postId => set({ postId }),
+    setPostId: (postId: number | null )=> set({ postId }),
     setPostDetail: postDetail => set({ postDetail }),
 }))

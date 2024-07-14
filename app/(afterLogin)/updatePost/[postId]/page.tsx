@@ -1,6 +1,6 @@
 "use client"
 
-import { useCreatePostStore, usePostDataStore } from "@/libs/store"
+import { useCreatePostStore, usePostDataStore } from "@/libs/postStore"
 import { useCommonUpdatePost, useInitializeFormData } from "@/hook/updatePostFunctions"
 import CommonPost from "../../createPost/_components/commonPost"
 import { ThemeProps } from "@/app/_components/type"

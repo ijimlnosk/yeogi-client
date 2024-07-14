@@ -29,8 +29,9 @@ export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> &
     handleOverlay: (isOpen: boolean, state?: "success" | "fail" | null) => void
 }
 export type useHandleClickProps = {
-    postId?: string
-    post?: Post
+    postId: number
+    liked? : boolean
+    post: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
 

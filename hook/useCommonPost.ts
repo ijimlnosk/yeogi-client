@@ -1,7 +1,7 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import { useCreatePostStore } from "@/libs/store"
+import { useCreatePostStore } from "@/libs/postStore"
 import { postPost } from "@/apis/postApi"
 import { CreatePost, memos } from "@/types/post"
 import { useMapStore } from "@/libs/pinStore"

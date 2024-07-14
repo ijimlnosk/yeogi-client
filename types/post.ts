@@ -10,7 +10,7 @@ export type Post = {
     memos: memosList[] | []
     commentCount: number
     likeCount: number
-    likedMembersInfos?: likedMembersInfos[]
+    likedMembersInfos: likedMembersInfos[] 
     viewCount: number
     createdAt: string
     modifiedAt: string
@@ -20,6 +20,7 @@ export type Post = {
     region: string
     address: string
     themeList: ThemeProps | ThemeProps[]
+    hasLiked :boolean
 }
 export type memosList = {
     shortPostId: number

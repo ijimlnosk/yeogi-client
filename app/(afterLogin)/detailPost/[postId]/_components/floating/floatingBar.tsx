@@ -3,22 +3,36 @@
 import useFloatingBarHandler from "@/hook/useFloatingBarHandler"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
+import { useLikeStore } from "@/libs/likeStore"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
-    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress } = useFloatingBarHandler({
-        postId,
+    const numericPostId = Number(postId)
+    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress, isLoading } = useFloatingBarHandler({
+        postId: numericPostId,
         post,
         setIconState,
     })
+    const { likes, setLikes } = useLikeStore()
+
+    useEffect(() => {
+        // 초기 좋아요 수 설정
+        if (postId && post && !likes[numericPostId]) {
+            setLikes(numericPostId, post.likeCount)
+        }
+    }, [])
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
 
     return (
         <div className={`fixed ${isMine ? "top-[53%]" : "top-[31%]"}`}>
             <div className="absolute z-50" style={{ left: `561px` }}>
                 <div
-                    className={` shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
+                    className={`shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
                 >
                     {iconState.map((icon, idx) => (
                         <FloatingButton key={idx} icon={icon} onClick={() => handleClick(icon.name)} />

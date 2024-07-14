@@ -43,6 +43,10 @@ export type commentIdProps = {
     commentId: number
 }
 
+export type postIdProps={
+    postId:number
+}
+
 export type fetchCommentProps = {
     postIds: number[]
 }

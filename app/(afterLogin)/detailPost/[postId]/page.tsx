@@ -11,7 +11,7 @@ import CreateComment from "./_components/comment/createComment"
 import CommentBox from "./_components/comment/commentBox"
 import { Comment } from "./_components/comment/type"
 import { defaultIcons, handlePostIcons } from "@/constants/floatingBarIcons"
-import { usePostDataStore } from "@/libs/store"
+import { usePostDataStore } from "@/libs/postStore"
 import { useEffect } from "react"
 import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/commentStore"
@@ -71,8 +71,8 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
             />
             <div className="flex items-center justify-center flex-col">
                 <div className="relative w-[1300px] flex flex-col items-center justify-center py-10">
-                    <FloatingBar icons={defaultIcons} />
-                    <FloatingBar icons={handlePostIcons} isMine={true} postId={postId} post={post} />
+                    <FloatingBar icons={defaultIcons} postId={Number(postId)} post={post} />
+                    <FloatingBar icons={handlePostIcons} isMine={true} postId={Number(postId)} post={post} />
                     <PostDetail post={post} />
                 </div>
                 <LikeToComment likes={post.likeCount} comments={comments.length} />
