@@ -1,5 +1,5 @@
 import Button from "@/components/commons/button"
-import { AgeButton } from "@/constants/ageButton"
+import { AgeButton } from "@/constants/ButtonText"
 import { useState } from "react"
 
 type SignupAgeButtonProps = {
