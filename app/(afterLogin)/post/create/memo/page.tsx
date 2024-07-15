@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import CommonPost from "../_components/commonPost"
 import { memos } from "@/types/post"
-import { CommonPostForm } from "../../_components/common/postForm"
 
 const Page = () => {
     const [memos, setMemos] = useState<memos[]>([])
@@ -16,22 +16,22 @@ const Page = () => {
         setMemos(updatedMemos)
     }
     const handleEditorInputChange = (index: number, value: string) => {
-        const updatedMemos = memos.map((shortPost, i) => (i === index ? { ...shortPost, content: value } : shortPost))
+        const updatedMemos = memos.map((memo, i) => (i === index ? { ...memo, content: value } : memo))
         setMemos(updatedMemos)
     }
     const handleAddressInputChange = (index: number, field: string, value: string) => {
-        const updatedMemos = memos.map((shortPost, i) => (i === index ? { ...shortPost, [field]: value } : shortPost))
+        const updatedMemos = memos.map((memo, i) => (i === index ? { ...memo, [field]: value } : memo))
         setMemos(updatedMemos)
     }
 
     return (
-        <CommonPostForm
-            isFreeForm={false}
+        <CommonPost
             memos={memos}
             handleAddMemoClick={handleAddMemoClick}
             handleDeleteQuillEditor={handleDeleteQuillEditor}
             handleEditorInputChange={handleEditorInputChange}
             handleAddressInputChange={handleAddressInputChange}
+            isFreeForm={false}
         />
     )
 }

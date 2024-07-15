@@ -35,9 +35,9 @@ const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: C
         <Overlay
             isOpen={isOpen}
             onClick={handleSelectClick}
-            text="선택완료"
+            text={"선택완료"}
             textColor={"text-SYSTEM-white"}
-            imageUrl="/icons/white_check.svg"
+            imageUrl={"/icons/white_check.svg"}
         >
             <div className="bg-SYSTEM-white w-[448px] h-[397px] pb-4 flex flex-col items-center rounded-2xl">
                 <div className="w-full flex items-center justify-center relative">
@@ -45,13 +45,13 @@ const CountriesSearch = ({ isOpen, onSelect, selectedContinent, setNextStep }: C
                     <p className="text-sm py-6 ">국가 검색</p>
                 </div>
                 <CountrySearchBar text="여행 국가를 입력하세요" onChange={e => setSearchTerm(e.target.value)} />
-                <div className=" py-5 overflow-y-scroll w-[400px] flex justify-center">
-                    <ul className="flex flex-col">
+                <div className="py-3 overflow-y-scroll w-[400px] flex justify-center">
+                    <ul className="flex flex-col overflow-y-scroll">
                         {results.map((country, idx) => (
                             <li
                                 key={idx}
                                 onClick={() => handleCountryClick(country.name)}
-                                className={`w-[400px] py-3 flex items-center justify-center hover:cursor-pointer ${selectedCountry === country.name ? "text-BRAND-30" : ""}`}
+                                className={`w-[400px] py-2.5 flex items-center justify-center hover:cursor-pointer ${selectedCountry === country.name ? "text-BRAND-30" : ""}`}
                             >
                                 {country.name}
                             </li>

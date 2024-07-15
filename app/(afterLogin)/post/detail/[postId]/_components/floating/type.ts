@@ -1,4 +1,5 @@
 import { Post } from "@/types/post"
+import { Dispatch, SetStateAction } from "react"
 
 export type FloatingIcon = {
     name: string
@@ -16,4 +17,10 @@ export type FloatingBarProps = {
     isMine?: boolean
     postId?: number
     post?: Post
+}
+
+export type useHandleClickProps = {
+    postId?: number
+    post?: Post
+    setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }

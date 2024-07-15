@@ -27,7 +27,7 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
     }
 
     return (
-        <div className="w-[564px] h-[515px] bg-SYSTEM-white rounded-2xl flex flex-col items-center py-[10px] relative">
+        <div className="w-[564px] h-[515px] bg-SYSTEM-white rounded-2xl flex flex-col items-center py-2.5 relative">
             <p className="text-center text-sm py-[20px]">
                 썸네일에 표시될 <br /> 대표 이미지를 업로드해주세요.
             </p>

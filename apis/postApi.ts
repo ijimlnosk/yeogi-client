@@ -64,19 +64,25 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
         method: "PUT",
         body: JSON.stringify(editedPost),
     })
+
+    console.log(response.status, "response status")
+    console.log(response.headers, "response headers")
+
+    const responseData = await response.text()
+    console.log(responseData, "response body")
+
     if (!response.ok) throw new Error("게시글 수정에 실패했어요...🥹")
-    return {
-        title: editedPost.title || "",
-        content: editedPost.content || "",
-        address: editedPost.address || "",
-        memos: editedPost.memos || [],
-        continent: editedPost.continent || "",
-        country: editedPost.country || "",
-        tripStartDate: editedPost.tripStartDate || "",
-        tripEndDate: editedPost.tripEndDate || "",
-        themeList: editedPost.themeList || [],
-    }
+    return editedPost
 }
+// title: editedPost.title || "",
+// content: editedPost.content || "",
+// address: editedPost.address || "",
+// memos: editedPost.memos || [],
+// continent: editedPost.continent || "",
+// country: editedPost.country || "",
+// tripStartDate: editedPost.tripStartDate || "",
+// tripEndDate: editedPost.tripEndDate || "",
+// themeList: editedPost.themeList || [],
 
 /**
  * @function deletePost 특정 id의 게시글을 삭제하는 함수

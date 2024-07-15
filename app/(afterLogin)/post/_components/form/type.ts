@@ -22,6 +22,7 @@ export type FormSelectorProps = {
     postDetail?: CreatePost
     isThemeOpen?: boolean
     isTheme?: boolean
+    address?: string | string[]
 }
 
 export type FormBtnProps = {

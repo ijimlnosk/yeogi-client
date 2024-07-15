@@ -1,21 +1,11 @@
+"use client"
+
 import { useState } from "react"
 import Image from "next/image"
 import { QuillEditor } from "../editor/editorQuill"
 import AddressSelection from "../form/addressSelection"
-import { CreatePost, UpdatePost, memos } from "@/types/post"
-
-interface MemoFormSectionProps {
-    formState: CreatePost | UpdatePost
-    onChange: (
-        field: keyof (CreatePost | UpdatePost),
-        value: (CreatePost | UpdatePost)[keyof (CreatePost | UpdatePost)],
-    ) => void
-    memos: memos[]
-    handleAddMemoClick: () => void
-    handleDeleteQuillEditor: (index: number) => void
-    handleEditorInputChange: (index: number, value: string) => void
-    handleAddressInputChange: (index: number, field: string, value: string) => void
-}
+import { memos } from "@/types/post"
+import { MemoFormSectionProps } from "./type"
 
 export const MemoFormSection = ({ formState, onChange }: MemoFormSectionProps) => {
     const [memos, setMemos] = useState<memos[]>(formState.memos || [])

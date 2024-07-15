@@ -13,7 +13,7 @@ const PostCard = ({
     title,
     likeCount,
     commentCount,
-    continent,
+    country,
     user_nickname,
     user_profile,
     thumbnail,
@@ -33,7 +33,7 @@ const PostCard = ({
                 {/* 유저가 방문한 대륙 표시 */}
                 <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-[8px] shadow-md">
                     <Image src={locationIcon} alt="location_Icon" width={16} height={16} />
-                    <p className="text-sm text-BRAND-50">{continent}</p>
+                    <p className="text-sm text-BRAND-50">{country}</p>
                 </div>
                 {/* 게시일 */}
                 <div className="p-5">
@@ -47,7 +47,7 @@ const PostCard = ({
                             <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
-                        <div className="flex gap-[3px]">
+                        <div className="flex items-center justify-center gap-[3px]">
                             <Image
                                 src={commentIcon}
                                 alt="comment_Icon"

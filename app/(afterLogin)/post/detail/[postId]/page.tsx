@@ -22,21 +22,12 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     const { isDelete, setIsDelete } = useModalStore()
     const { saveCommentId } = useCommentIdStore()
 
-    const {
-        data: post,
-        error,
-        isLoading,
-    } = useQuery<Post, Error>({
+    const { data: post } = useQuery<Post, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(Number(postId)),
     })
 
-    const {
-        data: comments = [],
-        error: commentError,
-        isLoading: isCommentLoading,
-        refetch: refetchComments,
-    } = useQuery<Comment[], Error>({
+    const { data: comments = [], refetch: refetchComments } = useQuery<Comment[], Error>({
         queryKey: ["comments", { postId: Number(postId) }],
         queryFn: () => getComment({ postId: Number(postId) }),
     })
@@ -52,11 +43,7 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         refetchComments()
     }
 
-    if (isLoading || isCommentLoading) return <div>Loading...</div>
-    if (error) return <div>Error: {error.message}</div>
-    if (commentError) return <div>Error: {commentError.message}</div>
     if (!post) return <div>post not found</div>
-
     return (
         <>
             <DeleteModal

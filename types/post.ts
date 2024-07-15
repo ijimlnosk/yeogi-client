@@ -58,7 +58,7 @@ export type CreatePost = {
     themeList: Theme[]
 }
 export type memos = {
-    id?: number
+    memoId?: number
     content: string
     address: string
 }

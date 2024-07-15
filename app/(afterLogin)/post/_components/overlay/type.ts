@@ -9,7 +9,7 @@ export type ThumbnailProps = {
 
 export type PreviewPostCardProps = {
     selectedImage: string | null
-    selectedContinent: Continent
+    selectedCountry: Continent
     title: string
 }
 

@@ -21,7 +21,8 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
-    const [isUpdateInProgress, setIsUpdateInProgress] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+    const [isInProgress, setIsInProgress] = useState<boolean>(false)
 
     useEffect(() => {
         if (scrollY <= 20) {
@@ -35,9 +36,9 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     // 수정 중을 띄우기 위한 useEffect
     useEffect(() => {
         if (isActiveState.update) {
-            setIsUpdateInProgress(true)
+            setIsInProgress(true)
         } else {
-            setIsUpdateInProgress(false)
+            setIsInProgress(false)
         }
     }, [isActiveState.update])
 
@@ -66,31 +67,38 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         }
     }
 
+    const handleDeleteClick = () => {
+        setIsDeleteModalOpen(true)
+    }
+
     const handleDeletePost = async () => {
         if (postId) {
             try {
                 await deletePostMutation.mutateAsync(Number(postId))
-                alert("🟢 게시글이 삭제되었어요!") // 성공 실패 모달 사용 예정
-                router.push(`/`)
+                router.back()
             } catch {
-                alert("🔴 게시글 삭제에 실패했어요...") // 성공 실패 모달 사용 예정
+                console.log("게시글 삭제를 취소했어요.")
+            } finally {
+                setIsDeleteModalOpen(false)
             }
         }
     }
 
     const handleUpdatePost = () => {
-        if (postId && post) {
-            setPostId(postId)
-            setPostDetail(post)
-            router.push(`/post/edit/${postId}`)
+        if (post && postId) {
+            if (post.memos.length > 0) {
+                setIsInProgress(true)
+            } else {
+                setPostId(postId)
+                setPostDetail(post)
+                router.push(`/post/edit/${postId}`)
+            }
         }
     }
 
     const handleClick = (iconName: string) => {
         setIconState((prevState: FloatingIcon[]) =>
-            prevState.map((icon: FloatingIcon) =>
-                icon.name === iconName ? { ...icon, isActive: !icon.isActive } : icon,
-            ),
+            prevState.map((icon: FloatingIcon) => (icon.name === iconName ? { ...icon, isActive: true } : icon)),
         )
         switch (iconName) {
             case "arrow":
@@ -106,7 +114,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 handleUpdatePost()
                 break
             case "delete":
-                handleDeletePost()
+                handleDeleteClick()
                 break
             default:
                 break
@@ -116,8 +124,20 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const handleModalClose = () => {
         setIsActiveState(prev => ({ ...prev, update: false }))
     }
+    const handleDeleteModalClose = () => {
+        setIsDeleteModalOpen(false)
+        setIconState(prevState => prevState.map(icon => (icon.name === "delete" ? { ...icon, isActive: false } : icon)))
+    }
 
-    return { isActiveState, handleClick, handleModalClose, isUpdateInProgress }
+    return {
+        isActiveState,
+        isInProgress,
+        handleClick,
+        isDeleteModalOpen,
+        handleModalClose,
+        handleDeleteModalClose,
+        handleDeletePost,
+    }
 }
 
 export default useFloatingBarHandler

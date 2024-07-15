@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Overlay from "../form/formOverlay"
+import Overlay from "../overlay/formOverlay"
 import { SelectedAddressProps, address } from "./type"
 import { useCreatePostStore } from "@/libs/zustand/post"
 import AddressAutoComplete from "./addressAutoComplete"

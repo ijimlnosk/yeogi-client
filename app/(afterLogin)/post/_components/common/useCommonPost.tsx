@@ -1,16 +1,19 @@
 "use client"
 
-import { useState } from "react"
-import { processContentImages } from "@/utils/form.utils"
-import { formatDate } from "@/utils/date.utils"
-import { CreatePost, Post, UpdatePost } from "@/types/post"
+import { FormEvent, useState } from "react"
 import { postPost, putPost } from "@/apis/postApi"
-import { useCreatePostStore } from "@/libs/zustand/post"
+import { CreatePost, UpdatePost, memos } from "@/types/post"
+import { useMapStore } from "@/libs/zustand/pin"
+import { processContentImages } from "@/utils/form.utils"
+import { setPinLocalStorage } from "@/utils/storage.utils"
+import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
+import { formatDate } from "@/utils/date.utils"
 
-export const useCommonPost = (isFreeForm: boolean, initialData?: Post) => {
+export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
     const [isRouterOverlayOpen, setIsRouterOverlayOpen] = useState(false)
     const [isFailModalOpen, setIsFailModalOpen] = useState(false)
+    const { postId } = useUpdatePostDataStore()
 
     const {
         selectedContinent,
@@ -21,6 +24,9 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: Post) => {
         selectedTheme,
         formData,
         setFormData,
+        posts,
+        setPosts,
+        resetFormData,
         resetAll,
     } = useCreatePostStore()
 
@@ -31,37 +37,47 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: Post) => {
         setFormData({ ...formData, [field]: value })
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-        const postData: CreatePost | UpdatePost = {
-            title: formData.title,
-            content: isFreeForm ? await processContentImages(formData.content) : "",
-            address: isFreeForm ? selectedAddress! : "",
-            memos: isFreeForm
-                ? []
-                : await Promise.all(
-                      formData.memos.map(async post => ({
-                          ...post,
-                          content: await processContentImages(post.content),
-                          address: selectedAddress || post.address,
-                      })),
-                  ),
-            continent: selectedContinent || "아시아",
-            country: selectedCountry!,
-            tripStartDate: startDate ? formatDate(startDate) : "",
-            tripEndDate: endDate ? formatDate(endDate) : "",
-            themeList: selectedTheme || [],
-        }
+        setIsOverlayOpen(true)
+    }
 
+    const handleOverlaySubmit = async (e: FormEvent, memos: memos[]) => {
         try {
-            if (initialData) {
-                await putPost(initialData.postId, postData as UpdatePost)
-            } else {
-                await postPost(postData as CreatePost)
+            e.preventDefault()
+            const postData: CreatePost | UpdatePost = {
+                title: formData.title,
+                content: isFreeForm ? await processContentImages(formData.content) : "",
+                address: isFreeForm ? selectedAddress! : "",
+                memos: isFreeForm
+                    ? []
+                    : await Promise.all(
+                          memos.map(async memo => ({
+                              ...memo,
+                              content: await processContentImages(memo.content),
+                              address: selectedAddress || memo.address,
+                          })),
+                      ),
+                continent: selectedContinent || "아시아",
+                country: selectedCountry!,
+                tripStartDate: startDate ? formatDate(startDate) : "",
+                tripEndDate: endDate ? formatDate(endDate) : "",
+                themeList: selectedTheme || [],
             }
+            let newPost
+            if (initialData) {
+                newPost = await putPost(postId, postData as UpdatePost)
+            } else {
+                newPost = await postPost(postData as CreatePost)
+            }
+            const updatedPosts = [newPost, ...posts]
+            setPosts(updatedPosts)
+            resetFormData()
             resetAll()
             setIsRouterOverlayOpen(true)
-        } catch {
+            setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
+        } catch (error) {
+            setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
             setIsFailModalOpen(true)
         }
     }
@@ -73,7 +89,13 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: Post) => {
         isFailModalOpen,
         setIsFailModalOpen,
         handleInputChange,
+        handleOverlaySubmit,
         handleSubmit,
         formData,
+        setFormData,
+        posts,
+        setPosts,
+        resetFormData,
+        resetAll,
     }
 }

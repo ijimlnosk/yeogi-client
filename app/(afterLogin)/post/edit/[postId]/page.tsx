@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { getPostDetail, putPost } from "@/apis/postApi"
-import { UpdatePost } from "@/types/post"
-import { processContentImages } from "@/utils/form.utils"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
+import { UpdatePost } from "@/types/post"
 import { formatDate } from "@/utils/date.utils"
+import { processContentImages } from "@/utils/form.utils"
+import { useEffect, useState } from "react"
 import UpperSelection from "../../_components/form/upperSelection"
 import AddressSelection from "../../_components/form/addressSelection"
 import { QuillEditor } from "../../_components/editor/editorQuill"
@@ -17,7 +17,6 @@ const UpdatePage = () => {
     const [isFreeForm, setIsFreeForm] = useState<boolean>(true)
     const [, setIsOverlayOpen] = useState<boolean>(false)
     const { postId } = useUpdatePostDataStore()
-
     const {
         selectedContinent,
         selectedCountry,
@@ -31,7 +30,6 @@ const UpdatePage = () => {
         setQuillEditors,
         resetAll,
     } = useCreatePostStore()
-
     useEffect(() => {
         const fetchUpdate = async () => {
             if (postId) {
@@ -53,45 +51,37 @@ const UpdatePage = () => {
         }
         fetchUpdate()
     }, [postId, setFormData, setQuillEditors])
-
     const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
-
     const handleUpdate = async () => {
-        try {
-            const postData: UpdatePost = {
-                ...formData,
-                continent: selectedContinent || formData.continent,
-                country: selectedCountry || formData.country,
-                address: selectedAddress || formData.address,
-                tripStartDate: startDate ? formatDate(startDate) : formData.tripStartDate,
-                tripEndDate: endDate ? formatDate(endDate) : formData.tripEndDate,
-                themeList: Array.isArray(selectedTheme) ? selectedTheme : [selectedTheme],
-                content: isFreeForm ? await processContentImages(formData.content) : "",
-                memos: isFreeForm
-                    ? []
-                    : await Promise.all(
-                          quillEditors.map(async editor => ({
-                              id: editor.id,
-                              content: await processContentImages(editor.content),
-                              address: selectedAddress || editor.address,
-                          })),
-                      ),
-            }
-            console.log("postData", postData)
-            await putPost(postId, postData)
-            resetAll()
-            // window.location.href = `/post/detail/${postId}`
-        } catch (error) {
-            console.error("Error updating post:", error)
+        const postData: UpdatePost = {
+            ...formData,
+            continent: selectedContinent || formData.continent,
+            country: selectedCountry || formData.country,
+            address: selectedAddress || formData.address,
+            tripStartDate: startDate ? formatDate(startDate) : formData.tripStartDate,
+            tripEndDate: endDate ? formatDate(endDate) : formData.tripEndDate,
+            themeList: Array.isArray(selectedTheme) ? selectedTheme : [selectedTheme],
+            content: isFreeForm ? await processContentImages(formData.content) : "",
+            memos: isFreeForm
+                ? []
+                : await Promise.all(
+                      quillEditors.map(async editor => ({
+                          memoId: editor.memoId,
+                          content: await processContentImages(editor.content),
+                          address: selectedAddress || editor.address,
+                      })),
+                  ),
         }
-    }
 
+        await putPost(postId, postData)
+        resetAll()
+        window.location.href = `/post/detail/${postId}`
+    }
     if (loading) {
         return <div>로딩 중...</div>
     }
-
     return (
         <div className="w-[900px] min-h-[1500px] mx-auto bg-SYSTEM-beige flex flex-col">
             <div className={`mb-20 ${isFreeForm ? "" : "w-[900px] h-full"}`}>

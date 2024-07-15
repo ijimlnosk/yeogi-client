@@ -1,14 +1,23 @@
 "use client"
 
-import useFloatingBarHandler from "@/hook/useFloatingBarHandler"
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
 import { useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
+import useFloatingBarHandler from "./floatingBarHandler"
+import DeleteModal from "@/components/commons/deleteModal"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
-    const { isActiveState, handleClick, handleModalClose, isUpdateInProgress } = useFloatingBarHandler({
+    const {
+        isActiveState,
+        isInProgress,
+        handleClick,
+        handleModalClose,
+        isDeleteModalOpen,
+        handleDeletePost,
+        handleDeleteModalClose,
+    } = useFloatingBarHandler({
         postId,
         post,
         setIconState,
@@ -34,7 +43,14 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
                     링크가 클립보드에 복사되었습니다
                 </div>
             )}
-            <StillWorkingOverlay isOpen={isUpdateInProgress} onClick={handleModalClose} />
+            <StillWorkingOverlay isOpen={isInProgress} onClick={handleModalClose} />
+            <DeleteModal
+                title="게시글"
+                context="삭제된 데이터"
+                isOpen={isDeleteModalOpen}
+                onClick={handleDeletePost}
+                onLeftClick={handleDeleteModalClose}
+            />
         </div>
     )
 }

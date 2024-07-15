@@ -32,7 +32,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
         setFormData({ ...formData, [field]: value })
     }
 
-    const handleOverlaySubmit = async (e: FormEvent, shortPosts: memos[]) => {
+    const handleOverlaySubmit = async (e: FormEvent, memos: memos[]) => {
         e.preventDefault()
         const postData: CreatePost = {
             title: formData.title,
@@ -41,7 +41,7 @@ export const useCommonPost = (isFreeForm: boolean) => {
             memos: isFreeForm
                 ? []
                 : await Promise.all(
-                      shortPosts.map(async post => ({
+                      memos.map(async post => ({
                           ...post,
                           content: await processContentImages(post.content),
                           address: selectedAddress || post.address,

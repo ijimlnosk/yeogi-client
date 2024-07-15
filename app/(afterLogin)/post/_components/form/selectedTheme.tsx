@@ -29,7 +29,7 @@ const SelectedTheme = () => {
             {Themes.map(([key, value]) => (
                 <Button
                     key={key}
-                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 border-[1px] border-BRAND-30 ${
+                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 border-[1px] border-BRAND-30 bg-SYSTEM-white ${
                         themes.includes(key)
                             ? "bg-BRAND-30 text-SYSTEM-white"
                             : "hover:bg-BRAND-30 hover:text-SYSTEM-white"

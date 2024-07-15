@@ -12,7 +12,7 @@ import { useCreatePostStore } from "@/libs/zustand/post"
 const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit, memos }: UploadOverlayProps) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [isPreviewVisible, setIsPreviewVisible] = useState(false)
-    const { selectedContinent, formData } = useCreatePostStore()
+    const { selectedCountry, formData } = useCreatePostStore()
 
     const handleComplete = (selectedImage: string | null) => {
         setSelectedImage(selectedImage)
@@ -38,10 +38,10 @@ const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit, m
                     <ThumbnailUploader onComplete={handleComplete} />
                 ) : (
                     <>
-                        {selectedContinent && (
+                        {selectedCountry && (
                             <PreviewPostCard
                                 selectedImage={selectedImage}
-                                selectedContinent={selectedContinent}
+                                selectedCountry={selectedCountry}
                                 title={formData.title}
                             />
                         )}

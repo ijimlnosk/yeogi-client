@@ -1,18 +1,22 @@
 import PostCard from "@/components/commons/postCard"
 import { PreviewPostCardProps } from "./type"
+import { useLoggedIn } from "@/libs/zustand/login"
+import defaultProfile from "@/public/images/sampleProfile.svg"
 
-const PreviewPostCard = ({ selectedContinent, title, selectedImage }: PreviewPostCardProps) => {
+const PreviewPostCard = ({ selectedCountry, title, selectedImage }: PreviewPostCardProps) => {
+    const { userInfo } = useLoggedIn()
     const currentDate = new Date().toISOString()
+
     return (
         <PostCard
             title={title}
-            continent={selectedContinent}
+            country={selectedCountry}
             created_At={currentDate}
             likeCount={0}
             commentCount={0}
-            user_nickname="Amy"
+            user_nickname={userInfo?.nickname ?? ""}
             post_id={0}
-            user_profile={""}
+            user_profile={userInfo?.profile || userInfo?.profile_image || defaultProfile}
             thumbnail={selectedImage}
         />
     )

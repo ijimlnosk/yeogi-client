@@ -6,7 +6,7 @@ const DeleteModal = ({ title, context, isOpen, onClick, onLeftClick }: DeleteMod
     if (!isOpen) return null
 
     return (
-        <div className="">
+        <div>
             <Overlay
                 leftText="돌아가기"
                 leftImageUrl="/icons/white_arrow-left.svg"
