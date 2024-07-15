@@ -77,7 +77,7 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                                             title={post.title}
                                             likeCount={post.likeCount}
                                             commentCount={0}
-                                            continent={post.continent}
+                                            country={post.country}
                                             user_nickname={post.author}
                                             user_profile={""}
                                             thumbnail={"/images/sampleThumbnail.svg"}

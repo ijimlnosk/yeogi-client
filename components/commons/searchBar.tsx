@@ -6,7 +6,7 @@ import { SearchBarProps } from "./type"
 import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import SearchDropdown from "./searchDropdown"
-import { useSearchStore } from "@/libs/searchStore"
+import { useSearchStore } from "@/libs/zustand/search"
 
 const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({

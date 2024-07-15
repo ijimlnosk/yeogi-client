@@ -1,9 +1,9 @@
 "use client"
 
-import { useThemeStore } from "@/libs/themeStore"
+import RecommendPostCard from "./_components/recommendPostCard"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
-import RecommendPostCard from "./_components/recommendPostCard"
+import { useThemeStore } from "@/libs/zustand/theme"
 
 const Survey = () => {
     const { showResult, topTags } = useThemeStore()

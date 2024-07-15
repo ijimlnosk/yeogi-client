@@ -1,10 +1,10 @@
 "use client"
 
-import useModalStore from "@/libs/modalStore"
-import Overlay from "@/components/commons/overlay"
 import { ReactNode } from "react"
+import { useModalStore } from "@/libs/zustand/modal"
+import { useSearchStore } from "@/libs/zustand/search"
+import Overlay from "@/components/commons/overlay"
 import AuthForm from "./auth/page"
-import { useSearchStore } from "@/libs/searchStore"
 import MainSearch from "./_components/mainSearch"
 
 /**

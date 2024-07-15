@@ -1,6 +1,6 @@
 "use client"
 
-import { useSearchStore } from "@/libs/searchStore"
+import { useSearchStore } from "@/libs/zustand/search"
 import Image from "next/image"
 
 const HeaderSearchBar = () => {

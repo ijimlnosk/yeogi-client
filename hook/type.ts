@@ -1,5 +1,5 @@
-import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
-import { FloatingIcon } from "@/app/(afterLogin)/detailPost/[postId]/_components/floating/type"
+import { CountryByContinent } from "@/app/(afterLogin)/post/_components/region/type"
+import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import { UserRequest } from "@/app/auth/_components/signin/type"
 import { ContinentType } from "@/types/continent"
 import { Post } from "@/types/post"
@@ -11,14 +11,17 @@ export type CountryProps = {
     searchTerm: string
     selectedContinent: ContinentType
 }
+
 export type UserResponse = {
     accessToken: string
     refreshToken: string
 }
+
 export type SignInProps = {
     email: string
     password: string
 }
+
 export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
     isOpen: boolean
     formState: "success" | "fail" | null

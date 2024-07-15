@@ -3,7 +3,7 @@ import Image from "next/image"
 import airplane from "@/public/images/airplane.gif"
 import Button from "@/components/commons/button"
 import { useEffect, useState } from "react"
-import { useThemeStore } from "@/libs/themeStore"
+import { useThemeStore } from "@/libs/zustand/theme"
 
 const SurveyResultForm = () => {
     const [showButton, setShowButton] = useState(false)

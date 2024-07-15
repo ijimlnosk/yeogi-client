@@ -1,4 +1,3 @@
-import { CreatePost } from "@/types/post"
 import { ContinentType } from "@/types/continent"
 import { ThemeKeys } from "@/types/theme"
 import { SortConditionType } from "@/types/sortCondition"
@@ -9,18 +8,6 @@ export type getPostProps = {
     sortCondition: SortConditionType
     continent?: ContinentType
     theme?: ThemeKeys | ThemeKeys[]
-}
-
-export const initialFormData: CreatePost = {
-    title: "",
-    content: "",
-    address: "",
-    memos: [],
-    continent: "",
-    region: "",
-    tripStartDate: "",
-    tripEndDate: "",
-    themeList: [],
 }
 
 export type postCommentProps = {

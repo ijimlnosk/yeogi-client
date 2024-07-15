@@ -11,9 +11,9 @@ export type useGetPostProps = {
     continent: ContinentType
     theme: ThemeKeys | ThemeKeys[]
 }
-export type updateFreeProps = {
+export type updatePostProps = {
     postId: number
-    editedFields: Partial<UpdatePost>
+    editedFields: UpdatePost
 }
 
 /* comment mutation type */
@@ -30,13 +30,11 @@ export type postCommentRequest = {
     content: string
     postId: number
 }
-
 export type putCommentResponse = {
     commentId: number
     content: string
     postId: number
 }
-
 export type putCommentRequest = {
     commentId: number
     content: string

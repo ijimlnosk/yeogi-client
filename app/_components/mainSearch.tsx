@@ -6,9 +6,9 @@ import { useQuery } from "@tanstack/react-query"
 import { useEffect, useMemo, useState } from "react"
 import { debounce } from "lodash"
 import { Post } from "@/types/post"
-import { useSearchStore } from "@/libs/searchStore"
 import Image from "next/image"
 import { SortConditionType } from "@/types/sortCondition"
+import { useSearchStore } from "@/libs/zustand/search"
 
 const MainSearch = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>("")

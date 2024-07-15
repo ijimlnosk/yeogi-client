@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useEffect, useState, MouseEvent } from "react"
+import { useEffect, useState, MouseEvent } from "react"
 import { WorldMapProps, Pin } from "./type"
-import { useMapStore } from "@/libs/pinStore"
+import { useMapStore } from "@/libs/zustand/pin"
 import { getPin, postPin } from "@/apis/mapApi"
 import Image from "next/image"
 import { getPinLocalStorage, setPinLocalStorage } from "@/utils/storage.utils"
 
-const WorldMap: React.FC<WorldMapProps> = ({ userInfo }) => {
+const WorldMap = ({ userInfo }: WorldMapProps) => {
     const { email, nickname } = userInfo
     const { pinCount, incrementPinCount } = useMapStore()
     const [pins, setPins] = useState<Pin[]>([])

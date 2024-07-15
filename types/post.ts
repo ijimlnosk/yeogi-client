@@ -6,8 +6,8 @@ export type Post = {
     postId: number
     author: string
     title: string
-    content: string | ""
-    memos: memosList[] | []
+    content: string
+    memos: memosList[]
     commentCount: number
     likeCount: number
     likedMembersInfos: likedMembersInfos[]
@@ -17,13 +17,13 @@ export type Post = {
     tripStartDate: string
     tripEndDate: string
     continent: string
-    region: string
+    country: string
     address: string
-    themeList: ThemeKeys | ThemeKeys[]
+    themeList: ThemeKeys[]
     hasLiked: boolean
 }
 export type memosList = {
-    shortPostId: number
+    memoId: number
     content: string
     address: string
 }
@@ -43,7 +43,7 @@ export type PostCardType = {
     createdAt: string
     modifiedAt: string
     continent: string
-    region: string
+    country: string
     address: string
     themeList: Theme[]
 }
@@ -51,17 +51,17 @@ export type PostCardType = {
 // post method (create post)
 export type CreatePost = {
     title: string
-    content?: string | ""
-    address?: string | ""
-    memos?: memos[] | []
+    content: string
+    address: string
+    memos: memos[]
     continent: string
-    region: string
+    country: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeKeys | ThemeKeys[]
+    themeList: ThemeKeys[]
 }
 export type memos = {
-    shortPostId?: number
+    memoId?: number
     content: string
     address: string
 }
@@ -69,12 +69,12 @@ export type memos = {
 // put method (update post)
 export type UpdatePost = {
     title: string
-    content?: string | ""
-    address?: string | ""
-    memos?: memos[] | []
+    content: string
+    address: string
+    memos: memos[]
     continent: string
-    region: string
+    country: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeKeys | ThemeKeys[]
+    themeList: ThemeKeys[]
 }
