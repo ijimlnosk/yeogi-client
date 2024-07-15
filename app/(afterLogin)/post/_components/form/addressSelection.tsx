@@ -23,6 +23,8 @@ const AddressSelection = ({ index, postDetail, handleInputChange }: AddressSelec
                     label="상세 주소를 검색하세요."
                     state={"address"}
                     postDetail={postDetail}
+                    memoId={index}
+                    address=""
                 />
             </div>
             <SelectedAddress

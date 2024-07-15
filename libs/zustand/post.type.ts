@@ -8,10 +8,10 @@ export type CreatePostState = {
     // formData 관련 상태
     formData: CreatePost
     posts: CreatePost[]
-    quillEditors: memos[]
+    memos: memos[]
     setFormData: (data: CreatePost) => void
     setPosts: (posts: CreatePost[]) => void
-    setQuillEditors: (editors: memos[]) => void
+    setMemos: (memos: memos[]) => void
     resetFormData: () => void
     // selection 관련 상태
     selectedContinent: Continent | null

@@ -5,8 +5,8 @@ import { Theme } from "@/types/theme"
 import TextDisplay from "./formTextDisplay"
 import { formatISODateString } from "@/utils/date.utils"
 
-const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme }: FormSelectorProps) => {
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
+const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme, memoId }: FormSelectorProps) => {
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress, memos } =
         useCreatePostStore()
 
     const continent = selectedContinent || postDetail?.continent
@@ -14,8 +14,17 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme 
     const start = startDate ? startDate : postDetail?.tripStartDate ? new Date(postDetail.tripStartDate) : startDate
     const end = endDate ? endDate : postDetail?.tripEndDate ? new Date(postDetail.tripEndDate) : endDate
     const themeList = selectedTheme && selectedTheme.length > 0 ? selectedTheme : postDetail?.themeList || []
-    const address = selectedAddress || postDetail?.address
     const themes = themeList.map((themeKey: keyof typeof Theme) => Theme[themeKey])
+
+    let address = ""
+    if (state === "address") {
+        if (memoId !== undefined && memos.length > 0) {
+            const memo = memos.find(m => m.memoId === memoId)
+            address = memo ? memo.address : ""
+        } else {
+            address = selectedAddress || "상세 주소를 선택하세요."
+        }
+    }
 
     return (
         <>

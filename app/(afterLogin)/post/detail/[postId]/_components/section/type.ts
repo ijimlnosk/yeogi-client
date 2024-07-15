@@ -7,6 +7,7 @@ export type PostDetailSectionProps = {
 export type FloatingSectionProps = {
     postId: number
     post: Post
+    isMine: boolean
 }
 export type CommentSectionProps = {
     postId: number

@@ -8,12 +8,12 @@ export const useCreatePostStore = create<CreatePostState>(set => ({
     // formData 관련 상태
     formData: initialFormData,
     posts: [],
-    quillEditors: [],
+    memos: [],
     setFormData: data => set({ formData: data }),
     setPosts: posts => set({ posts }),
-    setQuillEditors: editors => set({ quillEditors: editors }),
+    setMemos: memos => set({ memos }),
     resetFormData: () => {
-        set({ formData: initialFormData, quillEditors: [] })
+        set({ formData: initialFormData, memos: [] })
     },
     // form selection 관련 상태
     selectedContinent: null,
@@ -41,7 +41,7 @@ export const useCreatePostStore = create<CreatePostState>(set => ({
     resetAll: () => {
         set({
             formData: initialFormData,
-            quillEditors: [],
+            memos: [],
             selectedContinent: null,
             selectedCountry: null,
             startDate: null,
