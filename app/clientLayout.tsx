@@ -4,6 +4,8 @@ import useModalStore from "@/libs/modalStore"
 import Overlay from "@/components/commons/overlay"
 import { ReactNode } from "react"
 import AuthForm from "./auth/page"
+import { useSearchStore } from "@/libs/searchStore"
+import MainSearch from "./_components/mainSearch"
 
 /**
  * 전역 상태로 로그인 오버레이 제어
@@ -13,12 +15,14 @@ import AuthForm from "./auth/page"
 const ClientLayout = ({ children }: { children: ReactNode }) => {
     const showLoginModal = useModalStore(state => state.showLoginModal)
     const closeModal = useModalStore(state => state.closeModal)
+    const { isSearchOpen } = useSearchStore()
 
     return (
         <>
             <Overlay isOpen={showLoginModal} onClick={closeModal} rounded="lg">
                 {showLoginModal && <AuthForm />}
             </Overlay>
+            {isSearchOpen && <MainSearch />}
             {children}
         </>
     )
