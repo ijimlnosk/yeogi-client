@@ -22,7 +22,7 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme,
             const memo = memos.find(m => m.memoId === memoId)
             address = memo ? memo.address : ""
         } else {
-            address = selectedAddress || "상세 주소를 선택하세요."
+            address = selectedAddress || ""
         }
     }
 
