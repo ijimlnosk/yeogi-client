@@ -17,7 +17,7 @@ const SearchResults = ({ posts }: SearchResultsProps) => {
                         user_profile={""}
                         thumbnail={TempImage}
                         title={post.title}
-                        continent={post.continent}
+                        country={post.country}
                         user_nickname={post.author}
                         created_At={formatISODateString(post.createdAt)}
                         commentCount={0}

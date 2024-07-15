@@ -1,38 +1,43 @@
-import { useState, useEffect } from "react";
-import { postCommentLike, deleteCommentLike } from "@/apis/commentApi";
-import { useLikeStore } from "@/libs/likeStore";
+import { useState, useEffect } from "react"
+import { postCommentLike, deleteCommentLike } from "@/apis/commentApi"
+import { useLikeStore } from "@/libs/zustand/likes"
 
-const useLikeHandler = (commentId: number, initialLikes: number, initialLiked: boolean, setIsError: (error: boolean) => void) => {
-    const { likes, setLikes } = useLikeStore();
-    const [liked, setLiked] = useState(initialLiked);
-   
+const useLikeHandler = (
+    commentId: number,
+    initialLikes: number,
+    initialLiked: boolean,
+    setIsError: (error: boolean) => void,
+) => {
+    const { likes, setLikes } = useLikeStore()
+    const [liked, setLiked] = useState(initialLiked)
+
     useEffect(() => {
-        if(likes[commentId] === undefined){
-            setLikes(commentId, initialLikes); // 초기 좋아요 수 설정
+        if (likes[commentId] === undefined) {
+            setLikes(commentId, initialLikes) // 초기 좋아요 수 설정
         }
-        setLiked(initialLiked);
-    }, [commentId, initialLikes, initialLiked, setLikes]);
+        setLiked(initialLiked)
+    }, [commentId, initialLikes, initialLiked, setLikes])
 
     const handleLikeClick = async () => {
         try {
             if (liked) {
-                await deleteCommentLike({ commentId });
-                setLikes(commentId, (likes[commentId] || initialLikes) - 1); // 좋아요 수 감소
+                await deleteCommentLike({ commentId })
+                setLikes(commentId, (likes[commentId] || initialLikes) - 1) // 좋아요 수 감소
             } else {
-                await postCommentLike({ commentId });
-                setLikes(commentId, (likes[commentId] || initialLikes) + 1); // 좋아요 수 증가
+                await postCommentLike({ commentId })
+                setLikes(commentId, (likes[commentId] || initialLikes) + 1) // 좋아요 수 증가
             }
-            setLiked(!liked);
+            setLiked(!liked)
         } catch (error) {
-            setIsError(true);
+            setIsError(true)
         }
-    };
+    }
 
     return {
         likes: likes[commentId] || initialLikes,
         liked,
         handleLikeClick,
-    };
-};
+    }
+}
 
-export default useLikeHandler;
+export default useLikeHandler

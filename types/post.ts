@@ -8,6 +8,7 @@ export type Post = {
     content: string
     memos: memosList[]
     likeCount: number
+    commentCount: number
     likedMembersInfos: likedMembersInfos[]
     viewCount: number
     createdAt: string

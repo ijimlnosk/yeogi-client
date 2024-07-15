@@ -19,6 +19,7 @@ const ThemeSelection = ({ postDetail }: FormSelectionProps) => {
                     postDetail={postDetail}
                     isThemeOpen={isThemeOpen}
                     isTheme={isTheme}
+                    address={""}
                 />
             </div>
             {isThemeOpen && <SelectedTheme />}

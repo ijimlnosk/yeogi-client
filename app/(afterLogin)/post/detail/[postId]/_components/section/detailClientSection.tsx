@@ -65,7 +65,7 @@ const PostDetailContentSection = ({ post }: PostDetailSectionProps) => {
         <div className="min-h-[280px] p-3">
             {post.memos.length > 0 ? (
                 post.memos?.map((post: memos, index: number) => (
-                    <div className="w-full flex flex-col justify-center items-start" key={post.id}>
+                    <div className="w-full flex flex-col justify-center items-start" key={post.memoId}>
                         <p className="w-max px-5 py-2 my-5 text-BRAND-70 bg-BRAND-05 rounded-full border-[1px] border-BRAND-50 flex">
                             <Image
                                 width={16}

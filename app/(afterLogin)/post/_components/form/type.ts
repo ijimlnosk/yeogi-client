@@ -23,7 +23,7 @@ export type FormSelectorProps = {
     isThemeOpen?: boolean
     isTheme?: boolean
     memoId?: number
-    address: string
+    address?: string
 }
 
 export type FormBtnProps = {
