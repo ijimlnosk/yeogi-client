@@ -107,6 +107,7 @@ export type SearchDropdownMapProps = {
 
 export type SearchDropdownProps = {
     onThemeSelect: (theme: string) => void
+    onContinentSelect: (continent: string) => void
     onSearch: () => void
 }
 

@@ -2,7 +2,7 @@ import Image from "next/image"
 import { RecommendPaginationProps } from "./type"
 
 const RecommendPagination = ({ currentPage, totalPages, onChangePage }: RecommendPaginationProps) => {
-    const maxVisiblePages = 12
+    const maxVisiblePages = 3
 
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2))
     const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)

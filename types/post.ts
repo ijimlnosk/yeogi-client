@@ -1,4 +1,4 @@
-import { ThemeProps } from "@/app/_components/type"
+import { ThemeKeys } from "@/types/theme"
 import { Theme } from "./theme"
 
 // get method (post detail)
@@ -10,7 +10,7 @@ export type Post = {
     memos: memosList[] | []
     commentCount: number
     likeCount: number
-    likedMembersInfos: likedMembersInfos[] 
+    likedMembersInfos: likedMembersInfos[]
     viewCount: number
     createdAt: string
     modifiedAt: string
@@ -19,8 +19,8 @@ export type Post = {
     continent: string
     region: string
     address: string
-    themeList: ThemeProps | ThemeProps[]
-    hasLiked :boolean
+    themeList: ThemeKeys | ThemeKeys[]
+    hasLiked: boolean
 }
 export type memosList = {
     shortPostId: number
@@ -58,7 +58,7 @@ export type CreatePost = {
     region: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeProps | ThemeProps[]
+    themeList: ThemeKeys | ThemeKeys[]
 }
 export type memos = {
     shortPostId?: number
@@ -76,5 +76,5 @@ export type UpdatePost = {
     region: string
     tripStartDate: string
     tripEndDate: string
-    themeList: ThemeProps | ThemeProps[]
+    themeList: ThemeKeys | ThemeKeys[]
 }

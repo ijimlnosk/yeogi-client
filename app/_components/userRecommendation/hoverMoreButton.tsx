@@ -1,8 +1,12 @@
+"use client"
+
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Image from "next/image"
 
 const HoverableMoreButton = () => {
     const [isHovered, setIsHovered] = useState(false)
+    const router = useRouter()
 
     return (
         <div
@@ -18,6 +22,7 @@ const HoverableMoreButton = () => {
                 className={`${isHovered ? "opacity-0" : "opacity-100"}`}
             />
             <div
+                onClick={() => router.push("/search")}
                 className={`absolute text-BRAND-50 left-0 ml-2 whitespace-nowrap overflow-hidden transition-all duration-100 ease-in-out flex flex-row ${
                     isHovered ? "w-20 opacity-100" : "w-0 opacity-0"
                 }`}

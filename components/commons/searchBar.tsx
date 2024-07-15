@@ -6,6 +6,7 @@ import { SearchBarProps } from "./type"
 import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import SearchDropdown from "./searchDropdown"
+import { useSearchStore } from "@/libs/searchStore"
 
 const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarProps) => {
     const sizeClasses = clsx({
@@ -17,12 +18,16 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
     const router = useRouter()
     const [keyword, setKeyword] = useState<string>("")
     const [selectedTheme, setSelectedTheme] = useState<string>("")
+    const [selectedContinent, setSelectedContinent] = useState<string>("")
     const dropdownRef = useRef<HTMLDivElement>(null)
+    const { setIsSearchOpen } = useSearchStore()
 
     const handleSearch = () => {
         const searchParams = new URLSearchParams()
         if (keyword) searchParams.set("keyword", keyword)
         if (selectedTheme) searchParams.set("theme", selectedTheme)
+        if (selectedContinent) searchParams.set("continent", selectedContinent)
+        setIsSearchOpen(false)
         router.push(`/search?${searchParams.toString()}`)
     }
 
@@ -58,7 +63,7 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                     <Image
                         width={24}
                         height={24}
-                        src={"icons/searchbar.svg"}
+                        src={"/icons/grey_search.svg"}
                         className="w-auto h-auto xl:w-5 xl:h-5"
                         alt="search_icon"
                     />
@@ -68,11 +73,11 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                         type="search"
                         id="default-search"
                         className={clsx(
-                            "block p-2 ps-14 border-2 border-ACCENT-orange outline-none focus:ring-transparent focus:ring-0 focus:border-GREY-10",
+                            "block p-2 ps-14 border-2 border-ACCENT-orange focus:outline-none focus:ring-0 focus:border-SYSTEM-white transition-opacity duration-300",
                             sizeClasses,
                             size === "lg" && isFocused
-                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0"
-                                : "rounded-[81px]",
+                                ? "border-t-GREY-10 rounded-t-[36px] rounded-b-0 opacity-100"
+                                : "rounded-[81px] opacity-80",
                         )}
                         placeholder={text}
                         onChange={handleChange}
@@ -90,7 +95,11 @@ const SearchBar = ({ text, size, onChange, isFocused, setIsFocused }: SearchBarP
                             isFocused ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-0",
                         )}
                     >
-                        <SearchDropdown onThemeSelect={setSelectedTheme} onSearch={handleSearch} />
+                        <SearchDropdown
+                            onThemeSelect={setSelectedTheme}
+                            onContinentSelect={setSelectedContinent}
+                            onSearch={handleSearch}
+                        />
                     </div>
                 )}
             </div>

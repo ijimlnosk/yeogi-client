@@ -1,12 +1,15 @@
+import { ContinentType } from "@/types/continent"
 import { UpdatePost } from "@/types/post"
-import { ThemeProps } from "@/types/theme"
+import { ThemeKeys } from "@/types/theme"
+import { SortConditionType } from "@/types/sortCondition"
 
 /* post mutation type */
 export type useGetPostProps = {
     searchType: "CONTENT"
-    sortCondition: "LIKES" | "VIEWS" | "RECENT"
+    sortCondition: SortConditionType
     searchKeyword: string
-    theme: ThemeProps | ThemeProps[]
+    continent: ContinentType
+    theme: ThemeKeys | ThemeKeys[]
 }
 export type updateFreeProps = {
     postId: number

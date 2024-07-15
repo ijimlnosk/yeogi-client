@@ -42,7 +42,7 @@ export type PostDataState = {
 export type UpdatePostDataState = {
     postId: number | null
     postDetail: UpdatePost | null
-    setPostId: (postId: number ) => void
+    setPostId: (postId: number) => void
     setPostDetail: (postDetail: UpdatePost | null) => void
 }
 
@@ -99,4 +99,9 @@ export type LoginState = {
     setIsLoggedIn: (isLoggedIn: boolean) => void
     userInfo: UserInfoProps | undefined
     setUserInfo: (userInfo: UserInfoProps) => void
+}
+
+export type SearchState = {
+    isSearchOpen: boolean
+    setIsSearchOpen: (isSearchOpen: boolean) => void
 }
