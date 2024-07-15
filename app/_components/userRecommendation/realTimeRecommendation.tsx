@@ -23,13 +23,11 @@ const RealTimeRecommendation = () => {
     const topPosts = posts?.slice(0, 3) || []
 
     return (
-        <>
-            <div className=" grid grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3   gap-[81px]">
-                {topPosts.map((top, index) => (
-                    <RankCard key={index} topPosts={top} rank={ranks[index]} topPostId={top.postId} />
-                ))}
-            </div>
-        </>
+        <div className=" grid grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3   gap-[81px]">
+            {topPosts.map((top, index) => (
+                <RankCard key={index} topPosts={top} rank={ranks[index]} topPostId={top.postId} />
+            ))}
+        </div>
     )
 }
 export default RealTimeRecommendation

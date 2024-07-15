@@ -48,13 +48,7 @@ const PostCard = ({
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
                         <div className="flex gap-[3px]">
-                            <Image
-                                src={commentIcon}
-                                alt="comment_Icon"
-                                width={16}
-                                height={16}
-                                className="w-[4] h-[4]"
-                            />
+                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} className="w-4 h-4" />
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>
