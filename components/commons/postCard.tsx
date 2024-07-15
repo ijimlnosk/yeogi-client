@@ -26,7 +26,7 @@ const PostCard = ({
                 <Image
                     width={360}
                     height={244}
-                    className="w-[360px] h-[244px] object-cover"
+                    className="object-cover"
                     src={thumbnail ?? Sample}
                     alt="post thumbnail"
                 />
@@ -37,24 +37,18 @@ const PostCard = ({
                 </div>
                 {/* 게시일 */}
                 <div className="p-5">
-                    <div className="font-bold text-sm ">{title}</div>
+                    <div className="font-bold text-sm">{title}</div>
                     <p className="text-GREY-50 text-sm">게시일 : {formatISODateString(created_At)}</p>
                 </div>
                 {/* 좋아요 코멘트 */}
                 <div className="px-5 flex justify-between items-center ">
                     <div className="bg-SYSTEM-white flex gap-3">
                         <div className="flex items-center gap-[3px]">
-                            <Image src={likeIcon} alt="like_Icon" width={16} height={16} />
+                            <Image src={likeIcon} alt="like_Icon" width={16} height={16} className="mb-1" />
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
-                        <div className="flex items-center justify-center gap-[3px]">
-                            <Image
-                                src={commentIcon}
-                                alt="comment_Icon"
-                                width={16}
-                                height={16}
-                                className="w-[16px] h-[16px]"
-                            />
+                        <div className="flex gap-[3px]">
+                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} />
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>

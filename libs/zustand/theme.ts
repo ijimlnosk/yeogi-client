@@ -1,11 +1,11 @@
+import { ThemeKeys } from "@/types/theme"
 import { create } from "zustand"
-import { ThemeProps } from "@/types/theme"
 
 export type ThemeState = {
     showResult: boolean
     setShowResult: (value: boolean) => void
-    topTags: ThemeProps[]
-    setTopTags: (tags: ThemeProps[]) => void
+    topTags: ThemeKeys[]
+    setTopTags: (tags: ThemeKeys[]) => void
 }
 
 export const useThemeStore = create<ThemeState>(set => ({

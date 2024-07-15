@@ -1,5 +1,5 @@
-import { ThemeProps } from "@/app/_components/type"
 import { CreatePost, memos } from "@/types/post"
+import { ThemeKeys } from "@/types/theme"
 
 export type FormSelectionProps = {
     formText?: string
@@ -35,5 +35,5 @@ export type FormBtnProps = {
 
 export type SelectedThemeProps = {
     isOpen: boolean
-    onClick: (theme: ThemeProps) => void
+    onClick: (theme: ThemeKeys) => void
 }

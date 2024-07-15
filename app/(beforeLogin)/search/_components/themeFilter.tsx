@@ -21,14 +21,15 @@ const ThemeFilterTabs = () => {
         } else {
             setSelectedThemeIndex(0)
         }
-    }, [searchParams])
+    }, [searchParams, ThemeEntries])
 
     const handleThemeSelect = (index: number) => {
         if (index !== selectedThemeIndex) {
             setSelectedThemeIndex(index)
-            const searchParams = new URLSearchParams()
-            if (ThemeEntries[index][0]) searchParams.set("theme", ThemeEntries[index][0])
-            router.push(`/search?${searchParams.toString()}`)
+            const newSearchParams = new URLSearchParams(searchParams.toString())
+            if (index === 0) newSearchParams.delete("theme")
+            else if (ThemeEntries[index][0]) newSearchParams.set("theme", ThemeEntries[index][0])
+            router.push(`/search?${newSearchParams.toString()}`)
         }
     }
 

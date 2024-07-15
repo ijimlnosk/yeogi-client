@@ -66,7 +66,7 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
             }
             let newPost
             if (initialData) {
-                newPost = await putPost(postId, postData as UpdatePost)
+                newPost = await putPost(postId!, postData as UpdatePost)
             } else {
                 newPost = await postPost(postData as CreatePost)
             }

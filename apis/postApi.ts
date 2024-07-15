@@ -1,5 +1,5 @@
 import { getPostProps, postIdProps } from "./type"
-import { ThemeProps } from "@/app/_components/type"
+import { ThemeKeys } from "@/types/theme"
 import { CreatePost, Post, UpdatePost } from "@/types/post"
 import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
 import { getDefaultPost } from "@/utils/reset.utils"
@@ -14,22 +14,32 @@ const POST_API_URL = "/posts"
  * @param {string} params.theme 게시글의 theme (EATING, HOT_PLACE, REST, SHOPPING, ACTIVITY, SIGHTSEEING, PACKAGE)
  * @returns {Promise<Post[]>} post들의 배열을 반환
  */
-export const getPost = async ({ searchType, searchString, sortCondition, theme }: getPostProps): Promise<Post[]> => {
+export const getPost = async ({
+    searchType,
+    searchString,
+    sortCondition,
+    continent,
+    theme,
+}: getPostProps): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
     const queryParams = new URLSearchParams()
-    if (!theme) {
-        queryParams.append("postSearchType", searchType.toUpperCase())
-        queryParams.append("postSortCondition", sortCondition.toUpperCase())
-    } else {
-        queryParams.append("postSearchType", searchType.toUpperCase())
-        queryParams.append("postSortCondition", sortCondition.toUpperCase())
+
+    queryParams.append("postSearchType", searchType.toUpperCase())
+    queryParams.append("postSortCondition", sortCondition.toUpperCase())
+
+    if (theme) {
         if (Array.isArray(theme)) {
             theme.forEach(t => queryParams.append("theme", t.toUpperCase()))
         } else {
             queryParams.append("theme", theme.toUpperCase())
         }
     }
+    if (continent) {
+        queryParams.append("continent", continent.toUpperCase())
+    }
+
     if (searchString) queryParams.append("searchString", searchString)
+
     const response = await fetchFormAPINotToken(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
     const posts = await response.json()
     return posts
@@ -65,12 +75,6 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
         body: JSON.stringify(editedPost),
     })
 
-    console.log(response.status, "response status")
-    console.log(response.headers, "response headers")
-
-    const responseData = await response.text()
-    console.log(responseData, "response body")
-
     if (!response.ok) throw new Error("게시글 수정에 실패했어요...🥹")
     return editedPost
 }
@@ -103,7 +107,7 @@ export const getPostDetail = async (postId: number): Promise<Post> => {
  * @param themes
  * @returns
  */
-export const getPopular = async (themes: ThemeProps[]): Promise<Post[]> => {
+export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
     if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
 
     const queryParams = new URLSearchParams()

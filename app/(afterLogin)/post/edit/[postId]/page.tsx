@@ -75,7 +75,7 @@ const UpdatePage = () => {
                   ),
         }
 
-        await putPost(postId, postData)
+        await putPost(postId!, postData)
         resetAll()
         window.location.href = `/post/detail/${postId}`
     }

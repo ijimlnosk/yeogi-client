@@ -1,8 +1,7 @@
-import { ThemeProps } from "@/app/_components/type"
 import { UserInfoProps } from "@/components/layouts/type"
-import { Continent } from "@/constants/continents"
-import { CreatePost, Post, memos } from "@/types/post"
-import { Theme } from "@/types/theme"
+import { ContinentType } from "@/types/continent"
+import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
+import { ThemeKeys } from "@/types/theme"
 import { Dayjs } from "dayjs"
 
 // create & update post
@@ -16,17 +15,17 @@ export type CreatePostState = {
     setMemos: (memos: memos[]) => void
     resetFormData: () => void
     // selection 관련 상태
-    selectedContinent: Continent | null
+    selectedContinent: ContinentType | null
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: Theme[]
+    selectedTheme: ThemeKeys[]
     selectedAddress: string | null
-    setSelectedContinent: (continent: Continent | null) => void
+    setSelectedContinent: (continent: ContinentType | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
-    setSelectedTheme: (themeList: Theme[]) => void
+    setSelectedTheme: (themeList: ThemeKeys[]) => void
     setSelectedAddress: (address: string) => void
     // 전체 상태 초기화 함수
     resetAll: () => void
@@ -40,16 +39,10 @@ export type PostDataState = {
 }
 // update post
 export type UpdatePostDataState = {
-    postId: number
-    postDetail: Post | null
+    postId: number | null
+    postDetail: UpdatePost | null
     setPostId: (postId: number) => void
-    setPostDetail: (postDetail: Post | null) => void
-}
-
-/* post & comment likes */
-export type LikesState = {
-    likes: { [key: number]: number }
-    setLikes: (postId: number, likes: number) => void
+    setPostDetail: (postDetail: UpdatePost | null) => void
 }
 
 /* comment */
@@ -74,6 +67,12 @@ export type CreateCommentState<> = {
     setComments: (comments: CreateCommentProps[]) => void
     addComment: (newComment: CreateCommentProps) => void
     updateComment: (updateComment: CreateCommentProps) => void
+}
+
+/* post & comment likes */
+export type LikesState = {
+    likes: { [key: number]: number }
+    setLikes: (postId: number, likes: number) => void
 }
 
 /* modal */
@@ -105,6 +104,12 @@ export type MapStore = {
 export type ThemeState = {
     showResult: boolean
     setShowResult: (value: boolean) => void
-    topTags: ThemeProps[]
-    setTopTags: (tags: ThemeProps[]) => void
+    topTags: ThemeKeys[]
+    setTopTags: (tags: ThemeKeys[]) => void
+}
+
+/* search */
+export type SearchState = {
+    isSearchOpen: boolean
+    setIsSearchOpen: (isSearchOpen: boolean) => void
 }
