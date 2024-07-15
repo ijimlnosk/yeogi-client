@@ -1,6 +1,6 @@
-import { ThemeProps } from "@/app/_components/type"
+import { ThemeKeys } from "@/types/theme"
 
-export const calculateTopTags = (tags: string[][]): ThemeProps[] => {
+export const calculateTopTags = (tags: string[][]): ThemeKeys[] => {
     const flattenedTags = tags.flat()
     const counts: { [key: string]: number } = {}
     flattenedTags.forEach(tag => {
@@ -10,13 +10,13 @@ export const calculateTopTags = (tags: string[][]): ThemeProps[] => {
     const sortedTags = Object.entries(counts).sort((a, b) => b[1] - a[1])
     const topTags = sortedTags
         .slice(0, 3)
-        .map(([tag]) => tag as ThemeProps)
-        .filter(tag => validTags.includes(tag as ThemeProps))
+        .map(([tag]) => tag as ThemeKeys)
+        .filter(tag => validTags.includes(tag as ThemeKeys))
 
     return topTags
 }
 
-const validTags: ThemeProps[] = [
+const validTags: ThemeKeys[] = [
     "EATING",
     "HOT_PLACE",
     "REST",

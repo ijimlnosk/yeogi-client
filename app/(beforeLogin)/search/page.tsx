@@ -2,12 +2,11 @@
 
 import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
-import { Post } from "@/types/post"
 import { ThemeKeys } from "@/types/theme"
 import { filterPosts } from "@/utils/search.utils"
 import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo } from "react"
 import FilterTabs from "./_components/filterTabs"
 import { useGetPost } from "@/libs/reactQuery/usePostMutation"
 import { useGetPostProps } from "@/libs/reactQuery/type"
