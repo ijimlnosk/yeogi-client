@@ -2,10 +2,11 @@
 
 import FloatingButton from "./floatingButton"
 import { FloatingBarProps, FloatingIcon } from "./type"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import useFloatingBarHandler from "./floatingBarHandler"
 import DeleteModal from "@/components/commons/deleteModal"
+import { useLikeStore } from "@/libs/zustand/likes"
 
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
@@ -23,11 +24,20 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
         setIconState,
     })
 
+    const { likes, setLikes } = useLikeStore()
+
+    useEffect(() => {
+        // 초기 좋아요 수 설정
+        if (postId && post && !likes[postId]) {
+            setLikes(postId, post.likeCount)
+        }
+    }, [])
+
     return (
         <div className={`fixed top-[28%] ${isMine ? "mt-[220px]" : ""}`}>
             <div className="absolute z-50" style={{ left: `561px` }}>
                 <div
-                    className={` shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
+                    className={`shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
                 >
                     {iconState.map((icon, idx) => (
                         <FloatingButton key={idx} icon={icon} onClick={() => handleClick(icon.name)} />

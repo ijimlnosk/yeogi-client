@@ -8,7 +8,7 @@ export type Post = {
     content: string
     memos: memosList[]
     likeCount: number
-    likedMembersInfos?: likedMembersInfos[]
+    likedMembersInfos: likedMembersInfos[]
     viewCount: number
     createdAt: string
     modifiedAt: string
@@ -18,6 +18,7 @@ export type Post = {
     country: string
     address: string
     themeList: Theme[]
+    hasLiked: boolean
 }
 export type memosList = {
     memoId: number

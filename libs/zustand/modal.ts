@@ -1,12 +1,5 @@
 import { create } from "zustand"
-
-export type ModalStore = {
-    showLoginModal: boolean
-    openLoginModal: () => void
-    closeModal: () => void
-    isDelete: boolean
-    setIsDelete: (isDelte: boolean) => void
-}
+import { ModalStore } from "./type"
 
 export const useModalStore = create<ModalStore>(set => ({
     showLoginModal: false,

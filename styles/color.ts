@@ -5,6 +5,7 @@ export const COLORS = {
         beige: "#F6F2EE",
         bone: "#EADCCE",
         else: "#F7EDE0",
+        else02: "#EADCCE",
         error: "#E81A1A",
     },
     GREY: {
@@ -28,8 +29,8 @@ export const COLORS = {
         coral: "#EF7974",
         fireBush: "#E08F3D",
     },
-    SNS:{
-        kakao:"#FEE502",
+    SNS: {
+        kakao: "#FEE502",
         naver: " #06BD34",
-    }
+    },
 } as const

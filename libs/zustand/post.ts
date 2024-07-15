@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { initialFormData } from "@/data/postData"
-import { CreatePostState, PostDataState, UpdatePostDataState } from "./post.type"
 import { CreatePost, UpdatePost } from "@/types/post"
+import { CreatePostState, PostDataState, UpdatePostDataState } from "./type"
 
 // create & update post
 export const useCreatePostStore = create<CreatePostState>(set => ({
@@ -64,7 +64,7 @@ export const usePostDataStore = create<PostDataState>(set => ({
 export const useUpdatePostDataStore = create<UpdatePostDataState>(set => ({
     postId: 0,
     postDetail: null,
-    setPostId: postId => set({ postId }),
+    setPostId: (postId: number) => set({ postId }),
     setPostDetail: postDetail => set({ postDetail }),
 }))
 

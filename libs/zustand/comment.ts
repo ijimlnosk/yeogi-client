@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { CommentState, UpdateCommentState } from "./comment.type"
+import { CommentState, UpdateCommentState } from "./type"
 
 export const useCommentIdStore = create<CommentState>(set => ({
     saveCommentId: 0,

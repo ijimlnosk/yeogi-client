@@ -1,6 +1,13 @@
 import { UpdatePost } from "@/types/post"
+import { ThemeProps } from "@/types/theme"
 
 /* post mutation type */
+export type useGetPostProps = {
+    searchType: "CONTENT"
+    sortCondition: "LIKES" | "VIEWS" | "RECENT"
+    searchKeyword: string
+    theme: ThemeProps | ThemeProps[]
+}
 export type updatePostProps = {
     postId: number
     editedFields: UpdatePost

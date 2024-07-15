@@ -109,3 +109,9 @@ export type SearchDropdownProps = {
     onThemeSelect: (theme: string) => void
     onSearch: () => void
 }
+
+export type RankCardProps = {
+    topPosts: Post
+    rank: "Top1" | "Top2" | "Top3"
+    topPostId: number
+}

@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { UserInfoProps } from "@/components/layouts/type"
-import { LoginState } from "./login.type"
+import { LoginState } from "./type"
 
 export const useLoggedIn = create<LoginState>(set => ({
     isLoggedIn: false,

@@ -15,8 +15,8 @@ export type FloatingButtonType = {
 export type FloatingBarProps = {
     icons: { name: string; icon: string; isActive: boolean }[]
     isMine?: boolean
-    postId?: number
-    post?: Post
+    postId: number
+    post: Post
 }
 
 export type useHandleClickProps = {

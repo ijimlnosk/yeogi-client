@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
-import { useCommonPost } from "@/hook/useCommonPost"
+import { useCommonPost } from "../../_components/common/useCommonPost"
 import { CommonPostProps } from "./type"
 import UploadOverlay from "../../_components/overlay/uploadOverlay"
 import UpperSelection from "../../_components/form/upperSelection"

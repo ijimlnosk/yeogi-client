@@ -16,7 +16,6 @@ export type SignInProps = {
     email: string
     password: string
 }
-
 export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
     isOpen: boolean
     formState: "success" | "fail" | null

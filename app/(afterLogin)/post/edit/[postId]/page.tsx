@@ -26,8 +26,8 @@ const UpdatePage = () => {
         selectedTheme,
         formData,
         setFormData,
-        quillEditors,
-        setQuillEditors,
+        memos,
+        setMemos,
         resetAll,
     } = useCreatePostStore()
     useEffect(() => {
@@ -37,7 +37,7 @@ const UpdatePage = () => {
                     const post = await getPostDetail(postId)
                     setFormData(post)
                     setIsFreeForm(post.content !== "")
-                    setQuillEditors(post.memos || [])
+                    setMemos(post.memos || [])
                     setLoading(false)
                 } catch (error) {
                     console.error(error)
@@ -50,7 +50,7 @@ const UpdatePage = () => {
             }
         }
         fetchUpdate()
-    }, [postId, setFormData, setQuillEditors])
+    }, [postId, setFormData, setMemos])
     const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
@@ -67,7 +67,7 @@ const UpdatePage = () => {
             memos: isFreeForm
                 ? []
                 : await Promise.all(
-                      quillEditors.map(async editor => ({
+                      memos.map(async editor => ({
                           memoId: editor.memoId,
                           content: await processContentImages(editor.content),
                           address: selectedAddress || editor.address,
@@ -101,7 +101,7 @@ const UpdatePage = () => {
                         />
                     </>
                 ) : (
-                    quillEditors.map((editor, index) => (
+                    memos.map((_, index) => (
                         <div key={index}>
                             <AddressSelection index={index} postDetail={formData} />
                             <QuillEditor
@@ -109,9 +109,9 @@ const UpdatePage = () => {
                                 isFreeForm={false}
                                 postDetail={formData}
                                 handleInputChange={(field, value) => {
-                                    const updatedEditors = [...quillEditors]
+                                    const updatedEditors = [...memos]
                                     updatedEditors[index] = { ...updatedEditors[index], [field]: value }
-                                    setQuillEditors(updatedEditors)
+                                    setMemos(updatedEditors)
                                 }}
                             />
                         </div>

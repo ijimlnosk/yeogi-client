@@ -2,16 +2,19 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import useHandleScroll from "@/hook/useHandleScroll"
-import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useUpdatePostDataStore } from "@/libs/zustand/post"
+import usePostLikeHandler from "@/hook/usePostLikeHandler"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
+    const { handleLikeClick, liked, isLoading } = usePostLikeHandler(postId!, post?.hasLiked || false, post!)
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
-        like: false,
+        like: liked,
         share: false,
         delete: false,
         update: false,
@@ -23,6 +26,24 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
+    const { userInfo } = useLoggedIn()
+
+    if (postId === undefined) {
+        throw new Error()
+    }
+
+    useEffect(() => {
+        if (!isLoading && post?.likedMembersInfos && userInfo?.id) {
+            const isLiked = post.likedMembersInfos.some(member => member.userId === userInfo.id)
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: isLiked } : icon)),
+            )
+        } else {
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: false } : icon)),
+            )
+        }
+    }, [post?.likedMembersInfos, userInfo, isLoading])
 
     useEffect(() => {
         if (scrollY <= 20) {
@@ -33,7 +54,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         }
     }, [scrollY, setIconState])
 
-    // 수정 중을 띄우기 위한 useEffect
     useEffect(() => {
         if (isActiveState.update) {
             setIsInProgress(true)
@@ -51,15 +71,9 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const handleShareClick = async () => {
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(window.location.href)
-            setIsActiveState(prev => {
-                const newState = { ...prev, share: true }
-                return newState
-            })
+            setIsActiveState(prev => ({ ...prev, share: true }))
             setTimeout(() => {
-                setIsActiveState(prev => {
-                    const newState = { ...prev, share: false }
-                    return newState
-                })
+                setIsActiveState(prev => ({ ...prev, share: false }))
                 setIconState(prevState =>
                     prevState.map(icon => (icon.name === "share" ? { ...icon, isActive: false } : icon)),
                 )
@@ -105,7 +119,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 handleArrowClick()
                 break
             case "like":
-                setIsActiveState(prev => ({ ...prev, like: !prev.like }))
+                handleLikeClick()
                 break
             case "share":
                 handleShareClick()
