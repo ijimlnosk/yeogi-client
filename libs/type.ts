@@ -1,5 +1,5 @@
 import { UserInfoProps } from "@/components/layouts/type"
-import { Continent } from "@/constants/continents"
+import { ContinentType } from "@/types/continent"
 import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
 import { ThemeKeys } from "@/types/theme"
 import { Dayjs } from "dayjs"
@@ -15,13 +15,13 @@ export type CreatePostState = {
     resetFormData: () => void
 
     // selection 관련 상태
-    selectedContinent: Continent | null
+    selectedContinent: ContinentType | null
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
     selectedTheme: ThemeKeys[]
     selectedAddress: string | null
-    setSelectedContinent: (continent: Continent | null) => void
+    setSelectedContinent: (continent: ContinentType | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void

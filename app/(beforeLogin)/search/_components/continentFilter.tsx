@@ -1,22 +1,13 @@
 "use client"
 
 import Button from "@/components/commons/button"
-import { ContinentType } from "@/types/continent"
+import { Continents } from "@/constants/continents"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 const ContinentFilterTabs = () => {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
-    const continents: ContinentType[] = [
-        "아시아",
-        "아프리카",
-        "남아메리카",
-        "북아메리카",
-        "유럽",
-        "오세아니아",
-        "북극",
-        "남극",
-    ]
+
     const router = useRouter()
     const searchParams = useSearchParams()
     const sortConditions: string[] = ["전체", "실시간 인기"]
@@ -28,7 +19,7 @@ const ContinentFilterTabs = () => {
         if (sortCondition === "VIEWS") {
             setSelectedIndex(1)
         } else if (continent) {
-            const index = continents.findIndex(value => value === continent)
+            const index = Continents.findIndex(value => value === continent)
             if (index !== -1) {
                 setSelectedIndex(index + sortConditions.length)
             } else {
@@ -37,7 +28,7 @@ const ContinentFilterTabs = () => {
         } else {
             setSelectedIndex(0)
         }
-    }, [searchParams, continents, sortConditions.length])
+    }, [searchParams, Continents, sortConditions.length])
 
     const handleSelect = (index: number) => {
         if (index !== selectedIndex) {
@@ -52,7 +43,7 @@ const ContinentFilterTabs = () => {
                     newSearchParams.set("sortCondition", "VIEWS")
                 }
             } else {
-                const continentValue = continents[index - sortConditions.length]
+                const continentValue = Continents[index - sortConditions.length]
                 if (continentValue) {
                     newSearchParams.set("continent", continentValue)
                     newSearchParams.delete("sortCondition")
@@ -75,7 +66,7 @@ const ContinentFilterTabs = () => {
                     {value}
                 </Button>
             ))}
-            {continents.map((value, idx) => (
+            {Continents.map((value, idx) => (
                 <Button
                     key={value}
                     onClick={() => handleSelect(idx + sortConditions.length)}

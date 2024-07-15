@@ -1,4 +1,4 @@
-import { Continent } from "@/constants/continents"
+import { ContinentType } from "@/types/continent"
 import { memos } from "@/types/post"
 import { FormEvent } from "react"
 
@@ -9,7 +9,7 @@ export type ThumbnailProps = {
 
 export type PreviewPostCardProps = {
     selectedImage: string | null
-    selectedContinent: Continent
+    selectedContinent: ContinentType
     title: string
 }
 
