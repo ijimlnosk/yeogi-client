@@ -3,7 +3,7 @@ import { RecommendationHeaderProps } from "./type"
 
 const RecommendationHeader = ({ userInfo, getToken }: RecommendationHeaderProps) => {
     return (
-        <div className="w-full flex flex-row">
+        <div className="w-[480px] xl:w-[1080px] 3xl:w-full flex flex-row pb-10">
             <p className="font-myeongjo text-xl">
                 {getToken ? (
                     <p>

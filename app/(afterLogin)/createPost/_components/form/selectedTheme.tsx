@@ -3,18 +3,17 @@
 import Button from "@/components/commons/button"
 import { useCreatePostStore } from "@/libs/postStore"
 import { useEffect, useState } from "react"
-import { ThemeProps } from "@/app/_components/type"
-import { Theme } from "@/types/theme"
+import { Theme, ThemeKeys } from "@/types/theme"
 
 const SelectedTheme = () => {
-    const [themes, setThemes] = useState<ThemeProps[]>([])
+    const [themes, setThemes] = useState<ThemeKeys[]>([])
     const { selectedTheme, setSelectedTheme } = useCreatePostStore()
 
     useEffect(() => {
         setThemes(selectedTheme)
     }, [selectedTheme])
 
-    const handleSelectedTheme = (themeKey: ThemeProps) => {
+    const handleSelectedTheme = (themeKey: ThemeKeys) => {
         const updatedThemes = themes.includes(themeKey)
             ? themes.filter(theme => theme !== themeKey)
             : [...themes, themeKey]
@@ -23,7 +22,7 @@ const SelectedTheme = () => {
         setSelectedTheme(updatedThemes)
     }
 
-    const ThemeKeys: ThemeProps[] = Object.keys(Theme) as ThemeProps[]
+    const ThemeKeys: ThemeKeys[] = Object.keys(Theme) as ThemeKeys[]
 
     return (
         <div className="flex flex-row w-full h-20 justify-start items-center px-6 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">

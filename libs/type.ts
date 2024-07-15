@@ -1,7 +1,7 @@
-import { ThemeProps } from "@/app/_components/type"
 import { UserInfoProps } from "@/components/layouts/type"
-import { Continent } from "@/constants/continents"
+import { ContinentType } from "@/types/continent"
 import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
+import { ThemeKeys } from "@/types/theme"
 import { Dayjs } from "dayjs"
 
 export type CreatePostState = {
@@ -15,17 +15,17 @@ export type CreatePostState = {
     resetFormData: () => void
 
     // selection 관련 상태
-    selectedContinent: Continent | null
+    selectedContinent: ContinentType | null
     selectedCountry: string | null
     startDate: Dayjs | null
     endDate: Dayjs | null
-    selectedTheme: ThemeProps[]
+    selectedTheme: ThemeKeys[]
     selectedAddress: string | null
-    setSelectedContinent: (continent: Continent | null) => void
+    setSelectedContinent: (continent: ContinentType | null) => void
     setSelectedCountry: (country: string | null) => void
     setStartDate: (date: Dayjs | null) => void
     setEndDate: (date: Dayjs | null) => void
-    setSelectedTheme: (themeList: ThemeProps[]) => void
+    setSelectedTheme: (themeList: ThemeKeys[]) => void
     setSelectedAddress: (address: string) => void
 
     // 전체 상태 초기화 함수
@@ -42,7 +42,7 @@ export type PostDataState = {
 export type UpdatePostDataState = {
     postId: number | null
     postDetail: UpdatePost | null
-    setPostId: (postId: number ) => void
+    setPostId: (postId: number) => void
     setPostDetail: (postDetail: UpdatePost | null) => void
 }
 
@@ -89,8 +89,8 @@ export type CreateCommentState<> = {
 export type ThemeState = {
     showResult: boolean
     setShowResult: (value: boolean) => void
-    topTags: ThemeProps[]
-    setTopTags: (tags: ThemeProps[]) => void
+    topTags: ThemeKeys[]
+    setTopTags: (tags: ThemeKeys[]) => void
 }
 
 export type LoginState = {
@@ -99,4 +99,9 @@ export type LoginState = {
     setIsLoggedIn: (isLoggedIn: boolean) => void
     userInfo: UserInfoProps | undefined
     setUserInfo: (userInfo: UserInfoProps) => void
+}
+
+export type SearchState = {
+    isSearchOpen: boolean
+    setIsSearchOpen: (isSearchOpen: boolean) => void
 }

@@ -4,9 +4,9 @@ import "@/styles/editor-content.css"
 import { useEffect, useRef, useState } from "react"
 import { PostDetailProps } from "./type"
 import { postViews } from "@/apis/postApi"
-import { ThemeProps } from "@/app/_components/type"
 import { memos } from "@/types/post"
 import { formatISODateString } from "../date.utils"
+import { ThemeKeys } from "@/types/theme"
 
 const PostDetail = ({ post }: PostDetailProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
@@ -107,15 +107,15 @@ const PostDetail = ({ post }: PostDetailProps) => {
                 ))}
             </div>
             <div
-                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeProps[]) || []).length > 7 ? "flex-col" : "flex-row"} justify-end`}
+                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${((post.themeList as ThemeKeys[]) || []).length > 7 ? "flex-col" : "flex-row"} justify-end`}
             >
                 <span
-                    className={`w-fit text-SYSTEM-black text-sm ${((post.themeList as ThemeProps[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
+                    className={`w-fit text-SYSTEM-black text-sm ${((post.themeList as ThemeKeys[]) || []).length > 7 ? "items-start pl-3" : "items-center"}`}
                 >
                     기록한 여행의 컨셉 :
                 </span>
                 <span className="px-2">
-                    {((post.themeList as ThemeProps[]) || []).map((theme, index) => (
+                    {((post.themeList as ThemeKeys[]) || []).map((theme, index) => (
                         <span key={index} className="text-BRAND-50 text-sm font-bold p-1">
                             {`#${theme}`}
                         </span>

@@ -1,4 +1,4 @@
-import { Continent } from "@/constants/continents"
+import { ContinentType } from "@/types/continent"
 import { ChangeEventHandler } from "react"
 
 export type Country = {
@@ -6,7 +6,7 @@ export type Country = {
 }
 
 export type CountryByContinent = {
-    [key in Continent]: Country[]
+    [key in ContinentType]: Country[]
 }
 
 export type CountrySearchBarProps = {
@@ -17,7 +17,7 @@ export type CountrySearchBarProps = {
 export type CountrySearchProps = {
     isOpen: boolean
     onSelect: (country: string) => void
-    selectedContinent: Continent
+    selectedContinent: ContinentType
     setNextStep: (nextStep: boolean) => void
 }
 
@@ -26,7 +26,7 @@ export type selectContinentProps = {
     nextStep: boolean
     onClick: (continent: string) => void
     setNextStep: (nextStep: boolean) => void
-    handleContinentChange?: (continent: Continent) => void
+    handleContinentChange?: (continent: ContinentType) => void
 }
 
 export type AddressAutoCompleteProps = {

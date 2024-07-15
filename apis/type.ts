@@ -1,11 +1,14 @@
-import { ThemeProps } from "@/app/_components/type"
 import { CreatePost } from "@/types/post"
+import { ContinentType } from "@/types/continent"
+import { ThemeKeys } from "@/types/theme"
+import { SortConditionType } from "@/types/sortCondition"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
     searchString?: string
-    sortCondition: "LIKES" | "VIEWS" | "RECENT"
-    theme?: ThemeProps | ThemeProps[]
+    sortCondition: SortConditionType
+    continent?: ContinentType
+    theme?: ThemeKeys | ThemeKeys[]
 }
 
 export const initialFormData: CreatePost = {
@@ -43,8 +46,8 @@ export type commentIdProps = {
     commentId: number
 }
 
-export type postIdProps={
-    postId:number
+export type postIdProps = {
+    postId: number
 }
 
 export type fetchCommentProps = {

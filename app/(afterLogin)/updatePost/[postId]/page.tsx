@@ -3,8 +3,8 @@
 import { useCreatePostStore, usePostDataStore } from "@/libs/postStore"
 import { useCommonUpdatePost, useInitializeFormData } from "@/hook/updatePostFunctions"
 import CommonPost from "../../createPost/_components/commonPost"
-import { ThemeProps } from "@/app/_components/type"
 import { UpdatePost } from "@/types/post"
+import { ThemeKeys } from "@/types/theme"
 
 const UpdatePostPage = () => {
     const { formData, setFormData } = useCreatePostStore()
@@ -14,7 +14,7 @@ const UpdatePostPage = () => {
 
     const handleInputChangeWrapper = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         if (field === "themeList") {
-            const themeListValue = value as ThemeProps | ThemeProps[] | undefined
+            const themeListValue = value as ThemeKeys | ThemeKeys[] | undefined
             handleInputChange(field as keyof UpdatePost, themeListValue, formData, setFormData)
         } else {
             handleInputChange(field as keyof UpdatePost, value as UpdatePost[keyof UpdatePost], formData, setFormData)
