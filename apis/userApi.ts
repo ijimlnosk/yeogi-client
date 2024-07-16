@@ -1,10 +1,9 @@
 import { fetchFormAPI } from "./api.utils"
 
-
 const USER_API_URL = "/posts"
 
 export const getUserInfo = async () => {
-    const response = await fetchFormAPI(USER_API_URL, "member/", { method: "GET" })
+    const response = await fetchFormAPI(USER_API_URL, "member/me", { method: "GET" })
     if (!response.ok) {
         throw new Error("response not ok")
     }
