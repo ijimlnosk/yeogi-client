@@ -3,13 +3,11 @@ import { UserInfoType } from "@/types/user"
 
 const USER_API_URL = "/member"
 
-/**
- * @function getUserInfo
- * @returns 로그인한 유저의 정보
- */
 export const getUserInfo = async () => {
-    const response = await fetchFormAPI(USER_API_URL, "member/", { method: "GET" })
-    if (!response.ok) throw new Error("response not ok")
+    const response = await fetchFormAPI(USER_API_URL, "member/me", { method: "GET" })
+    if (!response.ok) {
+        throw new Error("response not ok")
+    }
     const data = await response.json()
     return data as UserInfoType
 }
