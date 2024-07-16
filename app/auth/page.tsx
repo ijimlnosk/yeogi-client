@@ -38,7 +38,7 @@ const AuthForm = () => {
             const savedProvider = window.localStorage.getItem("provider") as Provider
             if (code && savedProvider) {
                 const data = await postAuthCode(savedProvider)
-                setCookieToken(data.accessToken)
+                setCookieToken(data.token.accessToken)
                 router.push("/")
             }
         }
