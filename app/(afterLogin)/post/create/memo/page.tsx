@@ -10,7 +10,6 @@ const Page = () => {
     const handleAddMemoClick = () => {
         setMemos([...memos, { content: "", address: "" }])
     }
-
     const handleDeleteQuillEditor = (index: number) => {
         const updatedMemos = memos.filter((_, i) => i !== index)
         setMemos(updatedMemos)
@@ -20,8 +19,7 @@ const Page = () => {
         setMemos(updatedMemos)
     }
     const handleAddressInputChange = (index: number, field: string, value: string) => {
-        const updatedMemos = memos.map((memo, i) => (i === index ? { ...memo, [field]: value } : memo))
-        setMemos(updatedMemos)
+        setMemos(prevMemos => prevMemos.map((memo, i) => (i === index ? { ...memo, [field]: value } : memo)))
     }
 
     return (

@@ -57,14 +57,12 @@ const CommonPost = ({
                             />
                         </>
                     ) : (
-                        memos.map((memo, index) => (
+                        memos.map((_, index) => (
                             <div key={index}>
                                 <AddressSelection
                                     index={index}
-                                    address={memo.address}
-                                    handleInputChange={(index, field, value) =>
-                                        handleAddressInputChange && handleAddressInputChange(index, field, value)
-                                    }
+                                    memos={memos}
+                                    handleInputChange={handleAddressInputChange}
                                 />
                                 <QuillEditor
                                     index={index}
