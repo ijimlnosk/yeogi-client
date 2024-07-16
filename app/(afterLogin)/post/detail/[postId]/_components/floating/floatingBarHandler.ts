@@ -125,6 +125,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 handleShareClick()
                 break
             case "update":
+                setIsActiveState(prev => ({ ...prev, update: true }))
                 handleUpdatePost()
                 break
             case "delete":

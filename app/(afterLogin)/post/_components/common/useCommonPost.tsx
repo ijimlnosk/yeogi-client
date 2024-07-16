@@ -55,7 +55,7 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
                           memos.map(async memo => ({
                               ...memo,
                               content: await processContentImages(memo.content),
-                              address: selectedAddress || memo.address,
+                              address: memo.address,
                           })),
                       ),
                 continent: selectedContinent || "아시아",

@@ -13,6 +13,8 @@ export type AddressSelectionProps = {
     handleInputChange?: (index: number, field: keyof memos, value: string) => void
     index: number
     address?: string
+    tempId?: number
+    memos?: memos[]
 }
 
 export type FormSelectorProps = {
@@ -24,6 +26,7 @@ export type FormSelectorProps = {
     isTheme?: boolean
     memoId?: number
     address?: string
+    memos?: memos[]
 }
 
 export type FormBtnProps = {
