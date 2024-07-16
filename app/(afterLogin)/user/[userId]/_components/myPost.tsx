@@ -23,7 +23,7 @@ const MyPost = ({ posts }: { posts?: Post[] }) => {
                                 user_profile={SampleProfile}
                                 thumbnail={TempImage}
                                 title={post.title}
-                                continent={post.continent}
+                                country={post.country}
                                 user_nickname={post.author}
                                 created_At={currentDate}
                                 commentCount={0}

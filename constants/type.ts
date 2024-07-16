@@ -1,7 +1,7 @@
-import { ThemeProps } from "@/app/_components/type"
+import { ThemeKeys } from "@/types/theme"
 
 export type RecommendedTextFieldsType = {
-    theme: ThemeProps
+    theme: ThemeKeys
     title: string
     travelType: string
 }

@@ -1,16 +1,19 @@
+import { ContinentType } from "@/types/continent"
 import { UpdatePost } from "@/types/post"
-import { ThemeProps } from "@/types/theme"
+import { ThemeKeys } from "@/types/theme"
+import { SortConditionType } from "@/types/sortCondition"
 
 /* post mutation type */
 export type useGetPostProps = {
     searchType: "CONTENT"
-    sortCondition: "LIKES" | "VIEWS" | "RECENT"
+    sortCondition: SortConditionType
     searchKeyword: string
-    theme: ThemeProps | ThemeProps[]
+    continent: ContinentType
+    theme: ThemeKeys | ThemeKeys[]
 }
-export type updateFreeProps = {
+export type updatePostProps = {
     postId: number
-    editedFields: Partial<UpdatePost>
+    editedFields: UpdatePost
 }
 
 /* comment mutation type */
@@ -27,13 +30,11 @@ export type postCommentRequest = {
     content: string
     postId: number
 }
-
 export type putCommentResponse = {
     commentId: number
     content: string
     postId: number
 }
-
 export type putCommentRequest = {
     commentId: number
     content: string

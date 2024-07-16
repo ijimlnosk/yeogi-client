@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import ProtectedLink from "@/components/commons/protectedLink"
 import { useEffect, useState } from "react"
-import { useLoggedIn } from "@/libs/loginStore"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const HeaderLogin = () => {
     const [profileImage, setProfileImage] = useState<string>("/images/sampleProfile.svg")

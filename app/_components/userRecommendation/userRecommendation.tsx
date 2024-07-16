@@ -1,3 +1,5 @@
+"use clien"
+
 import { getUserInfo } from "@/apis/userApi"
 import { useEffect, useState } from "react"
 import { Post } from "@/types/post"
@@ -43,7 +45,7 @@ const UserRecommendation = () => {
     }, [])
 
     return (
-        <div className="w-[1680px] mt-24">
+        <div className="w-[480px] xl:w-[980px] 3xl:w-[1680px] mt-24">
             <RecommendationHeader userInfo={userInfo} getToken={getToken} />
             <PostList
                 currentPosts={currentPosts}

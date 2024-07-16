@@ -1,7 +1,7 @@
 import PostCard from "@/components/commons/postCard"
 import TempImage from "@/public/images/sampleThumbnail.svg"
 import { SearchResultsProps } from "./type"
-import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
+import { formatISODateString } from "@/utils/date.utils"
 
 const SearchResults = ({ posts }: SearchResultsProps) => {
     if (!posts || posts.length === 0) {
@@ -17,10 +17,10 @@ const SearchResults = ({ posts }: SearchResultsProps) => {
                         user_profile={""}
                         thumbnail={TempImage}
                         title={post.title}
-                        continent={post.continent}
+                        country={post.country}
                         user_nickname={post.author}
                         created_At={formatISODateString(post.createdAt)}
-                        commentCount={0}
+                        commentCount={post.commentCount}
                         likeCount={post.likeCount}
                     />
                 </div>

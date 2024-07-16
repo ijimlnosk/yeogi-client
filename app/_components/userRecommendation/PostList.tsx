@@ -4,7 +4,7 @@ import { PostListProps } from "./type"
 
 const PostList = ({ currentPosts, currentPage, totalPages, onChangePage }: PostListProps) => {
     return (
-        <div className="relative flex flex-row gap-20 pt-5 pb-40">
+        <div className="relative grid grid-cols-1 xl:grid-cols-2 xl:gap-0 xl:justify-center xl:items-center 3xl:grid-cols-4 gap-20 pt-5 pb-40">
             <div className="absolute -top-10 right-0">
                 <RecommendPagination currentPage={currentPage} totalPages={totalPages} onChangePage={onChangePage} />
             </div>
@@ -15,7 +15,7 @@ const PostList = ({ currentPosts, currentPage, totalPages, onChangePage }: PostL
                     title={post.title}
                     likeCount={post.likeCount}
                     commentCount={post.commentCount}
-                    continent={post.continent}
+                    country={post.country}
                     user_nickname={post.author}
                     user_profile={""}
                     thumbnail={"/images/sampleThumbnail.svg"}

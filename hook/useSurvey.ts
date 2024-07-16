@@ -1,8 +1,10 @@
+"use client"
+
 import { getRandomQuestion } from "@/app/(beforeLogin)/survey/_components/getRandomQuestion"
 import { calculateTopTags } from "@/app/(beforeLogin)/survey/_components/survey.util"
 import { SurveyQuestion } from "@/data/surveyQuestion"
 import { SurveyOption } from "@/data/type"
-import { useThemeStore } from "@/libs/themeStore"
+import { useThemeStore } from "@/libs/zustand/theme"
 import { useEffect, useState } from "react"
 
 export const useSurvey = () => {

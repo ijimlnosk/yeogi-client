@@ -3,7 +3,7 @@ import { SearchDropdownMapProps } from "./type"
 
 const SearchDropdownMap = ({ dropdownItem, onClick, index }: SearchDropdownMapProps) => {
     return (
-        <div className="w-full flex flex-wrap sm:gap-2 justify-start my-[18px] text-xs break-keep">
+        <div className="w-full flex flex-wrap sm:gap-3.5 justify-start my-[18px] text-xs break-keep">
             {dropdownItem.map(([key, value], idx) => (
                 <Button
                     key={key}

@@ -1,4 +1,4 @@
-import { CountryByContinent } from "@/app/(afterLogin)/createPost/_components/region/type"
+import { CountryByContinent } from "@/app/(afterLogin)/post/_components/region/type"
 
 export const countriesByContinent: CountryByContinent = {
     아시아: [
@@ -203,10 +203,6 @@ export const countriesByContinent: CountryByContinent = {
         { name: "투발루" },
         { name: "바누아투" },
     ],
-    남극: [
-        {name: "남극"}
-    ],
-    북극: [
-        {name: "북극"}
-    ],
+    남극: [{ name: "남극" }],
+    북극: [{ name: "북극" }],
 }

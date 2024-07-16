@@ -1,7 +1,7 @@
-import { formatISODateString } from "@/app/(afterLogin)/detailPost/[postId]/date.utils"
 import Image from "next/image"
 import Link from "next/link"
 import { RankCardProps } from "./type"
+import { formatISODateString } from "@/utils/date.utils"
 
 const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
     const getTopStyle = () => {
@@ -33,7 +33,7 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
             </div>
             <div className=" absolute flex flex-row ">
                 <Image src={"/icons/white_gps.svg"} alt="gps" width={16} height={16} />
-                <p className="pl-1 text-SYSTEM-white text-sm font-semibold">{topPosts.region}</p>
+                <p className="pl-1 text-SYSTEM-white text-sm font-semibold">{topPosts.country}</p>
             </div>
             <div
                 className={`absolute right-4 w-[58px] h-[38px] rounded-lg flex justify-center items-center ${getTopStyle()}`}
