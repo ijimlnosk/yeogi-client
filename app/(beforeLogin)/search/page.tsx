@@ -1,66 +1,89 @@
 "use client"
 
-import { getPost } from "@/apis/postApi"
+import Pagination from "@/components/commons/pagination"
 import SortDropdown from "@/components/commons/sortDropdown"
-import { useCreatePostStore } from "@/libs/store"
-import { Post } from "@/types/post"
+import { ThemeKeys } from "@/types/theme"
 import { filterPosts } from "@/utils/search.utils"
 import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo } from "react"
+import FilterTabs from "./_components/filterTabs"
+import { useGetPost } from "@/libs/reactQuery/usePostMutation"
+import { useGetPostProps } from "@/libs/reactQuery/type"
+import { ContinentType } from "@/types/continent"
+import RealTimeRecommendation from "@/app/_components/userRecommendation/realTimeRecommendation"
 
 const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
+
+const ITEMS_PER_PAGE = 8
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
     const searchKeyword = searchParams.get("keyword") || ""
-    const { selectedTheme } = useCreatePostStore()
-    const [posts, setPosts] = useState<Post[]>([])
+    const searchTheme = searchParams.get("theme") || ""
+    const searchContinent = searchParams.get("continent") || ""
+    const sortCondition = searchParams.get("sortCondition") || "RECENT"
+    const currentPage = Number(searchParams.get("page") || "1")
+
+    const { mutate, data: mutationData } = useGetPost()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         const fetchGetData = async () => {
-            const response = await getPost({
+            const response: useGetPostProps = {
                 searchType: "CONTENT",
-                searchString: searchKeyword,
-                sortCondition: "LIKES",
-                theme: selectedTheme,
-            })
-
-            const filteredResults = filterPosts(response, searchKeyword)
-            setPosts(filteredResults)
+                searchKeyword: searchKeyword,
+                sortCondition: sortCondition as "RECENT" | "VIEWS",
+                continent: searchContinent as ContinentType,
+                theme: searchTheme as ThemeKeys,
+            }
+            mutate(response)
         }
-
         fetchGetData()
-    }, [searchKeyword, selectedTheme])
+    }, [searchKeyword, searchTheme, searchContinent, sortCondition, mutate])
 
+    const filteredPosts = useMemo(() => {
+        if (!mutationData) return []
+        let results = filterPosts(mutationData, searchKeyword)
+        if (searchTheme) {
+            results = results.filter(post =>
+                Array.isArray(post.themeList)
+                    ? post.themeList.includes(searchTheme as ThemeKeys)
+                    : post.themeList === searchTheme,
+            )
+        }
+        if (searchContinent) {
+            results = results.filter(post => post.continent === searchContinent)
+        }
+        return results
+    }, [mutationData, searchKeyword, searchTheme, searchContinent])
+
+    const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
+    const paginationPosts = filteredPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
     return (
-        <div className="px-[120px] py-10">
-            <div className="flex flex-row justify-start items-center">
-                <div className="text-bg text-GREY-80 font-medium">
-                    {posts.length > 0 ? (
-                        <>
-                            <span className="text-BRAND-50">
-                                {searchKeyword} {selectedTheme}
-                            </span>
-                            에 대한 총<span className="text-BRAND-50">{posts?.length}</span>의 검색 결과를 찾았어요!
-                            <span className="ml-10">
-                                <SortDropdown />
-                            </span>
-                        </>
-                    ) : (
-                        <>
-                            <p>
-                                <span className="text-BRAND-50">
-                                    {searchKeyword} {selectedTheme}
-                                </span>
-                                에 대한 검색 결과를 찾을 수 없어요!
-                            </p>
-                            <p>올바른 검색어를 입력하셨나요?</p>
-                        </>
-                    )}
+        <div className=" w--[1920px] px-[120px] flex flex-col justify-center items-center">
+            <div className="w-[1680px] h-fit py-10 flex flex-col justify-center items-center">
+                <FilterTabs />
+                <div className=" w-full h-fit">
+                    <div className="w-full h-fit flex flex-row items-center mt-6">
+                        <h1 className="text-bg leading-[34px] font-semibold pb-4">TOP 기록</h1>
+                    </div>
+                    <RealTimeRecommendation />
                 </div>
+                <div className="w-full h-[2px] bg-SYSTEM-else02 my-[55px]" />
+                <div className="w-full flex flex-col justify-center items-center">
+                    <div className="w-full h-fit flex justify-between items-center">
+                        <h1 className="text-bg leading-[34px] font-semibold">게시물</h1>
+                        <SortDropdown />
+                    </div>
+                    {filteredPosts && <SearchResults posts={paginationPosts} />}
+                </div>
+                {filteredPosts.length > 0 && (
+                    <div>
+                        <Pagination totalPages={totalPages} currentPage={currentPage} />
+                    </div>
+                )}
             </div>
-            {posts && <SearchResults posts={posts} />}
         </div>
     )
 }

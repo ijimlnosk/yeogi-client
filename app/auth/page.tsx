@@ -38,7 +38,7 @@ const AuthForm = () => {
             const savedProvider = window.localStorage.getItem("provider") as Provider
             if (code && savedProvider) {
                 const data = await postAuthCode(savedProvider)
-                setCookieToken(data.accessToken)
+                setCookieToken(data.token.accessToken)
                 router.push("/")
             }
         }
@@ -46,34 +46,42 @@ const AuthForm = () => {
     }, [provider])
 
     return (
-        <div className="w-[400px] h-[530px] top-[225px] left-[760px] rounded-3xl border-[1px] border-BRAND-70 bg-SYSTEM-white ">
-            <div className="pt-[71px]">
-                <div className="flex justify-center h-[64px] text-subTitle text-BRAND-70 font-myeongjo items-center top-[68px]">
-                    여기
+        <div className="min-h-screen flex items-center justify-center">
+            <div className=" flex flex-col  justify-center w-[496px] h-[454px] top-[308px] left-[712px] rounded-2xl  bg-SYSTEM-else p-12 ">
+                <div>
+                    <div className="flex justify-center h-[64px] text-[44px] text-BRAND-70 font-myeongjo items-center">
+                        Login
+                    </div>
+                    <div className=" flex justify-center text-center pt-10 pb-8">
+                        <div className="flex items-center w-full ">
+                            <div className="flex-grow h-[1px] bg-BRAND-30"></div>
+                            <div className="flex-shrink-0 px-[10px]  text-BRAND-70 font-myeongjo text-xs text-center justify-center items-center">
+                                SNS로 간편하게 로그인하세요.
+                            </div>
+                            <div className="flex-grow h-[1px] bg-BRAND-30"></div>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex justify-center h-[39px] pt-1 text-BRAND-70 font-myeongjo text-[28px]">YEOGI</div>
-            </div>
-            <div className="flex flex-col items-center gap-3 pt-[89px]">
-                <SocialLoginButton
-                    icon={kakaoIcon}
-                    text={"카카오톡으로 간편하게 로그인"}
-                    bgColor="bg-SNS-kakao"
-                    onClick={() => handleMoveSocialLogin(kakaoURL, "kakao")}
-                />
-                <SocialLoginButton
-                    icon={naverIcon}
-                    text={"네이버로 간편하게 로그인"}
-                    bgColor="bg-SNS-naver"
-                    onClick={() => handleMoveSocialLogin(naverURL, "naver")}
-                />
-                <SocialLoginButton
-                    icon={googleIcon}
-                    text={"GOOGLE로 간편하게 로그인"}
-                    bgColor="bg-SYSTEM-white"
-                    border="border border-GREY-70"
-                    onClick={() => handleMoveSocialLogin(googleURL, "google")}
-                />
-                <div className="text-xxs text-BRAND-70 pt-8">지금 바로 간단하게 여행을 기록하세요!</div>
+                <div className="flex flex-col items-center gap-4">
+                    <SocialLoginButton
+                        icon={kakaoIcon}
+                        text={"카카오톡으로 간편하게 로그인"}
+                        bgColor="bg-SNS-kakao"
+                        onClick={() => handleMoveSocialLogin(kakaoURL, "kakao")}
+                    />
+                    <SocialLoginButton
+                        icon={naverIcon}
+                        text={"네이버로 간편하게 로그인"}
+                        bgColor="bg-SNS-naver"
+                        onClick={() => handleMoveSocialLogin(naverURL, "naver")}
+                    />
+                    <SocialLoginButton
+                        icon={googleIcon}
+                        text={"GOOGLE로 간편하게 로그인"}
+                        bgColor="bg-SYSTEM-white"
+                        onClick={() => handleMoveSocialLogin(googleURL, "google")}
+                    />
+                </div>
             </div>
         </div>
     )

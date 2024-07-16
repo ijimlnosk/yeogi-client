@@ -7,3 +7,7 @@ export type SignupFormData = {
     age?: string
     gender?: SelectedGender | ""
 }
+export type GenderSelectProps = {
+    selectedGender: SelectedGender | ""
+    onGenderChange: (selectedGender: SelectedGender) => void
+}

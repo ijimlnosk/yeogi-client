@@ -1,8 +1,8 @@
 "use client"
 
-import React, { useEffect, useState, MouseEvent } from "react"
+import { useEffect, useState, MouseEvent } from "react"
 import { Pin, UserInfo } from "./type"
-import { useMapStore } from "@/libs/pinStore"
+import { useMapStore } from "@/libs/zustand/pin"
 import { getPin, postPin } from "@/apis/mapApi"
 import Image from "next/image"
 import { getPinLocalStorage, setPinLocalStorage } from "@/utils/storage.utils"

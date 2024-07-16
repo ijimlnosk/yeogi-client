@@ -1,5 +1,5 @@
-import { ThemeProps } from "@/app/_components/type"
+import { ThemeKeys } from "@/types/theme"
 
 export type RecommendPostCardProps = {
-    themes: ThemeProps[]
+    themes: ThemeKeys[]
 }

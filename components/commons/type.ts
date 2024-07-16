@@ -11,7 +11,7 @@ export type PostCardProps = {
     title: string
     likeCount: number
     commentCount: number
-    continent: string
+    country: string
     user_nickname: string
     user_profile: string
     thumbnail: string | null
@@ -103,4 +103,16 @@ export type SearchDropdownMapProps = {
     dropdownItem: [string, string][]
     onClick: (index: number) => void
     index: number | null | number[]
+}
+
+export type SearchDropdownProps = {
+    onThemeSelect: (theme: string) => void
+    onContinentSelect: (continent: string) => void
+    onSearch: () => void
+}
+
+export type RankCardProps = {
+    topPosts: Post
+    rank: "Top1" | "Top2" | "Top3"
+    topPostId: number
 }

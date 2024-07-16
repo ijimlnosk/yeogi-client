@@ -20,7 +20,7 @@ const SignupAgeButton = ({ onAgeSelect }: SignupAgeButtonProps) => {
                     key={index}
                     value={age.value}
                     onClick={() => handleAgeClick(age.value)}
-                    className={`w-[58px] h-[42px] ${selectedAge === age.value ? "bg-blue-500 text-white" : ""}`}
+                    className={`w-[63px] h-[42px] bg-SYSTEM-white rounded-lg ${selectedAge === age.value ? "border-[1px] border-BRAND-50 text-BRAND-50" : ""}`}
                 >
                     {age.key}
                 </Button>

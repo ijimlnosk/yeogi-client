@@ -9,6 +9,11 @@ import { chosungIncludes } from "es-hangul"
  * @returns {Post[]} 필터링된 게시글 배열
  */
 export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
+    if (!Array.isArray(posts)) {
+        console.error("posts is not an array:", posts)
+        return []
+    }
+
     const term = searchTerm.toLowerCase()
 
     return posts.filter(post => {
@@ -16,19 +21,19 @@ export const filterPosts = (posts: Post[], searchTerm: string): Post[] => {
         const author = post.author ? post.author.toLowerCase() : ""
         const content = post.content ? post.content.toLowerCase() : ""
         const continent = post.continent ? post.continent.toLowerCase() : ""
-        const region = post.region ? post.region.toLowerCase() : ""
+        const country = post.country ? post.country.toLowerCase() : ""
 
         return (
             chosungIncludes(title, term) ||
             chosungIncludes(author, term) ||
             chosungIncludes(content, term) ||
             chosungIncludes(continent, term) ||
-            chosungIncludes(region, term) ||
+            chosungIncludes(country, term) ||
             title.includes(term) ||
             author.includes(term) ||
             content.includes(term) ||
             continent.includes(term) ||
-            region.includes(term)
+            country.includes(term)
         )
     })
 }

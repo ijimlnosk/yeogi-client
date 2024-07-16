@@ -19,11 +19,11 @@ const MyPost = ({ userInfo, posts }: MyPostProps) => {
                             <PostCard
                                 key={post.postId}
                                 post_id={post.postId}
+                                user_nickname={post.author}
                                 user_profile={`${userInfo.profile || userInfo.profile_image}`}
-                                user_nickname={userInfo.nickname}
                                 thumbnail={TempImage}
                                 title={post.title}
-                                continent={post.continent}
+                                country={post.country}
                                 created_At={currentDate}
                                 commentCount={0}
                                 likeCount={post.likeCount}

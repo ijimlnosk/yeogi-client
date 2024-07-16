@@ -1,4 +1,4 @@
-export type ThemeProps =
+export type ThemeKeys =
     | "REST"
     | "EATING"
     | "HOT_PLACE"

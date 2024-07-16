@@ -14,7 +14,7 @@ const SortDropdown = () => {
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
-        const sort = params.get("sort")
+        const sort = params.get("sortCondition")
         if (sort && sorts.some(s => s.key === sort)) {
             setActiveSort(sort)
         }
@@ -25,7 +25,7 @@ const SortDropdown = () => {
         setIsOpen(false)
 
         const params = new URLSearchParams(window.location.search)
-        params.set("sort", key)
+        params.set("sortCondition", key)
         const newUrl = `${window.location.pathname}?${params.toString()}`
         router.push(newUrl, { scroll: false })
     }

@@ -8,6 +8,18 @@ export type MapProps = {
     setPinCount: (count: number) => void
 }
 
+export type UserInfo = {
+    email: string
+    nickname: string
+}
+
+export type WorldPostPin = {
+    pin: Pin
+    email: string
+    nickname: string
+    postId: number
+}
+
 export type Pin = {
     x: string
     y: string
@@ -40,16 +52,4 @@ export type HandleMapClickProps = {
     setPins: (pins: WorldPost[]) => void
     setMovingPins: (pins: WorldPost[]) => void
     userInfo: UserInfo
-}
-
-export type UserInfo = {
-    email: string
-    nickname: string
-}
-
-export type WorldPostPin = {
-    pin: Pin
-    email: string
-    nickname: string
-    postId: number
 }

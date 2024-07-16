@@ -8,7 +8,7 @@ import WorldMap from "./_components/myMap/worldMap"
 import MyPost from "./_components/myPost/myPosts"
 import { getUserInfo } from "@/apis/userApi"
 import { getPinLocalStorage } from "@/utils/storage.utils"
-import { useLoggedIn } from "@/libs/loginStore"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const UserPage = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)

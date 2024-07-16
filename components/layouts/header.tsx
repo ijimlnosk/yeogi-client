@@ -9,19 +9,17 @@ import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
-import { useLoggedIn } from "@/libs/loginStore"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
     const [lastScrollY, setLastScrollY] = useState<number>(0)
-    const [isSearchBarClicked, setIsSearchBarClicked] = useState<boolean>(false)
     const { setIsLoggedIn, setUserInfo } = useLoggedIn()
 
     const router = useRouter()
     const handleScroll = () => {
         if (typeof window !== "undefined") {
             if (window.scrollY > lastScrollY) {
-                setIsSearchBarClicked(false)
                 setIsShowHeader(false)
             } else {
                 setIsShowHeader(true)
@@ -56,7 +54,7 @@ const Header = () => {
         <header
             className={`w-full fixed top-0 left-0 transition-transform duration-300 ${isShowHeader ? "translate-y-0" : "-translate-y-full"} z-50 bg-SYSTEM-beige`}
         >
-            <div className="max-w-[1920px] mx-auto bg-SYSTEM-beige px-[10%] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
+            <div className="max-w-[1920px] mx-auto bg-SYSTEM-beige px-[120px] h-[90px] flex items-center justify-between border-b border-GREY-20 font-pretendard text-sm">
                 <div className="flex items-center">
                     <Image
                         src={"/icons/logo_text.svg"}
@@ -70,12 +68,9 @@ const Header = () => {
                 </div>
                 <div className="flex items-center">
                     <div className="ml-4 flex items-center space-x-12 font-medium">
-                        <HeaderSearchBar
-                            isSearchBarClicked={isSearchBarClicked}
-                            setIsSearchBarClicked={setIsSearchBarClicked}
-                        />
+                        <HeaderSearchBar />
                         <HeaderLogin />
-                        <ProtectedLink href="/createPost">
+                        <ProtectedLink href="/post/create">
                             <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
                                 <Image
                                     src={"/icons/write.svg"}
