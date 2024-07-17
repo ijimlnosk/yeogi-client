@@ -4,12 +4,12 @@ import locationIcon from "@/public/icons/gps.svg"
 import Image from "next/image"
 import { PostCardProps } from "./type"
 import Sample from "@/public/images/sampleThumbnail.svg"
-import SampleProfile from "@/public/images/sampleProfile.svg"
+import SampleProfile from "@/public/images/user/sampleProfile.svg"
 import Link from "next/link"
 import { formatISODateString } from "@/utils/date.utils"
 
 const PostCard = ({
-    post_id = 0,
+    post_id,
     title,
     likeCount,
     commentCount,

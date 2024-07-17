@@ -1,10 +1,10 @@
 import { create } from "zustand"
-import { UserInfoProps } from "@/components/layouts/type"
 import { LoginState } from "./type"
+import { MyUserInfoType } from "@/types/user"
 
 export const useLoggedIn = create<LoginState>(set => ({
     isLoggedIn: false,
     setIsLoggedIn: loggedIn => set({ isLoggedIn: loggedIn }),
     userInfo: undefined,
-    setUserInfo: (userInfo?: UserInfoProps) => set({ userInfo }),
+    setUserInfo: (userInfo?: MyUserInfoType) => set({ userInfo }),
 }))

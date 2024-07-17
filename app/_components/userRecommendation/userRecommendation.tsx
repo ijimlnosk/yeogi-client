@@ -7,11 +7,11 @@ import { getPost } from "@/apis/postApi"
 import { getCookieToken } from "@/apis/auth/storageUtils"
 import { useRecommendPagination } from "@/hook/useRecommendPagination"
 import PostList from "./PostList"
-import { User } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
+import { UserInfo } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 import RecommendationHeader from "./recommendationHeader"
 
 const UserRecommendation = () => {
-    const [userInfo, setUserInfo] = useState<User>()
+    const [userInfo, setUserInfo] = useState<UserInfo>()
     const [posts, setPosts] = useState<Post[]>([])
     const postsPerPage = 4
 

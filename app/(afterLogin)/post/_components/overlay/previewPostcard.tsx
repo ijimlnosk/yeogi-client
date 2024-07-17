@@ -1,7 +1,7 @@
 import PostCard from "@/components/commons/postCard"
 import { PreviewPostCardProps } from "./type"
 import { useLoggedIn } from "@/libs/zustand/login"
-import defaultProfile from "@/public/images/sampleProfile.svg"
+import defaultProfile from "@/public/images/user/sampleProfile.svg"
 
 const PreviewPostCard = ({ selectedCountry, title, selectedImage }: PreviewPostCardProps) => {
     const { userInfo } = useLoggedIn()
@@ -16,7 +16,7 @@ const PreviewPostCard = ({ selectedCountry, title, selectedImage }: PreviewPostC
             commentCount={0}
             user_nickname={userInfo?.nickname ?? ""}
             post_id={0}
-            user_profile={userInfo?.profile || userInfo?.profile_image || defaultProfile}
+            user_profile={userInfo?.profile || defaultProfile}
             thumbnail={selectedImage}
         />
     )

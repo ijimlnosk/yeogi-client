@@ -24,3 +24,21 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
     })
     return response
 }
+
+export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
+    const token = getCookieToken()
+    const headers = new Headers(options.headers)
+    headers.delete("Content-Type") // FormData인 경우 headers에서 'Content-Type'을 직접 제거
+    headers.set("Authorization", `Bearer ${token}`)
+    const response = await fetch(`${api}/${endPoint}`, {
+        ...options,
+        headers: headers,
+        credentials: "include",
+    })
+    if (!response.ok) {
+        const errorBody = await response.text()
+        console.error("Server error response:", errorBody)
+        throw new Error(`유저의 이미지가 변경되지 못했어요...🥹 서버 응답: ${errorBody}`)
+    }
+    return response
+}

@@ -1,29 +1,19 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import defaultBg from "@/public/images/p_bg.png"
-import defaultProfile from "@/public/images/sampleCat.jpeg"
-import MyPost from "./_components/myPost"
-import { ProfileProps } from "./_components/profile/type"
 import EditProfile from "./_components/profile/editProfile"
 import Profile from "./_components/profile/profile"
+import ProfileDetails from "./_components/profile/profileDetails"
 import WorldMap from "./_components/myMap/worldMap"
-import UserDetails from "./_components/userDetails"
+import MyPost from "./_components/myPost/myPosts"
 import { getUserInfo } from "@/apis/userApi"
-import { UserInfoProps } from "./type"
-import { Post } from "@/types/post"
 import { getPinLocalStorage } from "@/utils/storage.utils"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const UserPage = () => {
-    const [isEditing, setIsEditing] = useState(false)
-    const [userInfo, setUserInfo] = useState<UserInfoProps>({ nickname: "", email: "" })
-    const [pinCount, setPinCount] = useState(0)
-    const [profile, setProfile] = useState<Omit<ProfileProps, "onEdit">>({
-        name: "메롱메롱",
-        bio: "오늘의 여행을 내일로 미루지 말자",
-        profileImage: defaultProfile,
-        bgImage: defaultBg,
-    })
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const [pinCount, setPinCount] = useState<number>(0)
+    const { isLoggedIn, userInfo, setUserInfo } = useLoggedIn()
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -31,48 +21,29 @@ const UserPage = () => {
             setUserInfo(response)
         }
         fetchUserInfo()
-    }, [])
+    }, [setUserInfo])
 
     useEffect(() => {
         setPinCount(getPinLocalStorage())
-    })
+    }, [])
 
-    const [posts] = useState<Post[]>()
-
-    const handleSave = (updatedProfile: Omit<ProfileProps, "onEdit">) => {
-        setProfile(updatedProfile)
-        setIsEditing(false)
-    }
-
-    return (
-        <div>
+    if (isLoggedIn && userInfo)
+        return (
             <div>
-                {isEditing ? (
-                    <EditProfile
-                        name={profile.name}
-                        bio={profile.bio}
-                        profileImage={profile.profileImage}
-                        bgImage={profile.bgImage}
-                        onSave={handleSave}
-                        onCancel={() => setIsEditing(false)}
-                    />
-                ) : (
-                    <Profile
-                        name={profile.name}
-                        bio={profile.bio}
-                        profileImage={profile.profileImage}
-                        bgImage={profile.bgImage}
-                        onEdit={() => setIsEditing(true)}
-                    />
-                )}
-                <UserDetails pinCount={pinCount} />
+                <div>
+                    {isEditing ? (
+                        <EditProfile userInfo={userInfo} setUserInfo={setUserInfo} setIsEditing={setIsEditing} />
+                    ) : (
+                        <Profile userInfo={userInfo} onEdit={() => setIsEditing(true)} />
+                    )}
+                    <ProfileDetails ageRange={userInfo.ageRange} gender={userInfo.gender} pinCount={pinCount} />
+                </div>
+                <div className="my-[120px]">
+                    <WorldMap email={userInfo.email} nickname={userInfo.nickname} />
+                </div>
+                <MyPost userInfo={userInfo} />
             </div>
-            <div className="my-[120px]">
-                <WorldMap userInfo={userInfo} />
-            </div>
-            <MyPost posts={posts} />
-        </div>
-    )
+        )
 }
 
 export default UserPage
