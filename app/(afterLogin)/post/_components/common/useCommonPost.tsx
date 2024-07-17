@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react"
 import { postPost, putPost } from "@/apis/postApi"
 import { CreatePost, UpdatePost, memos } from "@/types/post"
 import { useMapStore } from "@/libs/zustand/pin"
-import { processContentImages } from "@/utils/form.utils"
+import { processContentImages } from "@/utils/setImage.utils"
 import { setPinLocalStorage } from "@/utils/storage.utils"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
 import { formatDate } from "@/utils/date.utils"
@@ -55,7 +55,7 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
                           memos.map(async memo => ({
                               ...memo,
                               content: await processContentImages(memo.content),
-                              address: selectedAddress || memo.address,
+                              address: memo.address,
                           })),
                       ),
                 continent: selectedContinent || "아시아",

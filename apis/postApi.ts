@@ -152,3 +152,13 @@ export const deletePostLike = async ({ postId }: postIdProps) => {
     await fetchFormAPI(POST_API_URL, `posts/${postId}/likes`, { method: "DELETE" })
     return { postId }
 }
+
+/**
+ * @function getMyPosts
+ * @returns 내가 작성한 게시글 목록을 반환
+ */
+export const getMyPosts = async (): Promise<Post[]> => {
+    const response = await fetchFormAPI(POST_API_URL, `posts/mine`, { method: "GET" })
+    const data = await response.json()
+    return data
+}

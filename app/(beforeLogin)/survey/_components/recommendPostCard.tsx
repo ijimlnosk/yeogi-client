@@ -58,17 +58,17 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                         >
                             <div className="w-full justify-start mb-6 ">
                                 <h3 className="text-sm font-semibold">{themeData.title}</h3>
-                                <h1 className="text-bg font-semibold pt-3 pb-5">
+                                <h1 className="text-bg font-semibold pt-2 pb-4">
                                     <span className="text-ACCENT-orange">{themeData.travelType}</span>이 취향인 당신!
                                 </h1>
                                 <p className="text-sm">이 테마에 관한 대표적인 기록을 가져왔어요!</p>
                             </div>
                             {index === 0 && (
-                                <div className="w-[140px] h-[50px] absolute -top-[30px] -right-[10px] z-40">
+                                <div className="w-[140px] h-[50px] absolute -top-[30px] -right-[10px]  z-40">
                                     <Image src={"/images/sticker.svg"} alt="rank sticker" width={140} height={50} />
                                 </div>
                             )}
-                            <div className="py-9">
+                            <div className="pb-9">
                                 {post ? (
                                     post.postId ? (
                                         <PostCard

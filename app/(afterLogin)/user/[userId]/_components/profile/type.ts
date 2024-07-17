@@ -1,33 +1,26 @@
-import { StaticImageData } from "next/image"
-import { ChangeEvent } from "react"
+import { MyUserInfoType, UserInfoType } from "@/types/user"
 
 export type ProfileProps = {
-    name: string
-    bio: string
-    profileImage: string | StaticImageData
-    bgImage: string | StaticImageData
+    userInfo: UserInfoType
     onEdit: () => void
-}
-
-export type ProfileImageProps = {
-    image: string | StaticImageData
-    onImageChange: (e: ChangeEvent<HTMLInputElement>) => void
-    className?: string
-}
-
-export type EditProfileProps = {
-    name: string
-    bio: string
-    profileImage: string | StaticImageData
-    bgImage: string | StaticImageData
-    onSave: (profile: Omit<ProfileProps, "onEdit">) => void
-    onCancel: () => void
 }
 
 export type EditFieldProps = {
     value: string
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     type?: "input" | "textarea"
     maxLength?: number
     className?: string
+}
+
+export type EditProfileProps = {
+    userInfo: MyUserInfoType
+    setUserInfo: (userInfo: MyUserInfoType) => void
+    setIsEditing: (isEditing: boolean) => void
+}
+
+export type ProfileDetailsProps = {
+    ageRange: string
+    gender: string
+    pinCount: number
 }

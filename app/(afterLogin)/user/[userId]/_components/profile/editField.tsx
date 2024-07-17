@@ -1,6 +1,8 @@
+"use client"
+
 import { useRef, useState } from "react"
-import editIcon from "@/public/icons/edit.svg"
 import { EditFieldProps } from "./type"
+import Image from "next/image"
 
 const EditField = ({ value, onChange, maxLength, className }: EditFieldProps) => {
     const [isEdited, setIsEdited] = useState(false)
@@ -33,10 +35,12 @@ const EditField = ({ value, onChange, maxLength, className }: EditFieldProps) =>
                     확인
                 </span>
             ) : (
-                <img
-                    src={editIcon.src}
-                    alt="Edit"
-                    className="ml-2 w-5 h-5 cursor-pointer"
+                <Image
+                    width={20}
+                    height={20}
+                    src={"/icons/edit.svg"}
+                    alt="can edit"
+                    className="ml-2 cursor-pointer"
                     onClick={() => inputRef.current?.focus()}
                 />
             )}

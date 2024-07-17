@@ -1,17 +1,18 @@
 "use client"
 
 import { useEffect, useState, MouseEvent } from "react"
-import { WorldMapProps, Pin } from "./type"
+import { Pin, UserInfo } from "./type"
 import { useMapStore } from "@/libs/zustand/pin"
 import { getPin, postPin } from "@/apis/mapApi"
 import Image from "next/image"
 import { getPinLocalStorage, setPinLocalStorage } from "@/utils/storage.utils"
+import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 
-const WorldMap = ({ userInfo }: WorldMapProps) => {
-    const { email, nickname } = userInfo
+const WorldMap = ({ email, nickname }: UserInfo) => {
     const { pinCount, incrementPinCount } = useMapStore()
     const [pins, setPins] = useState<Pin[]>([])
-    const [isEditMode, setIsEditMode] = useState(false) // 수정 모드 상태
+    const [isEditMode] = useState(false) // 수정 모드 상태
+    const [isInProgress, setIsInProgress] = useState<boolean>(false) // 아직 진행 중이에요!
 
     useEffect(() => {
         // 컴포넌트가 마운트될 때 로컬 스토리지에서 핀 카운트를 불러옴
@@ -28,11 +29,10 @@ const WorldMap = ({ userInfo }: WorldMapProps) => {
                     setPins(data)
                 } catch (error) {
                     // 추후 연결 완료 시 삭제 예정
-                    console.error("핀 데이터를 가져오는 중 오류 발생:", error)
+                    // console.error("핀 데이터를 가져오는 중 오류 발생:", error)
                 }
             }
         }
-
         fetchPins()
     }, [email, incrementPinCount])
 
@@ -69,45 +69,52 @@ const WorldMap = ({ userInfo }: WorldMapProps) => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
-            <div className="w-[1680px] flex flex-row justify-between items-center px-5">
-                <p className="text-xl ">
-                    <span className="text-BRAND-50">{nickname}</span>님의 세계지도
-                </p>
-                <button
-                    className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
-                    onClick={() => setIsEditMode(!isEditMode)}
+        <>
+            <div className="flex flex-col justify-center items-center overflow-x-hidden">
+                <div className="2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] flex flex-row justify-between items-center px-5">
+                    <p className="text-xl ">
+                        <span className="text-BRAND-50">{nickname}</span>님의 세계지도
+                    </p>
+                    <button
+                        className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
+                        onClick={() => setIsInProgress(true)}
+                    >
+                        {isEditMode ? "저장" : "지도 수정"}
+                    </button>
+                </div>
+                <div
+                    id="map"
+                    onClick={handleMapClick}
+                    className="2xl:w-[1680px] h-[800px] xl:w-[1000px] md:w-[700px] sm:w-[300px] relative overflow-x-hidden"
                 >
-                    {isEditMode ? "저장" : "지도 수정"}
-                </button>
-            </div>
-            <div id="map" onClick={handleMapClick} className="w-[1680px] h-[800px] relative">
-                {isEditMode && <div className=" bg-SYSTEM-white w-[1640px] h-[770px] absolute left-5 top-5" />}
-                <Image
-                    className={`${isEditMode ? "opacity-30" : ""}`}
-                    src={"/images/map.svg"}
-                    alt="world map"
-                    width={1680}
-                    height={800}
-                />
-                {pins.map((pin, index) => (
-                    <div
-                        key={index}
-                        style={{
-                            position: "absolute",
-                            left: `${pin.x}px`,
-                            top: `${pin.y}px`,
-                            width: "10px",
-                            height: "10px",
-                            backgroundColor: "red",
-                            borderRadius: "50%",
-                            cursor: "pointer",
-                        }}
-                        onClick={() => showThumbnail(String(pin.postId))}
+                    {isEditMode && <div className="bg-SYSTEM-white w-[1640px] h-[770px] absolute left-5 top-5" />}
+                    <Image
+                        className={`${isEditMode ? "opacity-30" : ""} 2xl:w-[1680px] xl:w-[1100px] md:w-[1000px] sm:w-[500px]`}
+                        src={"/images/map.svg"}
+                        alt="world map"
+                        width={1680}
+                        height={800}
                     />
-                ))}
+                    {pins.map((pin, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                position: "absolute",
+                                left: `${pin.x}px`,
+                                top: `${pin.y}px`,
+                                width: "10px",
+                                height: "10px",
+                                backgroundColor: "red",
+                                borderRadius: "50%",
+                                cursor: "pointer",
+                            }}
+                            onClick={() => showThumbnail(String(pin.postId))}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
+            <StillWorkingOverlay isOpen={isInProgress} onClick={() => setIsInProgress(false)} />
+        </>
     )
 }
 

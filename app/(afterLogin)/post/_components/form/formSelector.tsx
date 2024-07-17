@@ -5,8 +5,17 @@ import { Theme } from "@/types/theme"
 import TextDisplay from "./formTextDisplay"
 import { formatISODateString } from "@/utils/date.utils"
 
-const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme, memoId }: FormSelectorProps) => {
-    const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress, memos } =
+const FormSelector = ({
+    onClick,
+    label,
+    state,
+    postDetail,
+    isThemeOpen,
+    isTheme,
+    memoId,
+    memos,
+}: FormSelectorProps) => {
+    const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
         useCreatePostStore()
 
     const continent = selectedContinent || postDetail?.continent
@@ -18,9 +27,8 @@ const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, isTheme,
 
     let address = ""
     if (state === "address") {
-        if (memoId !== undefined && memos.length > 0) {
-            const memo = memos.find(m => m.memoId === memoId)
-            address = memo ? memo.address : ""
+        if (memoId !== undefined && memos !== undefined) {
+            address = memos[memoId]?.address || ""
         } else {
             address = selectedAddress || ""
         }

@@ -31,9 +31,7 @@ const PostDetailSection = ({ post }: PostDetailSectionProps) => {
                 </div>
             </div>
             <PostDetailContentSection post={post} />
-            <div
-                className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex ${themeValueList.length > 7 ? "flex-col items-start" : "flex-row items-center"} justify-end`}
-            >
+            <div className={`w-full min-h-[59px] border-t-[1px] border-GREY-30 flex items-center justify-end`}>
                 <span
                     className={`w-fit flex text-SYSTEM-black text-sm ${themeValueList.length > 7 ? "items-start pl-3" : "items-center"}`}
                 >

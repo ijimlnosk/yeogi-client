@@ -1,8 +1,8 @@
-import { UserInfoProps } from "../type"
+import { UserInfoType } from "@/types/user"
 
 export type HeaderLoginProps = {
     isLoggedIn: boolean
-    userInfo: UserInfoProps | undefined
+    userInfo: UserInfoType | undefined
 }
 
 export type HeaderSearchBarProps = {

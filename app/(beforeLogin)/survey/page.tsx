@@ -9,7 +9,7 @@ const Survey = () => {
     const { showResult, topTags } = useThemeStore()
     return (
         <div className="w-full mb-[196px] flex flex-col justify-center items-center">
-            <div className="mx-5 w-full h-[500px] bg-SURVEY_IMAGE bg-cover bg-center flex items-center justify-center mb-[200px]">
+            <div className="mx-5 w-full h-[500px] bg-SURVEY_IMAGE bg-cover bg-center flex items-center justify-center">
                 <div className="w-[662px] h-[176px]">
                     <p className="text-bg font-myeongjo text-center text-GREY-50 mb-4">Find My Style</p>
                     <p className=" font-myeongjo text-subTitle text-SYSTEM-black text-center h-[64px]">내 취향 찾기</p>

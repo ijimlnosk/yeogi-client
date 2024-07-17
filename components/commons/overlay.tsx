@@ -52,7 +52,7 @@ const Overlay = ({
 
     return (
         <div
-            className={`font-pretendard fixed inset-0 flex justify-center items-center z-[999] ${isStillWorkingModal ? "bg-SYSTEM-beige" : "bg-SYSTEM-black bg-opacity-70"}`}
+            className={`font-pretendard fixed inset-0 flex justify-center items-center z-[999] ${isStillWorkingModal ? "bg-SYSTEM-beige bg-opacity-70" : "bg-SYSTEM-black bg-opacity-70"}`}
             onClick={onClick}
             aria-modal="true"
             role="dialog"
