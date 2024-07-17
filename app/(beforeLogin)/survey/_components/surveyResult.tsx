@@ -18,6 +18,11 @@ const SurveyResultForm = () => {
 
     const handleResult = () => {
         setShowResult(true)
+
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: `smooth`,
+        })
     }
 
     return (

@@ -5,7 +5,7 @@ export const Travel03 = { src: "/images/main-03.svg", width: 525, height: 350 }
 export const Memo = { src: "/images/main-memo.svg", width: 215, height: 180 }
 export const Stamp01 = { src: "/images/main-stamp-01.svg", width: 332, height: 200 }
 export const Stamp02 = { src: "/images/main-stamp-02.svg", width: 129, height: 120 }
-export const Stamp03 = { src: "/images/main-stamp-03.svg", width: 315, height: 200 }
+export const Stamp04 = { src: "/images/main-stamp-04.svg", width: 368, height: 392 }
 /* desc */
 export const Line = { src: "/images/line.svg", width: 1920, height: 10 }
 export const Step01 = { src: "/images/step-01.svg", width: 350, height: 464 }

@@ -1,6 +1,6 @@
 const RecommendText = () => {
     return (
-        <div className="w-[470px] break-keep xl:pb-5">
+        <div className="w-[458px] break-keep xl:pb-5">
             <p className="text-[28px] xl:text-md sm:text-sm text-GREY-50 font-myeongjo py-2.5">
                 Suggested trip records
             </p>

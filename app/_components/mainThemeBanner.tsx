@@ -50,13 +50,15 @@ const MainThemeBanner = () => {
                                     />
                                 </div>
                                 <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
-                                    <p className="w-full flex justify-center text-SYSTEM-white text-bg xl:text-md md:text-sm sm:text-xs absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:top-[30%] transition-all duration-500">
+                                    <p className="w-full text-center text-SYSTEM-white text-bg xl:text-md md:text-sm sm:text-xs absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:top-[42%] transition-all duration-500">
                                         {value}
                                     </p>
-                                    <div className="w-fit text-SYSTEM-white text-bg xl:text-sm md:text-xs sm:text-xxs opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center bottom-0 delay-[300ms] hover:delay-[300ms]">
-                                        {contextText.map((line, index) => (
-                                            <p key={index}>{line}</p>
-                                        ))}
+                                    <div className="w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 absolute bottom-[-10px] transition-opacity duration-300">
+                                        <div className="w-fit text-SYSTEM-white text-center text-bg xl:text-sm md:text-xs sm:text-xxs mt-16">
+                                            {contextText.map((line, index) => (
+                                                <p key={index}>{line}</p>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
