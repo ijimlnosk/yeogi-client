@@ -1,4 +1,4 @@
-import { UserInfoType } from "@/types/user"
+import { MyUserInfoType, UserInfoType } from "@/types/user"
 
 export type ProfileProps = {
     userInfo: UserInfoType
@@ -14,8 +14,8 @@ export type EditFieldProps = {
 }
 
 export type EditProfileProps = {
-    userInfo: UserInfoType
-    setUserInfo: (userInfo: UserInfoType) => void
+    userInfo: MyUserInfoType
+    setUserInfo: (userInfo: MyUserInfoType) => void
     setIsEditing: (isEditing: boolean) => void
 }
 

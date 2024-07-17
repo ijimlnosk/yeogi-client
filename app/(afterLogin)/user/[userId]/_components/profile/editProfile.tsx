@@ -32,7 +32,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: userInfo.profile || DefaultProfile,
         banner: userInfo.banner || DefaultBanner,
         motto: userInfo.motto || "",
-        first: userInfo.first || false,
+        first: false,
     })
 
     const updateUserInfo = useUpdateUserInfo()
@@ -139,7 +139,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             />
             <div className="absolute left-[120px] top-[360px] flex items-center">
                 <ProfileImage
-                    image={previewImages.profile || userInfo.profile || userInfo.profile_image || DefaultProfile}
+                    image={previewImages.profile || userInfo.profile || DefaultProfile}
                     onImageChange={e => handleImageChange(e, "profile")}
                 />
                 <ProfileContext

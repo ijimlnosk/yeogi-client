@@ -1,4 +1,4 @@
-/* export type UserInfoType = {
+export type UserInfoType = {
     id: number
     email: string
     nickname: string
@@ -9,7 +9,7 @@
     profile_image?: string // naver & kakao profileImage
     banner: string
     keywordList: Keyword[]
-} */
+}
 
 export type Keyword = {
     title: string

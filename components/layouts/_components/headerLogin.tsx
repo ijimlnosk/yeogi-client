@@ -23,9 +23,7 @@ const HeaderLogin = () => {
         if (userInfo?.profile) {
             return userInfo.profile
         }
-        if (userInfo?.profile_image) {
-            return userInfo.profile_image
-        }
+        /* if (userInfo?.profile_image) {return userInfo.profile_image} */
         return "/images/sampleProfile.svg"
     }
 

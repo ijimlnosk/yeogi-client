@@ -1,7 +1,7 @@
 import { ContinentType } from "@/types/continent"
 import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
 import { ThemeKeys } from "@/types/theme"
-import { UserInfoType } from "@/types/user"
+import { MyUserInfoType } from "@/types/user"
 import { Dayjs } from "dayjs"
 
 // create & update post
@@ -89,8 +89,8 @@ export type LoginState = {
     isLoggedIn: boolean
     isLoading?: boolean
     setIsLoggedIn: (isLoggedIn: boolean) => void
-    userInfo: UserInfoType | undefined
-    setUserInfo: (userInfo: UserInfoType) => void
+    userInfo: MyUserInfoType | undefined
+    setUserInfo: (userInfo: MyUserInfoType) => void
 }
 
 /* map */
