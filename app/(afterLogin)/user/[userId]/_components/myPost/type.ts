@@ -1,7 +1,5 @@
-import { UserInfoType } from "@/types/user"
-import { Post } from "@/types/post"
+import { MyUserInfoType } from "@/types/user"
 
 export type MyPostProps = {
-    userInfo: UserInfoType
-    posts?: Post[]
+    userInfo: MyUserInfoType
 }

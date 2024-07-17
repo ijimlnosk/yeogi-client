@@ -4,11 +4,7 @@ import { useState } from "react"
 import { EditProfileProps } from "./type"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
-import {
-    useUpdateUserBannerImage,
-    useUpdateUserInfo,
-    useUpdateUserProfileImage,
-} from "@/libs/reactQuery/useUserMutation"
+import { useUpdateUserInfo } from "@/libs/reactQuery/useUserMutation"
 import Banner from "./_components/banner"
 import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
@@ -23,7 +19,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: null,
         banner: null,
     })
-    const [selectedImages, setSelectedImages] = useState<{
+    const [, setSelectedImages] = useState<{
         profile: File | null
         banner: File | null
     }>({
@@ -40,8 +36,8 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
     })
 
     const updateUserInfo = useUpdateUserInfo()
-    const updateUserProfileImage = useUpdateUserProfileImage()
-    const updateUserBannerImage = useUpdateUserBannerImage()
+    /*     const updateUserProfileImage = useUpdateUserProfileImage()
+    const updateUserBannerImage = useUpdateUserBannerImage() */
 
     // change nickname or motto
     const handleFieldChange =
@@ -62,7 +58,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         }
     }
 
-    const handleSave = async () => {
+    /*     const handleSave = async () => {
         const previousUserInfo = { ...userInfo }
         try {
             let updatedInfo = { ...userInfo, ...editedUserInfo }
@@ -71,18 +67,33 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             if (selectedImages.profile) {
                 const profileFormData = new FormData()
                 profileFormData.append("file", selectedImages.profile)
-                console.log("Profile image data:", selectedImages.profile)
+                profileFormData.append(
+                    "member",
+                    JSON.stringify({
+                        id: userInfo.id,
+                        email: userInfo.email,
+                        nickname: userInfo.nickname,
+                        ageRange: userInfo.ageRange,
+                        profile: userInfo.profile,
+                        motto: userInfo.motto,
+                        banner: userInfo.banner,
+                        gender: userInfo.gender,
+                        keywordList: userInfo.keywordList,
+                    }),
+                )
+                console.log("FormData content for profile:", profileFormData.get("file"))
+                console.log("FormData content for member:", profileFormData.get("member"))
                 const profileResult = await updateUserProfileImage.mutateAsync({
                     userInfo: updatedInfo,
                     profileImage: profileFormData,
                 })
                 updatedInfo = { ...updatedInfo, ...profileResult }
             }
-
             // 배너 이미지 업데이트
             if (selectedImages.banner) {
                 const bannerFormData = new FormData()
                 bannerFormData.append("file", selectedImages.banner)
+                console.log("FormData content for banner:", bannerFormData.get("file"))
                 console.log("Banner image data:", selectedImages.banner)
                 const bannerResult = await updateUserBannerImage.mutateAsync({
                     userInfo: updatedInfo,
@@ -90,14 +101,28 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
                 })
                 updatedInfo = { ...updatedInfo, ...bannerResult }
             }
-
             // 나머지 정보 업데이트
             const finalResult = await updateUserInfo.mutateAsync({
                 userInfo: updatedInfo,
                 editedUserInfo: updatedInfo,
             })
-
             setUserInfo(finalResult)
+            setIsEditing(false)
+        } catch (error) {
+            console.error("Error updating user info:", error)
+            setUserInfo(previousUserInfo)
+            setIsEditing(true)
+        }
+    } */
+
+    const handleSave = async () => {
+        const previousUserInfo = { ...userInfo }
+        try {
+            const updatedInfo = await updateUserInfo.mutateAsync({
+                userInfo,
+                editedUserInfo,
+            })
+            setUserInfo(updatedInfo)
             setIsEditing(false)
         } catch (error) {
             console.error("Error updating user info:", error)
