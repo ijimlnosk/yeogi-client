@@ -12,7 +12,7 @@ const ProfileContext = ({ nickname, motto, onFieldChange }: ProfileContextProps)
                 className="mb-4 text-4xl font-semibold w-fit"
             />
             <EditField
-                value={motto}
+                value={motto || ""}
                 onChange={e => onFieldChange("motto")(e as React.ChangeEvent<HTMLInputElement>)}
                 type="input"
                 maxLength={40}

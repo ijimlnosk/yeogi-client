@@ -1,5 +1,5 @@
 import { fetchFormAPI, fetchFormMultipartAPI } from "./api.utils"
-import { UserInfoType } from "@/types/user"
+import { MyUserInfoType, EditUserInfoType } from "@/types/user"
 
 const USER_API_URL = "/member"
 
@@ -9,7 +9,7 @@ export const getUserInfo = async () => {
         throw new Error("response not ok")
     }
     const data = await response.json()
-    return data as UserInfoType
+    return data as MyUserInfoType
 }
 
 /**
@@ -18,28 +18,25 @@ export const getUserInfo = async () => {
  * @param editedUserInfo 수정될 유저의 정보 (nickname & motto)
  * @returns 수정된 유저의 정보
  */
-export const putUserInfo = async (userInfo: UserInfoType, editedUserInfo: UserInfoType): Promise<UserInfoType> => {
-    const response = await fetchFormAPI(USER_API_URL, "member/", {
+export const putUserInfo = async (
+    userInfo: MyUserInfoType,
+    editedUserInfo: EditUserInfoType,
+): Promise<MyUserInfoType> => {
+    const updatedInfo = {
+        ...userInfo,
+        ...editedUserInfo,
+        id: userInfo.id,
+        profile: typeof editedUserInfo.profile === "string" ? editedUserInfo.profile : userInfo.profile,
+        banner: typeof editedUserInfo.banner === "string" ? editedUserInfo.banner : userInfo.banner,
+    }
+    console.log("updatedInfo :", updatedInfo)
+    const response = await fetchFormAPI(USER_API_URL, "member", {
         method: "PUT",
-        body: JSON.stringify({
-            id: userInfo.id,
-            nickname: editedUserInfo.nickname,
-            motto: editedUserInfo.motto,
-        }),
+        body: JSON.stringify(updatedInfo),
     })
     if (!response.ok) throw new Error("유저 정보 수정에 실패했어요...🥹")
-
-    return {
-        id: userInfo.id,
-        email: userInfo.email,
-        nickname: editedUserInfo.nickname,
-        motto: editedUserInfo.motto,
-        ageRange: userInfo.ageRange,
-        gender: userInfo.gender,
-        profile: userInfo.profile,
-        profile_image: userInfo.profile_image,
-        banner: userInfo.banner,
-    }
+    const responseData = await response.json()
+    return responseData
 }
 
 /**
@@ -48,16 +45,20 @@ export const putUserInfo = async (userInfo: UserInfoType, editedUserInfo: UserIn
  * @param profileImage 수정될 유저의 프로필 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: FormData) => {
+export const putUserProfileImage = async (
+    userInfo: MyUserInfoType,
+    profileImage: FormData,
+): Promise<EditUserInfoType> => {
     const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
         body: profileImage,
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
+    const updatedProfile = await response.json()
     return {
         ...userInfo,
-        profile: URL.createObjectURL(profileImage.get("image") as Blob),
-        profile_image: URL.createObjectURL(profileImage.get("image") as Blob),
+        profile: updatedProfile.profile,
+        first: updatedProfile.first || false,
     }
 }
 
@@ -67,14 +68,19 @@ export const putUserProfileImage = async (userInfo: UserInfoType, profileImage: 
  * @param bannerImage 수정될 유저의 배너 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserBannerImage = async (userInfo: UserInfoType, bannerImage: FormData) => {
-    const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
+export const putUserBannerImage = async (
+    userInfo: MyUserInfoType,
+    bannerImage: FormData,
+): Promise<EditUserInfoType> => {
+    const response = await fetchFormMultipartAPI(USER_API_URL, "member/banner", {
         method: "PUT",
-        body: JSON.stringify({ bannerImage }),
+        body: bannerImage,
     })
-    if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
+    if (!response.ok) throw new Error("유저의 배너 이미지가 변경되지 못했어요...🥹")
+    const updatedProfile = await response.json()
     return {
         ...userInfo,
-        banner: URL.createObjectURL(bannerImage.get("image") as Blob),
+        banner: updatedProfile.banner,
+        first: updatedProfile.first || false,
     }
 }

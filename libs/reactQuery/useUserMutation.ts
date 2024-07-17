@@ -1,33 +1,36 @@
 import { useMutation, useQueryClient, UseMutationResult } from "@tanstack/react-query"
-import { UserInfoType } from "@/types/user"
-import { putUserInfo, putUserProfileImage, putUserBannerImage } from "@/apis/userApi"
+import { MyUserInfoType, EditUserInfoType } from "@/types/user"
+import { putUserBannerImage, putUserInfo, putUserProfileImage } from "@/apis/userApi"
+import { useLoggedIn } from "../zustand/login"
 
 export const useUpdateUserInfo = (): UseMutationResult<
-    UserInfoType,
+    MyUserInfoType,
     Error,
-    { userInfo: UserInfoType; editedUserInfo: UserInfoType }
+    { userInfo: MyUserInfoType; editedUserInfo: EditUserInfoType }
 > => {
     const queryClient = useQueryClient()
+    const { setUserInfo } = useLoggedIn()
 
-    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; editedUserInfo: UserInfoType }>({
+    return useMutation<MyUserInfoType, Error, { userInfo: MyUserInfoType; editedUserInfo: EditUserInfoType }>({
         mutationFn: async ({ userInfo, editedUserInfo }) => {
             const response = await putUserInfo(userInfo, editedUserInfo)
             return response
         },
-        onSuccess: () => {
+        onSuccess: data => {
             queryClient.invalidateQueries({ queryKey: ["userInfo"] })
+            setUserInfo(data)
         },
     })
 }
 
 export const useUpdateUserProfileImage = (): UseMutationResult<
-    UserInfoType,
+    EditUserInfoType,
     Error,
-    { userInfo: UserInfoType; profileImage: FormData }
+    { userInfo: MyUserInfoType; profileImage: FormData }
 > => {
     const queryClient = useQueryClient()
 
-    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; profileImage: FormData }>({
+    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; profileImage: FormData }>({
         mutationFn: async ({ userInfo, profileImage }) => {
             const response = await putUserProfileImage(userInfo, profileImage)
             return response
@@ -39,18 +42,22 @@ export const useUpdateUserProfileImage = (): UseMutationResult<
 }
 
 export const useUpdateUserBannerImage = (): UseMutationResult<
-    UserInfoType,
+    EditUserInfoType,
     Error,
-    { userInfo: UserInfoType; bannerImage: FormData }
+    { userInfo: MyUserInfoType; bannerImage: FormData }
 > => {
     const queryClient = useQueryClient()
 
-    return useMutation<UserInfoType, Error, { userInfo: UserInfoType; bannerImage: FormData }>({
+    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; bannerImage: FormData }>({
         mutationFn: async ({ userInfo, bannerImage }) => {
             const response = await putUserBannerImage(userInfo, bannerImage)
             return response
         },
-        onSuccess: () => {
+        onSuccess: data => {
+            queryClient.setQueryData<MyUserInfoType>(["userInfo"], oldData => {
+                if (oldData) return { ...oldData, ...data }
+                return oldData
+            })
             queryClient.invalidateQueries({ queryKey: ["userInfo"] })
         },
     })

@@ -9,11 +9,11 @@ import {
     useUpdateUserInfo,
     useUpdateUserProfileImage,
 } from "@/libs/reactQuery/useUserMutation"
-import { UserInfoType } from "@/types/user"
 import Banner from "./_components/banner"
 import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
 import EditButtons from "./_components/buttons"
+import { EditUserInfoType } from "@/types/user"
 
 const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) => {
     const [previewImages, setPreviewImages] = useState<{
@@ -23,10 +23,20 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: null,
         banner: null,
     })
-    const [editedUserInfo, setEditedUserInfo] = useState<UserInfoType>({
+    const [selectedImages, setSelectedImages] = useState<{
+        profile: File | null
+        banner: File | null
+    }>({
+        profile: null,
+        banner: null,
+    })
+
+    const [editedUserInfo, setEditedUserInfo] = useState<EditUserInfoType>({
         ...userInfo,
-        profile: userInfo.profile || userInfo.profile_image || DefaultProfile,
+        profile: userInfo.profile || DefaultProfile,
         banner: userInfo.banner || DefaultBanner,
+        motto: userInfo.motto || "",
+        first: userInfo.first || false,
     })
 
     const updateUserInfo = useUpdateUserInfo()
@@ -36,88 +46,76 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
     // change nickname or motto
     const handleFieldChange =
         (field: "nickname" | "motto") => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            setEditedUserInfo(prev => ({ ...prev, [field]: e.target.value }))
+            setEditedUserInfo(prev => ({ ...prev, [field]: e.target.value || "" }))
         }
 
-    // change profile image or banner image
-    const handleImageChange = (
-        e: React.ChangeEvent<HTMLInputElement>,
-        field: "profile" | "banner",
-        mutateFn: (params: { userInfo: UserInfoType; image: FormData }) => void,
-    ) => {
-        // resizeAndSetImage(e, (base64Str: string) => {
-        //     setPreviewImages(prev => ({ ...prev, [field]: base64Str })) // 미리보기 이미지 설정
-        //     setEditedUserInfo(prev => ({ ...prev, [field]: base64Str })) // 수정된 유저 정보 업데이트
-        //     mutateFn({ userInfo, image: base64Str }) // 서버로 이미지 전송
-        // })
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, field: "profile" | "banner") => {
         const file = e.target.files?.[0]
         if (file) {
-            const formData = new FormData()
-            formData.append("image", file)
+            setSelectedImages(prev => ({ ...prev, [field]: file }))
 
             const reader = new FileReader()
             reader.onloadend = () => {
                 setPreviewImages(prev => ({ ...prev, [field]: URL.createObjectURL(file) }))
             }
             reader.readAsDataURL(file)
-
-            mutateFn({ userInfo, image: formData })
         }
     }
-    const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        handleImageChange(e, "profile", ({ userInfo, image }) =>
-            updateUserProfileImage.mutate({ userInfo, profileImage: image }),
-        )
-    }
-    const handleBannerImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        handleImageChange(e, "banner", ({ userInfo, image }) =>
-            updateUserBannerImage.mutate({ userInfo, bannerImage: image }),
-        )
-    }
 
-    // save all modifications
-    const handleSave = () => {
+    const handleSave = async () => {
         const previousUserInfo = { ...userInfo }
-        setUserInfo(editedUserInfo)
-        setIsEditing(false)
-        updateUserInfo.mutate(
-            { userInfo, editedUserInfo },
-            {
-                onError: () => {
-                    setUserInfo(previousUserInfo)
-                    setIsEditing(true)
-                },
-            },
-        )
-        updateUserProfileImage.mutate(
-            { userInfo, profileImage: editedUserInfo.profile || userInfo.profile_image || DefaultProfile },
-            {
-                onError: () => {
-                    setUserInfo(previousUserInfo), setIsEditing(true)
-                },
-            },
-        )
-        updateUserBannerImage.mutate(
-            { userInfo, bannerImage: editedUserInfo.banner || DefaultBanner },
-            {
-                onError: () => {
-                    setUserInfo(previousUserInfo)
-                    setIsEditing(true)
-                },
-            },
-        )
+        try {
+            let updatedInfo = { ...userInfo, ...editedUserInfo }
+
+            // 프로필 이미지 업데이트
+            if (selectedImages.profile) {
+                const profileFormData = new FormData()
+                profileFormData.append("file", selectedImages.profile)
+                console.log("Profile image data:", selectedImages.profile)
+                const profileResult = await updateUserProfileImage.mutateAsync({
+                    userInfo: updatedInfo,
+                    profileImage: profileFormData,
+                })
+                updatedInfo = { ...updatedInfo, ...profileResult }
+            }
+
+            // 배너 이미지 업데이트
+            if (selectedImages.banner) {
+                const bannerFormData = new FormData()
+                bannerFormData.append("file", selectedImages.banner)
+                console.log("Banner image data:", selectedImages.banner)
+                const bannerResult = await updateUserBannerImage.mutateAsync({
+                    userInfo: updatedInfo,
+                    bannerImage: bannerFormData,
+                })
+                updatedInfo = { ...updatedInfo, ...bannerResult }
+            }
+
+            // 나머지 정보 업데이트
+            const finalResult = await updateUserInfo.mutateAsync({
+                userInfo: updatedInfo,
+                editedUserInfo: updatedInfo,
+            })
+
+            setUserInfo(finalResult)
+            setIsEditing(false)
+        } catch (error) {
+            console.error("Error updating user info:", error)
+            setUserInfo(previousUserInfo)
+            setIsEditing(true)
+        }
     }
 
     return (
         <div className="relative">
             <Banner
                 banner={previewImages.banner || editedUserInfo.banner || DefaultBanner}
-                onImageChange={handleBannerImageChange}
+                onImageChange={e => handleImageChange(e, "banner")}
             />
             <div className="absolute left-[120px] top-[360px] flex items-center">
                 <ProfileImage
                     image={previewImages.profile || userInfo.profile || userInfo.profile_image || DefaultProfile}
-                    onImageChange={handleProfileImageChange}
+                    onImageChange={e => handleImageChange(e, "profile")}
                 />
                 <ProfileContext
                     nickname={editedUserInfo.nickname}
