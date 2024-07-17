@@ -21,7 +21,7 @@ export const LeftGroup = () => {
                 width={135}
                 height={786}
                 src={Travel01}
-                className="w-auto h-auto relative 4xl:top-[40px] 2xl:visible invisible"
+                className="w-auto h-auto relative 4xl:top-10 2xl:visible invisible"
                 alt="travel image"
             />
             <Image
@@ -35,7 +35,7 @@ export const LeftGroup = () => {
                 width={525}
                 height={340}
                 src={Travel03}
-                className="w-auto h-auto absolute top-[40%] 4xl:top-[56%] 4xl:left-[580px] 2xl:left-[44%] bottom-0 xl:left-[14%] xl:bottom-[40px] md:left-[130px] md:top-[47%] sm:right-[26%] sm:top-[42%]"
+                className="w-auto h-auto absolute top-[40%] 4xl:top-[56%] 4xl:left-[580px] 2xl:left-[44%] bottom-0 xl:left-[14%] xl:bottom-10 md:left-[130px] md:top-[47%] sm:right-[26%] sm:top-[42%]"
                 alt="travel image"
             />
             <Image
@@ -79,9 +79,9 @@ export const RightGroup = () => {
 
 export const Polaroids = () => {
     return (
-        <div className="w-full h-[980px] pt-10 flex items-center justify-center invisible sm:visible">
+        <div className="w-full h-0 pt-10 items-center justify-center hidden md:flex md:h-[980px]">
             <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" />
-            <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] lg:w-[1000px] md:min-w-[720px] sm:min-w-[600px] top-[29%] xl:top-[20%] md:top-[18%] flex flex-row items-center justify-between">
+            <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] lg:w-[1000px] md:w-[720px] sm:w-[600px] top-[29%] xl:top-[20%] md:top-[18%] md:gap-4 flex flex-row items-center justify-between">
                 <div>
                     <Polaroid
                         step="STEP 01"

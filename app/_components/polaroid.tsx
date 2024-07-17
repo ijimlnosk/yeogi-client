@@ -19,14 +19,14 @@ const Polaroid = ({
             width={42}
             height={76}
             src={TongFront}
-            className={`w-auto h-auto xl:w-7 absolute ml-[166px] xl:ml-[150px] md:ml-[120px] ${rotateFront} z-30`}
+            className={`w-auto h-auto xl:w-7 absolute ml-[166px] xl:ml-[150px] md:ml-[120px] lg:ml-[125px] ${rotateFront} z-30`}
             alt="나무 집게 앞면"
         />
         <Image
             width={34}
             height={71}
             src={TongBack}
-            className={`w-auto h-auto xl:w-6 ml-[178px] xl:ml-[156px] md:ml-[130px] ${rotateBack} z-[-2]`}
+            className={`w-auto h-auto xl:w-6 ml-[178px] xl:ml-[156px] md:ml-[130px] lg:ml-[125px] ${rotateBack} z-[-2]`}
             alt="나무 집게 뒷면"
         />
         <div
