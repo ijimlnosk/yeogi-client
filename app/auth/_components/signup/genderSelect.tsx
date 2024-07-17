@@ -12,8 +12,8 @@ const GenderSelect = ({ selectedGender, onGenderChange }: GenderSelectProps) => 
                         type="radio"
                         name="gender"
                         value="F"
-                        checked={selectedGender === "female"}
-                        onChange={() => onGenderChange("female")}
+                        checked={selectedGender === "F"}
+                        onChange={() => onGenderChange("F")}
                         className="w-[18px] h-[18px] cursor-pointer appearance-none ring-1 focus:ring-BRAND-500 checked:bg-BRAND-50 border-[1px] border-GREY-50 rounded-full"
                     />
                     <span className="text-GREY-50 ml-2 text-xxs">여성</span>
@@ -23,8 +23,8 @@ const GenderSelect = ({ selectedGender, onGenderChange }: GenderSelectProps) => 
                         type="radio"
                         name="gender"
                         value="M"
-                        checked={selectedGender === "male"}
-                        onChange={() => onGenderChange("male")}
+                        checked={selectedGender === "M"}
+                        onChange={() => onGenderChange("M")}
                         className="w-[18px] h-[18px] cursor-pointer appearance-none ring-1 focus:ring-BRAND-500 checked:bg-BRAND-50 border-[1px] border-GREY-50 rounded-full"
                     />
                     <span className="text-GREY-50 ml-2 text-xxs">남성</span>

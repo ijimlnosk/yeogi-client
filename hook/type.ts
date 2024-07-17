@@ -17,6 +17,13 @@ export type UserResponse = {
     refreshToken: string
 }
 
+export type SocialSignupResponse = {
+    email: string
+    isFirst: boolean
+    memberId: number
+    token: UserResponse
+}
+
 export type SignInProps = {
     email: string
     password: string
