@@ -25,12 +25,12 @@ const MyPost = ({ userInfo }: MyPostProps) => {
     if (isLoading) return <div>내 게시글 목록을 가져오는 중...📂</div>
     return (
         <div className="w-full flex flex-col items-center justify-center">
-            <div className="w-[1680px] px-5 pb-5">
+            <div className="2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] px-5 pb-5">
                 <p className="font-semibold text-xl">
                     <span className="text-BRAND-50">{userInfo.nickname}</span>님의 기록
                 </p>
             </div>
-            <div className="w-[1680px] grid grid-cols-4 gap-4 pt-6 pb-20">
+            <div className="2xl:w-[1680px] xl:w-[1200px] md:w-[800px] sm:w-[500px] grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-4 pt-6 pb-20">
                 {paginateMyPosts.map(post => (
                     <div key={post.postId} className="w-fit p-2">
                         <PostCard

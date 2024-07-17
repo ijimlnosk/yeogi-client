@@ -70,8 +70,8 @@ const WorldMap = ({ email, nickname }: UserInfo) => {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center">
-                <div className="w-[1680px] flex flex-row justify-between items-center px-5">
+            <div className="flex flex-col justify-center items-center overflow-x-hidden">
+                <div className="2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] flex flex-row justify-between items-center px-5">
                     <p className="text-xl ">
                         <span className="text-BRAND-50">{nickname}</span>님의 세계지도
                     </p>
@@ -82,10 +82,14 @@ const WorldMap = ({ email, nickname }: UserInfo) => {
                         {isEditMode ? "저장" : "지도 수정"}
                     </button>
                 </div>
-                <div id="map" onClick={handleMapClick} className="w-[1680px] h-[800px] relative">
-                    {isEditMode && <div className=" bg-SYSTEM-white w-[1640px] h-[770px] absolute left-5 top-5" />}
+                <div
+                    id="map"
+                    onClick={handleMapClick}
+                    className="2xl:w-[1680px] h-[800px] xl:w-[1000px] md:w-[700px] sm:w-[300px] relative overflow-x-hidden"
+                >
+                    {isEditMode && <div className="bg-SYSTEM-white w-[1640px] h-[770px] absolute left-5 top-5" />}
                     <Image
-                        className={`${isEditMode ? "opacity-30" : ""}`}
+                        className={`${isEditMode ? "opacity-30" : ""} 2xl:w-[1680px] xl:w-[1100px] md:w-[1000px] sm:w-[500px]`}
                         src={"/images/map.svg"}
                         alt="world map"
                         width={1680}

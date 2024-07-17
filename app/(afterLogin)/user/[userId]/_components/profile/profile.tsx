@@ -28,7 +28,6 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                 <Image
                     width={240}
                     height={240}
-                    // src={profileImageUrl ? profileImageUrl : DefaultProfile}
                     src={userInfo.profile || userInfo.profile_image || DefaultProfile}
                     alt="profile image"
                     className="rounded-full border-[5px] border-white shadow-profile"
