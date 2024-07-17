@@ -43,6 +43,10 @@ export const metadata: Metadata = {
     icons: {
         icon: "/icons/logo_img.svg",
     },
+    other: {
+        'link rel="preload" as="image" href="/images/main-02.webp"': "",
+        'link rel="preload" as="image" href="/images/main-03.webp"': "",
+    },
 }
 
 export default function RootLayout({
