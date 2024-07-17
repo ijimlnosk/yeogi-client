@@ -5,7 +5,7 @@ import {
     Memo,
     Stamp01,
     Stamp02,
-    Stamp03,
+    Stamp04,
     Step01,
     Step02,
     Step03,
@@ -21,28 +21,28 @@ export const LeftGroup = () => {
                 width={135}
                 height={786}
                 src={Travel01}
-                className="w-auto h-auto 2xl:visible invisible"
+                className="w-auto h-auto relative 4xl:top-[40px] 2xl:visible invisible"
                 alt="travel image"
             />
             <Image
                 width={450}
                 height={665}
                 src={Travel02}
-                className="w-auto h-auto pt-[2%] relative 2xl:right-0 xl:right-[40%] md:right-[50%] sm:right-[96%]"
+                className="w-auto h-auto pt-[2%] right-[98%] xl:pt-0 relative 4xl:top-[70px] 2xl:right-0 xl:right-[50%] lg:right-[60%] md:right-[80%] sm:right-[90%]"
                 alt="travel image"
             />
             <Image
                 width={525}
                 height={340}
                 src={Travel03}
-                className="w-auto h-auto absolute 2xl:left-[36%] bottom-0 xl:left-[18%] md:left-[0] sm:right-[40%]"
+                className="w-auto h-auto absolute top-[40%] 4xl:top-[56%] 4xl:left-[580px] 2xl:left-[44%] bottom-0 xl:left-[14%] xl:bottom-[40px] md:left-[130px] md:top-[47%] sm:right-[26%] sm:top-[42%]"
                 alt="travel image"
             />
             <Image
-                width={315}
+                width={368}
                 height={392}
-                src={Stamp03}
-                className="w-[315px] h-[392px] absolute bottom-[-30%] -z-10 sm:right-[60%]"
+                src={Stamp04}
+                className="w-[315px] h-[392px] absolute top-[46%] bottom-[-17%] -z-10 4xl:left-[-30px] 4xl:top-[74%] 3xl:top-[80%] xl:right-[67%] xl:top-[61%] sm:right-[67%] sm:top-[61%] opacity-10"
                 alt="travel stamp"
             />
         </div>
@@ -56,21 +56,21 @@ export const RightGroup = () => {
                 width={215}
                 height={335}
                 src={Memo}
-                className="w-[215px] h-[335px] absolute top-[14%] right-0 z-10"
+                className="w-[215px] h-[335px] absolute top-[6.3%] right-0 z-10"
                 alt="travel memo"
             />
             <Image
                 width={467}
                 height={260}
                 src={Stamp01}
-                className="w-[467px] h-[260px] absolute top-[36%] right-[-10%]"
+                className="w-[467px] h-[260px] absolute top-[30%] right-[-10%]"
                 alt="travel stamp"
             />
             <Image
                 width={129}
                 height={400}
                 src={Stamp02}
-                className="w-auto h-auto absolute top-[44%] right-0"
+                className="w-auto h-auto absolute top-[41%] right-0"
                 alt="travel stamp"
             />
         </div>

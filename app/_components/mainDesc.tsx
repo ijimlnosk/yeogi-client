@@ -2,7 +2,7 @@ import { Polaroids } from "./mainImages"
 
 const MainDesc = () => {
     return (
-        <div className="relative w-full h-[980px] my-[200px]">
+        <div className="relative w-full h-[980px]">
             <div className="absolute w-full flex flex-col justify-center items-center font-myeongjo">
                 <p className="text-xl xl:text-md sm:text-sm text-GREY-80 opacity-50 pb-5">How to use YEOGI</p>
                 <p className="text-subTitle xl:text-xxl sm:text-[30px]">

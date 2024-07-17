@@ -31,13 +31,12 @@ const Polaroid = ({
         />
         <div
             className={clsx(
-                `relative top-[-30px] xl:top-[-20px] w-[390px] h-[480px] xl:w-[336px] xl:h-[400px] md:w-[300px] md:h-[390px] bg-SYSTEM-white flex flex-col items-center pt-[20px] md:pt-[20px] shadow-polaroid transition-transform duration-300`,
+                `relative top-[-30px] xl:top-[-20px] w-[390px] h-[480px] xl:w-[336px] xl:h-[400px] md:w-[300px] md:h-[390px] bg-SYSTEM-white flex flex-col items-center py-5 md:py-5 shadow-polaroid transition-transform duration-300`,
                 className,
                 {
                     "hover:shadow-polaroid-hover": true,
                     "hover:scale-110": true,
                     "hover:z-100": true,
-                    "hover:cursor-pointer": true,
                 },
             )}
         >
@@ -46,10 +45,10 @@ const Polaroid = ({
                 height={300}
                 src={src}
                 alt={alt}
-                className="w-[350px] h-[300px] xl:w-[300px] xl:h-[257px] md:w-[320px] md:h-[200px]"
+                className="w-[350px] h-[300px] xl:w-[300px] xl:h-[257px] md:w-[320px] md:h-[200px] "
             />
             <div className="w-full flex flex-col items-start pl-2.5">
-                <p className="pt-5 pb-3 sm:pl-4 text-sm xl:text-xs md:text-xxs font-bold">{step}</p>
+                <p className="pt-4 pb-2 sm:pl-4 text-sm xl:text-xs md:text-xxs font-bold">{step}</p>
                 <p className="w-[200px] md:w-[240px sm:pl-4 text-bg xl:text-sm md:text-xxsfont-semibold break-keep">
                     {description} <span className={textColor}>{spanText}</span>.
                 </p>
