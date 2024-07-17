@@ -124,8 +124,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             })
             setUserInfo(updatedInfo)
             setIsEditing(false)
-        } catch (error) {
-            console.error("Error updating user info:", error)
+        } catch {
             setUserInfo(previousUserInfo)
             setIsEditing(true)
         }
