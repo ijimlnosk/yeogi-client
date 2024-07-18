@@ -31,8 +31,8 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
     })
 
     const { data: comments = [], refetch: refetchComments } = useQuery<Comment[], Error>({
-        queryKey: ["comments", { postId: Number(postId) }],
-        queryFn: () => getComment({ postId: Number(postId) }),
+        queryKey: ["comments", { postId: Number(postId), page: 0, size: 9999 }],
+        queryFn: () => getComment({ postId: Number(postId), page: 0, size: 9999 }),
     })
 
     useEffect(() => {
