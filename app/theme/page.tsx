@@ -27,7 +27,7 @@ const ThemePage = () => {
                         </p>
                     </div>
                     <div className="flex flex-col gap-8">
-                        <div className="flex flex-col gap-[15px] bg-red-300">
+                        <div className="flex flex-col gap-[15px] ">
                             <p>여행 동료</p>
                             <div className="flex gap-[6px]">
                                 {CompanionButton.map((text, index) => (
@@ -77,7 +77,12 @@ const ThemePage = () => {
                             <p>여행 장소</p>
                             <div className="flex gap-[6px]">
                                 {AddressButton.map((text, index) => (
-                                    <Button key={index} value={text.value} textColor="gray80">
+                                    <Button
+                                        key={index}
+                                        value={text.value}
+                                        textColor="gray80"
+                                        className="min-w-[92px] h-[55px] rounded-[97px] border-[2px] border-GREY-30"
+                                    >
                                         {text.key}
                                     </Button>
                                 ))}
