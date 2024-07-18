@@ -21,3 +21,7 @@ export const SkeletonCard = () => {
         </Card>
     )
 }
+
+export const SkeletonDetailPage = () => {
+    return <Skeleton className="w-full h-fit"></Skeleton>
+}

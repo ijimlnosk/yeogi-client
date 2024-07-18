@@ -32,7 +32,7 @@ const SelectedTheme = () => {
                     className={`w-fit h-[42px] p-4 rounded-2 mx-2 border-[1px] border-BRAND-30 ${
                         themes.includes(key)
                             ? "bg-BRAND-30 text-SYSTEM-white"
-                            : "hover:bg-BRAND-30 hover:text-SYSTEM-white"
+                            : "hover:bg-BRAND-30 hover:text-SYSTEM-white bg-SYSTEM-white"
                     }`}
                     onClick={() => handleSelectedTheme(key)}
                 >

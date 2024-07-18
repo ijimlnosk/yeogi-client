@@ -31,9 +31,14 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
             <p className="text-center text-sm py-[20px]">
                 썸네일에 표시될 <br /> 대표 이미지를 업로드해주세요.
             </p>
+            <div className="absolute top-[20%] w-[500px] h-[280px] bg-SYSTEM-white bg-opacity-70 pt-[14%]">
+                <p className="text-[60px] font-bold text-BRAND-70 opacity-30 flex justify-center items-center">
+                    comming soon
+                </p>
+            </div>
             <label
-                htmlFor="file"
-                onClick={handleClick}
+                /* htmlFor="file" */
+                /* onClick={handleClick} */
                 className="w-[500px] h-[260px] bg-GREY-10 flex flex-col items-center justify-center border-2 border-BRAND-50 border-dashed"
             >
                 {image ? (

@@ -16,6 +16,7 @@ import PostDetailSection from "./_components/section/detailSection"
 import CommentSection from "./_components/section/commentSection"
 import { PostDetailProps } from "./type"
 import { useLoggedIn } from "@/libs/zustand/login"
+import { SkeletonDetailPage } from "@/components/commons/skeleton"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params
@@ -50,7 +51,13 @@ const DetailPostPage = ({ params }: PostDetailProps) => {
         refetchComments()
     }
 
-    if (!post) return <div>post not found</div>
+    if (!post)
+        return (
+            <div className="w-screen h-screen flex flex-col justify-center items-center">
+                <p className="text-[100px]">🫥</p>
+                <p className="text-xl text-BRAND-70">게시글 내용이 조금 기네요... 조금만 기다려주세요 </p>
+            </div>
+        )
     return (
         <>
             <DeleteModal
