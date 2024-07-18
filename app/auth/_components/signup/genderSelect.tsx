@@ -2,11 +2,11 @@ import { GenderSelectProps } from "./type"
 
 const GenderSelect = ({ selectedGender, onGenderChange }: GenderSelectProps) => {
     return (
-        <div className="flex flex-col  w-full gap-[10px] mb-15">
+        <div className="flex flex-col  w-full gap-[10px] ">
             <div>
                 <span className="text-SYSTEM-error mr-1">*</span>성별
             </div>
-            <div className="flex gap-12 pb-8">
+            <div className="flex gap-12 pb-5 ">
                 <label className="flex items-center gap-[18px]">
                     <input
                         type="radio"

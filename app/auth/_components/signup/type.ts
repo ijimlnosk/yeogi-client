@@ -20,13 +20,5 @@ export type SocialSignupRequest = {
 }
 
 export type SocialSignupCheckExists = {
-    id: number
-    email: string
     nickname: string
-    ageRange: string
-    gender: "M" | "F"
-    profile: string
-    motto: string
-    banner: string
-    first: boolean
 }
