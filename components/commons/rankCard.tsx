@@ -19,7 +19,7 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
 
     return (
         <Link
-            href={`/detailPost/${topPostId}`}
+            href={`/post/detail/${topPostId}`}
             className="w-[506px] h-[400px] relative bg-SYSTEM-white rounded-3xl p-4 overflow-hidden cursor-pointer group"
         >
             <div className=" absolute w-full h-full top-0 left-0 bg-SYSTEM-black">

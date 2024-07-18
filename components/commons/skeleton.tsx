@@ -1,5 +1,6 @@
 import React from "react"
 import { Card, Skeleton } from "@nextui-org/react"
+import { MainSkeletonProps } from "./type"
 
 export const SkeletonCard = () => {
     return (
@@ -20,4 +21,8 @@ export const SkeletonCard = () => {
             </div>
         </Card>
     )
+}
+
+export const MainSkeleton = ({ className }: MainSkeletonProps) => {
+    return <div className={`animate-pulse bg-GREY-50 ${className}`} />
 }

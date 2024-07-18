@@ -21,7 +21,7 @@ export const useRecommendPagination = <T>({
         return items.slice(indexOfFirstItem, indexOfLastItem)
     }, [items, currentPage, itemsPerPage])
 
-    const totalPages = Math.ceil(items.length / itemsPerPage)
+    const totalPages = 3
 
     const onChangePage = (direction: "prev" | "next") => {
         if (direction === "prev" && currentPage > 1) {

@@ -116,3 +116,7 @@ export type RankCardProps = {
     rank: "Top1" | "Top2" | "Top3"
     topPostId: number
 }
+
+export type MainSkeletonProps = {
+    className?: string
+}
