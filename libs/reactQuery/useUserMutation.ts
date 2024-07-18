@@ -23,16 +23,12 @@ export const useUpdateUserInfo = (): UseMutationResult<
     })
 }
 
-export const useUpdateUserProfileImage = (): UseMutationResult<
-    EditUserInfoType,
-    Error,
-    { userInfo: MyUserInfoType; profileImage: FormData }
-> => {
+export const useUpdateUserProfileImage = (): UseMutationResult<{ image: FormData }, Error, FormData> => {
     const queryClient = useQueryClient()
 
-    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; profileImage: FormData }>({
-        mutationFn: async ({ userInfo, profileImage }) => {
-            const response = await putUserProfileImage(userInfo, profileImage)
+    return useMutation<{ image: FormData }, Error, FormData>({
+        mutationFn: async image => {
+            const response = await putUserProfileImage(image)
             return response
         },
         onSuccess: () => {
@@ -41,23 +37,15 @@ export const useUpdateUserProfileImage = (): UseMutationResult<
     })
 }
 
-export const useUpdateUserBannerImage = (): UseMutationResult<
-    EditUserInfoType,
-    Error,
-    { userInfo: MyUserInfoType; bannerImage: FormData }
-> => {
+export const useUpdateUserBannerImage = (): UseMutationResult<{ image: FormData }, Error, FormData> => {
     const queryClient = useQueryClient()
 
-    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; bannerImage: FormData }>({
-        mutationFn: async ({ userInfo, bannerImage }) => {
-            const response = await putUserBannerImage(userInfo, bannerImage)
+    return useMutation<{ image: FormData }, Error, FormData>({
+        mutationFn: async image => {
+            const response = await putUserBannerImage(image)
             return response
         },
-        onSuccess: data => {
-            queryClient.setQueryData<MyUserInfoType>(["userInfo"], oldData => {
-                if (oldData) return { ...oldData, ...data }
-                return oldData
-            })
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["userInfo"] })
         },
     })

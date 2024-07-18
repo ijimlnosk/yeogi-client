@@ -7,14 +7,14 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
     return (
         <div className="relative">
             <div className="relative">
-                <div className="absolute inset-0 bg-black opacity-20" />
+                {/* <div className="absolute inset-0 bg-black opacity-20" /> */}
                 <div className="w-full h-[440px] flex justify-center items-center overflow-hidden">
                     <Image
                         width={1920}
-                        height={400}
+                        height={440}
                         src={userInfo.banner ? userInfo.banner : DefaultBanner}
                         alt="banner image"
-                        className="w-full"
+                        className="w-full min-h-[440px] bg-cover"
                     />
                 </div>
                 <button
@@ -28,7 +28,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                 <Image
                     width={240}
                     height={240}
-                    src={userInfo.profile || userInfo.profile_image || DefaultProfile}
+                    src={userInfo.profile || DefaultProfile}
                     alt="profile image"
                     className="rounded-full border-[5px] border-white shadow-profile"
                 />

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { EditProfileProps } from "./type"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
@@ -9,7 +9,7 @@ import Banner from "./_components/banner"
 import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
 import EditButtons from "./_components/buttons"
-import { EditUserInfoType } from "@/types/user"
+import { EditUserInfoType, MyUserInfoType } from "@/types/user"
 
 const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) => {
     const [previewImages, setPreviewImages] = useState<{
@@ -19,7 +19,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: null,
         banner: null,
     })
-    const [, setSelectedImages] = useState<{
+    const [selectedImages, setSelectedImages] = useState<{
         profile: File | null
         banner: File | null
     }>({
@@ -58,62 +58,80 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         }
     }
 
-    /*     const handleSave = async () => {
+    /* const handleSave = async () => {
         const previousUserInfo = { ...userInfo }
         try {
-            let updatedInfo = { ...userInfo, ...editedUserInfo }
+            let updatedInfo: MyUserInfoType = {
+                ...userInfo,
+                ...editedUserInfo,
+            }
 
-            // 프로필 이미지 업데이트
+            // 이미지 업데이트 로직
             if (selectedImages.profile) {
                 const profileFormData = new FormData()
                 profileFormData.append("file", selectedImages.profile)
-                profileFormData.append(
-                    "member",
-                    JSON.stringify({
-                        id: userInfo.id,
-                        email: userInfo.email,
-                        nickname: userInfo.nickname,
-                        ageRange: userInfo.ageRange,
-                        profile: userInfo.profile,
-                        motto: userInfo.motto,
-                        banner: userInfo.banner,
-                        gender: userInfo.gender,
-                        keywordList: userInfo.keywordList,
-                    }),
-                )
-                console.log("FormData content for profile:", profileFormData.get("file"))
-                console.log("FormData content for member:", profileFormData.get("member"))
-                const profileResult = await updateUserProfileImage.mutateAsync({
-                    userInfo: updatedInfo,
-                    profileImage: profileFormData,
-                })
-                updatedInfo = { ...updatedInfo, ...profileResult }
+                const profileResult = await updateUserProfileImage.mutateAsync(profileFormData)
+                updatedInfo.profile = profileResult.image
+            } else {
+                // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
+                updatedInfo.profile = userInfo.profile
             }
-            // 배너 이미지 업데이트
+
             if (selectedImages.banner) {
                 const bannerFormData = new FormData()
                 bannerFormData.append("file", selectedImages.banner)
-                console.log("FormData content for banner:", bannerFormData.get("file"))
-                console.log("Banner image data:", selectedImages.banner)
-                const bannerResult = await updateUserBannerImage.mutateAsync({
-                    userInfo: updatedInfo,
-                    bannerImage: bannerFormData,
-                })
-                updatedInfo = { ...updatedInfo, ...bannerResult }
+                const bannerResult = await updateUserBannerImage.mutateAsync(bannerFormData)
+                updatedInfo.banner = bannerResult.image
+            } else {
+                // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
+                updatedInfo.banner = userInfo.banner
             }
-            // 나머지 정보 업데이트
-            const finalResult = await updateUserInfo.mutateAsync({
-                userInfo: updatedInfo,
-                editedUserInfo: updatedInfo,
-            })
-            setUserInfo(finalResult)
+
+            // 변경된 필드만 업데이트
+            const changedFields = (Object.keys(updatedInfo) as Array<keyof MyUserInfoType>).filter(
+                key => updatedInfo[key] !== userInfo[key],
+            )
+
+            if (changedFields.length > 0) {
+                const editedFields: EditUserInfoType = {
+                    ...updatedInfo,
+                    // 필요한 필드만 포함
+                    id: updatedInfo.id,
+                    email: updatedInfo.email,
+                    nickname: updatedInfo.nickname,
+                    motto: updatedInfo.motto,
+                    ageRange: updatedInfo.ageRange,
+                    gender: updatedInfo.gender,
+                    profile: updatedInfo.profile,
+                    banner: updatedInfo.banner,
+                    first: false,
+                }
+
+                const finalResult = await updateUserInfo.mutateAsync({
+                    userInfo: updatedInfo,
+                    editedUserInfo: editedFields,
+                })
+
+                setUserInfo(finalResult)
+            }
+
             setIsEditing(false)
         } catch (error) {
             console.error("Error updating user info:", error)
             setUserInfo(previousUserInfo)
             setIsEditing(true)
+            // 사용자에게 에러 알림
+            alert("프로필 업데이트 중 오류가 발생했습니다.")
         }
-    } */
+    }
+
+    // 이미지 미리보기 정리 함수
+    useEffect(() => {
+        return () => {
+            if (previewImages.profile) URL.revokeObjectURL(previewImages.profile)
+            if (previewImages.banner) URL.revokeObjectURL(previewImages.banner)
+        }
+    }, [previewImages]) */
 
     const handleSave = async () => {
         const previousUserInfo = { ...userInfo }

@@ -3,10 +3,10 @@ import commentIcon from "@/public/icons/comment.svg"
 import locationIcon from "@/public/icons/gps.svg"
 import Image from "next/image"
 import { PostCardProps } from "./type"
-import Sample from "@/public/images/sampleThumbnail.svg"
 import SampleProfile from "@/public/images/user/sampleProfile.svg"
 import Link from "next/link"
 import { formatISODateString } from "@/utils/date.utils"
+import { generateRandomThumbnail } from "@/utils/randomThumbnail"
 
 const PostCard = ({
     post_id,
@@ -19,6 +19,7 @@ const PostCard = ({
     thumbnail,
     created_At,
 }: PostCardProps) => {
+    const randomThumbnail = generateRandomThumbnail()
     return (
         <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
             <Link href={`/post/detail/${post_id}`}>
@@ -27,7 +28,7 @@ const PostCard = ({
                     width={360}
                     height={244}
                     className="object-cover"
-                    src={thumbnail ?? Sample}
+                    src={thumbnail ?? randomThumbnail}
                     alt="post thumbnail"
                 />
                 {/* 유저가 방문한 대륙 표시 */}

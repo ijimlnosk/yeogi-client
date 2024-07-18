@@ -5,15 +5,18 @@ import { PostDetailSectionProps } from "./type"
 import { memos } from "@/types/post"
 import Image from "next/image"
 import { postViews } from "@/apis/postApi"
+import { SkeletonDetailPage } from "@/components/commons/skeleton"
 
 const PostDetailContentSection = ({ post }: PostDetailSectionProps) => {
     const contentRef = useRef<HTMLDivElement>(null)
     const shortContentRef = useRef<HTMLDivElement>(null)
     const [modifiedContent, setModifiedContent] = useState<string>("")
     const [modifiedShortPost, setModifiedShortPost] = useState<string[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const fetchViews = async () => {
         await postViews(post.postId)
+        setIsLoading(true)
     }
 
     useEffect(() => {
@@ -78,7 +81,7 @@ const PostDetailContentSection = ({ post }: PostDetailSectionProps) => {
                         </p>
                         <div
                             ref={shortContentRef}
-                            className="py-5 flex flex-row gap-2 custom-content"
+                            className="py-5 flex flex-col gap-2 custom-content"
                             dangerouslySetInnerHTML={{ __html: modifiedShortPost[index] }}
                         />
                     </div>
