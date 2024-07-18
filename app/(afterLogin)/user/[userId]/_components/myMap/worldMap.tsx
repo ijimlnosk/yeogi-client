@@ -5,7 +5,7 @@ import { Pin, UserInfo } from "./type"
 import Image from "next/image"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 
-const WorldMap = ({ email, nickname }: UserInfo) => {
+const WorldMap = ({ nickname }: UserInfo) => {
     // const { pinCount, incrementPinCount } = useMapStore()
     const [pins] = useState<Pin[]>([])
     const [isEditMode] = useState(false) // 수정 모드 상태

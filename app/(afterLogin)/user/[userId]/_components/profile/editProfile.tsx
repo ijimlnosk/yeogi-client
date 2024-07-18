@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { EditProfileProps } from "./type"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
@@ -9,7 +9,7 @@ import Banner from "./_components/banner"
 import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
 import EditButtons from "./_components/buttons"
-import { EditUserInfoType, MyUserInfoType } from "@/types/user"
+import { EditUserInfoType } from "@/types/user"
 
 const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) => {
     const [previewImages, setPreviewImages] = useState<{
@@ -19,7 +19,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: null,
         banner: null,
     })
-    const [selectedImages, setSelectedImages] = useState<{
+    const [, setSelectedImages] = useState<{
         profile: File | null
         banner: File | null
     }>({

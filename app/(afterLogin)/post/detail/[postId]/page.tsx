@@ -16,7 +16,6 @@ import PostDetailSection from "./_components/section/detailSection"
 import CommentSection from "./_components/section/commentSection"
 import { PostDetailProps } from "./type"
 import { useLoggedIn } from "@/libs/zustand/login"
-import { SkeletonDetailPage } from "@/components/commons/skeleton"
 
 const DetailPostPage = ({ params }: PostDetailProps) => {
     const { postId } = params

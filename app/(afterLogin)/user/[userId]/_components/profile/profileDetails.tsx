@@ -2,7 +2,7 @@ import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import { ProfileDetailsProps } from "./type"
 import { useState } from "react"
 
-const ProfileDetails = ({ ageRange, gender, pinCount }: ProfileDetailsProps) => {
+const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
     const displayGender = (gender: string | undefined) => {
         if (gender === "M") return "남성"
