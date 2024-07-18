@@ -94,8 +94,8 @@ const SignupForm = () => {
                                     type="radio"
                                     name="gender"
                                     value="female"
-                                    checked={selectedgender === "female"}
-                                    onChange={() => handleGenderChange("female")}
+                                    checked={selectedgender === "F"}
+                                    onChange={() => handleGenderChange("F")}
                                     className="w-[18px] h-[18px] cursor-pointer appearance-none ring-1 focus:ring-BRAND-500 checked:bg-BRAND-50 border-[1px] border-GREY-50 rounded-full"
                                 />
                                 <span className="text-GREY-50 ml-2 text-xxs">여성</span>
@@ -105,8 +105,8 @@ const SignupForm = () => {
                                     type="radio"
                                     name="gender"
                                     value="male"
-                                    checked={selectedgender === "male"}
-                                    onChange={() => handleGenderChange("male")}
+                                    checked={selectedgender === "M"}
+                                    onChange={() => handleGenderChange("M")}
                                     className="w-[18px] h-[18px] cursor-pointer appearance-none ring-1 focus:ring-BRAND-500 checked:bg-BRAND-50 border-[1px] border-GREY-50 rounded-full"
                                 />
                                 <span className="text-GREY-50 ml-2 text-xxs">남성</span>
