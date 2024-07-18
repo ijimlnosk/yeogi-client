@@ -26,8 +26,17 @@ export const postComment = async ({ content, postId }: postCommentProps) => {
  * @param {number} props.postId - 댓글을 가져올 게시글 ID
  * @description 특정 게시글 댓글 가져오는 API
  */
-export const getComment = async ({ postId }: getCommentProps) => {
-    const response = await fetchFormAPINotToken(API_URL, `comments/${postId}`, { method: "GET" })
+export const getComment = async ({ postId, page = 0, size = 9999, sort = "" }: getCommentProps) => {
+    const queryParams = new URLSearchParams({
+        page: page.toString(),
+        size: size.toString(),
+        sort: sort,
+    }).toString()
+
+    const response = await fetchFormAPINotToken(API_URL, `comments/${postId}?${queryParams}`, {
+        method: "GET",
+    })
+
     const data = await response.json()
     return data
 }

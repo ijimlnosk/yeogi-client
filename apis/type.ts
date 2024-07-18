@@ -17,6 +17,9 @@ export type postCommentProps = {
 
 export type getCommentProps = {
     postId: number
+    page: number
+    size: number
+    sort?: string
 }
 
 export type deleteCommentProps = {

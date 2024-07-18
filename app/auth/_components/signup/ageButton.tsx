@@ -1,5 +1,5 @@
 import Button from "@/components/commons/button"
-import { AgeButton } from "@/constants/ageButton"
+import { AgeButton } from "@/constants/ButtonText"
 import { useState } from "react"
 
 type SignupAgeButtonProps = {
@@ -20,7 +20,7 @@ const SignupAgeButton = ({ onAgeSelect }: SignupAgeButtonProps) => {
                     key={index}
                     value={age.value}
                     onClick={() => handleAgeClick(age.value)}
-                    className={`w-[63px] h-[42px] bg-SYSTEM-white rounded-lg ${selectedAge === age.value ? "border-[1px] border-BRAND-50 text-BRAND-50" : ""}`}
+                    className={`w-[60px] h-[42px] bg-SYSTEM-white rounded-lg ${selectedAge === age.value ? " bg-BRAND-10 text-SYSTEM-black" : ""}`}
                 >
                     {age.key}
                 </Button>
