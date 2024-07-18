@@ -1,7 +1,7 @@
-import { MyUserInfoType, UserInfoType } from "@/types/user"
+import { MyUserInfoType } from "@/types/user"
 
 export type ProfileProps = {
-    userInfo: UserInfoType
+    userInfo: MyUserInfoType
     onEdit: () => void
 }
 
