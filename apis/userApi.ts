@@ -26,7 +26,7 @@ export const putUserInfo = async (
         ...userInfo,
         ...editedUserInfo,
         id: userInfo.id,
-        profile: typeof editedUserInfo.profile === "string" ? editedUserInfo.profile : userInfo.profile,
+        image: typeof editedUserInfo.image === "string" ? editedUserInfo.image : userInfo.image,
         banner: typeof editedUserInfo.banner === "string" ? editedUserInfo.banner : userInfo.banner,
     }
     console.log("updatedInfo :", updatedInfo)
@@ -45,19 +45,16 @@ export const putUserInfo = async (
  * @param profileImage 수정될 유저의 프로필 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserProfileImage = async (
-    userInfo: MyUserInfoType,
-    profileImage: FormData,
-): Promise<EditUserInfoType> => {
+export const putUserProfileImage = async (userInfo: MyUserInfoType, image: FormData): Promise<EditUserInfoType> => {
     const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
-        body: profileImage,
+        body: image,
     })
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     const updatedProfile = await response.json()
     return {
         ...userInfo,
-        profile: updatedProfile.profile,
+        image: updatedProfile.image,
         first: updatedProfile.first || false,
     }
 }

@@ -26,13 +26,13 @@ export const useUpdateUserInfo = (): UseMutationResult<
 export const useUpdateUserProfileImage = (): UseMutationResult<
     EditUserInfoType,
     Error,
-    { userInfo: MyUserInfoType; profileImage: FormData }
+    { userInfo: MyUserInfoType; image: FormData }
 > => {
     const queryClient = useQueryClient()
 
-    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; profileImage: FormData }>({
-        mutationFn: async ({ userInfo, profileImage }) => {
-            const response = await putUserProfileImage(userInfo, profileImage)
+    return useMutation<EditUserInfoType, Error, { userInfo: MyUserInfoType; image: FormData }>({
+        mutationFn: async ({ userInfo, image }) => {
+            const response = await putUserProfileImage(userInfo, image)
             return response
         },
         onSuccess: () => {

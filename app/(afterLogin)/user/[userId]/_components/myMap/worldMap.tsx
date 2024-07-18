@@ -82,6 +82,11 @@ const WorldMap = ({ email, nickname }: UserInfo) => {
                         {isEditMode ? "저장" : "지도 수정"}
                     </button>
                 </div>
+                <div className="2xl:w-[1680px] h-[800px] xl:w-[1000px] md:w-[700px] sm:w-[300px] absolute overflow-x-hidden mt-[50px] bg-SYSTEM-white bg-opacity-70 z-10">
+                    <p className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[100px] text-BRAND-70 opacity-30 font-bold flex justify-center">
+                        coming soon
+                    </p>
+                </div>
                 <div
                     id="map"
                     onClick={handleMapClick}

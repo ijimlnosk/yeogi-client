@@ -23,7 +23,7 @@ export type MyUserInfoType = {
     motto: string
     ageRange: string
     gender: "M" | "F"
-    profile: string
+    image: string
     banner: string
     keywordList: Keyword[]
 }
@@ -36,7 +36,7 @@ export type EditUserInfoType = {
     motto: string
     ageRange: string
     gender: "M" | "F"
-    profile: string
+    image: string
     banner: string
     first: boolean
 }
