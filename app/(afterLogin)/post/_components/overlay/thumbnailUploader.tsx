@@ -9,9 +9,9 @@ const ThumbnailUploader = ({ onComplete }: ThumbnailUploaderProps) => {
     const fileRef = useRef<HTMLInputElement>(null)
     const [image, setImage] = useState<string | null>(null)
 
-    const handleClick = () => {
-        fileRef?.current?.click()
-    }
+    // const handleClick = () => {
+    //     fileRef?.current?.click()
+    // }
 
     const handleSelectedImage = (e: ChangeEvent) => {
         const targetFile = (e.target as HTMLInputElement).files?.[0]
