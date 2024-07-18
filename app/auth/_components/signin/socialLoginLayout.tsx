@@ -2,6 +2,8 @@ import kakaoIcon from "@/public/icons/kakao.svg"
 import naverIcon from "@/public/icons/naver_icon 1.svg"
 import googleIcon from "@/public/icons/google.svg"
 import SocialLoginButton from "./socialLoginButton"
+import { useState } from "react"
+import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 
 interface LoginLayoutProps {
     kakaoURL: string
@@ -11,6 +13,15 @@ interface LoginLayoutProps {
 }
 
 const SocialLoginLayout = ({ kakaoURL, naverURL, googleURL, handleMoveSocialLogin }: LoginLayoutProps) => {
+    const [isStillWorkingModalOpen, setIsStillWorkingModalOpen] = useState(false)
+
+    const handleNaverLoginClick = () => {
+        setIsStillWorkingModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsStillWorkingModalOpen(false)
+    }
     return (
         <div className="min-h-screen flex items-center justify-center">
             <div className="flex flex-col justify-center w-[496px] h-[454px] top-[308px] left-[712px] rounded-2xl bg-SYSTEM-else p-12">
@@ -39,7 +50,8 @@ const SocialLoginLayout = ({ kakaoURL, naverURL, googleURL, handleMoveSocialLogi
                         icon={naverIcon}
                         text={"네이버로 간편하게 로그인"}
                         bgColor="bg-SNS-naver"
-                        onClick={() => handleMoveSocialLogin(naverURL, "naver")}
+                        // onClick={() => handleMoveSocialLogin(naverURL, "naver")}
+                        onClick={handleNaverLoginClick}
                     />
                     <SocialLoginButton
                         icon={googleIcon}
@@ -49,6 +61,7 @@ const SocialLoginLayout = ({ kakaoURL, naverURL, googleURL, handleMoveSocialLogi
                     />
                 </div>
             </div>
+            <StillWorkingOverlay isOpen={isStillWorkingModalOpen} onClick={handleCloseModal} />
         </div>
     )
 }
