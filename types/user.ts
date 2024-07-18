@@ -23,8 +23,8 @@ export type MyUserInfoType = {
     motto: string
     ageRange: string
     gender: "M" | "F"
-    image: string
-    banner: string
+    profile: FormData
+    banner: FormData
     keywordList: Keyword[]
 }
 
@@ -36,7 +36,7 @@ export type EditUserInfoType = {
     motto: string
     ageRange: string
     gender: "M" | "F"
-    image: string
-    banner: string
+    profile: FormData
+    banner: FormData
     first: boolean
 }

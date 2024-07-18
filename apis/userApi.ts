@@ -26,7 +26,7 @@ export const putUserInfo = async (
         ...userInfo,
         ...editedUserInfo,
         id: userInfo.id,
-        image: typeof editedUserInfo.image === "string" ? editedUserInfo.image : userInfo.image,
+        image: typeof editedUserInfo.profile === "string" ? editedUserInfo.profile : userInfo.profile,
         banner: typeof editedUserInfo.banner === "string" ? editedUserInfo.banner : userInfo.banner,
     }
     console.log("updatedInfo :", updatedInfo)
@@ -41,11 +41,10 @@ export const putUserInfo = async (
 
 /**
  * @function putUserProfileImage
- * @param userInfo 수정되지 않을 유저의 정보
  * @param profileImage 수정될 유저의 프로필 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserProfileImage = async (userInfo: MyUserInfoType, image: FormData): Promise<EditUserInfoType> => {
+export const putUserProfileImage = async (image: FormData): Promise<{ image: FormData }> => {
     const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
         method: "PUT",
         body: image,
@@ -53,31 +52,23 @@ export const putUserProfileImage = async (userInfo: MyUserInfoType, image: FormD
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
     const updatedProfile = await response.json()
     return {
-        ...userInfo,
         image: updatedProfile.image,
-        first: updatedProfile.first || false,
     }
 }
 
 /**
  * @function putUserBannerImage
- * @param userInfo 수정되지 않을 유저의 정보
- * @param bannerImage 수정될 유저의 배너 이미지 url
+ * @param image 수정될 유저의 배너 이미지 url
  * @returns 수정된 유저의 정보
  */
-export const putUserBannerImage = async (
-    userInfo: MyUserInfoType,
-    bannerImage: FormData,
-): Promise<EditUserInfoType> => {
+export const putUserBannerImage = async (image: FormData): Promise<{ image: FormData }> => {
     const response = await fetchFormMultipartAPI(USER_API_URL, "member/banner", {
         method: "PUT",
-        body: bannerImage,
+        body: image,
     })
     if (!response.ok) throw new Error("유저의 배너 이미지가 변경되지 못했어요...🥹")
     const updatedProfile = await response.json()
     return {
-        ...userInfo,
-        banner: updatedProfile.banner,
-        first: updatedProfile.first || false,
+        image: updatedProfile.image,
     }
 }
