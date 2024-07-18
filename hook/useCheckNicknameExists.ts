@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import { postMemberCheckExists } from "@/apis/auth/socialSignup"
-import { SocialSignupCheckExists } from "@/app/auth/_components/signup/type"
 
 const useCheckNicknameExists = () => {
     const [message, setMessage] = useState<string | null>(null)
