@@ -4,6 +4,7 @@ import CommentCount from "./commentCount"
 import CommentMenu from "./commentMenu"
 import { CommentContentsProps } from "./type"
 import { formatISODateString } from "@/utils/date.utils"
+import { useLoggedIn } from "@/libs/zustand/login"
 
 const CommentContents = ({
     author,
@@ -17,6 +18,7 @@ const CommentContents = ({
     setIsError,
     reComments,
 }: CommentContentsProps) => {
+    const { userInfo } = useLoggedIn()
     return (
         <div className="relative w-[1000px] bg-comment-pattern border-b-[1px] border-GREY-20 px-6 py-8">
             <div className="flex flex-row">
@@ -49,16 +51,18 @@ const CommentContents = ({
                             textSize="text-xxs"
                         />
                         <CommentCount size={16} commentCount={reComments ? reComments.length : 0} textSize="text-xxs" />
-                        <p
-                            onClick={() => onReplyClick(commentId)}
-                            className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"
-                        >
-                            {isReplying ? "답글 취소" : "답글"}
-                        </p>
+                        {userInfo?.nickname === author && (
+                            <p
+                                onClick={() => onReplyClick(commentId)}
+                                className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"
+                            >
+                                {isReplying ? "답글 취소" : "답글"}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="absolute top-4 right-5">
-                    <CommentMenu commentId={commentId} />
+                    <CommentMenu commentId={commentId} author={author} />
                 </div>
             </div>
         </div>

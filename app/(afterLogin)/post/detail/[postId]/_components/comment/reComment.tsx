@@ -32,7 +32,7 @@ const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
                 </div>
                 <div>
                     <div className="absolute top-4 right-5">
-                        <CommentMenu commentId={id} />
+                        <CommentMenu commentId={id} author={nickname} />
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ export type LikeToComments = {
 
 export type CommentMenuProps = {
     commentId: number
+    author?: string
 }
 
 export type LikeButtonProps = {
