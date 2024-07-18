@@ -21,9 +21,7 @@ const RecommendationHeader = ({ userInfo, getToken }: RecommendationHeaderProps)
                                 <span className="text-BRAND-50">{userInfo?.nickname}</span> 님을 위한 추천 기록
                             </>
                         ) : (
-                            <>
-                                <span className="text-BRAND-50">현재 </span>추천 기록
-                            </>
+                            <>추천 기록</>
                         )}
                     </p>
                 )}

@@ -61,13 +61,14 @@ const SearchPage = () => {
     const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
     const paginationPosts = filteredPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
     return (
-        <div className=" w--[1920px] px-[120px] flex flex-col justify-center items-center">
+        <div className=" w-[1920px] px-[120px] flex flex-col justify-center items-center">
             <div className="w-[1680px] h-fit py-10 flex flex-col justify-center items-center">
                 <FilterTabs />
-                <div className=" w-full h-fit">
+                <div className="w-full h-fit">
                     <div className="w-full h-fit flex flex-row items-center mt-6">
                         <h1 className="text-bg leading-[34px] font-semibold pb-4">TOP 기록</h1>
                     </div>
+
                     <RealTimeRecommendation />
                 </div>
                 <div className="w-full h-[2px] bg-SYSTEM-else02 my-[55px]" />
