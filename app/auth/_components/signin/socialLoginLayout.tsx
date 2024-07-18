@@ -12,7 +12,7 @@ interface LoginLayoutProps {
     handleMoveSocialLogin: (url: string, provider: "kakao" | "google" | "naver") => void
 }
 
-const SocialLoginLayout = ({ kakaoURL, naverURL, googleURL, handleMoveSocialLogin }: LoginLayoutProps) => {
+const SocialLoginLayout = ({ kakaoURL, googleURL, handleMoveSocialLogin }: LoginLayoutProps) => {
     const [isStillWorkingModalOpen, setIsStillWorkingModalOpen] = useState(false)
 
     const handleNaverLoginClick = () => {
