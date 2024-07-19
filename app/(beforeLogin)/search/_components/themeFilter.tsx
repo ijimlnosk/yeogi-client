@@ -34,7 +34,7 @@ const ThemeFilterTabs = () => {
     }
 
     return (
-        <div className="max-w-[1228px] w-fit h-fit px-6 my-4 border-[1px] border-BRAND-50 rounded-full flex justify-center items-center">
+        <div className="max-w-[1228px] w-fit h-fit px-5 my-4 border-[1px] border-BRAND-50 rounded-full flex justify-center items-center">
             {ThemeEntries.map(([key, value], idx) => (
                 <Button
                     key={key}

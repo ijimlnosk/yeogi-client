@@ -23,10 +23,14 @@ const RealTimeRecommendation = () => {
     const topPosts = posts?.slice(0, 3) || []
 
     return (
-        <div className=" grid grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3   gap-[81px]">
-            {topPosts.map((top, index) => (
-                <RankCard key={index} topPosts={top} rank={ranks[index]} topPostId={top.postId} />
-            ))}
+        <div className="w-full overflow-x-auto flex justify-center items-center">
+            <div className="w-[1920px] pl-[120px] min-w-max flex justify-center items-center gap-[81px]">
+                {topPosts.map((top, index) => (
+                    <div key={index} className="w-[600px] flex justify-center">
+                        <RankCard topPosts={top} rank={ranks[index]} topPostId={top.postId} />
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
