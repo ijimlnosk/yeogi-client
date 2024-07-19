@@ -45,14 +45,16 @@ const UserRecommendation = () => {
     }, [])
 
     return (
-        <div className="w-[480px] xl:w-[980px] 3xl:w-[1680px] mt-24">
-            <RecommendationHeader userInfo={userInfo} getToken={getToken} />
-            <PostList
-                currentPosts={currentPosts}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onChangePage={onChangePage}
-            />
+        <div className=" w-full overflow-x-auto flex flex-col justify-center items-center">
+            <div className="w-[1680px]  mt-24 px-4">
+                <RecommendationHeader userInfo={userInfo} getToken={getToken} />
+                <PostList
+                    currentPosts={currentPosts}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onChangePage={onChangePage}
+                />
+            </div>
         </div>
     )
 }

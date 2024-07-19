@@ -12,7 +12,7 @@ const RecommendationHeader = ({ userInfo, getToken }: RecommendationHeaderProps)
     }, [])
 
     return (
-        <div className="w-[480px] xl:w-[1080px] 3xl:w-full flex flex-row pb-10">
+        <div className="w-full flex flex-row pb-10">
             <div className="font-myeongjo text-xl">
                 {showContent && (
                     <p>
