@@ -19,6 +19,8 @@ export const Theme: ThemeType = {
     ACTIVITY: "액티비티",
     LUXURY: "초호화",
     COST_SAVING: "가성비",
+    HISTORY: "역사",
+    CULTURE: "문화",
 } as const
 
 export type Theme = (typeof Theme)[keyof typeof Theme]
