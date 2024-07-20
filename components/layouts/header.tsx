@@ -69,7 +69,7 @@ const Header = () => {
                 <div className="flex items-center">
                     <div className="ml-4 flex items-center space-x-12 font-medium">
                         <HeaderSearchBar />
-                        <HeaderLogin />
+                        <HeaderLogin isShowHeader={isShowHeader} />
                         <ProtectedLink href="/post/create">
                             <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
                                 <Image
