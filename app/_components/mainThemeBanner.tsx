@@ -4,7 +4,7 @@ import { ThemeBannerContext } from "@/constants/themeBannerTexts"
 import { Theme } from "@/types/theme"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 
 const MainThemeBanner = () => {
     const router = useRouter()
