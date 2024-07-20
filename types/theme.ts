@@ -8,6 +8,8 @@ export type ThemeKeys =
     | "PACKAGE"
     | "LUXURY"
     | "COST_SAVING"
+    | "HISTORY"
+    | "CULTURE"
 
 export const Theme: ThemeType = {
     REST: "휴식",
