@@ -1,5 +1,3 @@
-"use client"
-
 import { usePathname, useRouter } from "next/navigation"
 
 const HeaderNavigate = () => {
@@ -12,16 +10,16 @@ const HeaderNavigate = () => {
 
     return (
         <nav className="hidden md:block">
-            <ul className="w-full h-20  ml-8 flex justify-evenly items-center cursor-pointer">
+            <ul className="w-full h-20 ml-8 md:ml-4 flex justify-evenly items-center cursor-pointer">
                 <li
                     onClick={() => handleClick("/")}
-                    className={`text-SYSTEM-black  font-bold text-xs xl:text-sm  w-fit px-6 py-8 ${pathName === "/" ? "border-b-2 border-SYSTEM-black" : ""}`}
+                    className={`text-SYSTEM-black font-bold text-xs xl:text-sm w-fit px-6 py-8 md:px-3 ${pathName === "/" ? "border-b-2 border-SYSTEM-black" : ""}`}
                 >
                     커뮤니티
                 </li>
                 <li
                     onClick={() => handleClick("/survey")}
-                    className={`text-SYSTEM-black font-bold text-xs xl:text-sm  w-fit px-6 py-8 ${pathName === "/survey" ? "border-b-2 border-SYSTEM-black" : ""}`}
+                    className={`text-SYSTEM-black font-bold text-xs xl:text-sm w-fit px-6 py-8 md:px-3 ${pathName === "/survey" ? "border-b-2 border-SYSTEM-black" : ""}`}
                 >
                     내 취향 찾기
                 </li>

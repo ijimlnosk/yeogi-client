@@ -47,7 +47,7 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                             alt="profile"
                             width={48}
                             height={48}
-                            className={`rounded-full ${isImageLoading ? "invisible" : "visible"} ${isProfileClicked ? "border-2 border-BRAND-50" : ""} cursor-pointer `}
+                            className={`rounded-full ${isImageLoading ? "invisible" : "visible"} ${isProfileClicked ? "border-2 border-BRAND-50" : ""} cursor-pointer`}
                             onLoadingComplete={() => setIsImageLoading(false)}
                         />
                     )}
