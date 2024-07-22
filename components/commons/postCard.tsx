@@ -15,7 +15,7 @@ const PostCard = ({
     commentCount,
     country,
     user_nickname,
-    user_profile,
+    profile,
     thumbnail,
     created_At,
 }: PostCardProps) => {
@@ -56,11 +56,11 @@ const PostCard = ({
                     {/* 유저프로필 */}
                     <div className="flex gap-2">
                         <Image
-                            src={user_profile ? user_profile : SampleProfile}
+                            src={profile || SampleProfile}
                             width={24}
                             height={24}
                             alt="User Profile"
-                            className="rounded-[63px]"
+                            className="rounded-full w-6 h-6"
                         />
                         <p className="text-SYSTEM-black text-xxs">{user_nickname}</p>
                     </div>

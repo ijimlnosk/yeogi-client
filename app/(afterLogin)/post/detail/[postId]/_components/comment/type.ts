@@ -2,6 +2,7 @@ export type Comment = {
     id: number
     content: string
     nickname: string
+    profile: string
     postId: number
     createdAt: string
     modifiedAt: string
@@ -13,6 +14,7 @@ export type ReComments = {
     id: number
     content: string
     nickname: string
+    profile: string
     createdAt: string
     modifiedAt: string
     likeCount: number
@@ -72,6 +74,7 @@ export type CommentProps = {
     likes: number
     date: string
     author: string
+    profile: string
     initialLiked: boolean
     postId: number
     refetch: () => void

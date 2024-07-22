@@ -13,7 +13,7 @@ export type PostCardProps = {
     commentCount: number
     country: string
     user_nickname: string
-    user_profile: string
+    profile: string
     thumbnail: string | null
     created_At: string
 }

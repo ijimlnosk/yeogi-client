@@ -79,7 +79,7 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                                             commentCount={0}
                                             country={post.country}
                                             user_nickname={post.author}
-                                            user_profile={""}
+                                            profile={post.profile}
                                             thumbnail={"/images/sampleThumbnail.svg"}
                                             created_At={post.createdAt}
                                         />

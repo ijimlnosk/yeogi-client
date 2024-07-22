@@ -56,7 +56,16 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
                             <p className="pl-1 text-GREY-30">{topPosts.likeCount}</p>
                         </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row">
+                        <div className="w-6 h-6 mt-6 mr-2">
+                            <Image
+                                src={topPosts.profile}
+                                alt="user_profile"
+                                width={24}
+                                height={24}
+                                className="w-6 h-6 rounded-full"
+                            />
+                        </div>
                         <div className="pt-6 text-GREY-30">{topPosts.author}</div>
                     </div>
                 </div>

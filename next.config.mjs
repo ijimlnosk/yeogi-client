@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["source.unsplash.com", "lh3.googleusercontent.com", "ssl.pstatic.net", "k.kakaocdn.net"],
+        domains: [
+            "source.unsplash.com",
+            "lh3.googleusercontent.com",
+            "ssl.pstatic.net",
+            "k.kakaocdn.net",
+            "t1.kakaocdn.net",
+        ],
     },
     async rewrites() {
         return [

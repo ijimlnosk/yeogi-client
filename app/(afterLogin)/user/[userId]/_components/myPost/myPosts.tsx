@@ -37,7 +37,7 @@ const MyPost = ({ userInfo }: MyPostProps) => {
                             key={post.postId}
                             post_id={post.postId}
                             user_nickname={post.author}
-                            user_profile={`${userInfo.profile}`}
+                            profile={`${userInfo.profile}`}
                             thumbnail={TempImage}
                             title={post.title}
                             country={post.country}

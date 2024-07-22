@@ -14,6 +14,7 @@ const Comment = ({
     likes,
     date,
     author,
+    profile,
     initialLiked,
     postId,
     refetch,
@@ -40,6 +41,7 @@ const Comment = ({
                 <>
                     <CommentContents
                         author={author}
+                        profile={profile}
                         content={content}
                         date={date}
                         commentId={commentId}
@@ -58,6 +60,7 @@ const Comment = ({
                                     id={recomment.id}
                                     content={recomment.content}
                                     nickname={recomment.nickname}
+                                    profile={recomment.profile}
                                     createdAt={recomment.createdAt}
                                     modifiedAt={recomment.modifiedAt}
                                     likeCount={recomment.likeCount}
