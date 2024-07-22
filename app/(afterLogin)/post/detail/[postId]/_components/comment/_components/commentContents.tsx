@@ -26,7 +26,7 @@ const CommentContents = ({
                     <Image
                         width={48}
                         height={48}
-                        src={"/images/sampleProfile.svg"}
+                        src={"/images/user/sampleProfile.svg"}
                         className="rounded-full"
                         alt="user profile"
                     />
@@ -51,7 +51,7 @@ const CommentContents = ({
                             textSize="text-xxs"
                         />
                         <CommentCount size={16} commentCount={reComments ? reComments.length : 0} textSize="text-xxs" />
-                        {userInfo?.nickname === author && (
+                        {userInfo?.nickname && (
                             <p
                                 onClick={() => onReplyClick(commentId)}
                                 className="text-xxs text-BRAND-50 pl-2.5 hover:cursor-pointer"

@@ -12,7 +12,7 @@ const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
                     <Image
                         width={48}
                         height={48}
-                        src={"/images/sampleProfile.svg"}
+                        src={"/images/user/sampleProfile.svg"}
                         className="rounded-full"
                         alt="user profile"
                     />
