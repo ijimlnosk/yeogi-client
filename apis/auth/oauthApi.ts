@@ -1,4 +1,15 @@
-const POST_API_URL = "/auth"
+import { fetchWithTokenRefresh } from "../api.utils"
+import {
+    getRefreshToken,
+    removeCookieToken,
+    removeRefreshToken,
+    removeSessionToken,
+    setCookieToken,
+    setRefreshToken,
+    setSessionToken,
+} from "./storageUtils"
+
+const AUTH_API_URL = "/auth"
 const redirect_uri = "http://localhost:3000/auth"
 // const redirect_uri = "https://yeogi-client.vercel.app/auth"
 
@@ -21,7 +32,7 @@ const fetchAuthToken = async (
         throw new Error("코드를 받아오지 못했습니다.")
     }
     const response = await fetch(
-        `${POST_API_URL}/auth/generateToken/${provider}?code=${code}&redirect_uri=${redirect_uri}`,
+        `${AUTH_API_URL}/auth/generateToken/${provider}?code=${code}&redirect_uri=${redirect_uri}`,
         {
             method,
         },
@@ -48,6 +59,15 @@ export const postAuthCode = async (provider: string) => {
     const code = getCodeFromUrl()
     const state = getNaverStateUrl()
     const data = await fetchAuthToken(provider, code, redirect_uri, state, "POST")
+
+    if (data.accessToken) {
+        setSessionToken(data.accessToken)
+        setCookieToken(data.accessToken)
+    }
+    if (data.refreshToken) {
+        setRefreshToken(data.refreshToken)
+    }
+
     return data
 }
 
@@ -56,4 +76,39 @@ export const getAuthToken = async (provider: string) => {
     const code = getCodeFromUrl()
     const data = await fetchAuthToken(provider, code, redirect_uri, undefined, "GET")
     return data
+}
+
+// refreshToken 갱신 함수
+export const reissueTokens = async () => {
+    const refreshToken = getRefreshToken()
+    if (!refreshToken) throw new Error("어라, 리프레시 토큰이 없어요! 🧐")
+
+    const response = await fetch(`${AUTH_API_URL}/auth/reissue`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${refreshToken}`,
+        },
+    })
+    if (!response.ok) throw new Error("리프레시 토큰 갱신에 실패했어요...🥺")
+
+    const data = await response.json()
+    setSessionToken(data.accessToken)
+    setCookieToken(data.accessToken)
+    setRefreshToken(data.refreshToken)
+
+    return data
+}
+
+// 로그아웃 함수
+export const logout = async () => {
+    try {
+        await fetchWithTokenRefresh(`${AUTH_API_URL}/auth/logout`, {
+            method: "DELETE",
+        })
+    } finally {
+        removeSessionToken()
+        removeCookieToken()
+        removeRefreshToken()
+    }
 }

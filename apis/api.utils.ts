@@ -1,4 +1,5 @@
-import { getCookieToken } from "@/apis/auth/storageUtils"
+import { getCookieToken, getSessionToken } from "@/apis/auth/storageUtils"
+import { logout, reissueTokens } from "./auth/oauthApi"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
     const token = getCookieToken()
@@ -40,5 +41,34 @@ export const fetchFormMultipartAPI = async (api: string, endPoint: string, optio
         console.error("Server error response:", errorBody)
         throw new Error(`유저의 이미지가 변경되지 못했어요...🥹 서버 응답: ${errorBody}`)
     }
+    return response
+}
+
+export const fetchWithTokenRefresh = async (url: string, options: RequestInit) => {
+    const token = getCookieToken() || getSessionToken()
+    let response = await fetch(url, {
+        ...options,
+        headers: {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+        },
+    })
+
+    if (response.status === 401) {
+        try {
+            const newTokens = await reissueTokens()
+            response = await fetch(url, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    Authorization: `Bearer ${newTokens.accessToken}`,
+                },
+            })
+        } catch {
+            await logout()
+            throw new Error("이런! 인증에 실패했습니다, 다시 로그인해주세요. 😔")
+        }
+    }
+
     return response
 }

@@ -1,11 +1,18 @@
 import { useRouter } from "next/navigation"
 import { UserDialogProps } from "./type"
+import { useLogout } from "@/libs/reactQuery/useLogout"
 
 const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
     const router = useRouter()
+    const logout = useLogout()
 
     const navigateMypage = () => {
         router.push(`/user/${userId}`)
+        setIsProfileClicked(false)
+    }
+
+    const handleLogout = () => {
+        logout.mutate()
         setIsProfileClicked(false)
     }
 
@@ -15,7 +22,7 @@ const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
                 <p>마이페이지</p>
             </div>
             <div className="w-[60px] h-[1px] bg-GREY-20"></div>
-            <div onClick={() => {}} className="cursor-pointer">
+            <div onClick={handleLogout} className="cursor-pointer">
                 <p>로그아웃</p>
             </div>
         </div>
