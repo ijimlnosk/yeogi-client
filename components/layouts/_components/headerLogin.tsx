@@ -5,10 +5,7 @@ import ProtectedLink from "@/components/commons/protectedLink"
 import { useEffect, useState } from "react"
 import { useLoggedIn } from "@/libs/zustand/login"
 import UserDialog from "./userDialog"
-
-export type HeaderLoginProps = {
-    isShowHeader: boolean
-}
+import { HeaderLoginProps } from "./type"
 
 const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
     const [profileImage, setProfileImage] = useState<string>("/images/sampleProfile.svg")
@@ -29,11 +26,7 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
             return userInfo.profile
         }
         /* if (userInfo?.profile_image) {return userInfo.profile_image} */
-        return "/images/sampleProfile.svg"
-    }
-
-    const handleImageLoad = () => {
-        setIsImageLoading(false)
+        return "/images/user/sampleProfile.svg"
     }
 
     return (
@@ -41,7 +34,7 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
             {isLoggedIn ? (
                 <div
                     onClick={() => setIsProfileClicked(prev => !prev)}
-                    className="w-12 h-12 overflow-hidden rounded-full relative"
+                    className="overflow-hidden rounded-full relative"
                 >
                     {isImageLoading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-full">
@@ -54,8 +47,8 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                             alt="profile"
                             width={48}
                             height={48}
-                            className={`rounded-full ${isImageLoading ? "invisible" : "visible"}`}
-                            onLoadingComplete={handleImageLoad}
+                            className={`rounded-full ${isImageLoading ? "invisible" : "visible"} ${isProfileClicked ? "border-2 border-BRAND-50" : ""} cursor-pointer `}
+                            onLoadingComplete={() => setIsImageLoading(false)}
                         />
                     )}
                 </div>
@@ -64,7 +57,9 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                     <ProtectedLink href="/auth">로그인</ProtectedLink>
                 </div>
             )}
-            {isShowHeader && isProfileClicked && <UserDialog />}
+            {isShowHeader && isProfileClicked && (
+                <UserDialog userId={userInfo?.id} setIsProfileClicked={setIsProfileClicked} />
+            )}
         </>
     )
 }
