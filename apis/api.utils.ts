@@ -1,7 +1,8 @@
-import { getCookieToken } from "@/apis/auth/storageUtils"
+import { logout, reissueTokens } from "./auth/oauthApi"
+import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getCookieToken()
+    const token = getAccessToken()
 
     const response = await fetch(`${api}/${endPoint}`, {
         ...options,
@@ -26,7 +27,7 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
 }
 
 export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getCookieToken()
+    const token = getAccessToken()
     const headers = new Headers(options.headers)
     headers.delete("Content-Type") // FormData인 경우 headers에서 'Content-Type'을 직접 제거
     headers.set("Authorization", `Bearer ${token}`)
@@ -40,5 +41,34 @@ export const fetchFormMultipartAPI = async (api: string, endPoint: string, optio
         console.error("Server error response:", errorBody)
         throw new Error(`유저의 이미지가 변경되지 못했어요...🥹 서버 응답: ${errorBody}`)
     }
+    return response
+}
+
+export const fetchWithTokenRefresh = async (url: string, options: RequestInit) => {
+    const token = getAccessToken()
+    let response = await fetch(url, {
+        ...options,
+        headers: {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+        },
+    })
+
+    if (response.status === 401) {
+        try {
+            const newTokens = await reissueTokens()
+            response = await fetch(url, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    Authorization: `Bearer ${newTokens.accessToken}`,
+                },
+            })
+        } catch {
+            await logout()
+            throw new Error("이런! 인증에 실패했습니다, 다시 로그인해주세요. 😔")
+        }
+    }
+
     return response
 }

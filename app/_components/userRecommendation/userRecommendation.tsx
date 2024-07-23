@@ -4,7 +4,7 @@ import { getUserInfo } from "@/apis/userApi"
 import { useEffect, useState } from "react"
 import { Post } from "@/types/post"
 import { getPost } from "@/apis/postApi"
-import { getCookieToken } from "@/apis/auth/storageUtils"
+import { getAccessToken } from "@/apis/auth/token/access.utils"
 import { useRecommendPagination } from "@/hook/useRecommendPagination"
 import PostList from "./PostList"
 import { UserInfo } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
@@ -25,7 +25,7 @@ const UserRecommendation = () => {
         itemsPerPage: postsPerPage,
     })
 
-    const getToken = getCookieToken()
+    const getToken = getAccessToken()
 
     useEffect(() => {
         const fetchUser = async () => {

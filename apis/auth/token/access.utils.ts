@@ -1,14 +1,8 @@
-export const setSessionToken = (token: string): void => {
-    sessionStorage.setItem("accessToken", token)
-}
-
-export const getSessionToken = () => {
-    return sessionStorage.getItem("accessToken")
-}
-export const setCookieToken = (token: string): void => {
+export const setAccessToken = (token: string): void => {
     document.cookie = `accessToken=${token}; path=/;`
 }
-export const getCookieToken = () => {
+
+export const getAccessToken = () => {
     if (typeof document !== "undefined") {
         const cookies = document.cookie.split(";")
         for (let i = 0; i < cookies.length; i++) {
@@ -20,4 +14,10 @@ export const getCookieToken = () => {
         }
     }
     return null
+}
+
+export const removeAccessToken = (): void => {
+    if (typeof document !== "undefined") {
+        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    }
 }
