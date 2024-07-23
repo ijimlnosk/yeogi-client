@@ -23,16 +23,20 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
             className="w-[506px] h-[400px] relative bg-SYSTEM-white rounded-3xl p-4 overflow-hidden cursor-pointer group"
         >
             <div className=" absolute w-full h-full top-0 left-0 bg-SYSTEM-black">
-                <Image
-                    src={"/images/rankCardThumbnail.svg"}
-                    alt="thumbnail"
-                    width={506}
-                    height={400}
-                    className=" absolute top-0 left-0 opacity-70 group-hover:opacity-30 transition-opacity duration-300 "
-                />
+                <div className=" absolute w-[506px] h-[400px]">
+                    <Image
+                        src={"/images/rankCardThumbnail.svg"}
+                        alt="thumbnail"
+                        fill
+                        className=" w-auto h-auto top-0 left-0 opacity-70 group-hover:opacity-30 transition-opacity duration-300 "
+                    />
+                </div>
             </div>
-            <div className=" absolute flex flex-row ">
-                <Image src={"/icons/white_gps.svg"} alt="gps" width={16} height={16} />
+            <div className=" absolute flex flex-row justify-center items-center ">
+                <div className=" relative w-4 h-4">
+                    <Image src={"/icons/white_gps.svg"} alt="gps" fill className="w-auto h-auto object-contain " />
+                </div>
+
                 <p className="pl-1 text-SYSTEM-white text-sm font-semibold">{topPosts.country}</p>
             </div>
             <div
@@ -47,12 +51,26 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
                 </div>
                 <div className="flex justify-between">
                     <div className="flex flex-row gap-3 pt-6">
-                        <div className="flex flex-row">
-                            <Image src={"/icons/comment.svg"} alt="comment" width={16} height={16} />
+                        <div className="flex flex-row  justify-center items-center">
+                            <div className=" relative w-4 h-4">
+                                <Image
+                                    src={"/icons/comment.svg"}
+                                    alt="comment"
+                                    fill
+                                    className="w-auto h-auto object-contain"
+                                />
+                            </div>
                             <p className="pl-1 text-GREY-30">{topPosts.commentCount}</p>
                         </div>
-                        <div className="flex flex-row">
-                            <Image src={"/icons/like.svg"} alt="comment" width={16} height={16} />
+                        <div className="flex flex-row justify-center items-center">
+                            <div className=" relative w-4 h-4">
+                                <Image
+                                    src={"/icons/like.svg"}
+                                    alt="comment"
+                                    fill
+                                    className=" w-auto h-auto object-contain"
+                                />
+                            </div>
                             <p className="pl-1 text-GREY-30">{topPosts.likeCount}</p>
                         </div>
                     </div>

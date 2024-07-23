@@ -58,9 +58,9 @@ const MainThemeBanner = () => {
                                         <Image
                                             src={`/images/${key}.svg`}
                                             alt={key}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            className="rounded-lg opacity-70"
+                                            fill
+                                            sizes="100vw"
+                                            className="rounded-lg opacity-70 object-cover"
                                         />
                                     </div>
                                     <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">

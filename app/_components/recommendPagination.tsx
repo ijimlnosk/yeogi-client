@@ -18,7 +18,9 @@ const RecommendPagination = ({ currentPage, totalPages, onChangePage }: Recommen
                 disabled={currentPage === 1}
                 className="w-6 h-6 flex items-center pb-[2px] pr-[1px] justify-center"
             >
-                <Image src={"/icons/btn_prev.svg"} alt="prev" width={24} height={24} />
+                <div className=" relative w-6 h-6">
+                    <Image src={"/icons/btn_prev.svg"} alt="prev" fill className="w-auto h-auto object-contain" />
+                </div>
             </button>
             <div className="w-[76px] flex justify-center items-center text-GREY-80">
                 <span className=" text-BRAND-50 px-2.5">{currentPage}</span> /{" "}
@@ -27,9 +29,9 @@ const RecommendPagination = ({ currentPage, totalPages, onChangePage }: Recommen
             <button
                 onClick={() => onChangePage("next")}
                 disabled={currentPage === totalPages}
-                className="w-6 h-6 flex items-center pb-[2px] pl-[1px] justify-cente"
+                className=" relative w-6 h-6 flex items-center pb-[2px] pl-[1px] justify-cente"
             >
-                <Image src={"/icons/btn_next.svg"} alt="prev" width={24} height={24} />
+                <Image src={"/icons/btn_next.svg"} alt="prev" fill className="w-auto h-auto object-contain" />
             </button>
         </div>
     )
