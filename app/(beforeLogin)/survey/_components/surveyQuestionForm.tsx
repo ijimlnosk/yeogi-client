@@ -41,13 +41,14 @@ const SurveyQuestionForm = () => {
                                 <p className="px-6">{question.choice2.title}</p>
                             </div>
                             {currentIndex > 0 && (
-                                <div className="w-[530px] flex justify-end">
-                                    <Button onClick={handlePrev} className="py-2 gap-2">
+                                <div className="w-[530px] flex justify-end ">
+                                    <Button onClick={handlePrev} className="py-2 gap-2 bg-SYSTEM-white">
                                         <Image
                                             src={"/icons/black_arrow_left.svg"}
                                             alt="left black arrow"
                                             width={24}
                                             height={24}
+                                            className="w-6 h-6"
                                         />
                                         이전
                                     </Button>
