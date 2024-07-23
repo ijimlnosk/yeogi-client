@@ -4,7 +4,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { PaginationNumberProps, PaginationProps } from "./type"
-import { generatePagination, hasNextGroup } from "@/utils/pagination.utils"
+import { generatePagination } from "@/utils/pagination.utils"
 
 /**
  * @function Pagination
@@ -22,10 +22,9 @@ const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
 
-    const allPages = generatePagination(currentPage, totalPages)
-    const prevDisabled = currentPage <= 5
-    const nextDisabled = !hasNextGroup(currentPage, totalPages)
-
+    const pageNumbers = generatePagination(currentPage, totalPages)
+    const prevDisabled = currentPage <= 1
+    const nextDisabled = currentPage >= totalPages
     /**
      * @function createPageURL URL 생성 함수
      * @param pageNumber 페이지 번호
@@ -36,30 +35,40 @@ const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
         params.set("page", pageNumber.toString())
         return `${pathname}?${params.toString()}`
     }
+    const goToPreviousPage = () => {
+        return createPageURL(Math.max(currentPage - 1, 1))
+    }
+
+    const goToNextPage = () => {
+        return createPageURL(Math.min(currentPage + 1, totalPages))
+    }
 
     return (
         <div className="flex flex-row justify-center items-center font-pretendard text-xxs text-GREY-80">
-            <Link href={createPageURL(Math.max(currentPage - 1, 1))}>
-                <button disabled={prevDisabled}>&lt; 이전</button>
+            <Link href={goToPreviousPage()}>
+                <button disabled={prevDisabled} className={prevDisabled ? "opacity-50 cursor-not-allowed" : ""}>
+                    &lt; 이전
+                </button>
             </Link>
             <div className="flex flex-row justify-center items-center mx-4">
-                {allPages.map((page, index) => {
-                    return (
-                        <PaginationNumber
-                            key={index}
-                            href={createPageURL(page)}
-                            page={page}
-                            isActive={currentPage === page}
-                        />
-                    )
-                })}
+                {pageNumbers.map(page => (
+                    <PaginationNumber
+                        key={page}
+                        href={createPageURL(page)}
+                        page={page}
+                        isActive={currentPage === page}
+                    />
+                ))}
             </div>
-            <Link href={createPageURL(currentPage + 1)}>
-                <button disabled={nextDisabled}>다음 &gt;</button>
+            <Link href={goToNextPage()}>
+                <button disabled={nextDisabled} className={nextDisabled ? "opacity-50 cursor-not-allowed" : ""}>
+                    다음 &gt;
+                </button>
             </Link>
         </div>
     )
 }
+
 export default Pagination
 /**
  * @function PaginationNumber 각 페이지 번호를 렌더링
