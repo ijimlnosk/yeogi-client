@@ -23,7 +23,7 @@ const RecommendPagination = ({ currentPage, totalPages, onChangePage }: Recommen
                 </div>
             </button>
             <div className="w-[76px] flex justify-center items-center text-GREY-80">
-                <span className=" text-BRAND-50 px-2.5">{currentPage}</span> /{" "}
+                <span className=" text-BRAND-50 px-2.5">{currentPage}</span>/
                 <span className="px-2.5">{totalPages}</span>
             </div>
             <button
