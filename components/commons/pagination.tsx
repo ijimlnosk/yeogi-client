@@ -8,14 +8,11 @@ import { generatePagination } from "@/utils/pagination.utils"
 
 /**
  * @function Pagination
- * @param totalPages 전체 페이지
- * @param currentPage URL의 page 매개변수에서 가져옴 (기본값 = 1)
- * @const pathname 현재 경로
- * @const searchParams URL의 검색 매개변수
- * @const allPages generatePagination 함수를 사용하여 현재 페이지와 전체 페이지 수에 기반하여 표시할 페이지 목록을 생성
- * @const prevDisabled 현재 페이지가 5 이하일 경우 true로 설정하여 이전 버튼을 비활성화
- * @const nextDisabled 다음 그룹이 없을 경우 true로 설정하여 다음 버튼을 비활성화
- * @returns 화면에 렌더될 숫자 버튼 배열과 이전, 다음 버튼을 반환
+ * @param {number} totalPages - 전체 페이지 수
+ * @param {number} currentPage - 현재 페이지 번호
+ * @returns {JSX.Element} 페이지네이션 컴포넌트
+ * @description 페이지네이션을 렌더링하는 컴포넌트. 현재 페이지를 중심으로 페이지 번호들을 표시하고,
+ * 이전/다음 페이지로 이동할 수 있는 버튼을 제공.
  */
 
 const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
@@ -35,10 +32,12 @@ const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
         params.set("page", pageNumber.toString())
         return `${pathname}?${params.toString()}`
     }
+
+    //현재 페이지의 이전 페이지 URL 생성, 첫페이지일 경우 현재 페이지 URL 반환
     const goToPreviousPage = () => {
         return createPageURL(Math.max(currentPage - 1, 1))
     }
-
+    //현재 페이지의 다음 페이지 URL 생성, 마지막 페이지인경우 현재 페이지 URL 반환
     const goToNextPage = () => {
         return createPageURL(Math.min(currentPage + 1, totalPages))
     }
