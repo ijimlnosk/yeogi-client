@@ -5,7 +5,7 @@ import { getCodeFromUrl, postAuthCode } from "@/apis/auth/oauthApi"
 import { useRouter } from "next/navigation"
 import SocialLoginLayout from "./_components/signin/socialLoginLayout"
 import AddInfoForm from "./_components/signup/addInfoForm"
-import { SocialSignupResponse } from "@/hook/type"
+import { SocialSignupResponse } from "@/libs/reactQuery/type"
 import { setAccessToken } from "@/apis/auth/token/access.utils"
 import { setRefreshToken } from "@/apis/auth/token/refresh.utils"
 

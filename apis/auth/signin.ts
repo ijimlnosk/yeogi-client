@@ -1,5 +1,6 @@
 import { UserRequest } from "@/app/auth/_components/signin/type"
-import { UserResponse } from "@/hook/type"
+import { UserResponse } from "@/libs/reactQuery/type"
+
 const BASE_URL = "/auth"
 
 export const postLogin = async (data: UserRequest): Promise<UserResponse> => {
