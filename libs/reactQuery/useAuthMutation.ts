@@ -77,8 +77,5 @@ export const useLogout = () => {
             queryClient.clear()
             router.push("/")
         },
-        onError: error => {
-            console.error("Logout failed:", error)
-        },
     })
 }

@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation"
 import { UserDialogProps } from "./type"
-import { useLogout } from "@/libs/reactQuery/useLogout"
+import { useLogout } from "@/libs/reactQuery/useAuthMutation"
 
 const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
     const router = useRouter()
