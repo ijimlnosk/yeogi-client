@@ -47,33 +47,38 @@ export const LeftGroup = () => {
                         loading="lazy"
                         alt="travel image"
                     />
-                    <Image
-                        width={450}
-                        height={665}
-                        src={Travel02}
-                        priority
-                        fetchPriority="high"
-                        className="w-[450px] h-[665px] pt-[2%] right-[98%] xl:pt-0 relative 4xl:top-[70px] 2xl:right-0 xl:right-[50%] lg:right-[60%] md:right-[80%] sm:right-[90%]"
-                        alt="travel image"
-                    />
-                    <Image
-                        width={525}
-                        height={340}
-                        src={Travel03}
-                        fetchPriority="high"
-                        className="w-[525px] h-[340px] absolute top-[40%] 4xl:top-[56%] 4xl:left-[580px] 2xl:left-[44%] bottom-0 xl:left-[14%] xl:bottom-10 md:left-[130px] md:top-[47%] sm:right-[26%] sm:top-[42%]"
-                        alt="travel image"
-                        priority
-                    />
-                    <Image
-                        width={315}
-                        height={392}
-                        src={Stamp04}
-                        fetchPriority="high"
-                        className="w-[315px] h-[392px] absolute top-[46%] bottom-[-17%] -z-10 4xl:left-[-30px] 4xl:top-[74%] 3xl:top-[80%] xl:right-[67%] xl:top-[61%] sm:right-[67%] sm:top-[61%] opacity-10"
-                        alt="travel stamp"
-                        loading="lazy"
-                    />
+                    <div className=" relative w-[450px] h-[665px] pt-[2%] right-[98%] xl:pt-0 4xl:top-[70px] 2xl:right-0 xl:right-1/2 lg:right-[60%] md:right-[80%] sm:right-[90%]">
+                        <Image
+                            fill
+                            src={Travel02}
+                            priority
+                            fetchPriority="high"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="w-auto h-auto "
+                            alt="travel image"
+                        />
+                    </div>
+                    <div className="w-[525px] h-[340px] absolute top-[40%] 4xl:top-[56%] 4xl:left-[580px] 2xl:left-[44%] bottom-0 xl:left-[14%] xl:bottom-10 md:left-[130px] md:top-[47%] sm:right-[26%] sm:top-[42%]">
+                        <Image
+                            fill
+                            src={Travel03}
+                            fetchPriority="high"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="w-auto h-auto "
+                            alt="travel image"
+                            priority
+                        />
+                    </div>
+                    <div className="w-[315px] h-[392px] absolute top-[46%] bottom-[-17%] -z-10 4xl:left-[-30px] 4xl:top-[74%] 3xl:top-[80%] xl:right-[67%] xl:top-[61%] sm:right-[67%] sm:top-[61%] opacity-10">
+                        <Image
+                            fill
+                            src={Stamp04}
+                            fetchPriority="high"
+                            className=" w-auto h-auto"
+                            alt="travel stamp"
+                            priority
+                        />
+                    </div>
                 </>
             )}
         </div>
@@ -101,33 +106,36 @@ export const RightGroup = () => {
                 </>
             ) : (
                 <>
-                    <Image
-                        width={215}
-                        height={335}
-                        src={Memo}
-                        fetchPriority="high"
-                        className="w-[215px] h-[335px] absolute top-[6.3%] right-0 z-10"
-                        alt="travel memo"
-                        loading="lazy"
-                    />
-                    <Image
-                        width={467}
-                        height={260}
-                        src={Stamp01}
-                        fetchPriority="high"
-                        className="w-[467px] h-[260px] absolute top-[30%] right-[-10%]"
-                        alt="travel stamp"
-                        loading="lazy"
-                    />
-                    <Image
-                        width={129}
-                        height={400}
-                        src={Stamp02}
-                        fetchPriority="high"
-                        className="w-[129px] h-[400px] absolute top-[41%] right-0"
-                        alt="travel stamp"
-                        loading="lazy"
-                    />
+                    <div className="w-[215px] h-[335px] absolute top-[6.3%] right-0 z-10">
+                        <Image
+                            fill
+                            src={Memo}
+                            fetchPriority="high"
+                            className=" w-auto h-auto"
+                            alt="travel memo"
+                            loading="lazy"
+                        />
+                    </div>
+                    <div className="w-[467px] h-[260px] absolute top-[30%] right-[-10%]">
+                        <Image
+                            fill
+                            src={Stamp01}
+                            fetchPriority="high"
+                            className=" w-auto h-auto"
+                            alt="travel stamp"
+                            loading="lazy"
+                        />
+                    </div>
+                    <div className="w-[129px] h-[400px] absolute top-[41%] right-0">
+                        <Image
+                            fill
+                            src={Stamp02}
+                            fetchPriority="high"
+                            className=" w-auto h-auto"
+                            alt="travel stamp"
+                            loading="lazy"
+                        />
+                    </div>
                 </>
             )}
         </div>

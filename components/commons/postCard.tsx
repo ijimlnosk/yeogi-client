@@ -21,18 +21,19 @@ const PostCard = ({
 }: PostCardProps) => {
     const randomThumbnail = generateRandomThumbnail()
     return (
-        <div className="w-[360px] h-[381px] rounded-[24px] bg-SYSTEM-white overflow-hidden shadow-lg relative">
+        <div className="w-[360px] h-[381px] rounded-3xl bg-SYSTEM-white overflow-hidden shadow-lg relative">
             <Link href={`/post/detail/${post_id}`}>
                 {/* 게시글 썸네일 이미지 */}
-                <Image
-                    width={360}
-                    height={244}
-                    className="object-cover"
-                    src={thumbnail ?? randomThumbnail}
-                    alt="post thumbnail"
-                />
+                <div className="w-[360px] h-[244px] relative">
+                    <Image
+                        fill
+                        className=" w-auto h-auto object-cover"
+                        src={thumbnail ?? randomThumbnail}
+                        alt="post thumbnail"
+                    />
+                </div>
                 {/* 유저가 방문한 대륙 표시 */}
-                <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-[32px] bg-SYSTEM-white rounded-[8px] shadow-md">
+                <div className="absolute top-5 left-5 inline-flex gap-[2px] px-[7px] py-1 pl-[5px] items-center justify-start w-auto h-8 bg-SYSTEM-white rounded-lg shadow-md">
                     <Image src={locationIcon} alt="location_Icon" width={16} height={16} />
                     <p className="text-sm text-BRAND-50">{country}</p>
                 </div>
@@ -45,11 +46,25 @@ const PostCard = ({
                 <div className="px-5 flex justify-between items-center ">
                     <div className="bg-SYSTEM-white flex gap-3">
                         <div className="flex items-center gap-[3px]">
-                            <Image src={likeIcon} alt="like_Icon" width={16} height={16} className="mb-1" />
+                            <div className=" relative w-4 h-4">
+                                <Image
+                                    src={likeIcon}
+                                    alt="like_Icon"
+                                    fill
+                                    className="mb-1 w-auto h-auto object-contain"
+                                />
+                            </div>
                             <p className="text-GREY-50 text-xxs">{likeCount} 개</p>
                         </div>
                         <div className="flex gap-[3px]">
-                            <Image src={commentIcon} alt="comment_Icon" width={16} height={16} />
+                            <div className="w-4 h-4 relative">
+                                <Image
+                                    src={commentIcon}
+                                    alt="comment_Icon"
+                                    fill
+                                    className="w-auto h-auto object-contain"
+                                />
+                            </div>
                             <p className="text-GREY-50  text-xxs">{commentCount} 개</p>
                         </div>
                     </div>
