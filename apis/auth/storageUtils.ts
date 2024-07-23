@@ -5,7 +5,6 @@ export const setSessionToken = (token: string): void => {
 export const getSessionToken = () => {
     return sessionStorage.getItem("accessToken")
 }
-
 export const setCookieToken = (token: string): void => {
     document.cookie = `accessToken=${token}; path=/;`
 }

@@ -11,7 +11,6 @@ export const postLogin = async (data: UserRequest): Promise<UserResponse> => {
         if (!response.ok) {
             throw new Error("로그인 요청에 실패하였습니다.")
         }
-
         const user = await response.json()
         return user
     } catch (error) {
