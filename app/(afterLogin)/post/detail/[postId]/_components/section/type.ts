@@ -1,5 +1,4 @@
 import { Post } from "@/types/post"
-import { Comment } from "../comment/type"
 
 export type PostDetailSectionProps = {
     post: Post
@@ -12,8 +11,6 @@ export type FloatingSectionProps = {
 export type CommentSectionProps = {
     postId: number
     post: Post
-    comments: Comment[]
-    refetchComments: () => void
 }
 /**
  * @property {number} lat - 위도
