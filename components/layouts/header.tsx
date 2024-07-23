@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import ProtectedLink from "../commons/protectedLink"
-import { getCookieToken } from "@/apis/auth/storageUtils"
 import { getUserInfo } from "@/apis/userApi"
 import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
 import { useLoggedIn } from "@/libs/zustand/login"
+import { getAccessToken } from "@/apis/auth/token/access.utils"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
@@ -40,7 +40,7 @@ const Header = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             await new Promise(resolve => setTimeout(resolve, 1000))
-            const token = getCookieToken()
+            const token = getAccessToken()
             if (token) {
                 setIsLoggedIn(true)
                 const response = await getUserInfo()

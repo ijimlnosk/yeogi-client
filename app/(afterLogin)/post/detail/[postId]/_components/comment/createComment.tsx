@@ -5,7 +5,7 @@ import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 import Button from "@/components/commons/button"
 import { useCreateComment } from "@/libs/reactQuery/useCommentMutation"
-import { getCookieToken } from "@/apis/auth/storageUtils"
+import { getAccessToken } from "@/apis/auth/token/access.utils"
 import { useLoggedIn } from "@/libs/zustand/login"
 import { postCommentRequest } from "@/libs/reactQuery/type"
 
@@ -18,7 +18,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
 
     useEffect(() => {
         const checkLoginStatus = async () => {
-            const token = getCookieToken()
+            const token = getAccessToken()
             if (token) {
                 setIsLoggedIn(true)
             } else {

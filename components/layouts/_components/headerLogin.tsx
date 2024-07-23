@@ -25,7 +25,6 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
         if (userInfo?.profile) {
             return userInfo.profile
         }
-        /* if (userInfo?.profile_image) {return userInfo.profile_image} */
         return "/images/user/sampleProfile.svg"
     }
 

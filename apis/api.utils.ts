@@ -1,8 +1,8 @@
-import { getCookieToken, getSessionToken } from "@/apis/auth/storageUtils"
 import { logout, reissueTokens } from "./auth/oauthApi"
+import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getCookieToken()
+    const token = getAccessToken()
 
     const response = await fetch(`${api}/${endPoint}`, {
         ...options,
@@ -27,7 +27,7 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
 }
 
 export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getCookieToken()
+    const token = getAccessToken()
     const headers = new Headers(options.headers)
     headers.delete("Content-Type") // FormData인 경우 headers에서 'Content-Type'을 직접 제거
     headers.set("Authorization", `Bearer ${token}`)
@@ -45,7 +45,7 @@ export const fetchFormMultipartAPI = async (api: string, endPoint: string, optio
 }
 
 export const fetchWithTokenRefresh = async (url: string, options: RequestInit) => {
-    const token = getCookieToken() || getSessionToken()
+    const token = getAccessToken()
     let response = await fetch(url, {
         ...options,
         headers: {

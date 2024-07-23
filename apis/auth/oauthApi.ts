@@ -1,13 +1,6 @@
-import { fetchWithTokenRefresh } from "../api.utils"
-import {
-    getRefreshToken,
-    removeCookieToken,
-    removeRefreshToken,
-    removeSessionToken,
-    setCookieToken,
-    setRefreshToken,
-    setSessionToken,
-} from "./storageUtils"
+import { fetchFormAPI } from "../api.utils"
+import { removeAccessToken, setAccessToken } from "./token/access.utils"
+import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./token/refresh.utils"
 
 const AUTH_API_URL = "/auth"
 const redirect_uri = "http://localhost:3000/auth"
@@ -61,8 +54,7 @@ export const postAuthCode = async (provider: string) => {
     const data = await fetchAuthToken(provider, code, redirect_uri, state, "POST")
 
     if (data.accessToken) {
-        setSessionToken(data.accessToken)
-        setCookieToken(data.accessToken)
+        setAccessToken(data.accessToken)
     }
     if (data.refreshToken) {
         setRefreshToken(data.refreshToken)
@@ -75,6 +67,9 @@ export const postAuthCode = async (provider: string) => {
 export const getAuthToken = async (provider: string) => {
     const code = getCodeFromUrl()
     const data = await fetchAuthToken(provider, code, redirect_uri, undefined, "GET")
+    if (data.accessToken) setAccessToken(data.accessToken)
+    if (data.refreshToken) setRefreshToken(data.refreshToken)
+
     return data
 }
 
@@ -83,18 +78,17 @@ export const reissueTokens = async () => {
     const refreshToken = getRefreshToken()
     if (!refreshToken) throw new Error("어라, 리프레시 토큰이 없어요! 🧐")
 
-    const response = await fetch(`${AUTH_API_URL}/auth/reissue`, {
+    const response = await fetchFormAPI(AUTH_API_URL, "/auth/reissue", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${refreshToken}`,
+            Refresh: `${refreshToken}`,
         },
     })
     if (!response.ok) throw new Error("리프레시 토큰 갱신에 실패했어요...🥺")
 
     const data = await response.json()
-    setSessionToken(data.accessToken)
-    setCookieToken(data.accessToken)
+    setAccessToken(data.accessToken)
     setRefreshToken(data.refreshToken)
 
     return data
@@ -102,13 +96,17 @@ export const reissueTokens = async () => {
 
 // 로그아웃 함수
 export const logout = async () => {
+    const refreshToken = getRefreshToken()
     try {
-        await fetchWithTokenRefresh(`${AUTH_API_URL}/auth/logout`, {
-            method: "DELETE",
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}auth/logout`, {
+            method: "POST",
+            headers: { Refresh: `${refreshToken}` },
         })
-    } finally {
-        removeSessionToken()
-        removeCookieToken()
+        removeAccessToken()
         removeRefreshToken()
+        window.location.reload()
+        return response
+    } catch {
+        throw new Error("어머! 로그아웃을 시도하셨군요? 하지만 나가실 수 없어요...😔")
     }
 }

@@ -1,8 +1,10 @@
+"use client"
+
 import { postLogin } from "@/apis/auth/signin"
 import { UserRequest } from "@/app/auth/_components/signin/type"
 import { useMutation } from "@tanstack/react-query"
 import { SigninResult, UserResponse } from "./type"
-import { setCookieToken, setSessionToken } from "@/apis/auth/storageUtils"
+import { setAccessToken } from "@/apis/auth/token/access.utils"
 import { useState } from "react"
 
 const useSignin = (): SigninResult => {
@@ -21,8 +23,7 @@ const useSignin = (): SigninResult => {
             return response
         },
         onSuccess: data => {
-            setSessionToken(data.accessToken)
-            setCookieToken(data.accessToken)
+            setAccessToken(data.accessToken)
             handleOverlay(true, "success")
         },
         onError: () => {
