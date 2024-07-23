@@ -16,6 +16,10 @@ jobs:
     - name: Set up jq
       run: sudo apt-get install -y jq
 
+    - name: Debug JSON data
+      run: |
+        curl -s -H "Authorization: token ${{ secrets.REVIEW_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/contributors
+
     - name: Select Random Reviewer
       id: select-reviewer
       run: |
