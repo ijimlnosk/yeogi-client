@@ -1,9 +1,7 @@
 import { CountryByContinent } from "@/app/(afterLogin)/post/_components/region/type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
-import { UserRequest } from "@/app/auth/_components/signin/type"
 import { ContinentType } from "@/types/continent"
 import { Post } from "@/types/post"
-import { UseMutationResult } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
 export type CountryProps = {
@@ -12,28 +10,6 @@ export type CountryProps = {
     selectedContinent: ContinentType
 }
 
-export type UserResponse = {
-    accessToken: string
-    refreshToken: string
-}
-
-export type SocialSignupResponse = {
-    email: string
-    isFirst: boolean
-    memberId: number
-    token: UserResponse
-}
-
-export type SignInProps = {
-    email: string
-    password: string
-}
-
-export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
-    isOpen: boolean
-    formState: "success" | "fail" | null
-    handleOverlay: (isOpen: boolean, state?: "success" | "fail" | null) => void
-}
 export type useHandleClickProps = {
     postId: number
     liked?: boolean
@@ -41,6 +17,7 @@ export type useHandleClickProps = {
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
 
+/* comment */
 export type postCommentResponse = {
     id: number
     content: string
@@ -50,30 +27,27 @@ export type postCommentResponse = {
     likeCount: number
     postId: number
 }
-
 export type postCommentRequest = {
     content: string
     postId: number
 }
-
 export type putCommentResponse = {
     commentId: number
     content: string
     postId: number
 }
-
 export type putCommentRequest = {
     commentId: number
     content: string
     postId: number
 }
 
+/* pagination  */
 export type UseRecommendPaginationProps<T> = {
     items: T[]
     itemsPerPage: number
     initialPage?: number
 }
-
 export type UseRecommendPaginationReturn<T> = {
     currentPage: number
     setCurrentPage: (page: number) => void
