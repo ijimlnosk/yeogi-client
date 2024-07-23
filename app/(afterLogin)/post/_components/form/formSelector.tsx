@@ -42,13 +42,14 @@ const FormSelector = ({
                     className="h-[59px] border-[1px] border-GREY-20 rounded-[192px] p-8 min-w-[440px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow"
                 >
                     <div className="flex">
-                        <Image
-                            width={16}
-                            height={16}
-                            src={"/icons/gps-grey.svg"}
-                            className="mr-2"
-                            alt="detail address"
-                        />
+                        <div className="w-4 h-4 relative">
+                            <Image
+                                fill
+                                src={"/icons/gps-grey.svg"}
+                                className="mr-2 w-auto h-auto object-contain"
+                                alt="detail address"
+                            />
+                        </div>
                         <TextDisplay condition={!!address} texts={[address!]} label={label} />
                     </div>
                 </button>
@@ -79,13 +80,14 @@ const FormSelector = ({
                         {isThemeOpen ? (
                             <p className="text-xs font-semibold text-BRAND-50">완료</p>
                         ) : (
-                            <Image
-                                width={10}
-                                height={20}
-                                className={` ${isTheme ? "-rotate-90" : "rotate-180"}`}
-                                src={"/icons/chevron.svg"}
-                                alt="more"
-                            />
+                            <div className="w-[10px] h-5 relative">
+                                <Image
+                                    fill
+                                    className={` ${isTheme ? "-rotate-90" : "rotate-180"} w-auto h-auto object-contain`}
+                                    src={"/icons/chevron.svg"}
+                                    alt="more"
+                                />
+                            </div>
                         )}
                     </span>
                 </button>

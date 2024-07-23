@@ -85,7 +85,14 @@ const CommonPost = ({
                             onClick={handleAddMemoClick}
                             className="w-[900px] h-12 my-[30px] flex flex-row justify-center items-center rounded-[61px] bg-SYSTEM-beige border-[1px] border-BRAND-50 cursor-pointer"
                         >
-                            <Image width={24} height={24} src={"/icons/plus-circle.svg"} alt="add memo icon" />
+                            <div className=" relative w-6 h-6">
+                                <Image
+                                    fill
+                                    src={"/icons/plus-circle.svg"}
+                                    alt="add memo icon"
+                                    className="w-auto h-auto object-contain"
+                                />
+                            </div>
                             <p className="text-sm text-BRAND-50 mx-2">메모 추가하기</p>
                         </div>
                     )}
