@@ -80,7 +80,7 @@ const FormSelector = ({
                         {isThemeOpen ? (
                             <p className="text-xs font-semibold text-BRAND-50">완료</p>
                         ) : (
-                            <div className="w-[10px] h-5 relative">
+                            <div className="w-2.5 h-5 relative">
                                 <Image
                                     fill
                                     className={` ${isTheme ? "-rotate-90" : "rotate-180"} w-auto h-auto object-contain`}

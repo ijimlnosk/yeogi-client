@@ -47,7 +47,7 @@ export const LeftGroup = () => {
                         loading="lazy"
                         alt="travel image"
                     />
-                    <div className=" relative w-[450px] h-[665px] pt-[2%] right-[98%] xl:pt-0 4xl:top-[70px] 2xl:right-0 xl:right-[50%] lg:right-[60%] md:right-[80%] sm:right-[90%]">
+                    <div className=" relative w-[450px] h-[665px] pt-[2%] right-[98%] xl:pt-0 4xl:top-[70px] 2xl:right-0 xl:right-1/2 lg:right-[60%] md:right-[80%] sm:right-[90%]">
                         <Image
                             fill
                             src={Travel02}
