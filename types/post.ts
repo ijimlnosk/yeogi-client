@@ -5,6 +5,7 @@ import { Theme } from "./theme"
 export type Post = {
     postId: number
     author: string
+    profile: string
     title: string
     content: string
     memos: memosList[]

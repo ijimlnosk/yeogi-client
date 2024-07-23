@@ -3,7 +3,7 @@ import { ReComments } from "./type"
 import CommentMenu from "./_components/commentMenu"
 import { formatISODateString } from "@/utils/date.utils"
 
-const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
+const ReComment = ({ id, content, createdAt, nickname, profile }: ReComments) => {
     return (
         <div className="relative w-[1000px] bg-comment-pattern bg-[#EFE9E3B2] border-b-[1px] border-GREY-20 px-6 py-8">
             <div className="w-[952px] flex flex-row">
@@ -12,7 +12,7 @@ const ReComment = ({ id, content, createdAt, nickname }: ReComments) => {
                     <Image
                         width={48}
                         height={48}
-                        src={"/images/user/sampleProfile.svg"}
+                        src={profile || "/images/user/sampleProfile.svg"}
                         className="rounded-full"
                         alt="user profile"
                     />

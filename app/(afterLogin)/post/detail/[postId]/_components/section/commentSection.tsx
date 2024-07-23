@@ -3,7 +3,7 @@ import CommentBox from "../comment/commentBox"
 import CreateComment from "../comment/createComment"
 import { CommentSectionProps } from "./type"
 
-export default function CommentSection({ postId, post, comments, refetchComments }: CommentSectionProps) {
+const CommentSection = ({ postId, post, comments, refetchComments }: CommentSectionProps) => {
     return (
         <>
             <LikeToComment likes={post.likeCount} comments={comments.length} />
@@ -18,3 +18,4 @@ export default function CommentSection({ postId, post, comments, refetchComments
         </>
     )
 }
+export default CommentSection

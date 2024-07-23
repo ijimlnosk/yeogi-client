@@ -17,7 +17,7 @@ const PostList = ({ currentPosts, currentPage, totalPages, onChangePage }: PostL
                     commentCount={post.commentCount}
                     country={post.country}
                     user_nickname={post.author}
-                    user_profile={""}
+                    profile={post.profile}
                     thumbnail={"/images/sampleThumbnail.svg"}
                     created_At={post.createdAt}
                 />

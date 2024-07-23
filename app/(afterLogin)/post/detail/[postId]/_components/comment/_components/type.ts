@@ -2,6 +2,7 @@ import { ReComments } from "../type"
 
 export type CommentContentsProps = {
     author: string
+    profile: string
     content: string
     date: string
     commentId: number

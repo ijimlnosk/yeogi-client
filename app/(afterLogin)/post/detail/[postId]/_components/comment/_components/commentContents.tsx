@@ -8,6 +8,7 @@ import { useLoggedIn } from "@/libs/zustand/login"
 
 const CommentContents = ({
     author,
+    profile,
     content,
     date,
     commentId,
@@ -26,7 +27,7 @@ const CommentContents = ({
                     <Image
                         width={48}
                         height={48}
-                        src={"/images/user/sampleProfile.svg"}
+                        src={profile || "/images/user/sampleProfile.svg"}
                         className="rounded-full"
                         alt="user profile"
                     />

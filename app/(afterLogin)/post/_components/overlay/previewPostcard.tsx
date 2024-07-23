@@ -16,7 +16,7 @@ const PreviewPostCard = ({ selectedCountry, title, selectedImage }: PreviewPostC
             commentCount={0}
             user_nickname={userInfo?.nickname ?? ""}
             post_id={0}
-            user_profile={userInfo?.profile || defaultProfile}
+            profile={userInfo?.profile || defaultProfile}
             thumbnail={selectedImage}
         />
     )

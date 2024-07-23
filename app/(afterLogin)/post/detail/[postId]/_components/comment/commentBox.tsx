@@ -38,6 +38,7 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
                                 commentId={commentWithLike.id}
                                 content={commentWithLike.content}
                                 author={commentWithLike.nickname}
+                                profile={commentWithLike.profile}
                                 likes={commentWithLike.likeCount}
                                 date={commentWithLike.createdAt}
                                 initialLiked={false}

@@ -14,7 +14,7 @@ const SearchResults = ({ posts }: SearchResultsProps) => {
                     <PostCard
                         key={post.postId}
                         post_id={post.postId}
-                        user_profile={""}
+                        profile={post.profile}
                         thumbnail={TempImage}
                         title={post.title}
                         country={post.country}
