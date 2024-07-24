@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation"
 import { CommentBoxProps } from "./type"
 import Comment from "./comment"
 import CreateReComment from "./createReComment"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 /**
  * @function CommentBox
@@ -15,6 +15,20 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
     const searchParams = useSearchParams()
     const currentPage = parseInt(searchParams.get("page") as string, 10) || 1
     const commentsPerPage = 5
+
+    const commentBoxRef = useRef<HTMLDivElement>(null)
+    const isFirstRender = useRef(true)
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false
+            return
+        }
+
+        if (commentBoxRef.current) {
+            commentBoxRef.current.scrollIntoView({ behavior: "auto" })
+        }
+    }, [currentPage])
 
     const sortComments = comments.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
@@ -29,7 +43,7 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
     }
 
     return (
-        <div className="pt-[30px]">
+        <div className="pt-[30px]" ref={commentBoxRef}>
             {currentComments.length > 0 ? (
                 <div className="w-full flex items-center justify-center flex-col">
                     {currentComments.map(commentWithLike => (
