@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import ProtectedLink from "../commons/protectedLink"
 import { getUserInfo } from "@/apis/userApi"
 import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
@@ -70,18 +69,6 @@ const Header = () => {
                     <div className="ml-4 flex items-center space-x-12 font-medium">
                         <HeaderSearchBar />
                         <HeaderLogin isShowHeader={isShowHeader} />
-                        <ProtectedLink href="/post/create">
-                            <button className="bg-SYSTEM-black text-SYSTEM-white md:w-[120px] md:h-[46px] w-[46px] h-[46px] rounded-full flex items-center justify-center md:px-5 md:py-[13.5px]  ">
-                                <Image
-                                    src={"/icons/write.svg"}
-                                    width={24}
-                                    height={24}
-                                    alt="write_icon"
-                                    className="w-6 h-6 md:mr-[8px] mr-0"
-                                />
-                                <span className="hidden md:inline">글쓰기</span>
-                            </button>
-                        </ProtectedLink>
                     </div>
                 </div>
             </div>
