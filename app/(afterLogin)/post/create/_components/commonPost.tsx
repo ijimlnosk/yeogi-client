@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { useCommonPost } from "../../_components/common/useCommonPost"

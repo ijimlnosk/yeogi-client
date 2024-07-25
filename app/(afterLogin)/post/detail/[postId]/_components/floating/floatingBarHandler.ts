@@ -89,9 +89,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         if (postId) {
             try {
                 await deletePostMutation.mutateAsync(Number(postId))
-                router.back()
-            } catch {
-                console.log("게시글 삭제를 취소했어요.")
+                router.push("/search")
             } finally {
                 setIsDeleteModalOpen(false)
             }

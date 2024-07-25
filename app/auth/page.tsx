@@ -15,8 +15,8 @@ const AuthForm = () => {
     const K_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API
     const G_REST_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_REST_API
     const N_REST_API_KEY = process.env.NEXT_PUBLIC_NAVER_REST_API
-    // const REDIRECT_URI = `http://localhost:3000/auth`
-    const REDIRECT_URI = `https://yeogi-client.vercel.app/auth`
+    const REDIRECT_URI = `http://localhost:3000/auth`
+    // const REDIRECT_URI = `https://yeogi-client.vercel.app/auth`
     const [provider, setProvider] = useState<Provider | null>(null)
     const [memberIsFirst, setMemberIsFirst] = useState<boolean | null>(null)
     const [oauthData, setOauthData] = useState<SocialSignupResponse | null>(null)
