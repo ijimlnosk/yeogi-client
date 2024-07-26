@@ -5,16 +5,7 @@ import { Theme } from "@/types/theme"
 import TextDisplay from "./formTextDisplay"
 import { formatISODateString } from "@/utils/date.utils"
 
-const FormSelector = ({
-    onClick,
-    label,
-    state,
-    postDetail,
-    isThemeOpen,
-    isTheme,
-    memoId,
-    memos,
-}: FormSelectorProps) => {
+const FormSelector = ({ onClick, label, state, postDetail, isThemeOpen, memoId, memos }: FormSelectorProps) => {
     const { selectedContinent, selectedCountry, startDate, endDate, selectedTheme, selectedAddress } =
         useCreatePostStore()
 
@@ -41,14 +32,9 @@ const FormSelector = ({
                     onClick={onClick}
                     className="h-[59px] border-[1px] border-GREY-20 rounded-[192px] p-8 min-w-[440px] bg-SYSTEM-white text-GREY-80 flex items-center justify-between grow"
                 >
-                    <div className="flex">
-                        <div className="w-4 h-4 relative">
-                            <Image
-                                fill
-                                src={"/icons/gps-grey.svg"}
-                                className="mr-2 w-auto h-auto object-contain"
-                                alt="detail address"
-                            />
+                    <div className="flex items-center">
+                        <div className="w-4 h-4 relative mr-2">
+                            <Image width={24} height={24} src={"/icons/gps-grey.svg"} alt="detail address" />
                         </div>
                         <TextDisplay condition={!!address} texts={[address!]} label={label} />
                     </div>
@@ -76,20 +62,14 @@ const FormSelector = ({
                         />
                     )}
                     {state === "theme" && <TextDisplay condition={themes.length > 0} texts={themes} label={label} />}
-                    <span>
-                        {isThemeOpen ? (
-                            <p className="text-xs font-semibold text-BRAND-50">완료</p>
-                        ) : (
-                            <div className="w-2.5 h-5 relative">
-                                <Image
-                                    fill
-                                    className={` ${isTheme ? "-rotate-90" : "rotate-180"} w-auto h-auto object-contain`}
-                                    src={"/icons/chevron.svg"}
-                                    alt="more"
-                                />
-                            </div>
-                        )}
-                    </span>
+                    <div className="w-2.5 h-5 relative">
+                        <Image
+                            fill
+                            className={` ${isThemeOpen ? "-rotate-90" : "rotate-180"} w-auto h-auto object-contain`}
+                            src={"/icons/chevron.svg"}
+                            alt="more"
+                        />
+                    </div>
                 </button>
             )}
         </>

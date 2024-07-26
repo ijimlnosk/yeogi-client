@@ -39,7 +39,7 @@ export type PostDataState = {
 }
 // update post
 export type UpdatePostDataState = {
-    postId: number | null
+    postId: number
     postDetail: UpdatePost | null
     setPostId: (postId: number) => void
     setPostDetail: (postDetail: UpdatePost | null) => void

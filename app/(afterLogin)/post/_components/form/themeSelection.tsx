@@ -7,7 +7,6 @@ import SelectedTheme from "./selectedTheme"
 
 const ThemeSelection = ({ postDetail }: FormSelectionProps) => {
     const [isThemeOpen, setIsThemeOpen] = useState<boolean>(false)
-    const [isTheme] = useState<boolean>(true)
 
     return (
         <div className="text-sm my-5">
@@ -18,7 +17,6 @@ const ThemeSelection = ({ postDetail }: FormSelectionProps) => {
                     state={"theme"}
                     postDetail={postDetail}
                     isThemeOpen={isThemeOpen}
-                    isTheme={isTheme}
                     address={""}
                 />
             </div>

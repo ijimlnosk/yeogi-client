@@ -25,11 +25,11 @@ const SelectedTheme = () => {
     const ThemeKeys: ThemeKeys[] = Object.keys(Theme) as ThemeKeys[]
 
     return (
-        <div className="flex flex-row w-full h-20 justify-start items-center px-6 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">
+        <div className="flex flex-wrap w-full h-auto justify-start items-center px-6 pt-2 text-sm bg-SYSTEM-white rounded-b-2xl border-t-[1px]">
             {ThemeKeys.map(key => (
                 <Button
                     key={key}
-                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 border-[1px] border-BRAND-30 ${
+                    className={`w-fit h-[42px] p-4 rounded-2 mx-2 mb-2 border-[1px] border-BRAND-30 cursor-pointer ${
                         themes.includes(key)
                             ? "bg-BRAND-30 text-SYSTEM-white"
                             : "hover:bg-BRAND-30 hover:text-SYSTEM-white bg-SYSTEM-white"

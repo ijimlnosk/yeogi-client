@@ -23,7 +23,6 @@ export type FormSelectorProps = {
     state: "continent" | "calendar" | "theme" | "address"
     postDetail?: CreatePost
     isThemeOpen?: boolean
-    isTheme?: boolean
     memoId?: number
     address?: string
     memos?: memos[]

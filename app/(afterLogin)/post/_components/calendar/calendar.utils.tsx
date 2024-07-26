@@ -54,7 +54,7 @@ export const renderDay = (
             })}
         >
             <div
-                className={clsx("w-10 h-10 flex items-center justify-center cursor-pointer rounded-full", {
+                className={clsx("w-fit h-fit flex items-center justify-center cursor-pointer rounded-full", {
                     "bg-BRAND-30 text-SYSTEM-white": isSelected(day),
                 })}
                 onClick={() => handleDayClick(day)}
