@@ -34,13 +34,13 @@ const ThemeFilterTabs = () => {
     }
 
     return (
-        <div className="max-w-[1228px] w-fit h-fit px-5 my-4 border-[1px] border-BRAND-50 rounded-full flex justify-center items-center">
+        <div className="max-w-[1228px] w-fit h-fit px-7 my-4 border-[1px] border-BRAND-50 rounded-full flex justify-center items-center">
             {ThemeEntries.map(([key, value], idx) => (
                 <Button
                     key={key}
                     onClick={() => handleThemeSelect(idx)}
                     textColor={selectedThemeIndex === idx ? "brand50" : "black"}
-                    className={`w-fit h-fit px-8 py-4 rounded bg-SYSTEM-beige text-sm leading-[27px] ${selectedThemeIndex === idx ? "font-semibold" : ""}`}
+                    className={`w-fit h-fit px-6 py-4 rounded bg-SYSTEM-beige text-sm leading-[27px] ${selectedThemeIndex === idx ? "font-semibold" : ""}`}
                 >
                     {value}
                 </Button>

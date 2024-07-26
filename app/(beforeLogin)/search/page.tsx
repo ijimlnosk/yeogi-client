@@ -1,20 +1,18 @@
 "use client"
 
-import Pagination from "@/components/commons/pagination"
-import SortDropdown from "@/components/commons/sortDropdown"
-import { ThemeKeys } from "@/types/theme"
-import { filterPosts } from "@/utils/search.utils"
+import { useCallback, useEffect, useMemo } from "react"
 import dynamic from "next/dynamic"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useMemo } from "react"
+import { ThemeKeys } from "@/types/theme"
+import { ContinentType } from "@/types/continent"
+import { filterPosts } from "@/utils/search.utils"
 import FilterTabs from "./_components/filterTabs"
 import { useGetPost } from "@/libs/reactQuery/usePostMutation"
 import { useGetPostProps } from "@/libs/reactQuery/type"
-import { ContinentType } from "@/types/continent"
 import RealTimeRecommendation from "@/app/_components/userRecommendation/realTimeRecommendation"
+import { isSortConditionType, SortConditionType } from "@/types/sortCondition"
 
-const SearchResults = dynamic(() => import("@/components/commons/searchResults"), { ssr: false })
-
+const PostSection = dynamic(() => import("./_components/postSection"), { ssr: false })
 const ITEMS_PER_PAGE = 8
 
 const SearchPage = () => {
@@ -22,7 +20,8 @@ const SearchPage = () => {
     const searchKeyword = searchParams.get("keyword") || ""
     const searchTheme = searchParams.get("theme") || ""
     const searchContinent = searchParams.get("continent") || ""
-    const sortCondition = searchParams.get("sortCondition") || "RECENT"
+    const sortConditionParam = searchParams.get("sortCondition") || "RECENT"
+    const sortCondition: SortConditionType = isSortConditionType(sortConditionParam) ? sortConditionParam : "RECENT"
     const currentPage = Number(searchParams.get("page") || "1")
 
     const { mutate, data: mutationData } = useGetPost()
@@ -58,8 +57,11 @@ const SearchPage = () => {
         return results
     }, [mutationData, searchKeyword, searchTheme, searchContinent])
 
-    const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
-    const paginationPosts = filteredPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+    const totalPages = useMemo(() => Math.ceil(filteredPosts.length / ITEMS_PER_PAGE), [filteredPosts.length])
+    const paginationPosts = useCallback(
+        (page: number) => filteredPosts.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
+        [filteredPosts],
+    )
     return (
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 flex flex-col justify-center items-center overflow-x-hidden">
             <div className="w-full max-w-[1920px] h-fit py-10 flex flex-col justify-center items-center">
@@ -71,14 +73,12 @@ const SearchPage = () => {
                     <RealTimeRecommendation />
                 </div>
                 <div className="w-full h-[2px] bg-SYSTEM-else02 my-[55px]" />
-                <div className="w-full flex flex-col justify-center items-center">
-                    <div className="w-full h-fit flex justify-between items-center">
-                        <h1 className="text-bg leading-[34px] font-semibold">게시물</h1>
-                        <SortDropdown />
-                    </div>
-                    {filteredPosts && <SearchResults posts={paginationPosts} />}
-                </div>
-                {filteredPosts.length > 0 && <Pagination totalPages={totalPages} currentPage={currentPage} />}
+                <PostSection
+                    filteredPosts={paginationPosts(currentPage)}
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    sortCondition={sortCondition}
+                />
             </div>
         </div>
     )

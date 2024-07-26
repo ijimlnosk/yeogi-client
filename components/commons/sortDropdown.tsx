@@ -5,22 +5,22 @@ import SortButton from "./sortButton"
 import Image from "next/image"
 import listIcon from "@/public/icons/list.svg"
 import { useRouter } from "next/navigation"
-import { sorts } from "@/constants/sorts"
+import { isSortConditionType, SortConditionType, SortDropdownProps, sorts } from "@/types/sortCondition"
 
-const SortDropdown = () => {
+const SortDropdown = ({ initialValue = "RECENT" }: SortDropdownProps) => {
     const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
-    const [activeSort, setActiveSort] = useState("RECENT")
+    const [activeSort, setActiveSort] = useState(initialValue)
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const sort = params.get("sortCondition")
-        if (sort && sorts.some(s => s.key === sort)) {
+        if (sort && isSortConditionType(sort)) {
             setActiveSort(sort)
         }
     }, [])
 
-    const handleSortClick = (key: string) => {
+    const handleSortClick = (key: SortConditionType) => {
         setActiveSort(key)
         setIsOpen(false)
 
@@ -51,7 +51,7 @@ const SortDropdown = () => {
                                 key={sort.key}
                                 label={sort.label}
                                 isActive={activeSort === sort.key}
-                                onClick={() => handleSortClick(sort.key)}
+                                onClick={() => isSortConditionType(sort.key) && handleSortClick(sort.key)}
                                 showBorder={index === 1}
                             />
                         ))}
