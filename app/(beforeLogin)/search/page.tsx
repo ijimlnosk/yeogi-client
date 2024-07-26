@@ -78,11 +78,7 @@ const SearchPage = () => {
                     </div>
                     {filteredPosts && <SearchResults posts={paginationPosts} />}
                 </div>
-                {filteredPosts.length > 0 && (
-                    <div>
-                        <Pagination totalPages={totalPages} currentPage={currentPage} />
-                    </div>
-                )}
+                {filteredPosts.length > 0 && <Pagination totalPages={totalPages} currentPage={currentPage} />}
             </div>
         </div>
     )
