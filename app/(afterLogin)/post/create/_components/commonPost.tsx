@@ -1,14 +1,16 @@
+"use client"
+
 import Image from "next/image"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { useCommonPost } from "../../_components/common/useCommonPost"
 import { CommonPostProps } from "./type"
 import UploadOverlay from "../../_components/overlay/uploadOverlay"
 import UpperSelection from "../../_components/form/upperSelection"
-import AddressSelection from "../../_components/form/addressSelection"
-import { QuillEditor } from "../../_components/editor/editorQuill"
 import ThemeSelection from "../../_components/form/themeSelection"
 import FormBtn from "../../_components/form/formBtn"
 import RouterOverlay from "../../_components/overlay/routerOverlay"
+import FreeForm from "./freeForm"
+import MemoForm from "./memoForm"
 
 const CommonPost = ({
     isFreeForm,
@@ -45,37 +47,15 @@ const CommonPost = ({
                         handleInputChange={handleInputChange}
                     />
                     {isFreeForm ? (
-                        <>
-                            <AddressSelection index={0} postDetail={formData} />
-                            <QuillEditor
-                                index={0}
-                                isFreeForm={isFreeForm}
-                                postDetail={formData}
-                                handleInputChange={handleInputChange}
-                            />
-                        </>
+                        <FreeForm formData={formData} isFreeForm={isFreeForm} handleInputChange={handleInputChange} />
                     ) : (
-                        memos.map((_, index) => (
-                            <div key={index}>
-                                <AddressSelection
-                                    index={index}
-                                    memos={memos}
-                                    handleInputChange={handleAddressInputChange}
-                                />
-                                <QuillEditor
-                                    index={index}
-                                    handleDeleteQuillEditor={() =>
-                                        handleDeleteQuillEditor && handleDeleteQuillEditor(index)
-                                    }
-                                    handleEditorInputChange={
-                                        handleEditorInputChange
-                                            ? (index, value) => handleEditorInputChange(index, value)
-                                            : undefined
-                                    }
-                                    postDetail={formData}
-                                />
-                            </div>
-                        ))
+                        <MemoForm
+                            formData={formData}
+                            memos={memos}
+                            handleDeleteQuillEditor={handleDeleteQuillEditor}
+                            handleEditorInputChange={handleEditorInputChange}
+                            handleAddressInputChange={handleAddressInputChange}
+                        />
                     )}
                     <ThemeSelection postDetail={formData} />
                     {!isFreeForm && (
