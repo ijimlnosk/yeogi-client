@@ -4,11 +4,11 @@ import { UpdatePost } from "@/types/post"
 import { formatDate } from "@/utils/date.utils"
 import { processContentImages } from "@/utils/setImage.utils"
 import UpperSelection from "../../../_components/form/upperSelection"
-import AddressSelection from "../../../_components/form/addressSelection"
-import { QuillEditor } from "../../../_components/editor/editorQuill"
 import ThemeSelection from "../../../_components/form/themeSelection"
 import FormBtn from "../../../_components/form/formBtn"
 import { PostFormProps } from "./type"
+import FreeForm from "./freeForm"
+import MemoForm from "./memoForm"
 
 const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormProps) => {
     const {
@@ -21,7 +21,6 @@ const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormPr
         formData,
         setFormData,
         memos,
-        setMemos,
     } = useCreatePostStore()
 
     const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
@@ -62,31 +61,9 @@ const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormPr
                     handleInputChange={handleInputChange}
                 />
                 {isFreeForm ? (
-                    <>
-                        <AddressSelection index={0} postDetail={formData} />
-                        <QuillEditor
-                            index={0}
-                            isFreeForm={true}
-                            postDetail={formData}
-                            handleInputChange={handleInputChange}
-                        />
-                    </>
+                    <FreeForm formData={formData} setFormData={setFormData} />
                 ) : (
-                    memos.map((_, index) => (
-                        <div key={index}>
-                            <AddressSelection index={index} postDetail={formData} />
-                            <QuillEditor
-                                index={index}
-                                isFreeForm={false}
-                                postDetail={formData}
-                                handleInputChange={(field, value) => {
-                                    const updatedEditors = [...memos]
-                                    updatedEditors[index] = { ...updatedEditors[index], [field]: value }
-                                    setMemos(updatedEditors)
-                                }}
-                            />
-                        </div>
-                    ))
+                    <MemoForm formData={formData} />
                 )}
                 <ThemeSelection postDetail={formData} />
                 <FormBtn setIsOverlayOpen={setIsOverlayOpen} handleUpdatePost={handleUpdate} postId={postId} />
