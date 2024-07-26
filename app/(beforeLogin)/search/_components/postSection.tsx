@@ -19,5 +19,4 @@ const PostSection = ({ filteredPosts, totalPages, currentPage, sortCondition }: 
         </div>
     )
 }
-PostSection.displayName = "PostSection"
 export default PostSection

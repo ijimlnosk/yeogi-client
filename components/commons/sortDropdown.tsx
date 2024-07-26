@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react"
 import SortButton from "./sortButton"
 import Image from "next/image"
-import listIcon from "@/public/icons/list.svg"
 import { useRouter } from "next/navigation"
-import { isSortConditionType, SortConditionType, SortDropdownProps, sorts } from "@/types/sortCondition"
+import { isSortConditionType, SortConditionType, sorts } from "@/types/sortCondition"
+import { SortDropdownProps } from "./type"
 
 const SortDropdown = ({ initialValue = "RECENT" }: SortDropdownProps) => {
     const router = useRouter()
@@ -35,17 +35,16 @@ const SortDropdown = ({ initialValue = "RECENT" }: SortDropdownProps) => {
             <div>
                 <button
                     type="button"
-                    className=" text-xs inline-flex justify-center w-[120px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
+                    className="text-xs inline-flex justify-center w-[120px] h-[44px] px-3 py-2.5 border rounded-[73px] text-GREY-80  border-GREY-80 focus:outline-none"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <Image src={listIcon} alt="list_Icon" width={24} height={24} className="w-[24px] h-[24px] mr-1" />
+                    <Image src={"/icons/list.svg"} alt="sort lists" width={24} height={24} className="w-6 h-6 mr-1" />
                     {sorts.find(sort => sort.key === activeSort)?.label}
                 </button>
             </div>
-
             {isOpen && (
-                <div className=" border rounded-3xl py-3 w-[140px] h-[148px] bg-SYSTEM-white absolute shadow-lg  focus:outline-none">
-                    <div className=" items-center text-center ">
+                <div className="border rounded-3xl py-3 w-[140px] h-[148px] bg-SYSTEM-white absolute shadow-lg focus:outline-none">
+                    <div className="items-center text-center">
                         {sorts.map((sort, index) => (
                             <SortButton
                                 key={sort.key}
