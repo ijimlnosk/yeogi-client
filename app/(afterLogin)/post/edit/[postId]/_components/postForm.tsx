@@ -1,3 +1,5 @@
+"use client"
+
 import { putPost } from "@/apis/postApi"
 import { useCreatePostStore } from "@/libs/zustand/post"
 import { UpdatePost } from "@/types/post"
