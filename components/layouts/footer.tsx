@@ -2,10 +2,12 @@ import clsx from "clsx"
 import LogoImage from "@/public/icons/logo_img.svg"
 import LogoText from "@/public/icons/logo_text.svg"
 import Image from "next/image"
+import { Link } from "@nextui-org/react"
+import { footerProps } from "./_components/type"
 
-const Footer = () => {
+const Footer = ({ userId }: footerProps) => {
     return (
-        <footer className={clsx("w-full bg-[#F7EDE0] flex flex-col  px-[120px] xl:py-20")}>
+        <footer className={clsx("w-full bg-SYSTEM-else flex flex-col  px-[120px] xl:py-20")}>
             <div className={clsx("w-full grid xl:grid-cols-3 grid-cols-1 ")}>
                 <div className="flex flex-col text-GREY-80 pt-[100px] xl:pt-[212px]">
                     <h2 className="text-bg font-semibold mb-2 flex justify-center items-center xl:justify-start xl:items-start">
@@ -25,15 +27,18 @@ const Footer = () => {
                 </div>
                 <div className="font-pretendard flex flex-col text-GREY-50 text-sm items-center py-5 xl:py-0 xl:place-items-end xl:justify-between mt-auto xl:items-center">
                     <nav className="flex space-x-8 mb-4 w">
-                        <a href="#" className="text-xxs xl:text-sm">
+                        <Link href="/" className="text-xxs xl:text-sm">
+                            홈
+                        </Link>
+                        <Link href="/search" className="text-xxs xl:text-sm">
                             커뮤니티
-                        </a>
-                        <a href="#" className="text-xxs xl:text-sm">
-                            기록
-                        </a>
-                        <a href="#" className="text-xxs xl:text-sm">
+                        </Link>
+                        <Link href="/survey" className="text-xxs xl:text-sm">
+                            내취향찾기
+                        </Link>
+                        <Link href={`/user/${userId}`} className="text-xxs xl:text-sm">
                             마이페이지
-                        </a>
+                        </Link>
                     </nav>
                     <p className="text-GREY-80 font-semibold text-xxs xl:text-sm">© 2024 YEOGI All Rights Reserved.</p>
                 </div>
