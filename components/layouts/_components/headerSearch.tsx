@@ -1,5 +1,3 @@
-"use client"
-
 import { useSearchStore } from "@/libs/zustand/search"
 import Image from "next/image"
 
