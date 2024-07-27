@@ -20,8 +20,7 @@ const UpdatePage = () => {
                     setIsFreeForm(post.content !== "")
                     setMemos(post.memos || [])
                     setLoading(false)
-                } catch (error) {
-                    console.error(error)
+                } catch {
                     setLoading(false)
                 } finally {
                     setLoading(false)

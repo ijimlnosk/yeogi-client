@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { postPost, putPost } from "@/apis/postApi"
 import { CreatePost, UpdatePost, memos } from "@/types/post"
 import { useMapStore } from "@/libs/zustand/pin"
@@ -8,6 +8,7 @@ import { processContentImages } from "@/utils/setImage.utils"
 import { setPinLocalStorage } from "@/utils/storage.utils"
 import { useCreatePostStore, useUpdatePostDataStore } from "@/libs/zustand/post"
 import { formatDate } from "@/utils/date.utils"
+import dayjs from "dayjs"
 
 export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false)
@@ -28,7 +29,40 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
         setPosts,
         resetFormData,
         resetAll,
+        setSelectedContinent,
+        setSelectedCountry,
+        setSelectedAddress,
+        setSelectedTheme,
+        setStartDate,
+        setEndDate,
     } = useCreatePostStore()
+
+    useEffect(() => {
+        const savedData = localStorage.getItem("saveData")
+        if (savedData) {
+            const parsedData = JSON.parse(savedData)
+            setFormData(parsedData.formData)
+            setSelectedContinent(parsedData.selectedContinent)
+            setSelectedCountry(parsedData.selectedCountry)
+            setStartDate(parsedData.startDate ? dayjs(parsedData.startDate) : null)
+            setEndDate(parsedData.endDate ? dayjs(parsedData.endDate) : null)
+            setSelectedAddress(parsedData.selectedAddress)
+            setSelectedTheme(parsedData?.selectedTheme || [])
+        }
+    }, [])
+
+    useEffect(() => {
+        const dataToSave = {
+            formData,
+            selectedContinent,
+            selectedCountry,
+            startDate: startDate ? startDate.toISOString() : null,
+            endDate: endDate ? endDate.toISOString() : null,
+            selectedAddress,
+            selectedTheme,
+        }
+        localStorage.setItem("saveData", JSON.stringify(dataToSave))
+    }, [formData, selectedContinent, selectedCountry, startDate, endDate, selectedAddress, selectedTheme])
 
     const handleInputChange = <K extends keyof (CreatePost | UpdatePost)>(
         field: K,
@@ -76,6 +110,8 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
             resetAll()
             setIsRouterOverlayOpen(true)
             setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
+
+            localStorage.removeItem("saveData")
         } catch (error) {
             setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
             setIsFailModalOpen(true)

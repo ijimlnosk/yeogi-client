@@ -1,3 +1,5 @@
+"use client"
+
 import { putPost } from "@/apis/postApi"
 import { useCreatePostStore } from "@/libs/zustand/post"
 import { UpdatePost } from "@/types/post"
@@ -9,6 +11,7 @@ import FormBtn from "../../../_components/form/formBtn"
 import { PostFormProps } from "./type"
 import FreeForm from "./freeForm"
 import MemoForm from "./memoForm"
+import { useEffect } from "react"
 
 const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormProps) => {
     const {
@@ -23,6 +26,12 @@ const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormPr
         memos,
     } = useCreatePostStore()
 
+    useEffect(() => {
+        if (formData.address && !selectedAddress) {
+            useCreatePostStore.setState({ selectedAddress: formData.address })
+        }
+    }, [formData.address, selectedAddress])
+
     const handleInputChange = <K extends keyof UpdatePost>(field: K, value: UpdatePost[K]) => {
         setFormData({ ...formData, [field]: value })
     }
@@ -35,7 +44,12 @@ const PostForm = ({ postId, resetAll, isFreeForm, setIsOverlayOpen }: PostFormPr
             address: selectedAddress || formData.address,
             tripStartDate: startDate ? formatDate(startDate) : formData.tripStartDate,
             tripEndDate: endDate ? formatDate(endDate) : formData.tripEndDate,
-            themeList: Array.isArray(selectedTheme) ? selectedTheme : [selectedTheme],
+            themeList:
+                selectedTheme && selectedTheme.length > 0
+                    ? Array.isArray(selectedTheme)
+                        ? selectedTheme
+                        : [selectedTheme]
+                    : formData.themeList,
             content: isFreeForm ? await processContentImages(formData.content) : "",
             memos: isFreeForm
                 ? []
