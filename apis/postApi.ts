@@ -40,7 +40,7 @@ export const getPost = async ({
 
     if (searchString) queryParams.append("searchString", searchString)
 
-    const response = await fetchFormAPINotToken(POST_API_URL, `posts?${queryParams.toString()}`, { method: "GET" })
+    const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
     const posts = await response.json()
     return posts
 }
@@ -96,7 +96,7 @@ export const deletePost = async (postId: number): Promise<void> => {
  */
 export const getPostDetail = async (postId: number): Promise<Post> => {
     if (!POST_API_URL) throw new Error("api url error")
-    const response = await fetchFormAPINotToken(POST_API_URL, `posts/${postId}`, { method: "GET" })
+    const response = await fetchFormAPINotToken(POST_API_URL, `${postId}`, { method: "GET" })
     if (!response.ok) throw new Error("response not ok")
     const data = await response.json()
     return data
