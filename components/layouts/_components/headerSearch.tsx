@@ -1,5 +1,3 @@
-"use client"
-
 import { useSearchStore } from "@/libs/zustand/search"
 import Image from "next/image"
 
@@ -11,15 +9,14 @@ const HeaderSearchBar = () => {
     }
 
     return (
-        <button onClick={handleSearchOpen}>
-            <Image
-                src={"/icons/search.svg"}
-                width={24}
-                height={24}
-                className="min-w-6 min-h-6 hidden sm:block"
-                alt="search_icon"
-            />
-        </button>
+        <Image
+            src={"/icons/search.svg"}
+            width={24}
+            height={24}
+            className="hidden sm:block"
+            alt="search icon"
+            onClick={handleSearchOpen}
+        />
     )
 }
 export default HeaderSearchBar

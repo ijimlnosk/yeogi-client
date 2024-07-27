@@ -5,7 +5,7 @@ import { useModalStore } from "@/libs/zustand/modal"
 import { useSearchStore } from "@/libs/zustand/search"
 import Overlay from "@/components/commons/overlay"
 import AuthForm from "./auth/page"
-import MainSearch from "./_components/mainSearch"
+import HeaderSearchModal from "@/components/layouts/_components/headerSearchModal"
 
 /**
  * 전역 상태로 로그인 오버레이 제어
@@ -22,7 +22,7 @@ const ClientLayout = ({ children }: { children: ReactNode }) => {
             <Overlay isOpen={showLoginModal} onClick={closeModal} rounded="lg">
                 {showLoginModal && <AuthForm />}
             </Overlay>
-            {isSearchOpen && <MainSearch />}
+            {isSearchOpen && <HeaderSearchModal />}
             {children}
         </>
     )
