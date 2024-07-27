@@ -11,3 +11,6 @@ export type UserDialogProps = {
     userId: number | undefined
     setIsProfileClicked: (isProfileClicked: boolean) => void
 }
+export type footerProps = {
+    userId: number | undefined
+}
