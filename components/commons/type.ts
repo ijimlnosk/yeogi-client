@@ -5,6 +5,7 @@ import { ChangeEventHandler, ButtonHTMLAttributes, ReactNode, FormEvent } from "
 import { VariantProps } from "class-variance-authority"
 import { buttonStyle } from "@/styles/common-button"
 import { Post } from "@/types/post"
+import { SortConditionType } from "@/types/sortCondition"
 
 export type PostCardProps = {
     post_id: number
@@ -68,6 +69,10 @@ export type SortButtonProps = {
     isActive: boolean
     onClick: () => void
     showBorder: boolean
+}
+
+export type SortDropdownProps = {
+    initialValue?: SortConditionType
 }
 
 export type SearchBarProps = {

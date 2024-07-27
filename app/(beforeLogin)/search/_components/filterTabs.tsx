@@ -9,7 +9,7 @@ const FilterTabs = () => {
                     <div className="w-full overflow-x-auto">
                         <ContinentFilterTabs />
                     </div>
-                    <div className="w-full overflow-x-auto">
+                    <div className="w-full flex justify-center overflow-x-auto">
                         <ThemeFilterTabs />
                     </div>
                 </div>
