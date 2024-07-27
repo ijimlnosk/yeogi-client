@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, memo, useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { postPost, putPost } from "@/apis/postApi"
 import { CreatePost, UpdatePost, memos } from "@/types/post"
 import { useMapStore } from "@/libs/zustand/pin"

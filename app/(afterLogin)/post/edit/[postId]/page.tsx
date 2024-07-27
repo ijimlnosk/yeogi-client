@@ -16,13 +16,11 @@ const UpdatePage = () => {
             if (postId) {
                 try {
                     const post = await getPostDetail(postId)
-                    console.log(post, "post")
                     setFormData(post)
                     setIsFreeForm(post.content !== "")
                     setMemos(post.memos || [])
                     setLoading(false)
-                } catch (error) {
-                    console.error(error)
+                } catch {
                     setLoading(false)
                 } finally {
                     setLoading(false)
