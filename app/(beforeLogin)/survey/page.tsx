@@ -27,7 +27,9 @@ const Survey = () => {
                         <SurveyIntroForm />
                     </div>
                 </div>
-                <div className="w-full">{showResult && <RecommendPostCard themes={topTags} />}</div>
+                <div id="survey-result-section" className="w-full">
+                    {showResult && <RecommendPostCard themes={topTags} />}
+                </div>
             </div>
         </div>
     )
