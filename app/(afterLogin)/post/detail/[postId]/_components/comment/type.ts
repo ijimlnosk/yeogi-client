@@ -50,6 +50,7 @@ export type CommentUpdateFormProps = {
     content: string
     postId: number
     refetch: () => void
+    profile: string
 }
 
 export type addUpdateComment = {

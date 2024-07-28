@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import SuccessToFailModal from "@/components/commons/successToFailModal"
 import { CommentProps } from "./type"
 import Button from "@/components/commons/button"
@@ -13,6 +13,7 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
     const [content, setContent] = useState<string>("")
     const [isError, setIsError] = useState<boolean>(false)
     const { isLoggedIn, setIsLoggedIn } = useLoggedIn()
+    const commentRef = useRef<HTMLDivElement>(null)
 
     const mutation = useCreateComment(refetch)
 
@@ -47,12 +48,17 @@ const CreateComment = ({ postId, refetch }: Partial<CommentProps>) => {
             onSuccess: () => {
                 setContent("")
                 setIsError(false)
+                setTimeout(() => {
+                    if (commentRef.current) {
+                        commentRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }
+                }, 100)
             },
         })
     }
 
     return (
-        <div>
+        <div ref={commentRef}>
             <SuccessToFailModal
                 isOpen={isError}
                 onClick={() => setIsError(false)}
