@@ -36,7 +36,13 @@ const Comment = ({
                 state="fail"
             />
             {isUpdateComment && commentId === saveCommentId ? (
-                <CommentUpdateForm commentId={commentId} content={content} postId={postId} refetch={refetch} />
+                <CommentUpdateForm
+                    commentId={commentId}
+                    content={content}
+                    postId={postId}
+                    profile={profile}
+                    refetch={refetch}
+                />
             ) : (
                 <>
                     <CommentContents
