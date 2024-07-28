@@ -70,7 +70,7 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
 export const putPost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
-    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, {
+    const response = await fetchFormAPI(POST_API_URL, `${postId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
     })
@@ -85,7 +85,7 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
  * @returns {Promise<void>}
  */
 export const deletePost = async (postId: number): Promise<void> => {
-    const response = await fetchFormAPI(POST_API_URL, `posts/${postId}`, { method: "DELETE" })
+    const response = await fetchFormAPI(POST_API_URL, `${postId}`, { method: "DELETE" })
     if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
 }
 
@@ -95,11 +95,17 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
 export const getPostDetail = async (postId: number): Promise<Post> => {
-    if (!POST_API_URL) throw new Error("api url error")
-    const response = await fetchFormAPINotToken(POST_API_URL, `${postId}`, { method: "GET" })
-    if (!response.ok) throw new Error("response not ok")
-    const data = await response.json()
-    return data
+    if (typeof window === "undefined") {
+        if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("")
+        const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${postId}`
+        const response = await fetch(fullUrl, { method: "GET" })
+        return response.json()
+    } else {
+        const response = await fetchFormAPINotToken(POST_API_URL, `${postId}`, { method: "GET" })
+        if (!response.ok) throw new Error("response not ok")
+        const data = await response.json()
+        return data
+    }
 }
 
 /**
@@ -113,7 +119,7 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
     const queryParams = new URLSearchParams()
     themes.forEach(theme => queryParams.append("themeList", theme))
 
-    const response = await fetchFormAPINotToken(POST_API_URL, `posts/popular?${queryParams.toString()}`, {
+    const response = await fetchFormAPINotToken(POST_API_URL, `/popular?${queryParams.toString()}`, {
         method: "GET",
     })
     const data = await response.json()
@@ -127,7 +133,7 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    await fetchFormAPINotToken(POST_API_URL, `posts/${postId}/views`, { method: "POST" })
+    await fetchFormAPINotToken(POST_API_URL, `${postId}/views`, { method: "POST" })
     return postId
 }
 
@@ -138,7 +144,7 @@ export const postViews = async (postId: number) => {
  * @description 게시글에 좋아요 추가하는 API
  */
 export const postPostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `posts/${postId}/likes`, { method: "POST" })
+    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "POST" })
     return postId
 }
 
@@ -149,7 +155,7 @@ export const postPostLike = async ({ postId }: postIdProps) => {
  * @description 게시글에 추가된 좋아요 삭제 API
  */
 export const deletePostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `posts/${postId}/likes`, { method: "DELETE" })
+    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "DELETE" })
     return { postId }
 }
 
@@ -158,7 +164,7 @@ export const deletePostLike = async ({ postId }: postIdProps) => {
  * @returns 내가 작성한 게시글 목록을 반환
  */
 export const getMyPosts = async (): Promise<Post[]> => {
-    const response = await fetchFormAPI(POST_API_URL, `posts/mine`, { method: "GET" })
+    const response = await fetchFormAPI(POST_API_URL, "mine", { method: "GET" })
     const data = await response.json()
     return data
 }

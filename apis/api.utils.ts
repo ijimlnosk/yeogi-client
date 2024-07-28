@@ -26,15 +26,6 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
     return response
 }
 
-export const fetchFormAPINotToken1 = async (url: string, options: RequestInit) => {
-    return fetch(url, {
-        ...options,
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-}
-
 export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
     const token = getAccessToken()
     const headers = new Headers(options.headers)

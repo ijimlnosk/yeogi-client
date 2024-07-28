@@ -12,7 +12,7 @@ import { Post } from "@/types/post"
 import { getPostDetail } from "@/apis/postApi"
 import { postDetailClientProps } from "./type"
 
-const PostDetailClient = ({ postId, initialPost }: postDetailClientProps) => {
+const PostDetailClient = ({ postId }: postDetailClientProps) => {
     const { setPostDetail } = usePostDataStore()
     const { userInfo } = useLoggedIn()
     const [isMine, setIsMine] = useState<boolean>(false)
@@ -20,7 +20,7 @@ const PostDetailClient = ({ postId, initialPost }: postDetailClientProps) => {
     const { data: post } = useQuery<Post, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(postId),
-        initialData: initialPost,
+        staleTime: Infinity,
     })
 
     useEffect(() => {
@@ -32,20 +32,21 @@ const PostDetailClient = ({ postId, initialPost }: postDetailClientProps) => {
         }
     }, [post, setPostDetail, userInfo?.nickname])
 
-    return (
-        <div className="flex items-center justify-center flex-col">
-            <FloatingSection postId={postId} post={post} isMine={isMine} />
-            <PostDetailSection post={post} />
-            <CommentSection postId={postId} post={post} />
-            <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
-                <Link
-                    href={"/search"}
-                    className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
-                >
-                    목록으로
-                </Link>
+    if (post)
+        return (
+            <div className="flex items-center justify-center flex-col">
+                <FloatingSection postId={postId} post={post} isMine={isMine} />
+                <PostDetailSection post={post} />
+                <CommentSection postId={postId} post={post} />
+                <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
+                    <Link
+                        href={"/search"}
+                        className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
+                    >
+                        목록으로
+                    </Link>
+                </div>
             </div>
-        </div>
-    )
+        )
 }
 export default PostDetailClient

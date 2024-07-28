@@ -110,7 +110,6 @@ export const useCommonPost = (isFreeForm: boolean, initialData?: UpdatePost) => 
             resetAll()
             setIsRouterOverlayOpen(true)
             setPinLocalStorage(String(useMapStore.getState().pinCount + 1))
-
             localStorage.removeItem("saveData")
         } catch (error) {
             setPinLocalStorage(String(useMapStore.getState().pinCount - 1))
