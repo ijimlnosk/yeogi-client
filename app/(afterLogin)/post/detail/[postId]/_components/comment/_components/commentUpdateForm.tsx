@@ -6,7 +6,7 @@ import { useIsUpdateComment } from "@/libs/zustand/comment"
 import { useUpdateComment } from "@/libs/reactQuery/useCommentMutation"
 import { CommentUpdateFormProps } from "../type"
 
-const CommentUpdateForm = ({ commentId, content, postId, refetch }: CommentUpdateFormProps) => {
+const CommentUpdateForm = ({ commentId, content, postId, profile, refetch }: CommentUpdateFormProps) => {
     const [updatedContent, setUpdatedContent] = useState<string>(content)
     const { setIsUpdateComment } = useIsUpdateComment()
     const mutation = useUpdateComment(refetch)
@@ -29,13 +29,7 @@ const CommentUpdateForm = ({ commentId, content, postId, refetch }: CommentUpdat
             <div className="absolute top-8  px-6 pb-8">
                 <div className="flex flex-row gap-2">
                     <div className="min-w-12 min-h-12  ">
-                        <Image
-                            width={48}
-                            height={48}
-                            src={"/images/sampleProfile.svg"}
-                            className="rounded-full"
-                            alt="user profile"
-                        />
+                        <Image width={48} height={48} src={profile} className="rounded-full" alt="user profile" />
                     </div>
                     <div className="w-[888px] h-[120px]">
                         <textarea

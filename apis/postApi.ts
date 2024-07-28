@@ -3,6 +3,7 @@ import { ThemeKeys } from "@/types/theme"
 import { CreatePost, Post, UpdatePost } from "@/types/post"
 import { fetchFormAPI, fetchFormAPINotToken } from "./api.utils"
 import { getDefaultPost } from "@/utils/reset.utils"
+import { getAccessToken } from "./auth/token/access.utils"
 
 const POST_API_URL = "/posts"
 
@@ -21,7 +22,6 @@ export const getPost = async ({
     continent,
     theme,
 }: getPostProps): Promise<Post[]> => {
-    if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
     const queryParams = new URLSearchParams()
 
     queryParams.append("postSearchType", searchType.toUpperCase())
@@ -40,9 +40,16 @@ export const getPost = async ({
 
     if (searchString) queryParams.append("searchString", searchString)
 
-    const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
-    const posts = await response.json()
-    return posts
+    if (typeof window === "undefined") {
+        if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
+        const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts?${queryParams.toString()}`
+        const response = await fetch(fullUrl, { method: "GET" })
+        return response.json()
+    } else {
+        const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
+        const posts = await response.json()
+        return posts
+    }
 }
 
 /**
@@ -51,7 +58,21 @@ export const getPost = async ({
  * @returns {Promise<CreatePost>} 등록된 post의 내용을 객체로 반환
  */
 export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
-    const response = await fetchFormAPI(POST_API_URL, "posts", {
+    const token = getAccessToken()
+    if (typeof window === "undefined") {
+        if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("")
+        const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts`
+        const response = await fetch(fullUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(newPost),
+        })
+        return response.json()
+    }
+    const response = await fetchFormAPI(POST_API_URL, "", {
         method: "POST",
         body: JSON.stringify(newPost),
     })

@@ -20,13 +20,23 @@ export const QuillEditor = ({
 }: QuillEditorProps) => {
     const [value, setValue] = useState<string>("")
 
-    useEffect(() => {
+    const newValue = useMemo(() => {
         if (isFreeForm && postDetail?.content !== undefined) {
-            setValue(postDetail.content)
+            return postDetail.content
         } else if (!isFreeForm && index !== undefined && postDetail?.memos?.[index - 1] !== undefined) {
-            setValue(postDetail.memos[index].content)
+            return postDetail.memos[index].content
         }
-    }, [postDetail, isFreeForm, index])
+        return ""
+    }, [isFreeForm, postDetail, index])
+
+    useEffect(() => {
+        setValue(prev => {
+            if (prev !== newValue) {
+                return newValue
+            }
+            return prev
+        })
+    }, [newValue])
 
     const handleDeleteClick = () => {
         if (handleDeleteQuillEditor && index !== undefined) handleDeleteQuillEditor(index)

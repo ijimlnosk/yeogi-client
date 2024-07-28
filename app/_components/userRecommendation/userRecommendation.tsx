@@ -1,19 +1,20 @@
-"use clien"
+"use client"
 
 import { getUserInfo } from "@/apis/userApi"
 import { useEffect, useState } from "react"
 import { Post } from "@/types/post"
-import { getPost } from "@/apis/postApi"
 import { getAccessToken } from "@/apis/auth/token/access.utils"
 import { useRecommendPagination } from "@/hook/useRecommendPagination"
 import PostList from "./PostList"
 import { UserInfo } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 import RecommendationHeader from "./recommendationHeader"
+import { useGetFetchPost } from "@/libs/queryClient/postQueryClient"
 
 const UserRecommendation = () => {
     const [userInfo, setUserInfo] = useState<UserInfo>()
     const [posts, setPosts] = useState<Post[]>([])
     const postsPerPage = 4
+    const getPostMutation = useGetFetchPost()
 
     const {
         currentPage,
@@ -33,13 +34,16 @@ const UserRecommendation = () => {
                 const response = await getUserInfo()
                 setUserInfo(response)
             }
-
-            const postResponse = await getPost({
-                searchType: "CONTENT",
-                sortCondition: "VIEWS",
-                searchString: "",
-            })
-            setPosts(postResponse)
+            getPostMutation.mutate(
+                {
+                    searchType: "CONTENT",
+                    sortCondition: "VIEWS",
+                    searchString: "",
+                },
+                {
+                    onSuccess: data => setPosts(data),
+                },
+            )
         }
         fetchUser()
     }, [])

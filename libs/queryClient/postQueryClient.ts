@@ -1,6 +1,7 @@
 import { QueryClient, useMutation } from "@tanstack/react-query"
 import * as postApi from "@/apis/postApi"
 import { CreatePost } from "@/types/post"
+import { getPostProps } from "@/apis/type"
 
 export const queryClient = new QueryClient()
 
@@ -14,6 +15,16 @@ export const getFetchPostDetail = (postId: number) => {
 export const usePostFetchCreatePost = () => {
     return useMutation({
         mutationFn: (newPost: CreatePost) => postApi.postPost(newPost),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["posts"] })
+        },
+    })
+}
+
+export const useGetFetchPost = () => {
+    return useMutation({
+        mutationFn: ({ searchType, searchString, sortCondition, continent, theme }: getPostProps) =>
+            postApi.getPost({ searchType, searchString, sortCondition, continent, theme }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["posts"] })
         },

@@ -1,22 +1,37 @@
 "use client"
 
-import { getPost } from "@/apis/postApi"
 import RankCard from "@/components/commons/rankCard"
+import { useGetFetchPost } from "@/libs/queryClient/postQueryClient"
 import { Post } from "@/types/post"
-import { useQuery } from "@tanstack/react-query"
+import { useEffect, useState } from "react"
 
 const RealTimeRecommendation = () => {
     const ranks = ["Top1", "Top2", "Top3"] as const
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [posts, setPosts] = useState<Post[]>([])
+    const getPostMutation = useGetFetchPost()
 
-    const { data: posts, isLoading } = useQuery<Post[]>({
-        queryKey: ["posts"],
-        queryFn: () =>
-            getPost({
+    const getFetchPost = () => {
+        setIsLoading(true)
+        getPostMutation.mutate(
+            {
                 searchType: "CONTENT",
                 sortCondition: "VIEWS",
                 searchString: "",
-            }),
-    })
+            },
+            {
+                onSuccess: data => {
+                    setPosts(data)
+                    setIsLoading(false)
+                },
+            },
+        )
+    }
+
+    useEffect(() => {
+        getFetchPost()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if (isLoading) return <div>Loading...</div>
 
