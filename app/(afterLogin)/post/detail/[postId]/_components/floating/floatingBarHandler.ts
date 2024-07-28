@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
-import useHandleScroll from "@/hook/useHandleScroll"
 import { useUpdatePostDataStore } from "@/libs/zustand/post"
 import usePostLikeHandler from "@/hook/usePostLikeHandler"
 import { useLoggedIn } from "@/libs/zustand/login"
@@ -19,9 +18,9 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         delete: false,
         update: false,
     })
+    const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
 
     const router = useRouter()
-    const scrollY = useHandleScroll()
     const deletePostMutation = useDeletePost()
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
@@ -46,13 +45,20 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     }, [post?.likedMembersInfos, userInfo, isLoading])
 
     useEffect(() => {
-        if (scrollY <= 20) {
-            setIsActiveState(prev => ({ ...prev, arrow: false }))
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
-            )
+        setIsArrowSclickable(window.scrollY > 0)
+        const handleScroll = () => {
+            setIsArrowSclickable(window.scrollY > 0)
+            if (window.scrollY <= 0) {
+                setIsActiveState(prev => ({ ...prev, arrow: false }))
+                setIconState(prevState =>
+                    prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
+                )
+            }
         }
-    }, [scrollY, setIconState])
+
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [setIconState])
 
     useEffect(() => {
         if (isActiveState.update) {
@@ -63,9 +69,19 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     }, [isActiveState.update])
 
     const handleArrowClick = () => {
-        setIsActiveState(prev => ({ ...prev, arrow: true }))
-        setIconState(prevState => prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: true } : icon)))
-        window.scrollTo({ top: 0, behavior: "smooth" })
+        if (isArrowClickable) {
+            setIsActiveState(prev => ({ ...prev, arrow: true }))
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: true } : icon)),
+            )
+            window.scrollTo({ top: 0, behavior: "smooth" })
+        }
+        setTimeout(() => {
+            setIsActiveState(prev => ({ ...prev, arrow: false }))
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
+            )
+        }, 300)
     }
 
     const handleShareClick = async () => {
@@ -144,6 +160,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
 
     return {
         isActiveState,
+        isArrowClickable,
         isInProgress,
         handleClick,
         isDeleteModalOpen,

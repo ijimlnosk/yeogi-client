@@ -12,6 +12,7 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
     const {
         isActiveState,
+        isArrowClickable,
         isInProgress,
         handleClick,
         handleModalClose,
@@ -40,7 +41,12 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
                     className={`shadow-lg rounded-[92px] p-2 flex flex-col items-center gap-2 ${isMine ? "bg-GREY-30" : "bg-BRAND-10"}`}
                 >
                     {iconState.map((icon, idx) => (
-                        <FloatingButton key={idx} icon={icon} onClick={() => handleClick(icon.name)} />
+                        <FloatingButton
+                            key={idx}
+                            icon={icon}
+                            onClick={() => handleClick(icon.name)}
+                            disabled={icon.name === "arrow" && !isArrowClickable}
+                        />
                     ))}
                 </div>
             </div>

@@ -7,9 +7,10 @@ export type FloatingIcon = {
     isActive: boolean
 }
 
-export type FloatingButtonType = {
+export type FloatingButtonProps = {
     icon: FloatingIcon
     onClick: () => void
+    disabled: boolean
 }
 
 export type FloatingBarProps = {
