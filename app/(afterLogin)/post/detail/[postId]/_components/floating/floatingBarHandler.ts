@@ -25,7 +25,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
-    const { userInfo } = useLoggedIn()
+    const { isLoggedIn, userInfo } = useLoggedIn()
 
     if (postId === undefined) {
         throw new Error()
@@ -55,7 +55,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
                 )
             }
         }
-
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
     }, [setIconState])
@@ -125,6 +124,10 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     }
 
     const handleClick = (iconName: string) => {
+        if (iconName === "like" && !isLoggedIn) {
+            alert("로그인 후 이용 가능합니다.")
+            router.push("/auth")
+        }
         setIconState((prevState: FloatingIcon[]) =>
             prevState.map((icon: FloatingIcon) => (icon.name === iconName ? { ...icon, isActive: true } : icon)),
         )
