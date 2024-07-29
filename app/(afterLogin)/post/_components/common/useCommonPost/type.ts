@@ -7,7 +7,7 @@ export type PostState = {
     isOverlayOpen: boolean
     isRouterOverlayOpen: boolean
     isFailModalOpen: boolean
-    postId: number | null
+    postId: number
     selectedContinent: string | null
     selectedCountry: string | null
     startDate: Dayjs | null

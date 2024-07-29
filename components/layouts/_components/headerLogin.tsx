@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import Button from "@/components/commons/button"
 
 const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
-    const [profileImage, setProfileImage] = useState<string>("/images/sampleProfile.svg")
+    const [profileImage, setProfileImage] = useState<string>("/images/user/sampleProfile.svg")
     const [isImageLoading, setIsImageLoading] = useState<boolean>(true)
     const [isProfileClicked, setIsProfileClicked] = useState<boolean>(false)
     const { isLoggedIn, userInfo } = useLoggedIn()

@@ -7,6 +7,8 @@ import { getAccessToken } from "./auth/token/access.utils"
 
 const POST_API_URL = "/posts"
 
+const token = getAccessToken()
+
 /**
  * @function getPost 게시글 목록을 반환
  * @param {string} params.searchType  검색 타입 (CONTENT, NICKNAME, REGION)
@@ -58,7 +60,6 @@ export const getPost = async ({
  * @returns {Promise<CreatePost>} 등록된 post의 내용을 객체로 반환
  */
 export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
-    const token = getAccessToken()
     if (typeof window === "undefined") {
         if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("")
         const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts`
@@ -91,6 +92,20 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
 export const putPost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
+    if (typeof window === "undefined") {
+        if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("")
+        const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts`
+        const response = await fetch(fullUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(editedPost),
+        })
+        return response.json()
+    }
+
     const response = await fetchFormAPI(POST_API_URL, `${postId}`, {
         method: "PUT",
         body: JSON.stringify(editedPost),
@@ -106,8 +121,15 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
  * @returns {Promise<void>}
  */
 export const deletePost = async (postId: number): Promise<void> => {
-    const response = await fetchFormAPI(POST_API_URL, `${postId}`, { method: "DELETE" })
-    if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
+    if (typeof window === "undefined") {
+        if (!process.env.NEXT_PUBLIC_BASE_URL) throw new Error("")
+        const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${postId}`
+        const response = await fetch(fullUrl, { method: "DELETE" })
+        if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
+    } else {
+        const response = await fetchFormAPI(POST_API_URL, `${postId}`, { method: "DELETE" })
+        if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
+    }
 }
 
 /**

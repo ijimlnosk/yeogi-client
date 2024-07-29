@@ -1,10 +1,16 @@
 import dynamic from "next/dynamic"
 import FilterTabs from "./_components/filterTabs"
 import RealTimeRecommendation from "@/app/_components/userRecommendation/realTimeRecommendation"
-import SearchClient from "./_components/searchClient"
+import { getPost } from "@/apis/postApi"
+import { Suspense } from "react"
+const SearchClient = dynamic(() => import("./_components/searchClient"), { ssr: false })
 
-const SearchPage = () => {
-    // 기본값 설정해서 넘겨주기
+const SearchPage = async () => {
+    const initialPosts = await getPost({
+        searchType: "CONTENT",
+        sortCondition: "RECENT",
+    })
+
     return (
         <div className="w-full px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20 flex flex-col justify-center items-center overflow-x-hidden">
             <div className="w-full max-w-[1920px] h-fit py-10 flex flex-col justify-center items-center">
@@ -16,7 +22,9 @@ const SearchPage = () => {
                     <RealTimeRecommendation />
                 </div>
                 <div className="w-full h-[2px] bg-SYSTEM-else02 my-[55px]" />
-                <SearchClient />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SearchClient initialPosts={initialPosts} />
+                </Suspense>
             </div>
         </div>
     )

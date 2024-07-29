@@ -5,11 +5,11 @@ import { CreatePost, UpdatePost, memos } from "@/types/post"
 import { formatDate } from "@/utils/date.utils"
 import { processContentImages } from "@/utils/setImage.utils"
 import { FormEvent, useCallback } from "react"
-import { putPost } from "@/apis/postApi"
-import { usePostFetchCreatePost } from "@/libs/queryClient/postQueryClient"
+import { usePostFetchCreatePost, useUpdateFetchPost } from "@/libs/queryClient/postQueryClient"
 
 export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initialData?: UpdatePost) => {
     const createPostMutation = usePostFetchCreatePost()
+    const updatePostMutation = useUpdateFetchPost()
 
     const handleOverlaySubmit = useCallback(
         async (e: FormEvent, memos: memos[]) => {
@@ -36,7 +36,7 @@ export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initial
                 }
 
                 if (initialData) {
-                    await putPost(state.postId!, postData as UpdatePost)
+                    await updatePostMutation.mutateAsync({ postId: state.postId, editedFields: postData })
                 } else {
                     await createPostMutation.mutateAsync(postData)
                 }
@@ -48,6 +48,7 @@ export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initial
                 state.setIsFailModalOpen(true)
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [state, isFreeForm, initialData, createPostMutation],
     )
 

@@ -20,7 +20,6 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
     const { data: post } = useQuery<Post, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(postId),
-        staleTime: Infinity,
     })
 
     useEffect(() => {
