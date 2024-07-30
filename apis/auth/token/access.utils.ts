@@ -2,6 +2,10 @@ export const setAccessToken = (token: string): void => {
     document.cookie = `accessToken=${token}; path=/;`
 }
 
+export const setServerAccessToken = (token: string): void => {
+    document.cookie = `serverAccessToken=${token}; HttpOnly; path=/; `
+}
+
 export const getAccessToken = () => {
     if (typeof document !== "undefined") {
         const cookies = document.cookie.split(";")
