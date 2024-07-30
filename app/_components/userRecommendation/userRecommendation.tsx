@@ -45,8 +45,8 @@ const UserRecommendation = () => {
     }, [])
 
     return (
-        <div className=" w-full overflow-x-auto flex flex-col justify-center items-center">
-            <div className="w-[1680px]  mt-24 px-4">
+        <div className=" w-full h-[800px] overflow-x-auto flex flex-col justify-center items-center relative">
+            <div className="w-[1680px] mt-24 px-4 absolute bottom-[90px] left-0 4xl:relative 4xl:items-center 4xl:bottom-[60px] ">
                 <RecommendationHeader userInfo={userInfo} getToken={getToken} />
                 <PostList
                     currentPosts={currentPosts}
