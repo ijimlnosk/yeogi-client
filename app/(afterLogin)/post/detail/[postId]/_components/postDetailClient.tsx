@@ -40,7 +40,7 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
                 <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
                     <Link
                         href={"/search"}
-                        className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-[48px] flex items-center justify-center rounded-lg"
+                        className="bg-GREY-70 text-SYSTEM-white text-md w-[110px] h-12 flex items-center justify-center rounded-lg"
                     >
                         목록으로
                     </Link>

@@ -14,8 +14,7 @@ const DetailPostPage = async ({ params }: PostDetailProps) => {
                 <PostDetailClient postId={Number(postId)} />
             </HydrationBoundary>
         )
-    } catch (error) {
-        console.error("Error fetching post:", error)
+    } catch {
         return (
             <div className="w-screen h-screen flex flex-col justify-center items-center">
                 <p className="text-[100px]">🫥</p>

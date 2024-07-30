@@ -33,7 +33,7 @@ const SelectTemplate = () => {
                     <TemplateBox type="type2" isSelected={selectedType === "type2"} />
                 </div>
             </div>
-            <div className="pt-[40px]">
+            <div className="pt-10">
                 <Button
                     background={"black"}
                     textColor={"white"}

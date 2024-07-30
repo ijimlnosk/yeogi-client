@@ -44,7 +44,7 @@ export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initial
                 state.resetAll()
                 state.setIsRouterOverlayOpen(true)
                 localStorage.removeItem("saveData")
-            } catch (error) {
+            } catch {
                 state.setIsFailModalOpen(true)
             }
         },
