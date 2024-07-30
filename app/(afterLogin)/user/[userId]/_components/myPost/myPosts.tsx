@@ -1,21 +1,31 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
 import PostCard from "@/components/commons/postCard"
+import Pagination from "@/components/commons/pagination"
 import TempImage from "@/public/images/sampleThumbnail.svg"
 import { MyPostProps } from "./type"
-import { useSearchParams } from "next/navigation"
-import Pagination from "@/components/commons/pagination"
+import { Post } from "@/types/post"
 
 const MyPost = ({ userInfo, myPosts }: MyPostProps) => {
+    const [totalPages, setTotalPages] = useState(0)
+    const [paginateMyPosts, setPaginateMyPosts] = useState<Post[]>([])
+
     const currentDate = new Date().toISOString()
     const searchParams = useSearchParams()
     const ITEMS_PER_PAGE = 8
-
     const currentPage = Number(searchParams.get("page") || "1")
-    const totalPages = myPosts ? Math.ceil(myPosts.length / ITEMS_PER_PAGE) : 0
-    const paginateMyPosts = myPosts
-        ? myPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
-        : []
+
+    useEffect(() => {
+        if (Array.isArray(myPosts)) {
+            setTotalPages(Math.ceil(myPosts.length / ITEMS_PER_PAGE))
+            setPaginateMyPosts(myPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE))
+        } else {
+            setTotalPages(0)
+            setPaginateMyPosts([])
+        }
+    }, [myPosts, currentPage])
 
     return (
         <div className="w-full flex flex-col items-center justify-center">

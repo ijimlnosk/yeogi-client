@@ -1,16 +1,16 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
+import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
+import { useEffect, useState } from "react"
 import { useLoggedIn } from "@/libs/zustand/login"
 import { getPinLocalStorage } from "@/utils/storage.utils"
-import { useEffect, useState } from "react"
 import { MyUserInfoType } from "@/types/user"
 import EditProfile from "./profile/editProfile"
 import Profile from "./profile/profile"
 import ProfileDetails from "./profile/profileDetails"
 import WorldMap from "./myMap/worldMap"
 import MyPost from "./myPost/myPosts"
-import { useQuery } from "@tanstack/react-query"
-import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
 import { UserClientProps } from "./type"
 
 const UserClient = ({ initialPosts }: UserClientProps) => {
