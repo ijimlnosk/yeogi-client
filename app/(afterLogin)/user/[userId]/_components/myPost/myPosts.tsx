@@ -1,20 +1,15 @@
+"use client"
+
 import PostCard from "@/components/commons/postCard"
 import TempImage from "@/public/images/sampleThumbnail.svg"
 import { MyPostProps } from "./type"
-import { useQuery } from "@tanstack/react-query"
-import { getMyPosts } from "@/apis/postApi"
 import { useSearchParams } from "next/navigation"
 import Pagination from "@/components/commons/pagination"
 
-const MyPost = ({ userInfo }: MyPostProps) => {
+const MyPost = ({ userInfo, myPosts }: MyPostProps) => {
     const currentDate = new Date().toISOString()
     const searchParams = useSearchParams()
     const ITEMS_PER_PAGE = 8
-
-    const { data: myPosts, isLoading } = useQuery({
-        queryKey: ["myPosts"],
-        queryFn: getMyPosts,
-    })
 
     const currentPage = Number(searchParams.get("page") || "1")
     const totalPages = myPosts ? Math.ceil(myPosts.length / ITEMS_PER_PAGE) : 0
@@ -22,7 +17,6 @@ const MyPost = ({ userInfo }: MyPostProps) => {
         ? myPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
         : []
 
-    if (isLoading) return <div>내 게시글 목록을 가져오는 중...📂</div>
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] px-5 pb-5">

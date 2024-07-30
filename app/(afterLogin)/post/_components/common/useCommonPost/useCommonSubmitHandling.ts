@@ -5,12 +5,12 @@ import { CreatePost, UpdatePost, memos } from "@/types/post"
 import { formatDate } from "@/utils/date.utils"
 import { processContentImages } from "@/utils/setImage.utils"
 import { FormEvent, useCallback } from "react"
-import { usePostFetchCreatePost, useUpdateFetchPost } from "@/libs/queryClient/postQueryClient"
+import { useFetchCreatePost, useFetchUpdatePost } from "@/libs/queryClient/postQueryClient"
 
 export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initialData?: UpdatePost) => {
-    const createPostMutation = usePostFetchCreatePost()
-    const updatePostMutation = useUpdateFetchPost()
-
+    const createPostMutation = useFetchCreatePost()
+    const updatePostMutation = useFetchUpdatePost()
+    useFetchUpdatePost
     const handleOverlaySubmit = useCallback(
         async (e: FormEvent, memos: memos[]) => {
             try {

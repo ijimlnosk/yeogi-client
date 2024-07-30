@@ -1,3 +1,5 @@
+"use client"
+
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import { ProfileDetailsProps } from "./type"
 import { useState } from "react"

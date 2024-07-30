@@ -1,7 +1,7 @@
 "use client"
 
 import RankCard from "@/components/commons/rankCard"
-import { useGetFetchPost } from "@/libs/queryClient/postQueryClient"
+import { useFetchGetPost } from "@/libs/queryClient/postQueryClient"
 import { Post } from "@/types/post"
 import { useEffect, useState } from "react"
 
@@ -9,7 +9,7 @@ const RealTimeRecommendation = () => {
     const ranks = ["Top1", "Top2", "Top3"] as const
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [posts, setPosts] = useState<Post[]>([])
-    const getPostMutation = useGetFetchPost()
+    const getPostMutation = useFetchGetPost()
 
     const getFetchPost = () => {
         setIsLoading(true)

@@ -6,14 +6,14 @@ import { updatePostProps } from "../reactQuery/type"
 
 export const queryClient = new QueryClient()
 
-export const getFetchPostDetail = (postId: number) => {
+export const fetchGetPostDetail = (postId: number) => {
     return queryClient.fetchQuery({
-        queryKey: ["post", postId],
+        queryKey: ["posts", postId],
         queryFn: () => postApi.getPostDetail(postId),
     })
 }
 
-export const usePostFetchCreatePost = () => {
+export const useFetchCreatePost = () => {
     return useMutation({
         mutationFn: (newPost: CreatePost) => postApi.postPost(newPost),
         onSuccess: () => {
@@ -22,7 +22,7 @@ export const usePostFetchCreatePost = () => {
     })
 }
 
-export const useGetFetchPost = (): UseMutationResult<Post[], Error, getPostProps, unknown> => {
+export const useFetchGetPost = (): UseMutationResult<Post[], Error, getPostProps, unknown> => {
     return useMutation({
         mutationFn: ({ searchType, searchString, sortCondition, continent, theme }: getPostProps) =>
             postApi.getPost({ searchType, searchString, sortCondition, continent, theme }),
@@ -32,11 +32,27 @@ export const useGetFetchPost = (): UseMutationResult<Post[], Error, getPostProps
     })
 }
 
-export const useUpdateFetchPost = () => {
+export const useFetchUpdatePost = () => {
     return useMutation({
         mutationFn: ({ postId, editedFields }: updatePostProps) => postApi.putPost(postId, editedFields),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["posts"] })
         },
+    })
+}
+
+export const useFetchDeletePost = () => {
+    return useMutation({
+        mutationFn: (postId: number) => postApi.deletePost(postId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["posts"] })
+        },
+    })
+}
+
+export const fetchMyPosts = () => {
+    return queryClient.fetchQuery({
+        queryKey: ["myPosts"],
+        queryFn: () => postApi.getMyPosts(),
     })
 }
