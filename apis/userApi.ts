@@ -1,11 +1,7 @@
 import { fetchFormAPI, fetchFormMultipartAPI } from "./api.utils"
 import { MyUserInfoType, EditUserInfoType } from "@/types/user"
-import { getAccessToken } from "./auth/token/access.utils"
 
 const USER_API_URL = "/member"
-const token = getAccessToken()
-
-console.log(token, "token")
 
 export const getUserInfo = async () => {
     const response = await fetchFormAPI(USER_API_URL, "me", { method: "GET" })

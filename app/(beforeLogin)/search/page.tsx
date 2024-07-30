@@ -16,7 +16,7 @@ const SearchPage = async () => {
             <div className="w-full max-w-[1920px] h-fit py-10 flex flex-col justify-center items-center">
                 <FilterTabs />
                 <div className="w-full h-fit flex flex-col justify-center items-center">
-                    <div className="w-full h-fit flex flex-row items-center mt-6">
+                    <div className="w-[1680px] h-fit flex justify-start mt-6">
                         <h1 className="text-bg leading-[34px] font-semibold pb-4">TOP 기록</h1>
                     </div>
                     <RealTimeRecommendation />

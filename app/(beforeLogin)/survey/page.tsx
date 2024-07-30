@@ -1,6 +1,7 @@
-import SurveyClient from "./_components/surveyClient"
+import dynamic from "next/dynamic"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
+const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
 const Survey = () => {
     return (

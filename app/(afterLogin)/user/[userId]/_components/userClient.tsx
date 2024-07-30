@@ -4,7 +4,6 @@ import { useLoggedIn } from "@/libs/zustand/login"
 import { getPinLocalStorage } from "@/utils/storage.utils"
 import { useEffect, useState } from "react"
 import { MyUserInfoType } from "@/types/user"
-import { Post } from "@/types/post"
 import EditProfile from "./profile/editProfile"
 import Profile from "./profile/profile"
 import ProfileDetails from "./profile/profileDetails"
@@ -12,11 +11,7 @@ import WorldMap from "./myMap/worldMap"
 import MyPost from "./myPost/myPosts"
 import { useQuery } from "@tanstack/react-query"
 import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
-
-export type UserClientProps = {
-    // initialUserInfo: MyUserInfoType
-    initialPosts: Post[]
-}
+import { UserClientProps } from "./type"
 
 const UserClient = ({ initialPosts }: UserClientProps) => {
     const [isEditing, setIsEditing] = useState<boolean>(false)

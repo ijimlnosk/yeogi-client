@@ -1,5 +1,4 @@
 import UserClient from "./_components/userClient"
-// import { getUserInfo } from "@/apis/userApi"
 import * as postApi from "@/apis/postApi"
 
 const UserPage = async () => {

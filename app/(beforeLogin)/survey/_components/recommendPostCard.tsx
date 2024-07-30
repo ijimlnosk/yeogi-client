@@ -1,3 +1,5 @@
+"use client"
+
 import PostCard from "@/components/commons/postCard"
 import { RecommendedTextFields } from "@/constants/recommendedTextFields"
 import Image from "next/image"

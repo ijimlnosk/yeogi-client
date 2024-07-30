@@ -1,3 +1,5 @@
+"use client"
+
 import { useThemeStore } from "@/libs/zustand/theme"
 import RecommendPostCard from "./recommendPostCard"
 

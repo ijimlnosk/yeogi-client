@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useEffect, useMemo, useState } from "react"
-import { useGetPost } from "@/libs/reactQuery/usePostMutation"
 import { useGetPostProps } from "@/libs/reactQuery/type"
 import { ContinentType } from "@/types/continent"
 import { ThemeKeys } from "@/types/theme"
@@ -11,9 +10,10 @@ import { useSearchParams } from "next/navigation"
 import { isSortConditionType, SortConditionType } from "@/types/sortCondition"
 import { searchClientProps } from "./type"
 import { Post } from "@/types/post"
+import { useFetchGetPost } from "@/libs/queryClient/postQueryClient"
+const PostSection = dynamic(() => import("./postSection"), { ssr: false })
 
 const ITEMS_PER_PAGE = 8
-const PostSection = dynamic(() => import("./postSection"), { ssr: false })
 
 const SearchClient = ({ initialPosts }: searchClientProps) => {
     const searchParams = useSearchParams()
@@ -23,7 +23,7 @@ const SearchClient = ({ initialPosts }: searchClientProps) => {
     const sortConditionParam = searchParams.get("sortCondition") || "RECENT"
     const sortCondition: SortConditionType = isSortConditionType(sortConditionParam) ? sortConditionParam : "RECENT"
     const currentPage = Number(searchParams.get("page") || "1")
-    const { mutate, data: mutationData } = useGetPost()
+    const { mutate, data: mutationData } = useFetchGetPost()
 
     const [posts, setPosts] = useState<Post[]>(initialPosts)
 
