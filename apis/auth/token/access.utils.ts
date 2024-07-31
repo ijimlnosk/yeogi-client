@@ -1,5 +1,5 @@
 export const setAccessToken = (token: string): void => {
-    document.cookie = `accessToken=${token}; path=/;`
+    document.cookie = `next-auth.sesstion-token=${token}; path=/;`
 }
 
 export const getAccessToken = () => {
@@ -8,8 +8,8 @@ export const getAccessToken = () => {
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim()
             // 쿠키 이름이 accessToken인 경우
-            if (cookie.startsWith("accessToken=")) {
-                return cookie.substring("accessToken=".length, cookie.length)
+            if (cookie.startsWith("next-auth.session-token=")) {
+                return cookie.substring("next-auth.session-token=".length, cookie.length)
             }
         }
     }

@@ -3,8 +3,8 @@ import { removeAccessToken, setAccessToken } from "./token/access.utils"
 import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./token/refresh.utils"
 
 const AUTH_API_URL = "/auth"
-// const redirect_uri = "http://localhost:3000/auth"
-const redirect_uri = "https://yeogi-client.vercel.app/auth"
+const redirect_uri = "http://localhost:3000/auth"
+// const redirect_uri = "https://yeogi-client.vercel.app/auth"
 
 /**
  * @function
@@ -25,7 +25,7 @@ const fetchAuthToken = async (
         throw new Error("코드를 받아오지 못했습니다.")
     }
     const response = await fetch(
-        `${AUTH_API_URL}/auth/generateToken/${provider}?code=${code}&redirect_uri=${redirect_uri}`,
+        `${AUTH_API_URL}/generateToken/${provider}?code=${code}&redirect_uri=${redirect_uri}`,
         {
             method,
         },

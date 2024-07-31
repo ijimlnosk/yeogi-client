@@ -1,14 +1,16 @@
+import { getSession } from "next-auth/react"
 import { logout, reissueTokens } from "./auth/oauthApi"
 import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getAccessToken()
+    const session = await getSession()
 
     const response = await fetch(`${api}/${endPoint}`, {
         ...options,
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${session?.accessToken}`,
+            ...options.headers,
         },
         credentials: "include",
     })
