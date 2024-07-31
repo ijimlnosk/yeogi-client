@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import Button from "@/components/commons/button"
 
 const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
-    const [profileImage, setProfileImage] = useState<string>("/images/sampleProfile.svg")
+    const [profileImage, setProfileImage] = useState<string>("/images/user/sampleProfile.svg")
     const [isImageLoading, setIsImageLoading] = useState<boolean>(true)
     const [isProfileClicked, setIsProfileClicked] = useState<boolean>(false)
     const { isLoggedIn, userInfo } = useLoggedIn()
@@ -68,7 +68,7 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                             alt="게시글 작성하기"
                             className="w-6 h-6 md:mr-2 mr-0"
                         />
-                        <span className="hidden md:inline">글쓰기</span>
+                        <span className="hidden md:inline md:whitespace-nowrap md:visible invisible">글쓰기</span>
                     </Button>
                 </>
             ) : (

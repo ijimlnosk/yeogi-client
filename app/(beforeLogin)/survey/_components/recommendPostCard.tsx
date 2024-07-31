@@ -1,3 +1,5 @@
+"use client"
+
 import PostCard from "@/components/commons/postCard"
 import { RecommendedTextFields } from "@/constants/recommendedTextFields"
 import Image from "next/image"
@@ -5,6 +7,7 @@ import { RecommendPostCardProps } from "./type"
 import { useEffect, useState } from "react"
 import { getPopular } from "@/apis/postApi"
 import { Post } from "@/types/post"
+import Link from "next/link"
 
 const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
     const [posts, setPosts] = useState<Post[]>([])
@@ -19,7 +22,6 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                 setError("popular posts 불러오기 실패")
             }
         }
-
         fetchPopularPosts()
     }, [themes])
 
@@ -92,15 +94,20 @@ const RecommendPostCard = ({ themes }: RecommendPostCardProps) => {
                                     <p>No posts available</p>
                                 )}
                             </div>
-                            <div className="w-full flex flex-row justify-end">
-                                <span className="text-sm font-semibold pr-2">다른 기록 보러 가기</span>
-                                <Image
-                                    width={24}
-                                    height={24}
-                                    src={"/icons/black_arrow_left.svg"}
-                                    className="rotate-180"
-                                    alt="다른 기록 보러 가기"
-                                />
+                            <div className="w-full ">
+                                <Link
+                                    href={`/search?theme=${encodeURIComponent(themes[index])}`}
+                                    className="flex flex-row justify-end"
+                                >
+                                    <span className="text-sm font-semibold pr-2">다른 기록 보러 가기</span>
+                                    <Image
+                                        width={24}
+                                        height={24}
+                                        src={"/icons/black_arrow_left.svg"}
+                                        className="rotate-180"
+                                        alt="다른 기록 보러 가기"
+                                    />
+                                </Link>
                             </div>
                         </div>
                     )

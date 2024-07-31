@@ -4,7 +4,7 @@ import { MyUserInfoType, EditUserInfoType } from "@/types/user"
 const USER_API_URL = "/member"
 
 export const getUserInfo = async () => {
-    const response = await fetchFormAPI(USER_API_URL, "member/me", { method: "GET" })
+    const response = await fetchFormAPI(USER_API_URL, "me", { method: "GET" })
     if (!response.ok) {
         throw new Error("response not ok")
     }
@@ -29,7 +29,6 @@ export const putUserInfo = async (
         image: typeof editedUserInfo.profile === "string" ? editedUserInfo.profile : userInfo.profile,
         banner: typeof editedUserInfo.banner === "string" ? editedUserInfo.banner : userInfo.banner,
     }
-    console.log("updatedInfo :", updatedInfo)
     const response = await fetchFormAPI(USER_API_URL, "member", {
         method: "PUT",
         body: JSON.stringify(updatedInfo),
@@ -45,7 +44,7 @@ export const putUserInfo = async (
  * @returns 수정된 유저의 정보
  */
 export const putUserProfileImage = async (image: FormData): Promise<{ image: FormData }> => {
-    const response = await fetchFormMultipartAPI(USER_API_URL, "member/profileImage", {
+    const response = await fetchFormMultipartAPI(USER_API_URL, "profileImage", {
         method: "PUT",
         body: image,
     })
@@ -62,7 +61,7 @@ export const putUserProfileImage = async (image: FormData): Promise<{ image: For
  * @returns 수정된 유저의 정보
  */
 export const putUserBannerImage = async (image: FormData): Promise<{ image: FormData }> => {
-    const response = await fetchFormMultipartAPI(USER_API_URL, "member/banner", {
+    const response = await fetchFormMultipartAPI(USER_API_URL, "banner", {
         method: "PUT",
         body: image,
     })

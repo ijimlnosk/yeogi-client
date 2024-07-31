@@ -19,10 +19,17 @@ const SurveyResultForm = () => {
     const handleResult = () => {
         setShowResult(true)
 
-        window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: `smooth`,
-        })
+        setTimeout(() => {
+            const resultSection = document.getElementById("survey-result-section")
+            if (resultSection) {
+                resultSection.scrollIntoView({ behavior: "smooth", block: "start" })
+            } else {
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior: "smooth",
+                })
+            }
+        }, 100)
     }
 
     return (

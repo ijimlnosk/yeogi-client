@@ -2,17 +2,17 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import { useUpdatePostDataStore } from "@/libs/zustand/post"
 import usePostLikeHandler from "@/hook/usePostLikeHandler"
 import { useLoggedIn } from "@/libs/zustand/login"
+import { useFetchDeletePost } from "@/libs/queryClient/postQueryClient"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
     const router = useRouter()
-    const deletePostMutation = useDeletePost()
+    const deletePostMutation = useFetchDeletePost()
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
     const [isInProgress, setIsInProgress] = useState<boolean>(false)

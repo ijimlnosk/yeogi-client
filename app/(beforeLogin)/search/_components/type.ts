@@ -12,3 +12,7 @@ export type postSectionProps = {
     currentPage: number
     sortCondition: SortConditionType
 }
+
+export type searchClientProps = {
+    initialPosts: Post[]
+}

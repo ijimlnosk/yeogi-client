@@ -47,27 +47,27 @@ const CommentMenu = ({ commentId, author }: CommentMenuProps) => {
 
     return (
         <div ref={menuRef} className="relative">
-            <Image
-                src={"/icons/menu.svg"}
-                alt="menu"
-                width={24}
-                height={24}
-                onClick={toggleMenu}
-                className="hover:cursor-pointer"
-            />
+            {isAuthor && (
+                <Image
+                    src={"/icons/menu.svg"}
+                    alt="menu"
+                    width={24}
+                    height={24}
+                    onClick={toggleMenu}
+                    className="hover:cursor-pointer"
+                />
+            )}
             {isMenu && (
                 <>
-                    {isAuthor && (
-                        <div className="w-[108px] h-[85px] bg-SYSTEM-white absolute right-0 top-0 shadow-polaroid flex flex-col items-center justify-center gap-2">
-                            <div onClick={handleUpdateClick} className="hover:cursor-pointer">
-                                수정
-                            </div>
-                            <div className="border-t-2 border-GREY-20 w-[60px] h-[1px]"></div>
-                            <div onClick={() => handleDeleteClick(commentId)} className="hover:cursor-pointer">
-                                삭제
-                            </div>
+                    <div className="w-[108px] h-[85px] bg-SYSTEM-white absolute right-0 top-0 shadow-polaroid flex flex-col items-center justify-center gap-2">
+                        <div onClick={handleUpdateClick} className="hover:cursor-pointer">
+                            수정
                         </div>
-                    )}
+                        <div className="border-t-2 border-GREY-20 w-[60px] h-[1px]"></div>
+                        <div onClick={() => handleDeleteClick(commentId)} className="hover:cursor-pointer">
+                            삭제
+                        </div>
+                    </div>
                 </>
             )}
         </div>

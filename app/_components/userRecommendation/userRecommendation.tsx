@@ -1,19 +1,20 @@
-"use clien"
+"use client"
 
 import { getUserInfo } from "@/apis/userApi"
 import { useEffect, useState } from "react"
 import { Post } from "@/types/post"
-import { getPost } from "@/apis/postApi"
 import { getAccessToken } from "@/apis/auth/token/access.utils"
 import { useRecommendPagination } from "@/hook/useRecommendPagination"
 import PostList from "./PostList"
 import { UserInfo } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 import RecommendationHeader from "./recommendationHeader"
+import { useFetchGetPost } from "@/libs/queryClient/postQueryClient"
 
 const UserRecommendation = () => {
     const [userInfo, setUserInfo] = useState<UserInfo>()
     const [posts, setPosts] = useState<Post[]>([])
     const postsPerPage = 4
+    const getPostMutation = useFetchGetPost()
 
     const {
         currentPage,
@@ -33,20 +34,24 @@ const UserRecommendation = () => {
                 const response = await getUserInfo()
                 setUserInfo(response)
             }
-
-            const postResponse = await getPost({
-                searchType: "CONTENT",
-                sortCondition: "VIEWS",
-                searchString: "",
-            })
-            setPosts(postResponse)
+            getPostMutation.mutate(
+                {
+                    searchType: "CONTENT",
+                    sortCondition: "VIEWS",
+                    searchString: "",
+                },
+                {
+                    onSuccess: data => setPosts(data),
+                },
+            )
         }
         fetchUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
-        <div className=" w-full overflow-x-auto flex flex-col justify-center items-center">
-            <div className="w-[1680px]  mt-24 px-4">
+        <div className=" w-full h-[800px] overflow-x-auto flex flex-col justify-center items-center relative">
+            <div className="w-[1680px] mt-24 px-4 absolute bottom-[90px] left-0 4xl:relative 4xl:items-center 4xl:bottom-[60px] ">
                 <RecommendationHeader userInfo={userInfo} getToken={getToken} />
                 <PostList
                     currentPosts={currentPosts}
