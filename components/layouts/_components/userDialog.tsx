@@ -17,7 +17,7 @@ const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
     }
 
     return (
-        <div className="absolute top-20 5xl:right-[190px] max-[2000px]:right-[20%] min-[2001px]:right-[11%] min-[2100px]:right-[13%] min-[2200px]:right-[15%] min-[2300px]:right-[16%] w-[150px] h-[105px] bg-SYSTEM-white rounded-3xl shadow-custom p-2 flex flex-col justify-evenly items-center text-xs">
+        <div className="absolute top-20 w-[150px] h-[105px] bg-SYSTEM-white rounded-3xl shadow-custom p-2 flex flex-col justify-evenly items-center text-xs">
             <div onClick={navigateMypage} className="cursor-pointer">
                 <p>마이페이지</p>
             </div>
