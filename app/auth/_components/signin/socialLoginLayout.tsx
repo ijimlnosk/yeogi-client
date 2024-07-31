@@ -1,24 +1,31 @@
+"use client"
+
 import kakaoIcon from "@/public/icons/kakao.svg"
 import naverIcon from "@/public/icons/naver_icon 1.svg"
 import googleIcon from "@/public/icons/google.svg"
 import SocialLoginButton from "./socialLoginButton"
 import { useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
+import { signIn, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
-interface LoginLayoutProps {
-    kakaoURL: string
-    naverURL: string
-    googleURL: string
-    handleMoveSocialLogin: (url: string, provider: "kakao" | "google" | "naver") => void
-}
-
-const SocialLoginLayout = ({ kakaoURL, googleURL, handleMoveSocialLogin }: LoginLayoutProps) => {
+const SocialLoginLayout = () => {
     const [isStillWorkingModalOpen, setIsStillWorkingModalOpen] = useState(false)
+    const { data: session, status } = useSession()
+    const router = useRouter()
 
-    const handleNaverLoginClick = () => {
-        setIsStillWorkingModalOpen(true)
+    if (status === "loading") {
+        return <div>Loading</div>
     }
 
+    if (session) {
+        router.push("/")
+        return null
+    }
+
+    const handleSocialLogin = (provider: string) => {
+        signIn(provider, { callbackUrl: "/auth" })
+    }
     const handleCloseModal = () => {
         setIsStillWorkingModalOpen(false)
     }
@@ -44,20 +51,19 @@ const SocialLoginLayout = ({ kakaoURL, googleURL, handleMoveSocialLogin }: Login
                         icon={kakaoIcon}
                         text={"카카오톡으로 간편하게 로그인"}
                         bgColor="bg-SNS-kakao"
-                        onClick={() => handleMoveSocialLogin(kakaoURL, "kakao")}
+                        onClick={() => handleSocialLogin("kakao")}
                     />
                     <SocialLoginButton
                         icon={naverIcon}
                         text={"네이버로 간편하게 로그인"}
                         bgColor="bg-SNS-naver"
-                        // onClick={() => handleMoveSocialLogin(naverURL, "naver")}
-                        onClick={handleNaverLoginClick}
+                        onClick={() => handleSocialLogin("naver")}
                     />
                     <SocialLoginButton
                         icon={googleIcon}
                         text={"GOOGLE로 간편하게 로그인"}
                         bgColor="bg-SYSTEM-white"
-                        onClick={() => handleMoveSocialLogin(googleURL, "google")}
+                        onClick={() => handleSocialLogin("google")}
                     />
                 </div>
             </div>
