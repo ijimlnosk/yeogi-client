@@ -14,6 +14,7 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
         isActiveState,
         isArrowClickable,
         isInProgress,
+        liked,
         handleClick,
         handleModalClose,
         isDeleteModalOpen,
@@ -33,6 +34,13 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
             setLikes(postId, post.likeCount)
         }
     }, [])
+
+    useEffect(() => {
+        // liked 상태가 변경될 때마다 좋아요 수 업데이트 (for 낙관적 업데이트)
+        if (postId) {
+            setLikes(postId, liked ? likes[postId] + 1 : likes[postId] - 1)
+        }
+    }, [liked, postId])
 
     return (
         <div className={`fixed top-[28%] ${isMine ? "mt-[220px]" : ""}`}>

@@ -5,10 +5,15 @@ import { deletePostLike, postPostLike } from "@/apis/postApi"
 import { Post } from "@/types/post"
 import { useLoggedIn } from "@/libs/zustand/login"
 
-const usePostLikeHandler = (postId: number, initialLiked: boolean, post: Post) => {
+const usePostLikeHandler = (
+    postId: number,
+    initialLiked: boolean,
+    post: Post,
+    handleLikeChange: (isLiked: boolean) => void,
+) => {
     const { userInfo, isLoading } = useLoggedIn()
     const [liked, setLiked] = useState<boolean>(initialLiked)
-    const [isProcessing, setIsProcessing] = useState(false)
+    const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
     useEffect(() => {
         if (!isLoading && userInfo && post.likedMembersInfos) {
@@ -20,6 +25,10 @@ const usePostLikeHandler = (postId: number, initialLiked: boolean, post: Post) =
     const handleLikeClick = useCallback(async () => {
         if (isProcessing) return
         setIsProcessing(true)
+
+        const optimisticLikeState = !liked
+        setLiked(optimisticLikeState)
+        handleLikeChange(optimisticLikeState)
 
         try {
             if (liked) {

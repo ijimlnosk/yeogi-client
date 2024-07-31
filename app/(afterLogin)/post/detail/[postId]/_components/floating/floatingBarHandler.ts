@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useDeletePost } from "@/libs/reactQuery/usePostMutation"
 import { useHandleClickProps } from "./type"
@@ -10,7 +10,29 @@ import usePostLikeHandler from "@/hook/usePostLikeHandler"
 import { useLoggedIn } from "@/libs/zustand/login"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
-    const { handleLikeClick, liked, isLoading } = usePostLikeHandler(postId!, post?.hasLiked || false, post!)
+    const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
+    const router = useRouter()
+    const deletePostMutation = useDeletePost()
+    const { setPostId, setPostDetail } = useUpdatePostDataStore()
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+    const [isInProgress, setIsInProgress] = useState<boolean>(false)
+    const { isLoggedIn, userInfo } = useLoggedIn()
+
+    const handleLikeChange = useCallback(
+        (isLiked: boolean) => {
+            setIconState(prevState =>
+                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: isLiked } : icon)),
+            )
+        },
+        [setIconState],
+    )
+
+    const { handleLikeClick, liked, isLoading } = usePostLikeHandler(
+        postId!,
+        post?.hasLiked || false,
+        post!,
+        handleLikeChange,
+    )
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
         like: liked,
@@ -18,14 +40,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         delete: false,
         update: false,
     })
-    const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
-
-    const router = useRouter()
-    const deletePostMutation = useDeletePost()
-    const { setPostId, setPostDetail } = useUpdatePostDataStore()
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
-    const [isInProgress, setIsInProgress] = useState<boolean>(false)
-    const { isLoggedIn, userInfo } = useLoggedIn()
 
     if (postId === undefined) {
         throw new Error()
@@ -165,6 +179,7 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         isActiveState,
         isArrowClickable,
         isInProgress,
+        liked,
         handleClick,
         isDeleteModalOpen,
         handleModalClose,
