@@ -1,8 +1,11 @@
+"use client"
+
 import dayjs from "dayjs"
 import { PostState, postStateSetter } from "./type"
+import { useCallback } from "react"
 
 export const useCommonLocalStorage = (state: PostState, setters: postStateSetter) => {
-    const loadFromLocalStorage = (): void => {
+    const loadFromLocalStorage = useCallback((): void => {
         const savedData = localStorage.getItem("saveData")
         if (savedData) {
             const parsedData = JSON.parse(savedData)
@@ -14,9 +17,10 @@ export const useCommonLocalStorage = (state: PostState, setters: postStateSetter
             setters.setSelectedAddress(parsedData.selectedAddress)
             setters.setSelectedTheme(parsedData?.selectedTheme || [])
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    const saveToLocalStorage = (): void => {
+    const saveToLocalStorage = useCallback((): void => {
         const dataToSave = {
             formData: state.formData,
             selectedContinent: state.selectedContinent,
@@ -27,7 +31,15 @@ export const useCommonLocalStorage = (state: PostState, setters: postStateSetter
             selectedTheme: state.selectedTheme,
         }
         localStorage.setItem("saveData", JSON.stringify(dataToSave))
-    }
+    }, [
+        state.endDate,
+        state.formData,
+        state.selectedAddress,
+        state.selectedContinent,
+        state.selectedCountry,
+        state.selectedTheme,
+        state.startDate,
+    ])
 
     return { loadFromLocalStorage, saveToLocalStorage }
 }

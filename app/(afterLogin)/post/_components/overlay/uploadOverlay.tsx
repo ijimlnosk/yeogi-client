@@ -20,35 +20,33 @@ const UploadOverlay = ({ isOverlayOpen, setIsOverlayOpen, handleOverlaySubmit, m
     }
 
     return (
-        <>
-            <Overlay
-                isOpen={isOverlayOpen}
-                handleOverlaySubmit={e => handleOverlaySubmit(e, memos)}
-                onClick={() => setIsOverlayOpen(false)}
-                onLeftClick={() => setIsPreviewVisible(false)}
-                leftText={isPreviewVisible ? "다시 선택" : ""}
-                text={isPreviewVisible ? "확인했어요!" : ""}
-                textColor={"text-SYSTEM-white"}
-                imageUrl={isPreviewVisible && checkIcon}
-                leftImageUrl={isPreviewVisible && BackIcon}
-                title="이렇게 업로드될 거예요!"
-                rounded={"rounded-3xl"}
-            >
-                {!isPreviewVisible ? (
-                    <ThumbnailUploader onComplete={handleComplete} />
-                ) : (
-                    <>
-                        {selectedCountry && (
-                            <PreviewPostCard
-                                selectedImage={selectedImage}
-                                selectedCountry={selectedCountry}
-                                title={formData.title}
-                            />
-                        )}
-                    </>
-                )}
-            </Overlay>
-        </>
+        <Overlay
+            isOpen={isOverlayOpen}
+            handleOverlaySubmit={e => handleOverlaySubmit(e, memos)}
+            onClick={() => setIsOverlayOpen(false)}
+            onLeftClick={() => setIsPreviewVisible(false)}
+            leftText={isPreviewVisible ? "다시 선택" : ""}
+            text={isPreviewVisible ? "확인했어요!" : ""}
+            textColor={"text-SYSTEM-white"}
+            imageUrl={isPreviewVisible && checkIcon}
+            leftImageUrl={isPreviewVisible && BackIcon}
+            title="이렇게 업로드될 거예요!"
+            rounded={"rounded-3xl"}
+        >
+            {!isPreviewVisible ? (
+                <ThumbnailUploader onComplete={handleComplete} />
+            ) : (
+                <>
+                    {selectedCountry && (
+                        <PreviewPostCard
+                            selectedImage={selectedImage}
+                            selectedCountry={selectedCountry}
+                            title={formData.title}
+                        />
+                    )}
+                </>
+            )}
+        </Overlay>
     )
 }
 export default UploadOverlay

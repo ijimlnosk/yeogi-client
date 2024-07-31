@@ -13,11 +13,11 @@ const nextConfig = {
         return [
             {
                 source: "/posts/:path*",
-                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/:path*",
+                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/posts/:path*",
             },
             {
                 source: "/member/:path*",
-                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/:path*",
+                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/member/:path*",
             },
             {
                 source: "/comments/:path*",

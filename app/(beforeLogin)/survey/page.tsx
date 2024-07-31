@@ -1,12 +1,9 @@
-"use client"
-
-import RecommendPostCard from "./_components/recommendPostCard"
+import dynamic from "next/dynamic"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
-import { useThemeStore } from "@/libs/zustand/theme"
+const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
 const Survey = () => {
-    const { showResult, topTags } = useThemeStore()
     return (
         <div className="w-full mb-[196px] flex flex-col justify-center items-center">
             <div className="mx-5 w-full h-[500px] bg-SURVEY_IMAGE bg-cover bg-center flex items-center justify-center">
@@ -27,9 +24,7 @@ const Survey = () => {
                         <SurveyIntroForm />
                     </div>
                 </div>
-                <div id="survey-result-section" className="w-full">
-                    {showResult && <RecommendPostCard themes={topTags} />}
-                </div>
+                <SurveyClient />
             </div>
         </div>
     )
