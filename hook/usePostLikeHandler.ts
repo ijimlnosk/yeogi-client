@@ -2,18 +2,15 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { deletePostLike, postPostLike } from "@/apis/postApi"
-import { Post } from "@/types/post"
 import { useLoggedIn } from "@/libs/zustand/login"
+import { usePostDataStore } from "@/libs/zustand/post"
+import { usePostLikeHandlerProps } from "./type"
 
-const usePostLikeHandler = (
-    postId: number,
-    initialLiked: boolean,
-    post: Post,
-    handleLikeChange: (isLiked: boolean) => void,
-) => {
+const usePostLikeHandler = ({ postId, initialLiked, post }: usePostLikeHandlerProps) => {
     const { userInfo, isLoading } = useLoggedIn()
     const [liked, setLiked] = useState<boolean>(initialLiked)
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
+    const { refetch } = usePostDataStore()
 
     useEffect(() => {
         if (!isLoading && userInfo && post.likedMembersInfos) {
@@ -26,16 +23,13 @@ const usePostLikeHandler = (
         if (isProcessing) return
         setIsProcessing(true)
 
-        const optimisticLikeState = !liked
-        setLiked(optimisticLikeState)
-        handleLikeChange(optimisticLikeState)
-
         try {
             if (liked) {
                 await deletePostLike({ postId })
             } else {
                 await postPostLike({ postId })
             }
+            if (refetch) await refetch()
             setLiked(prev => !prev)
         } catch (error) {
             throw new Error()

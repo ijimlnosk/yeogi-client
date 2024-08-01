@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
@@ -11,28 +11,19 @@ import { useFetchDeletePost } from "@/libs/queryClient/postQueryClient"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
     const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+    const [isInProgress, setIsInProgress] = useState<boolean>(false)
+
     const router = useRouter()
     const deletePostMutation = useFetchDeletePost()
     const { setPostId, setPostDetail } = useUpdatePostDataStore()
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
-    const [isInProgress, setIsInProgress] = useState<boolean>(false)
-    const { isLoggedIn, userInfo } = useLoggedIn()
+    const { isLoggedIn } = useLoggedIn()
 
-    const handleLikeChange = useCallback(
-        (isLiked: boolean) => {
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: isLiked } : icon)),
-            )
-        },
-        [setIconState],
-    )
-
-    const { handleLikeClick, liked, isLoading } = usePostLikeHandler(
-        postId!,
-        post?.hasLiked || false,
-        post!,
-        handleLikeChange,
-    )
+    const { handleLikeClick, liked } = usePostLikeHandler({
+        postId: postId!,
+        initialLiked: post?.hasLiked || false,
+        post: post!,
+    })
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
         like: liked,
@@ -46,17 +37,8 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     }
 
     useEffect(() => {
-        if (!isLoading && post?.likedMembersInfos && userInfo?.id) {
-            const isLiked = post.likedMembersInfos.some(member => member.userId === userInfo.id)
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: isLiked } : icon)),
-            )
-        } else {
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: false } : icon)),
-            )
-        }
-    }, [post?.likedMembersInfos, userInfo, isLoading])
+        setIconState(prevState => prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: liked } : icon)))
+    }, [liked, setIconState])
 
     useEffect(() => {
         setIsArrowSclickable(window.scrollY > 0)
@@ -165,6 +147,11 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
             default:
                 break
         }
+        if (iconName !== "like") {
+            setIconState((prevState: FloatingIcon[]) =>
+                prevState.map((icon: FloatingIcon) => (icon.name === iconName ? { ...icon, isActive: true } : icon)),
+            )
+        }
     }
 
     const handleModalClose = () => {
@@ -179,7 +166,6 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         isActiveState,
         isArrowClickable,
         isInProgress,
-        liked,
         handleClick,
         isDeleteModalOpen,
         handleModalClose,

@@ -13,11 +13,11 @@ import { getPostDetail } from "@/apis/postApi"
 import { postDetailClientProps } from "./type"
 
 const PostDetailClient = ({ postId }: postDetailClientProps) => {
-    const { setPostDetail } = usePostDataStore()
+    const { setPostDetail, setRefetch } = usePostDataStore()
     const { userInfo } = useLoggedIn()
     const [isMine, setIsMine] = useState<boolean>(false)
 
-    const { data: post } = useQuery<Post, Error>({
+    const { data: post, refetch } = useQuery<Post, Error>({
         queryKey: ["post", postId],
         queryFn: () => getPostDetail(postId),
     })
@@ -28,8 +28,11 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
             if (userInfo?.nickname === post.author) {
                 setIsMine(true)
             }
+            if (refetch) {
+                setRefetch(refetch)
+            }
         }
-    }, [post, setPostDetail, userInfo?.nickname])
+    }, [refetch, post, setPostDetail, userInfo?.nickname])
 
     if (post)
         return (
