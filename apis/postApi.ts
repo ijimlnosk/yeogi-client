@@ -38,10 +38,7 @@ export const getPost = async ({
     if (continent) {
         queryParams.append("continent", encodeURIComponent(continent.toUpperCase()))
     }
-
     if (searchString) queryParams.append("searchString", encodeURIComponent(searchString))
-
-    // const url = `${POST_API_URL}?${queryParams.toString()}`
     try {
         let response
         const queryString = queryParams ? queryParams.toString() : ""
@@ -52,22 +49,17 @@ export const getPost = async ({
                 method: "GET",
             })
         }
-
         if (!response?.ok) {
             const errorText = await response?.text()
             console.error("Error response:", errorText)
             throw new Error(`HTTP error! status: ${response?.status}, body: ${errorText}`)
         }
-
         const data = await response.json()
-
         if (!Array.isArray(data)) {
             throw new Error("Received data is not an array")
         }
-
         return data as Post[]
     } catch (error) {
-        console.error("Failed to fetch posts:", error)
         throw error
     }
 }
@@ -184,24 +176,21 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
 }
 
 /**
- * @function
+ * @function postViews
  * @param {commentIdProps} props
  * @param {number} props.postId - 조회수를 추가할 게시글 ID
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/views`, { method: "POST" })
-
-    if (serverResponse) {
-        return postId
-    } else {
-        await fetchFormAPINotToken(POST_API_URL, `${postId}/views`, { method: "POST" })
-        return postId
-    }
+    const removePostDetail = (url: string) => url.replace("/post/detail", "")
+    const cleanApiUrl = removePostDetail(POST_API_URL)
+    const finalUrl = `${cleanApiUrl}/${postId}/views`
+    await fetchFormAPINotToken(finalUrl, "", { method: "POST" })
+    return postId
 }
 
 /**
- * @function
+ * @function postPostLike
  * @param {postIdProps} props
  * @param {number} props.commentId - 좋아요를 추가할 게시글 ID
  * @description 게시글에 좋아요 추가하는 API
@@ -212,7 +201,7 @@ export const postPostLike = async ({ postId }: postIdProps) => {
 }
 
 /**
- * @function
+ * @function deletePostLike
  * @param {postIdProps} props
  * @param {number} props.commentId - 좋아요를 제거할 댓글 ID
  * @description 게시글에 추가된 좋아요 삭제 API

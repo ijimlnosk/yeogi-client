@@ -33,7 +33,7 @@ export const getComment = async ({ postId, page = 0, size = 9999, sort = "" }: g
         sort: sort,
     }).toString()
 
-    const response = await fetchFormAPINotToken(API_URL, `comments/${postId}?${queryParams}`, {
+    const response = await fetchFormAPINotToken(API_URL, `/${postId}?${queryParams}`, {
         method: "GET",
     })
 

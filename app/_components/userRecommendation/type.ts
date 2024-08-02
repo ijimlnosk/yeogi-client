@@ -3,7 +3,6 @@ import { Post } from "@/types/post"
 
 export type RecommendationHeaderProps = {
     userInfo?: UserInfo
-    getToken: string | null
 }
 
 export type PostListProps = {
