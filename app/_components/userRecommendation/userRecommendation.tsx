@@ -13,7 +13,7 @@ import { useFetchGetPost } from "@/libs/queryClient/postQueryClient"
 const UserRecommendation = () => {
     const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
     const [posts, setPosts] = useState<Post[]>([])
-    const [error, setError] = useState<string | null>(null)
+    const [, setError] = useState<string | null>(null)
     const postsPerPage = 4
     const getPostMutation = useFetchGetPost()
 
