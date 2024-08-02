@@ -45,12 +45,12 @@ export const getPost = async ({
     try {
         let response
         if (typeof window === "undefined") {
-            // Server-side
             response = await fetchServerSide(`${POST_API_URL}`, { method: "GET" }, queryParams)
         } else {
-            // Client-side
             response = await fetchFormAPINotToken(`${POST_API_URL}?${queryParams}`, "", { method: "GET" })
         }
+
+        console.log(response, "response")
 
         if (!response?.ok) {
             const errorText = await response?.text()
