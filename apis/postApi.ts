@@ -44,10 +44,13 @@ export const getPost = async ({
     // const url = `${POST_API_URL}?${queryParams.toString()}`
     try {
         let response
+        const queryString = queryParams ? queryParams.toString() : ""
         if (typeof window === "undefined") {
-            response = await fetchServerSide(`${POST_API_URL}`, { method: "GET" }, queryParams)
+            response = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
         } else {
-            response = await fetchFormAPINotToken(`${POST_API_URL}?${queryParams}`, "", { method: "GET" })
+            response = await fetchFormAPINotToken(`${POST_API_URL}${queryString ? `?${queryString}` : ""}`, "", {
+                method: "GET",
+            })
         }
 
         console.log(response, "response")
