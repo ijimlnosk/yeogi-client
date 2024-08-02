@@ -28,8 +28,6 @@ export const getPost = async ({
     queryParams.append("postSearchType", searchType.toUpperCase())
     queryParams.append("postSortCondition", sortCondition.toUpperCase())
 
-    console.log(sortCondition, "sort condition")
-
     if (theme) {
         if (Array.isArray(theme)) {
             theme.forEach(t => queryParams.append("theme", encodeURIComponent(t.toUpperCase())))
@@ -43,17 +41,15 @@ export const getPost = async ({
 
     if (searchString) queryParams.append("searchString", encodeURIComponent(searchString))
 
-    const url = `${POST_API_URL}?${queryParams.toString()}`
-
-    console.log(url, "url")
+    // const url = `${POST_API_URL}?${queryParams.toString()}`
     try {
         let response
         if (typeof window === "undefined") {
             // Server-side
-            response = await fetchServerSide(url, { method: "GET" })
+            response = await fetchServerSide(`${POST_API_URL}`, { method: "GET" }, queryParams)
         } else {
             // Client-side
-            response = await fetchFormAPINotToken(url, "", { method: "GET" })
+            response = await fetchFormAPINotToken(`${POST_API_URL}?${queryParams}`, "", { method: "GET" })
         }
 
         if (!response?.ok) {
