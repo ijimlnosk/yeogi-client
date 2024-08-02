@@ -16,7 +16,7 @@ export const fetchFormAPI = async (api: string, endPoint: string, options: Reque
 }
 
 export const fetchFormAPINotToken = async (api: string, endPoint: string, options: RequestInit) => {
-    const response = await fetch(`${api}/${endPoint}`, {
+    const response = await fetch(`${api}${endPoint}`, {
         ...options,
         headers: {
             "Content-Type": "application/json",

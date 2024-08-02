@@ -5,7 +5,7 @@ import { fetchFormAPI, fetchFormAPINotToken, fetchServerSide } from "./api.utils
 import { getDefaultPost } from "@/utils/reset.utils"
 import { getAccessToken } from "./auth/token/access.utils"
 
-const POST_API_URL = "/posts"
+const POST_API_URL = "posts"
 const token = getAccessToken()
 
 /**
@@ -28,26 +28,50 @@ export const getPost = async ({
     queryParams.append("postSearchType", searchType.toUpperCase())
     queryParams.append("postSortCondition", sortCondition.toUpperCase())
 
+    console.log(sortCondition, "sort condition")
+
     if (theme) {
         if (Array.isArray(theme)) {
-            theme.forEach(t => queryParams.append("theme", t.toUpperCase()))
+            theme.forEach(t => queryParams.append("theme", encodeURIComponent(t.toUpperCase())))
         } else {
-            queryParams.append("theme", theme.toUpperCase())
+            queryParams.append("theme", encodeURIComponent(theme.toUpperCase()))
         }
     }
     if (continent) {
-        queryParams.append("continent", continent.toUpperCase())
+        queryParams.append("continent", encodeURIComponent(continent.toUpperCase()))
     }
 
-    if (searchString) queryParams.append("searchString", searchString)
+    if (searchString) queryParams.append("searchString", encodeURIComponent(searchString))
 
-    const serverResponse = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
-    if (serverResponse) {
-        return serverResponse.json()
-    } else {
-        const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
-        const posts = await response.json()
-        return posts
+    const url = `${POST_API_URL}?${queryParams.toString()}`
+
+    console.log(url, "url")
+    try {
+        let response
+        if (typeof window === "undefined") {
+            // Server-side
+            response = await fetchServerSide(url, { method: "GET" })
+        } else {
+            // Client-side
+            response = await fetchFormAPINotToken(url, "", { method: "GET" })
+        }
+
+        if (!response?.ok) {
+            const errorText = await response?.text()
+            console.error("Error response:", errorText)
+            throw new Error(`HTTP error! status: ${response?.status}, body: ${errorText}`)
+        }
+
+        const data = await response.json()
+
+        if (!Array.isArray(data)) {
+            throw new Error("Received data is not an array")
+        }
+
+        return data as Post[]
+    } catch (error) {
+        console.error("Failed to fetch posts:", error)
+        throw error
     }
 }
 
