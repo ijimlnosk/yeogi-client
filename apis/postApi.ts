@@ -53,8 +53,6 @@ export const getPost = async ({
             })
         }
 
-        console.log(response, "response")
-
         if (!response?.ok) {
             const errorText = await response?.text()
             console.error("Error response:", errorText)
