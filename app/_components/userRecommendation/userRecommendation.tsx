@@ -11,8 +11,9 @@ import RecommendationHeader from "./recommendationHeader"
 import { useFetchGetPost } from "@/libs/queryClient/postQueryClient"
 
 const UserRecommendation = () => {
-    const [userInfo, setUserInfo] = useState<UserInfo>()
+    const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
     const [posts, setPosts] = useState<Post[]>([])
+    const [error, setError] = useState<string | null>(null)
     const postsPerPage = 4
     const getPostMutation = useFetchGetPost()
 
@@ -41,13 +42,22 @@ const UserRecommendation = () => {
                     searchString: "",
                 },
                 {
-                    onSuccess: data => setPosts(data),
+                    onSuccess: data => {
+                        if (Array.isArray(data)) {
+                            setPosts(data)
+                        } else {
+                            console.error("Received data is not array: ", data)
+                        }
+                    },
+                    onError: () => setError("Failed to fetch posts"),
                 },
             )
         }
         fetchUser()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    if (!userInfo) return <div>user info Loading...</div>
 
     return (
         <div className=" w-full h-[800px] overflow-x-auto flex flex-col justify-center items-center relative">
