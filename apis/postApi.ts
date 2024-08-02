@@ -39,15 +39,38 @@ export const getPost = async ({
         queryParams.append("continent", continent.toUpperCase())
     }
 
-    if (searchString) queryParams.append("searchString", searchString)
+    if (searchString) queryParams.append("searchString", encodeURIComponent(searchString))
 
-    const serverResponse = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
-    if (serverResponse) {
-        return serverResponse.json()
-    } else {
-        const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
-        const posts = await response.json()
-        return posts
+    // const serverResponse = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
+    // if (serverResponse) {
+    //     return serverResponse.json()
+    // } else {
+    //     const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
+    //     const posts = await response.json()
+    //     return posts
+    // }
+    try {
+        let response
+        if (typeof window === "undefined") {
+            response = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
+            console.log(response, "response")
+        } else {
+            response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams}`, { method: "GET" })
+        }
+
+        if (!response?.ok) {
+            throw new Error(`HTTP error! status: ${response?.status}`)
+        }
+        const data = await response.json()
+
+        if (!Array.isArray(data)) {
+            throw new Error("Received data is not an array")
+        }
+
+        return data as Post[]
+    } catch (error) {
+        console.error("Faild to fetch posts", error)
+        throw error
     }
 }
 
