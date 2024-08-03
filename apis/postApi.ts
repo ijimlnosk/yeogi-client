@@ -182,9 +182,7 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    const removePostDetail = (url: string) => url.replace("/post/detail", "")
-    const cleanApiUrl = removePostDetail(POST_API_URL)
-    const finalUrl = `${cleanApiUrl}/${postId}/views`
+    const finalUrl = `/api/posts/${postId}/views`
     await fetchFormAPINotToken(finalUrl, "", { method: "POST" })
     return postId
 }
