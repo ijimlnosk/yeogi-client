@@ -206,7 +206,7 @@ export const postPostLike = async ({ postId }: postIdProps) => {
  */
 export const deletePostLike = async ({ postId }: postIdProps) => {
     await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "DELETE" })
-    return { postId }
+    return postId
 }
 
 /**
