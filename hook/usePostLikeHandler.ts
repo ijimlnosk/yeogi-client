@@ -7,17 +7,18 @@ import { usePostDataStore } from "@/libs/zustand/post"
 import { usePostLikeHandlerProps } from "./type"
 
 const usePostLikeHandler = ({ postId, initialLiked, post }: usePostLikeHandlerProps) => {
-    const { userInfo, isLoading } = useLoggedIn()
+    const { isLoading } = useLoggedIn()
     const [liked, setLiked] = useState<boolean>(initialLiked)
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const { refetch } = usePostDataStore()
 
     useEffect(() => {
-        if (!isLoading && userInfo && post.likedMembersInfos) {
-            const isLiked = post.likedMembersInfos.some(member => member.userId === userInfo.id)
-            setLiked(isLiked)
+        if (post.hasLiked) {
+            setLiked(false)
+        } else {
+            setLiked(true)
         }
-    }, [post.likedMembersInfos, userInfo, isLoading])
+    }, [post.hasLiked])
 
     const handleLikeClick = useCallback(async () => {
         if (isProcessing) return

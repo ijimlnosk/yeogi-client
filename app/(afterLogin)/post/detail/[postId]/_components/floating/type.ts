@@ -21,7 +21,7 @@ export type FloatingBarProps = {
 }
 
 export type useHandleClickProps = {
-    postId?: number
+    postId: number
     post?: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }

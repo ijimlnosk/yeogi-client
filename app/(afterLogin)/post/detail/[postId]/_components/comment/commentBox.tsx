@@ -60,7 +60,7 @@ const CommentBox = ({ comments, refetch }: CommentBoxProps) => {
                                 refetch={refetch}
                                 onReplyClick={handleReplyClick}
                                 isReplying={replyingCommentId === commentWithLike.id}
-                                reComments={commentWithLike.child}
+                                reComments={commentWithLike.children}
                             />
                             {replyingCommentId === commentWithLike.id && (
                                 <CreateReComment

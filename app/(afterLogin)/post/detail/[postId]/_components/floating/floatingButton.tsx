@@ -5,8 +5,8 @@ import { FloatingButtonProps } from "./type"
 /**
  * FloatingButton
  * @author: Wendy
- *@param {FloatingIcon} prop.icon - FloatingButton안에 들어갈 아이콘
- *@param {Function} prop.onClick - FloatingBar 컴포넌트 안에서 사용되는 handler함수
+ * @param {FloatingIcon} prop.icon - FloatingButton안에 들어갈 아이콘
+ * @param {Function} prop.onClick - FloatingBar 컴포넌트 안에서 사용되는 handler함수
  */
 
 const FloatingButton = ({ icon, onClick, disabled }: FloatingButtonProps) => {

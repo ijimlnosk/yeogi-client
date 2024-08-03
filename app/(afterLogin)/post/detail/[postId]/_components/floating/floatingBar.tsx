@@ -60,13 +60,13 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
                 </div>
             )}
             <StillWorkingOverlay isOpen={isInProgress} onClick={handleModalClose} />
-            <DeleteModal
+            {/* <DeleteModal
                 title="게시글"
                 context="삭제된 데이터"
                 isOpen={isDeleteModalOpen}
                 onClick={handleDeletePost}
                 onLeftClick={handleDeleteModalClose}
-            />
+            /> */}
         </div>
     )
 }

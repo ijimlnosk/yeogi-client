@@ -6,7 +6,7 @@ const DeleteModal = ({ title, context, isOpen, onClick, onLeftClick }: DeleteMod
     if (!isOpen) return null
 
     return (
-        <div>
+        <div style={{ zIndex: 9999 }}>
             <Overlay
                 leftText="돌아가기"
                 leftImageUrl="/icons/white_arrow-left.svg"
@@ -17,7 +17,7 @@ const DeleteModal = ({ title, context, isOpen, onClick, onLeftClick }: DeleteMod
                 textColor="text-SYSTEM-white"
                 imageUrl="/icons/white_check.svg"
             >
-                <div className="w-[360px] h-[360px] flex flex-col items-center justify-center bg-SYSTEM-white rounded-2xl z-60">
+                <div className="w-[360px] h-[360px] flex flex-col items-center justify-center bg-SYSTEM-white rounded-2xl">
                     <div className="w-full flex items-center justify-center">
                         <Image src={"/icons/trash.svg"} alt="unhappy" width={64} height={64} />
                     </div>

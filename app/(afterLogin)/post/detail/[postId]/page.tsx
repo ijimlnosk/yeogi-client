@@ -7,11 +7,11 @@ const DetailPostPage = async ({ params }: PostDetailProps) => {
     const { postId } = params
 
     try {
-        await fetchGetPostDetail(Number(postId))
+        const initialPost = await fetchGetPostDetail(Number(postId))
 
         return (
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <PostDetailClient postId={Number(postId)} />
+                <PostDetailClient postId={Number(postId)} initialPost={initialPost} />
             </HydrationBoundary>
         )
     } catch {

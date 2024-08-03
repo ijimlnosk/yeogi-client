@@ -20,10 +20,11 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     const { isLoggedIn } = useLoggedIn()
 
     const { handleLikeClick, liked } = usePostLikeHandler({
-        postId: postId!,
+        postId: postId,
         initialLiked: post?.hasLiked || false,
         post: post!,
     })
+
     const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
         arrow: false,
         like: liked,
@@ -33,6 +34,10 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
     })
 
     if (postId === undefined) {
+        throw new Error()
+    }
+
+    if (!setIconState) {
         throw new Error()
     }
 
