@@ -127,7 +127,7 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
  * @returns {Promise<void>}
  */
 export const deletePost = async (postId: number): Promise<void> => {
-    const serverResponse = await fetchServerSide(`/api/posts/${postId}`, { method: "DELETE" })
+    const serverResponse = await fetchServerSide(`${POST_API_URL}/${postId}`, { method: "DELETE" })
 
     if (serverResponse) {
         if (!serverResponse.ok) throw new Error("게시글 삭제를 못했어요...🥹")
