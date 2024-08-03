@@ -16,7 +16,7 @@ import useFloatingBarHandler from "./floating/floatingBarHandler"
 import { useFloatingIconState } from "@/libs/zustand/floating"
 import TempComponent from "./temp"
 
-const PostDetailClient = ({ postId, initialPost }: postDetailClientProps) => {
+const PostDetailClient = ({ postId }: postDetailClientProps) => {
     const { setPostDetail, setRefetch } = usePostDataStore()
     const { userInfo } = useLoggedIn()
     const [isMine, setIsMine] = useState<boolean>(false)

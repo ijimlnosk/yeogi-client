@@ -5,7 +5,7 @@ import { fetchFormAPI, fetchFormAPINotToken, fetchServerSide } from "./api.utils
 import { getDefaultPost } from "@/utils/reset.utils"
 import { getAccessToken } from "./auth/token/access.utils"
 
-const POST_API_URL = "/posts"
+const POST_API_URL = "posts"
 const token = getAccessToken()
 
 /**
@@ -30,24 +30,37 @@ export const getPost = async ({
 
     if (theme) {
         if (Array.isArray(theme)) {
-            theme.forEach(t => queryParams.append("theme", t.toUpperCase()))
+            theme.forEach(t => queryParams.append("theme", encodeURIComponent(t.toUpperCase())))
         } else {
-            queryParams.append("theme", theme.toUpperCase())
+            queryParams.append("theme", encodeURIComponent(theme.toUpperCase()))
         }
     }
     if (continent) {
-        queryParams.append("continent", continent.toUpperCase())
+        queryParams.append("continent", encodeURIComponent(continent.toUpperCase()))
     }
-
-    if (searchString) queryParams.append("searchString", searchString)
-
-    const serverResponse = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
-    if (serverResponse) {
-        return serverResponse.json()
-    } else {
-        const response = await fetchFormAPINotToken(POST_API_URL, `?${queryParams.toString()}`, { method: "GET" })
-        const posts = await response.json()
-        return posts
+    if (searchString) queryParams.append("searchString", encodeURIComponent(searchString))
+    try {
+        let response
+        const queryString = queryParams ? queryParams.toString() : ""
+        if (typeof window === "undefined") {
+            response = await fetchServerSide(POST_API_URL, { method: "GET" }, queryParams)
+        } else {
+            response = await fetchFormAPINotToken(`${POST_API_URL}${queryString ? `?${queryString}` : ""}`, "", {
+                method: "GET",
+            })
+        }
+        if (!response?.ok) {
+            const errorText = await response?.text()
+            console.error("Error response:", errorText)
+            throw new Error(`HTTP error! status: ${response?.status}, body: ${errorText}`)
+        }
+        const data = await response.json()
+        if (!Array.isArray(data)) {
+            throw new Error("Received data is not an array")
+        }
+        return data as Post[]
+    } catch (error) {
+        throw error
     }
 }
 
@@ -163,24 +176,19 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
 }
 
 /**
- * @function
+ * @function postViews
  * @param {commentIdProps} props
  * @param {number} props.postId - 조회수를 추가할 게시글 ID
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/views`, { method: "POST" })
-
-    if (serverResponse) {
-        return postId
-    } else {
-        await fetchFormAPINotToken(POST_API_URL, `${postId}/views`, { method: "POST" })
-        return postId
-    }
+    const finalUrl = `/api/posts/${postId}/views`
+    await fetchFormAPINotToken(finalUrl, "", { method: "POST" })
+    return postId
 }
 
 /**
- * @function
+ * @function postPostLike
  * @param {postIdProps} props
  * @param {number} props.commentId - 좋아요를 추가할 게시글 ID
  * @description 게시글에 좋아요 추가하는 API
@@ -191,7 +199,7 @@ export const postPostLike = async ({ postId }: postIdProps) => {
 }
 
 /**
- * @function
+ * @function deletePostLike
  * @param {postIdProps} props
  * @param {number} props.commentId - 좋아요를 제거할 댓글 ID
  * @description 게시글에 추가된 좋아요 삭제 API

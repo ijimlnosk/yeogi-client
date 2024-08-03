@@ -36,7 +36,8 @@ alt="yeogi logo" />
 
 <h3>🔗 Links</h3> 
 
-<a href="/">YEOGI</a> designed with Figma. <br />
+<a href="https://www.figma.com/design/VoBkptzgv2kOQYvWmfO0ln/%EC%97%AC%EA%B8%B0-%EA%B8%B0%ED%9A%8D%EC%84%9C?node-id=0-1&t=2FSVTDbW9uIsp8ZN-1">YEOGI</a> project proposal with Figma. <br />
+<a href="https://www.figma.com/design/TQX56AWMGdAT5DYDpmWKBk/YeoGi?node-id=0-1&t=QT5c3yGsTOHMJmk8-1">YEOGI</a> designed with Figma. <br />
 <a href="https://yeogi-client.vercel.app/">YEOGI</a> deployed by Vercel.  <br />
 <a href="https://github.com/mobi-projects/yeogi-server">YEOGI</a> backend github.
 
@@ -50,7 +51,9 @@ alt="yeogi logo" />
 <table align="center">
   <tr>
     <td>
+      <a href="https://www.behance.net/saltkik">
         <img src="https://github.com/mobi-projects/yeogi-client/assets/134191817/a23b2573-f289-4865-9164-6dd4e8894e9e" width="120px" height="120px"/>
+      </a>
     </td>
   </tr>
   <tr>
@@ -116,6 +119,8 @@ alt="yeogi logo" />
 
 <h6>total</h6> 
 <p>프로젝트 전체 진행 기간 : 2024.05.25 ~ 2024.07.21</p>
+<p>refactoring 및 re-fresh 기간 : 2024.07.21 ~ 2024.07.31</p>
+<p>추가 진행 : 2024.08.01 ~ ing</p>
 
 <br />
 
@@ -162,23 +167,21 @@ alt="yeogi logo" />
   <tr>
     <td rowspan="2">Week-04</td>
     <td>06.29 - 06.30 </td>
-    <td>on progress</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>07.01 - 07.07 </td>
-    <td>최종 데모데이 준비</td>
-    <td>-</td>
+    <td rowspan="2">최종 데모데이 준비</td>
+    <td rowspan="2">✔️</td>
   </tr>
   <tr>
     <td rowspan="2">Week-05</td>
     <td>07.01 - 07.14</td>
-    <td>최종 데모데이 준비</td>
-    <td>-</td>
   </tr>
   <tr>
     <td>07.01 - 07.21</td>
     <td>최종 스코프 개발</td>
-    <td>-</td>
+    <td>✔️</td>
   </tr>
 </table>
 </body>

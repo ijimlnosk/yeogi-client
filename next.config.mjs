@@ -12,8 +12,12 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: "/posts/:path*",
+                source: "/api/posts/:path*",
                 destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/posts/:path*",
+            },
+            {
+                source: "/posts/:path*",
+                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/posts:path*",
             },
             {
                 source: "/member/:path*",
@@ -21,7 +25,7 @@ const nextConfig = {
             },
             {
                 source: "/comments/:path*",
-                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/:path*",
+                destination: "http://ec2-43-203-193-158.ap-northeast-2.compute.amazonaws.com:8080/comments/:path*",
             },
             {
                 source: "/reply/:path*",
