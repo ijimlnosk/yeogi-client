@@ -1,127 +1,28 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useHandleClickProps } from "./type"
 import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
-import { useUpdatePostDataStore } from "@/libs/zustand/post"
-import usePostLikeHandler from "@/hook/usePostLikeHandler"
 import { useLoggedIn } from "@/libs/zustand/login"
-import { useFetchDeletePost } from "@/libs/queryClient/postQueryClient"
+import useScrollTopHandler from "@/hook/floating/useScrollTopHandler"
+import useShareHandler from "@/hook/floating/useShareHandler"
+import useDeleteHandler from "@/hook/floating/useDeleteHandler"
+import useUpdateHandler from "@/hook/floating/useUpdateHandler"
+import useIconStateHandler from "@/hook/floating/useIconStateHandler"
 
 const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickProps) => {
-    const [isArrowClickable, setIsArrowSclickable] = useState<boolean>(false)
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
-    const [isInProgress, setIsInProgress] = useState<boolean>(false)
-
     const router = useRouter()
-    const deletePostMutation = useFetchDeletePost()
-    const { setPostId, setPostDetail } = useUpdatePostDataStore()
     const { isLoggedIn } = useLoggedIn()
 
-    const { handleLikeClick, liked } = usePostLikeHandler({
-        postId: postId,
-        initialLiked: post?.hasLiked || false,
-        post: post!,
-    })
+    const { isScrollActive, handleScrollTopClick } = useScrollTopHandler({ setIconState })
+    const { isShareActive, handleShareClick } = useShareHandler({ setIconState })
+    const { isDeleteModalOpen, handleDeleteClick, handleDeletePost, handleDeleteModalClose } = useDeleteHandler(postId)
+    const { isInProgress, handleUpdatePost, handleModalClose } = useUpdateHandler(postId, post!)
+    const { handleLikeClick, liked } = useIconStateHandler({ postId, post, setIconState })
 
-    const [isActiveState, setIsActiveState] = useState<{ [key: string]: boolean }>({
-        arrow: false,
-        like: liked,
-        share: false,
-        delete: false,
-        update: false,
-    })
-
-    if (postId === undefined) {
-        throw new Error()
-    }
-
-    if (!setIconState) {
-        throw new Error()
-    }
-
-    useEffect(() => {
-        setIconState(prevState => prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: liked } : icon)))
-    }, [liked, setIconState])
-
-    useEffect(() => {
-        setIsArrowSclickable(window.scrollY > 0)
-        const handleScroll = () => {
-            setIsArrowSclickable(window.scrollY > 0)
-            if (window.scrollY <= 0) {
-                setIsActiveState(prev => ({ ...prev, arrow: false }))
-                setIconState(prevState =>
-                    prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
-                )
-            }
-        }
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [setIconState])
-
-    useEffect(() => {
-        if (isActiveState.update) {
-            setIsInProgress(true)
-        } else {
-            setIsInProgress(false)
-        }
-    }, [isActiveState.update])
-
-    const handleArrowClick = () => {
-        if (isArrowClickable) {
-            setIsActiveState(prev => ({ ...prev, arrow: true }))
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: true } : icon)),
-            )
-            window.scrollTo({ top: 0, behavior: "smooth" })
-        }
-        setTimeout(() => {
-            setIsActiveState(prev => ({ ...prev, arrow: false }))
-            setIconState(prevState =>
-                prevState.map(icon => (icon.name === "arrow" ? { ...icon, isActive: false } : icon)),
-            )
-        }, 300)
-    }
-
-    const handleShareClick = async () => {
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(window.location.href)
-            setIsActiveState(prev => ({ ...prev, share: true }))
-            setTimeout(() => {
-                setIsActiveState(prev => ({ ...prev, share: false }))
-                setIconState(prevState =>
-                    prevState.map(icon => (icon.name === "share" ? { ...icon, isActive: false } : icon)),
-                )
-            }, 1000)
-        }
-    }
-
-    const handleDeleteClick = () => {
-        setIsDeleteModalOpen(true)
-    }
-
-    const handleDeletePost = async () => {
-        if (postId) {
-            try {
-                await deletePostMutation.mutateAsync(Number(postId))
-                router.push("/search")
-            } finally {
-                setIsDeleteModalOpen(false)
-            }
-        }
-    }
-
-    const handleUpdatePost = () => {
-        if (post && postId) {
-            if (post.memos.length > 0) {
-                setIsInProgress(true)
-            } else {
-                setPostId(postId)
-                setPostDetail(post)
-                router.push(`/post/edit/${postId}`)
-            }
-        }
+    const handleNewLikeClick = () => {
+        handleLikeClick()
+        setIconState(prevState => prevState.map(icon => (icon.name === "like" ? { ...icon, isActive: !liked } : icon)))
     }
 
     const handleClick = (iconName: string) => {
@@ -134,16 +35,15 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
         )
         switch (iconName) {
             case "arrow":
-                handleArrowClick()
+                handleScrollTopClick()
                 break
             case "like":
-                handleLikeClick()
+                handleNewLikeClick()
                 break
             case "share":
                 handleShareClick()
                 break
             case "update":
-                setIsActiveState(prev => ({ ...prev, update: true }))
                 handleUpdatePost()
                 break
             case "delete":
@@ -152,24 +52,11 @@ const useFloatingBarHandler = ({ postId, post, setIconState }: useHandleClickPro
             default:
                 break
         }
-        if (iconName !== "like") {
-            setIconState((prevState: FloatingIcon[]) =>
-                prevState.map((icon: FloatingIcon) => (icon.name === iconName ? { ...icon, isActive: true } : icon)),
-            )
-        }
-    }
-
-    const handleModalClose = () => {
-        setIsActiveState(prev => ({ ...prev, update: false }))
-    }
-    const handleDeleteModalClose = () => {
-        setIsDeleteModalOpen(false)
-        setIconState(prevState => prevState.map(icon => (icon.name === "delete" ? { ...icon, isActive: false } : icon)))
     }
 
     return {
-        isActiveState,
-        isArrowClickable,
+        isScrollActive,
+        isShareActive,
         isInProgress,
         handleClick,
         isDeleteModalOpen,

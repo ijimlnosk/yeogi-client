@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { deletePostLike, getPostDetail, postPostLike } from "@/apis/postApi"
+import { deletePostLike, postPostLike } from "@/apis/postApi"
 import { useLoggedIn } from "@/libs/zustand/login"
 import { usePostDataStore } from "@/libs/zustand/post"
-import { usePostLikeHandlerProps } from "./type"
+import { usePostLikeHandlerProps } from "../type"
 import { queryClient } from "@/libs/queryClient/postQueryClient"
 
-const usePostLikeHandler = ({ postId, initialLiked, post }: usePostLikeHandlerProps) => {
+const useLikeHandler = ({ postId, initialLiked, post }: usePostLikeHandlerProps) => {
     const [liked, setLiked] = useState<boolean>(initialLiked)
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
     const { isLoading, userInfo } = useLoggedIn()
@@ -60,4 +60,4 @@ const usePostLikeHandler = ({ postId, initialLiked, post }: usePostLikeHandlerPr
     }
 }
 
-export default usePostLikeHandler
+export default useLikeHandler

@@ -1,7 +1,7 @@
 import { PostDetailProps } from "./type"
 import PostDetailClient from "./_components/postDetailClient"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { fetchGetPostDetail, queryClient } from "@/libs/queryClient/postQueryClient"
+import { queryClient } from "@/libs/queryClient/postQueryClient"
 
 /* 
 params ?
@@ -25,8 +25,6 @@ const DetailPostPage = async ({ params }: PostDetailProps) => {
     const numericPostId = parseInt(String(postId).replace(/\D/g, ""), 10)
 
     try {
-        const initialPost = await fetchGetPostDetail(Number(postId))
-
         return (
             <HydrationBoundary state={dehydrate(queryClient)}>
                 <PostDetailClient postId={Number(numericPostId)} />

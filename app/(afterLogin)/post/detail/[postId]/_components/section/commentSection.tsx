@@ -1,6 +1,5 @@
 "use client"
 
-import LikeToComment from "../comment/_components/likeToComment"
 import CommentBox from "../comment/commentBox"
 import CreateComment from "../comment/createComment"
 import { CommentSectionProps } from "./type"
@@ -35,7 +34,6 @@ const CommentSection = ({ postId }: CommentSectionProps) => {
                 title="댓글"
                 context="댓글"
             />
-            {/* <LikeToComment likes={post?.likeCount} comments={comments.length} /> */}
             <CreateComment postId={postId} refetch={refetchComments} />
             <div className="flex items-center justify-center">
                 {comments.length > 0 ? (

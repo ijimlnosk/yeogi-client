@@ -11,8 +11,8 @@ import { useLikeStore } from "@/libs/zustand/likes"
 const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
     const [iconState, setIconState] = useState<FloatingIcon[]>(icons)
     const {
-        isActiveState,
-        isArrowClickable,
+        isShareActive,
+        isScrollActive,
         isInProgress,
         handleClick,
         handleModalClose,
@@ -46,15 +46,15 @@ const FloatingBar = ({ icons, isMine, postId, post }: FloatingBarProps) => {
                                 key={idx}
                                 icon={icon}
                                 onClick={() => handleClick(icon.name)}
-                                disabled={icon.name === "arrow" && !isArrowClickable}
+                                disabled={icon.name === "arrow" && !isScrollActive}
                             />
                         ))}
                     </div>
                 </div>
-                {isActiveState.share && (
+                {isShareActive && (
                     <div
                         className={`absolute left-[540px] top-[-150px] w-[279px] h-[59px] rounded-xl text-SYSTEM-white bg-BRAND-50 flex items-center justify-center ${
-                            isActiveState.share ? "opacity-100 transition-opacity duration-300" : "opacity-0"
+                            isShareActive ? "opacity-100 transition-opacity duration-300" : "opacity-0"
                         }`}
                     >
                         링크가 클립보드에 복사되었습니다
