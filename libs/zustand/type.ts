@@ -1,8 +1,11 @@
+import { FloatingIcon } from "@/app/(afterLogin)/post/detail/[postId]/_components/floating/type"
 import { ContinentType } from "@/types/continent"
 import { CreatePost, Post, memos, UpdatePost } from "@/types/post"
 import { ThemeKeys } from "@/types/theme"
 import { MyUserInfoType } from "@/types/user"
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query"
 import { Dayjs } from "dayjs"
+import { Dispatch, SetStateAction } from "react"
 
 // create & update post
 export type CreatePostState = {
@@ -30,13 +33,22 @@ export type CreatePostState = {
     // 전체 상태 초기화 함수
     resetAll: () => void
 }
+export type PostFormState = {
+    formData: CreatePost | UpdatePost
+    setFormData: (data: Partial<CreatePost | UpdatePost>) => void
+    resetFormData: () => void
+}
+
 // post detail
 export type PostDataState = {
     postId: number
     postDetail: Post | null
     setPostId: (postId: number) => void
     setPostDetail: (postDetail: Post | null) => void
+    refetch: ((options?: RefetchOptions) => Promise<QueryObserverResult<Post, Error>>) | undefined
+    setRefetch: (refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<Post, Error>>) => void
 }
+
 // update post
 export type UpdatePostDataState = {
     postId: number
@@ -112,4 +124,10 @@ export type ThemeState = {
 export type SearchState = {
     isSearchOpen: boolean
     setIsSearchOpen: (isSearchOpen: boolean) => void
+}
+
+/* floating */
+export type useFloatingIconStateType = {
+    iconState: FloatingIcon[]
+    setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }

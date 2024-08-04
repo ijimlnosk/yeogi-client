@@ -70,7 +70,7 @@ export const getPost = async ({
  * @returns {Promise<CreatePost>} 등록된 post의 내용을 객체로 반환
  */
 export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
-    const serverResponse = await fetchServerSide(POST_API_URL, {
+    const serverResponse = await fetchServerSide("/api/posts", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
     if (serverResponse) {
         return serverResponse.json()
     } else {
-        const response = await fetchFormAPI(POST_API_URL, "", {
+        const response = await fetchFormAPI("/api/posts", "", {
             method: "POST",
             body: JSON.stringify(newPost),
         })
@@ -101,7 +101,7 @@ export const postPost = async (newPost: CreatePost): Promise<CreatePost> => {
  * @returns {Promise<UpdatePost>} 수정된 post의 내용을 객체로 반환
  */
 export const putPost = async (postId: number, editedPost: UpdatePost): Promise<UpdatePost> => {
-    const serverResponse = await fetchServerSide(POST_API_URL, {
+    const serverResponse = await fetchServerSide("/api/posts", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
     if (serverResponse) {
         return serverResponse.json()
     } else {
-        const response = await fetchFormAPI(POST_API_URL, `${postId}`, {
+        const response = await fetchFormAPI("/api/posts", `${postId}`, {
             method: "PUT",
             body: JSON.stringify(editedPost),
         })
@@ -127,12 +127,12 @@ export const putPost = async (postId: number, editedPost: UpdatePost): Promise<U
  * @returns {Promise<void>}
  */
 export const deletePost = async (postId: number): Promise<void> => {
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/${postId}`, { method: "DELETE" })
+    const serverResponse = await fetchServerSide(`/api/posts/${postId}`, { method: "DELETE" })
 
     if (serverResponse) {
         if (!serverResponse.ok) throw new Error("게시글 삭제를 못했어요...🥹")
     } else {
-        const response = await fetchFormAPI(POST_API_URL, `${postId}`, { method: "DELETE" })
+        const response = await fetchFormAPI("/api/posts/", `${postId}`, { method: "DELETE" })
         if (!response.ok) throw new Error("게시글 삭제를 못했어요...🥹")
     }
 }
@@ -182,8 +182,8 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    const finalUrl = `/api/posts/${postId}/views`
-    await fetchFormAPINotToken(finalUrl, "", { method: "POST" })
+    const fullUrl = `/api/posts/${postId}/views`
+    await fetchFormAPINotToken(fullUrl, "", { method: "POST" })
     return postId
 }
 
@@ -194,8 +194,13 @@ export const postViews = async (postId: number) => {
  * @description 게시글에 좋아요 추가하는 API
  */
 export const postPostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "POST" })
-    return postId
+    const fullUrl = `/api/posts/${postId}/likes`
+    await fetchFormAPI(fullUrl, "", { method: "POST" })
+    const response = {
+        success: true,
+        postId: postId,
+    }
+    return response
 }
 
 /**
@@ -205,8 +210,13 @@ export const postPostLike = async ({ postId }: postIdProps) => {
  * @description 게시글에 추가된 좋아요 삭제 API
  */
 export const deletePostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "DELETE" })
-    return { postId }
+    const fullUrl = `/api/posts/${postId}/likes`
+    await fetchFormAPI(fullUrl, "", { method: "DELETE" })
+    const response = {
+        success: true,
+        postId: postId,
+    }
+    return response
 }
 
 /**
@@ -214,11 +224,11 @@ export const deletePostLike = async ({ postId }: postIdProps) => {
  * @returns 내가 작성한 게시글 목록을 반환
  */
 export const getMyPosts = async (): Promise<Post[]> => {
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/mine`, { method: "GET" })
+    const serverResponse = await fetchServerSide(`/api/posts/mine`, { method: "GET" })
     if (serverResponse) {
         return serverResponse.json()
     } else {
-        const response = await fetchFormAPI(POST_API_URL, "mine", { method: "GET" })
+        const response = await fetchFormAPI("/api/posts", "/mine", { method: "GET" })
         const data = await response.json()
         return data
     }

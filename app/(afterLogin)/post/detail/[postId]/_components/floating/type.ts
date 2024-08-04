@@ -7,9 +7,10 @@ export type FloatingIcon = {
     isActive: boolean
 }
 
-export type FloatingButtonType = {
+export type FloatingButtonProps = {
     icon: FloatingIcon
     onClick: () => void
+    disabled: boolean
 }
 
 export type FloatingBarProps = {
@@ -20,7 +21,7 @@ export type FloatingBarProps = {
 }
 
 export type useHandleClickProps = {
-    postId?: number
+    postId: number
     post?: Post
     setIconState: Dispatch<SetStateAction<FloatingIcon[]>>
 }
