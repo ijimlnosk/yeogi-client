@@ -4,7 +4,7 @@ import { getAccessToken } from "./auth/token/access.utils"
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
     const token = getAccessToken()
 
-    const response = await fetch(`${api}/${endPoint}`, {
+    const response = await fetch(`${api}${endPoint}`, {
         ...options,
         headers: {
             "Content-Type": "application/json",

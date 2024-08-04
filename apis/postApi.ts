@@ -182,8 +182,8 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
  * @description 게시글에 조회수 추가하는 API
  */
 export const postViews = async (postId: number) => {
-    const finalUrl = `/api/posts/${postId}/views`
-    await fetchFormAPINotToken(finalUrl, "", { method: "POST" })
+    const fullUrl = `/api/posts/${postId}/views`
+    await fetchFormAPINotToken(fullUrl, "", { method: "POST" })
     return postId
 }
 
@@ -194,8 +194,13 @@ export const postViews = async (postId: number) => {
  * @description 게시글에 좋아요 추가하는 API
  */
 export const postPostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "POST" })
-    return postId
+    const fullUrl = `/api/posts/${postId}/likes`
+    await fetchFormAPI(fullUrl, "", { method: "POST" })
+    const response = {
+        success: true,
+        postId: postId,
+    }
+    return response
 }
 
 /**
@@ -205,8 +210,13 @@ export const postPostLike = async ({ postId }: postIdProps) => {
  * @description 게시글에 추가된 좋아요 삭제 API
  */
 export const deletePostLike = async ({ postId }: postIdProps) => {
-    await fetchFormAPI(POST_API_URL, `${postId}/likes`, { method: "DELETE" })
-    return postId
+    const fullUrl = `/api/posts/${postId}/likes`
+    await fetchFormAPI(fullUrl, "", { method: "DELETE" })
+    const response = {
+        success: true,
+        postId: postId,
+    }
+    return response
 }
 
 /**

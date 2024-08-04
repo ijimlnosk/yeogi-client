@@ -11,6 +11,7 @@ import { postDetailClientProps } from "./type"
 import FloatingSection from "./section/floatingSection"
 import PostDetailSection from "./section/detailSection"
 import CommentSection from "./section/commentSection"
+import LikeToComment from "./comment/_components/likeToComment"
 
 const PostDetailClient = ({ postId }: postDetailClientProps) => {
     const { setPostDetail, setRefetch } = usePostDataStore()
@@ -47,7 +48,8 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
             <div className="flex items-center justify-center flex-col">
                 <FloatingSection postId={postId} post={post} isMine={isMine} />
                 <PostDetailSection post={post} />
-                <CommentSection postId={postId} post={post} />
+                <LikeToComment likes={post.likeCount} comments={post.commentCount} />
+                <CommentSection postId={postId} />
                 <div className="w-full max-w-[1000px] flex justify-end items-center pt-[50px] pb-[100px]">
                     <Link
                         href={"/search"}

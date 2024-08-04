@@ -11,7 +11,7 @@ import DeleteModal from "@/components/commons/deleteModal"
 import { useCommentIdStore } from "@/libs/zustand/comment"
 import { Comment } from "../comment/type"
 
-const CommentSection = ({ postId, post }: CommentSectionProps) => {
+const CommentSection = ({ postId }: CommentSectionProps) => {
     const { isDelete, setIsDelete } = useModalStore()
     const { saveCommentId } = useCommentIdStore()
 
@@ -35,7 +35,7 @@ const CommentSection = ({ postId, post }: CommentSectionProps) => {
                 title="댓글"
                 context="댓글"
             />
-            <LikeToComment likes={post?.likeCount} comments={comments.length} />
+            {/* <LikeToComment likes={post?.likeCount} comments={comments.length} /> */}
             <CreateComment postId={postId} refetch={refetchComments} />
             <div className="flex items-center justify-center">
                 {comments.length > 0 ? (

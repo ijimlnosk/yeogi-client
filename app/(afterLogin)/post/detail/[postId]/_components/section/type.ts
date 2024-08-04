@@ -10,7 +10,6 @@ export type FloatingSectionProps = {
 }
 export type CommentSectionProps = {
     postId: number
-    post: Post
 }
 /**
  * @property {number} lat - 위도
