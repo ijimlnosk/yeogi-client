@@ -55,3 +55,9 @@ export type UseRecommendPaginationReturn<T> = {
     totalPages: number
     onChangePage: (direction: "prev" | "next") => void
 }
+
+export type usePostLikeHandlerProps = {
+    postId: number
+    initialLiked: boolean
+    post: Post
+}

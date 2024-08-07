@@ -7,7 +7,7 @@ export type Comment = {
     createdAt: string
     modifiedAt: string
     likeCount: number
-    child?: ReComments[]
+    children?: ReComments[]
 }
 
 export type ReComments = {

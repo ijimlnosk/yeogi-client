@@ -8,7 +8,7 @@ export const queryClient = new QueryClient()
 
 export const fetchGetPostDetail = (postId: number) => {
     return queryClient.fetchQuery({
-        queryKey: ["posts", postId],
+        queryKey: ["post", postId],
         queryFn: () => postApi.getPostDetail(postId),
     })
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import HoverableMoreButton from "./hoverMoreButton"
 import { RecommendationHeaderProps } from "./type"
 
-const RecommendationHeader = ({ userInfo, getToken }: RecommendationHeaderProps) => {
+const RecommendationHeader = ({ userInfo }: RecommendationHeaderProps) => {
     const [showContent, setShowContent] = useState(false)
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const RecommendationHeader = ({ userInfo, getToken }: RecommendationHeaderProps)
             <div className="font-myeongjo text-xl">
                 {showContent && (
                     <p>
-                        {getToken ? (
+                        {userInfo ? (
                             <>
                                 <span className="text-BRAND-50">{userInfo?.nickname}</span> 님을 위한 추천 기록
                             </>
