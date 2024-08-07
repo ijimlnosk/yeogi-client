@@ -143,11 +143,11 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
 export const getPostDetail = async (postId: number): Promise<Post> => {
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/${postId}`, { method: "GET" })
+    const serverResponse = await fetchServerSide(`/api/posts/${postId}`, { method: "GET" })
     if (serverResponse) {
         return serverResponse.json()
     } else {
-        const response = await fetchFormAPINotToken(POST_API_URL, `${postId}`, { method: "GET" })
+        const response = await fetchFormAPINotToken("/api/posts/", `${postId}`, { method: "GET" })
         if (!response.ok) throw new Error("response not ok")
         return response.json()
     }
@@ -162,13 +162,13 @@ export const getPopular = async (themes: ThemeKeys[]): Promise<Post[]> => {
     const queryParams = new URLSearchParams()
     themes.forEach(theme => queryParams.append("themeList", theme))
 
-    const serverResponse = await fetchServerSide(`${POST_API_URL}/popular`, { method: "GET" }, queryParams)
+    const serverResponse = await fetchServerSide("/api/posts/popular", { method: "GET" }, queryParams)
 
     if (serverResponse) {
         return serverResponse.json()
     } else {
         if (!POST_API_URL) throw new Error("API를 가져오는 URL에 문제가 있어요!🥺")
-        const response = await fetchFormAPINotToken(POST_API_URL, `/popular?${queryParams.toString()}`, {
+        const response = await fetchFormAPINotToken("/api/posts", `/popular?${queryParams.toString()}`, {
             method: "GET",
         })
         return response.json()

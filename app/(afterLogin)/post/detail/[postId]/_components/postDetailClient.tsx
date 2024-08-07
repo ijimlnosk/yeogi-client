@@ -20,7 +20,7 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
 
     const {
         data: post,
-        isPending,
+        isLoading,
         refetch,
     } = useQuery<Post, Error>({
         queryKey: ["post", postId],
@@ -39,8 +39,11 @@ const PostDetailClient = ({ postId }: postDetailClientProps) => {
         }
     }, [refetch, post, setPostDetail, userInfo?.nickname])
 
-    if (isPending) {
+    if (isLoading) {
         return <div>Loading...</div>
+    }
+    if (!post) {
+        return <div>No post data</div>
     }
 
     if (post)
