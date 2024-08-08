@@ -1,15 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { EditProfileProps } from "./type"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
-import { useUpdateUserInfo } from "@/libs/reactQuery/useUserMutation"
+import {
+    useUpdateUserBannerImage,
+    useUpdateUserInfo,
+    useUpdateUserProfileImage,
+} from "@/libs/reactQuery/useUserMutation"
 import Banner from "./_components/banner"
 import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
 import EditButtons from "./_components/buttons"
-import { EditUserInfoType } from "@/types/user"
+import { EditUserInfoType, MyUserInfoType } from "@/types/user"
 
 const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) => {
     const [previewImages, setPreviewImages] = useState<{
@@ -19,7 +23,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         profile: null,
         banner: null,
     })
-    const [, setSelectedImages] = useState<{
+    const [selectedImages, setSelectedImages] = useState<{
         profile: File | null
         banner: File | null
     }>({
@@ -36,8 +40,8 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
     })
 
     const updateUserInfo = useUpdateUserInfo()
-    /*     const updateUserProfileImage = useUpdateUserProfileImage()
-    const updateUserBannerImage = useUpdateUserBannerImage() */
+    const updateUserProfileImage = useUpdateUserProfileImage()
+    const updateUserBannerImage = useUpdateUserBannerImage()
 
     // change nickname or motto
     const handleFieldChange =
@@ -58,7 +62,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         }
     }
 
-    /* const handleSave = async () => {
+    const handleSave = async () => {
         const previousUserInfo = { ...userInfo }
         try {
             let updatedInfo: MyUserInfoType = {
@@ -66,21 +70,24 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
                 ...editedUserInfo,
             }
 
+            console.log("try start")
+
             // 이미지 업데이트 로직
             if (selectedImages.profile) {
-                const profileFormData = new FormData()
-                profileFormData.append("file", selectedImages.profile)
-                const profileResult = await updateUserProfileImage.mutateAsync(profileFormData)
-                updatedInfo.profile = profileResult.image
+                console.log("profile update start")
+                console.log(selectedImages, "selectedImages")
+                const profileResult = await updateUserProfileImage.mutateAsync(selectedImages.profile as File)
+                console.log(profileResult, "update 요청")
+                updatedInfo.profile = typeof profileResult === "string" ? profileResult : profileResult.image
+                console.log("profile update end")
             } else {
                 // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
                 updatedInfo.profile = userInfo.profile
             }
 
             if (selectedImages.banner) {
-                const bannerFormData = new FormData()
-                bannerFormData.append("file", selectedImages.banner)
-                const bannerResult = await updateUserBannerImage.mutateAsync(bannerFormData)
+                console.log("banner update")
+                const bannerResult = await updateUserBannerImage.mutateAsync(selectedImages.banner as File)
                 updatedInfo.banner = bannerResult.image
             } else {
                 // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
@@ -113,6 +120,8 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
                 })
 
                 setUserInfo(finalResult)
+
+                console.log("end")
             }
 
             setIsEditing(false)
@@ -131,9 +140,9 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             if (previewImages.profile) URL.revokeObjectURL(previewImages.profile)
             if (previewImages.banner) URL.revokeObjectURL(previewImages.banner)
         }
-    }, [previewImages]) */
+    }, [previewImages])
 
-    const handleSave = async () => {
+    /*     const handleSave = async () => {
         const previousUserInfo = { ...userInfo }
         try {
             const updatedInfo = await updateUserInfo.mutateAsync({
@@ -146,7 +155,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             setUserInfo(previousUserInfo)
             setIsEditing(true)
         }
-    }
+    } */
 
     return (
         <div className="relative">
