@@ -7,6 +7,7 @@ const nextConfig = {
             "ssl.pstatic.net",
             "k.kakaocdn.net",
             "t1.kakaocdn.net",
+            "yeogi-bucket.s3.ap-northeast-2.amazonaws.com",
         ],
     },
     async rewrites() {
