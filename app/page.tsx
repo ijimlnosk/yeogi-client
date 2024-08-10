@@ -6,6 +6,7 @@ import MainRecommend from "./_components/mainRecommend"
 import MainSurveyRecommend from "./_components/mainSurveyRecommend"
 import MainThemeBanner from "./_components/mainThemeBanner"
 
+/////
 const Home = () => {
     return (
         <main className="w-full flex justify-center items-center flex-col overflow-x-hidden">
