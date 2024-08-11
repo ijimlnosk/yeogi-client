@@ -14,6 +14,10 @@ const config: Config = {
             colors: {
                 ...COLORS,
             },
+            fontFamily: {
+                myeongjo: ["var(--font-myeongjo)", "serif"],
+                pretendard: ["var(--font-pretendard)", "sans-serif"],
+            },
             fontSize: {
                 ...FONT_SIZE,
             },

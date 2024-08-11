@@ -7,7 +7,7 @@ import { ReactQueryProvider } from "@/components/queryProvider"
 import ClientLayout from "./clientLayout"
 import { NextAuthProvider } from "./nextAuthProvider"
 
-const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"] })
+const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-myeongjo" })
 const pretendard = localFont({
     src: [
         {
@@ -36,6 +36,7 @@ const pretendard = localFont({
             style: "normal",
         },
     ],
+    variable: "--font-pretendard",
 })
 
 export const metadata: Metadata = {
@@ -64,6 +65,7 @@ export default function RootLayout({
                     defer
                 />
             </head>
+
             <body className={`${myeongjo.className} ${pretendard.className}`}>
                 <NextAuthProvider>
                     <ReactQueryProvider>
