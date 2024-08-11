@@ -6,7 +6,7 @@ import Layout from "@/components/layouts/layout"
 import { ReactQueryProvider } from "@/components/queryProvider"
 import ClientLayout from "./clientLayout"
 
-const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"] })
+const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-myeongjo" })
 const pretendard = localFont({
     src: [
         {
@@ -35,6 +35,7 @@ const pretendard = localFont({
             style: "normal",
         },
     ],
+    variable: "--font-pretendard",
 })
 
 export const metadata: Metadata = {
@@ -63,7 +64,7 @@ export default function RootLayout({
                     defer
                 />
             </head>
-            <body className={`${myeongjo.className} ${pretendard.className}`}>
+            <body className={`${myeongjo.variable} ${pretendard.variable}`}>
                 <ReactQueryProvider>
                     <ClientLayout>
                         <Layout>{children}</Layout>

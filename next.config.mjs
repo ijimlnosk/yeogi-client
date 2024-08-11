@@ -7,6 +7,7 @@ const nextConfig = {
             "ssl.pstatic.net",
             "k.kakaocdn.net",
             "t1.kakaocdn.net",
+            "yeogi-bucket.s3.ap-northeast-2.amazonaws.com",
         ],
     },
     async rewrites() {
@@ -42,6 +43,15 @@ const nextConfig = {
         ]
     },
     reactStrictMode: false,
+    webpack: (config, { dev, isServer }) => {
+        // 개발 환경에서만 React Developer Tools를 포함시키는 로직.
+        if (!dev && !isServer) {
+            config.plugins = config.plugins.filter(plugin => {
+                return plugin.constructor.name !== "ReactDevToolsPlugin"
+            })
+        }
+        return config
+    },
 }
 
 export default nextConfig
