@@ -10,6 +10,13 @@ const nextConfig = {
             "yeogi-bucket.s3.ap-northeast-2.amazonaws.com",
         ],
     },
+    swcMinify: true,
+    compiler: {
+        removeConsole: process.env.NODE_ENV === "production",
+    },
+    devIndicators: {
+        buildActivity: false,
+    },
     async rewrites() {
         return [
             {
@@ -43,11 +50,14 @@ const nextConfig = {
         ]
     },
     reactStrictMode: false,
-    webpack: (config, { dev, isServer }) => {
-        // 개발 환경에서만 React Developer Tools를 포함시키는 로직.
-        if (!dev && !isServer) {
+    webpack: (config, { dev, isServer, nextRuntime }) => {
+        // 프로덕션 환경 && 클라이언트 사이드에서만 React Developer Tools 제거
+        if (!dev && typeof window !== "undefined" && nextRuntime === "client") {
             config.plugins = config.plugins.filter(plugin => {
-                return plugin.constructor.name !== "ReactDevToolsPlugin"
+                return (
+                    plugin.constructor.name !== "ReactDevToolsPlugin" &&
+                    plugin.constructor.name !== "ReactRefreshPlugin"
+                )
             })
         }
         return config
