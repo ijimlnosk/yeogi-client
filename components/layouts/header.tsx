@@ -8,12 +8,13 @@ import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
 import { useLoggedIn } from "@/libs/zustand/login"
-import { getAccessToken } from "@/apis/auth/token/access.utils"
+import { useSession } from "next-auth/react"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
     const [lastScrollY, setLastScrollY] = useState<number>(0)
     const { setIsLoggedIn, setUserInfo } = useLoggedIn()
+    const { data: session, status } = useSession()
 
     const router = useRouter()
     const handleScroll = () => {
@@ -39,15 +40,19 @@ const Header = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             await new Promise(resolve => setTimeout(resolve, 1000))
-            const token = getAccessToken()
-            if (token) {
+            // const token = getAccessToken()
+            if (status === "authenticated" && session) {
                 setIsLoggedIn(true)
+                console.log("왜갑자기안되냐고!!!!!!! ")
                 const response = await getUserInfo()
+                console.log(response, "header-resposne")
                 setUserInfo(response)
+            } else {
+                setIsLoggedIn(false)
             }
         }
         fetchUserData()
-    }, [setIsLoggedIn, setUserInfo])
+    }, [status, session, setIsLoggedIn, setUserInfo])
 
     return (
         <header

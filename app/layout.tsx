@@ -5,6 +5,7 @@ import "./globals.css"
 import Layout from "@/components/layouts/layout"
 import { ReactQueryProvider } from "@/components/queryProvider"
 import ClientLayout from "./clientLayout"
+import { NextAuthSession } from "./nextAuthSession"
 
 const myeongjo = Nanum_Myeongjo({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-myeongjo" })
 const pretendard = localFont({
@@ -64,12 +65,15 @@ export default function RootLayout({
                     defer
                 />
             </head>
+
             <body className={`${myeongjo.variable} ${pretendard.variable}`}>
-                <ReactQueryProvider>
-                    <ClientLayout>
-                        <Layout>{children}</Layout>
-                    </ClientLayout>
-                </ReactQueryProvider>
+                <NextAuthSession>
+                    <ReactQueryProvider>
+                        <ClientLayout>
+                            <Layout>{children}</Layout>
+                        </ClientLayout>
+                    </ReactQueryProvider>
+                </NextAuthSession>
             </body>
         </html>
     )

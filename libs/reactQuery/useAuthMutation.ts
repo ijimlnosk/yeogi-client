@@ -5,8 +5,7 @@ import { UserRequest } from "@/app/auth/_components/signin/type"
 import { SigninResult, SocialSignupResponse, UserResponse } from "./type"
 import { setAccessToken } from "@/apis/auth/token/access.utils"
 import { useState } from "react"
-import { logout } from "@/apis/auth/oauthApi"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { SocialSignupRequest } from "@/app/auth/_components/signup/type"
 import { postSocialSignup } from "@/apis/auth/socialSignup"
@@ -65,17 +64,4 @@ export const useSocialSignup = () => {
     }
 
     return { ...mutation, isOpen, handleOverlay, formState, handleConfirm }
-}
-
-export const useLogout = () => {
-    const queryClient = useQueryClient()
-    const router = useRouter()
-
-    return useMutation({
-        mutationFn: logout,
-        onSuccess: () => {
-            queryClient.clear()
-            router.push("/")
-        },
-    })
 }
