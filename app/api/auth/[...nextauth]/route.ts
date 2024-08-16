@@ -101,7 +101,7 @@ const handler = NextAuth({
         sessionToken: {
             name: `session-token`,
             options: {
-                httpOnly: true, //자바스크립트를 통한 쿠키 접근을 방지하여 XSS 공격으로부터 보호
+                // httpOnly: true, //자바스크립트를 통한 쿠키 접근을 방지하여 XSS 공격으로부터 보호
                 sameSite: "lax", //CSRF 공격을 방지하고 일부 크로스 사이트 요청을 허용
                 path: "/", //쿠키가 전체 사이트에서 유효하도록 설정
                 secure: process.env.NODE_ENV === "production",
