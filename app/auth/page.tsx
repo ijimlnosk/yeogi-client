@@ -1,11 +1,7 @@
 import SocialLoginLayout from "./_components/signin/socialLoginLayout"
 
 const AuthForm = () => {
-    return (
-        <>
-            <SocialLoginLayout />
-        </>
-    )
+    return <SocialLoginLayout />
 }
 
 export default AuthForm

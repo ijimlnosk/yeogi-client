@@ -1,5 +1,5 @@
-import { getSession } from "next-auth/react"
-import { logout, reissueTokens } from "./auth/oauthApi"
+import { getSession, signOut } from "next-auth/react"
+import { reissueTokens } from "./auth/oauthApi"
 import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
@@ -67,7 +67,7 @@ export const fetchWithTokenRefresh = async (url: string, options: RequestInit) =
                 },
             })
         } catch {
-            await logout()
+            await signOut({ redirect: false })
             throw new Error("이런! 인증에 실패했습니다, 다시 로그인해주세요. 😔")
         }
     }

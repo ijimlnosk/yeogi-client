@@ -11,21 +11,6 @@ const K_CLIENT_SECRET_KEY = process.env.KAKAO_CLIENT_SECRET
 const N_REST_API_KEY = process.env.NAVER_CLIENT_ID
 const N_CLIENT_SECRET_KEY = process.env.NAVER_CLIENT_SECRET
 const AUTH_API_URL = process.env.NEXT_PUBLIC_BASE_URL
-
-declare module "next-auth" {
-    interface Session {
-        accessToken?: string
-        provider?: string
-    }
-}
-
-declare module "next-auth/jwt" {
-    interface JWT {
-        accessToken?: string
-        provider?: string
-    }
-}
-
 const handler = NextAuth({
     debug: true,
     secret: process.env.NEXTAUTH_SECRET,
@@ -80,7 +65,6 @@ const handler = NextAuth({
                     } else {
                         console.error("failed to fetch token from BE", response.status)
                     }
-                    // 첫 로그인 여부를 확인하는 로직 추가 가능
                 }
             }
             // trigger 옵션이 업데이트인경우 서버의 세션정보를 업데이트할수있음
