@@ -66,7 +66,7 @@ export default function RootLayout({
                 />
             </head>
 
-            <body className={`${myeongjo.className} ${pretendard.className}`}>
+            <body className={`${myeongjo.variable} ${pretendard.variable}`}>
                 <NextAuthSession>
                     <ReactQueryProvider>
                         <ClientLayout>
