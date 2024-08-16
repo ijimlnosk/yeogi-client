@@ -6,25 +6,13 @@ import googleIcon from "@/public/icons/google.svg"
 import SocialLoginButton from "./socialLoginButton"
 import { useState } from "react"
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
-import { signIn, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 
 const SocialLoginLayout = () => {
     const [isStillWorkingModalOpen, setIsStillWorkingModalOpen] = useState(false)
-    const { data: session, status } = useSession()
-    const router = useRouter()
-
-    if (status === "loading") {
-        return <div>Loading</div>
-    }
-
-    if (session) {
-        router.push("/")
-        return null
-    }
 
     const handleSocialLogin = (provider: string) => {
-        signIn(provider, { callbackUrl: "/auth" })
+        signIn(provider, { callbackUrl: "/" })
     }
     const handleCloseModal = () => {
         setIsStillWorkingModalOpen(false)
