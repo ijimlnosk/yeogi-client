@@ -61,5 +61,5 @@ export type SocialSignupResponse = {
     email: string
     isFirst: boolean
     memberId: number
-    token: UserResponse
+    token: UserResponse | string
 }

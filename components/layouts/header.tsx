@@ -43,7 +43,9 @@ const Header = () => {
             // const token = getAccessToken()
             if (status === "authenticated" && session) {
                 setIsLoggedIn(true)
+                console.log("왜갑자기안되냐고!!!!!!! ")
                 const response = await getUserInfo()
+                console.log(response, "header-resposne")
                 setUserInfo(response)
             } else {
                 setIsLoggedIn(false)
