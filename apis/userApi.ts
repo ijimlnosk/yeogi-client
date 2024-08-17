@@ -4,7 +4,7 @@ import { MyUserInfoType, EditUserInfoType } from "@/types/user"
 const USER_API_URL = "/member"
 
 export const getUserInfo = async () => {
-    const response = await fetchFormAPI(USER_API_URL, "/member/me", { method: "GET" })
+    const response = await fetchFormAPI(USER_API_URL, "/me", { method: "GET" })
     console.log("여기 겟유저인포", response)
     if (!response.ok) {
         throw new Error("response not ok")

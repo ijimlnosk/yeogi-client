@@ -50,13 +50,6 @@ export type postReCommentProps = {
     content: string
 }
 
-export type postPinProps = {
-    x: string
-    y: string
-    email: string
+export type postPinsProps = {
     postId: number
-}
-
-export type getPinProps = {
-    email: string
 }

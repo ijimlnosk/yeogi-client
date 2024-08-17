@@ -1,4 +1,7 @@
-// const MAP_API_URL = "/pins"
+const MAP_API_URL = "/pins/"
+
+import { fetchFormAPI } from "./api.utils"
+import { postPinsProps } from "./type"
 
 /**
  * @function
@@ -17,6 +20,21 @@
         throw new Error("json 파싱 오류")
     }
 } */
+
+export const getPins = async () => {
+    const response = await fetchFormAPI(MAP_API_URL, "", { method: "GET" })
+
+    const data = await response.json()
+
+    return data
+}
+
+export const postPins = async ({ postId }: postPinsProps) => {
+    const response = await fetchFormAPI(MAP_API_URL, "/pins", { method: "POST", body: JSON.stringify(postId) })
+
+    const data = await response.json()
+    return data
+}
 
 /**
  * @function

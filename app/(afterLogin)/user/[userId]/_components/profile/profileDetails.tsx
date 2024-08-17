@@ -2,15 +2,36 @@
 
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import { ProfileDetailsProps } from "./type"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getPins } from "@/apis/mapApi"
+
+export type PinsState = {
+    x: string
+    y: string
+    pinId: number
+    nickname: string
+    postId: number
+    country: string
+    createdAt: string
+}
 
 const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
+    const [pins, setPins] = useState<PinsState[]>([])
     const displayGender = (gender: string | undefined) => {
         if (gender === "M") return "남성"
         if (gender === "F") return "여성"
         return ""
     }
+
+    useEffect(() => {
+        const fetchPins = async () => {
+            const response = await getPins()
+            setPins(response)
+        }
+
+        fetchPins()
+    }, [])
 
     return (
         <>
@@ -28,7 +49,7 @@ const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
                     </span>
                     <span className="bg-SYSTEM-white p-5 rounded-2xl w-[156px] h-[120px] text-center">
                         나의 기록 핀 <br />
-                        <span className="text-BRAND-50 font-semibold">준비 중</span>
+                        <span className="text-BRAND-50 font-semibold">{pins.length} 개</span>
                     </span>
                 </div>
             </div>
