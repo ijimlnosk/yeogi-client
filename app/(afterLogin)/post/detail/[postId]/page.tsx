@@ -6,7 +6,7 @@ import { Metadata } from "next"
 import { getPostDetail } from "@/apis/postApi"
 
 // eslint-disable-next-line react-refresh/only-export-components
-export async function generateMetadata({ params }: { params: { postId: string } }): Promise<Metadata> {
+export const generateMetadata = async ({ params }: { params: { postId: string } }): Promise<Metadata> => {
     try {
         const numericPostId = parseInt(params.postId.replace(/\D/g, ""), 10)
         const post = await getPostDetail(numericPostId)

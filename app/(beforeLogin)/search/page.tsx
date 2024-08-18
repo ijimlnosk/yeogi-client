@@ -6,11 +6,12 @@ import { Suspense } from "react"
 import { Metadata } from "next"
 const SearchClient = dynamic(() => import("./_components/searchClient"), { ssr: false })
 
-export async function generateMetadata({
+// eslint-disable-next-line react-refresh/only-export-components
+export const generateMetadata = async ({
     searchParams,
 }: {
     searchParams: { [key: string]: string | string[] | undefined }
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
     const { postSortCondition, theme, continent, keyword } = searchParams
     return {
         title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,

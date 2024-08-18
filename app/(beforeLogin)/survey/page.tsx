@@ -4,9 +4,10 @@ import SurveyRecommendText from "./_components/surveyRecommendText"
 import { Metadata } from "next"
 const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
-export async function generateMetadata(): Promise<Metadata> {
+// eslint-disable-next-line react-refresh/only-export-components
+export const generateMetadata = async (): Promise<Metadata> => {
     return {
-        title: "Yeogi | check your trip style",
+        title: "Yeogi | check trip style",
         description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
     }
 }

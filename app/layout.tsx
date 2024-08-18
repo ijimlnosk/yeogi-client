@@ -6,7 +6,7 @@ import ClientLayout from "./clientLayout"
 import { NextAuthSession } from "./nextAuthSession"
 import { myeongjo, pretendard } from "./fonts"
 
-export async function generateMetadata(): Promise<Metadata> {
+export const generateMetadata = async (): Promise<Metadata> => {
     return {
         title: "Record Your Trip",
         description: "여기에 여행을 기록하세요",
