@@ -59,8 +59,8 @@ export const getPost = async ({
             throw new Error("Received data is not an array")
         }
         return data as Post[]
-    } catch (error) {
-        throw error
+    } catch {
+        return []
     }
 }
 
@@ -143,7 +143,7 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
 export const getPostDetail = async (postId: number): Promise<Post> => {
-    const serverResponse = await fetchServerSide(`/api/posts/${postId}`, { method: "GET" })
+    const serverResponse = await fetchServerSide(`api/posts/${postId}`, { method: "GET" })
     if (serverResponse) {
         return serverResponse.json()
     } else {

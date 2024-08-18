@@ -1,7 +1,15 @@
 import dynamic from "next/dynamic"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
+import { Metadata } from "next"
 const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "Yeogi | check your trip style",
+        description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
+    }
+}
 
 const Survey = () => {
     return (

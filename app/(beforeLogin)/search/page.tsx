@@ -3,7 +3,20 @@ import FilterTabs from "./_components/filterTabs"
 import RealTimeRecommendation from "@/app/_components/userRecommendation/realTimeRecommendation"
 import { getPost } from "@/apis/postApi"
 import { Suspense } from "react"
+import { Metadata } from "next"
 const SearchClient = dynamic(() => import("./_components/searchClient"), { ssr: false })
+
+export async function generateMetadata({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}): Promise<Metadata> {
+    const { postSortCondition, theme, continent, keyword } = searchParams
+    return {
+        title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
+        description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
+    }
+}
 
 const SearchPage = async () => {
     const initialPosts = await getPost({

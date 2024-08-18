@@ -2,6 +2,29 @@ import { PostDetailProps } from "./type"
 import PostDetailClient from "./_components/postDetailClient"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { queryClient } from "@/libs/queryClient/postQueryClient"
+import { Metadata } from "next"
+import { getPostDetail } from "@/apis/postApi"
+
+export async function generateMetadata({ params }: { params: { postId: string } }): Promise<Metadata> {
+    try {
+        const numericPostId = parseInt(params.postId.replace(/\D/g, ""), 10)
+        const post = await getPostDetail(numericPostId)
+
+        return {
+            title: `Yeogi | ${post.author !== undefined ? post.author : "member"}'s post`,
+            description: post.title,
+            openGraph: {
+                title: post.title,
+                description: post.title,
+            },
+        }
+    } catch {
+        return {
+            title: "Yeogi | Post Detail",
+            description: "View details of a trip post",
+        }
+    }
+}
 
 /* 
 params ?
