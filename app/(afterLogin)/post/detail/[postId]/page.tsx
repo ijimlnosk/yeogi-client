@@ -18,7 +18,7 @@ export const generateMetadata = async ({ params }: { params: { postId: string } 
             description: post.title,
             openGraph: {
                 title: post.title,
-                description: post.content,
+                description: post.content.length > 100 ? post.content.substring(0, 100) + "..." : post.content,
             },
         }
     } catch {
