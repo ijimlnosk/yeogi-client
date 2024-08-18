@@ -27,6 +27,7 @@ const RankCard = ({ topPosts, rank, topPostId }: RankCardProps) => {
                     <Image
                         src={"/images/rankCardThumbnail.svg"}
                         alt="thumbnail"
+                        priority
                         fill
                         className=" w-auto h-auto top-0 left-0 opacity-70 group-hover:opacity-30 transition-opacity duration-300 "
                     />

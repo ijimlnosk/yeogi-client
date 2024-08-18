@@ -56,7 +56,7 @@ const AddressAutoComplete = ({ onSelect }: AddressAutoCompleteProps) => {
             <Image
                 src={"/icons/search.svg"}
                 alt="search_icon"
-                className="relative top-9 left-2"
+                className="relative top-9 left-2 w-auto h-auto"
                 width={24}
                 height={24}
             />
