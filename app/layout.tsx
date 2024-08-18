@@ -39,16 +39,18 @@ const pretendard = localFont({
     variable: "--font-pretendard",
 })
 
-export const metadata: Metadata = {
-    title: "Record Your Trip",
-    description: "여기에 여행을 기록하세요",
-    icons: {
-        icon: "/icons/logo_img.svg",
-    },
-    other: {
-        'link rel="preload" as="image" href="/images/main-02.webp"': "",
-        'link rel="preload" as="image" href="/images/main-03.webp"': "",
-    },
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "Record Your Trip",
+        description: "여기에 여행을 기록하세요",
+        icons: {
+            icon: "/icons/logo_img.svg",
+        },
+        other: {
+            'link rel="preload" as="image" href="/images/main-02.webp"': "",
+            'link rel="preload" as="image" href="/images/main-03.webp"': "",
+        },
+    }
 }
 
 export default function RootLayout({
