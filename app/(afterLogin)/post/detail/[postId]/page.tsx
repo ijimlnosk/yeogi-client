@@ -5,23 +5,25 @@ import { queryClient } from "@/libs/queryClient/postQueryClient"
 import { Metadata } from "next"
 import { getPostDetail } from "@/apis/postApi"
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function generateMetadata({ params }: { params: { postId: string } }): Promise<Metadata> {
     try {
         const numericPostId = parseInt(params.postId.replace(/\D/g, ""), 10)
         const post = await getPostDetail(numericPostId)
-
+        if (!post || !post.title) {
+            throw new Error("Post not found or invalid data")
+        }
         return {
-            title: `Yeogi | ${post.author !== undefined ? post.author : "member"}'s post`,
+            title: `Yeogi | ${post.author ? post.author : "member"}'s post`,
             description: post.title,
             openGraph: {
                 title: post.title,
-                description: post.title,
+                description: post.content,
             },
         }
     } catch {
         return {
             title: "Yeogi | Post Detail",
-            description: "View details of a trip post",
         }
     }
 }

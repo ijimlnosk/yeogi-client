@@ -143,9 +143,9 @@ export const deletePost = async (postId: number): Promise<void> => {
  * @returns {Promise<Post>} 특정 id의 게시글 객체를 반환
  */
 export const getPostDetail = async (postId: number): Promise<Post> => {
-    const serverResponse = await fetchServerSide(`api/posts/${postId}`, { method: "GET" })
+    const serverResponse = await fetchServerSide(`posts/${postId}`, { method: "GET" })
     if (serverResponse) {
-        return serverResponse.json()
+        return await serverResponse.json()
     } else {
         const response = await fetchFormAPINotToken("/api/posts/", `${postId}`, { method: "GET" })
         if (!response.ok) throw new Error("response not ok")

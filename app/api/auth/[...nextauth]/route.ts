@@ -51,10 +51,7 @@ const handler = NextAuth({
                     })
 
                     if (response.ok) {
-                        //이부분은 아직 수정중
-                        console.log("response 여기까지 도달할껄????ok start")
                         const data = await response.json()
-                        console.log(data, "BE response data")
                         if (data.token) {
                             token.accessToken = data.token.accessToken // 백엔드에서 받은 토큰 저장
                             token.refreshToken = data.token.refreshToken // 리프레시 토큰이 있다면 저장
@@ -62,8 +59,6 @@ const handler = NextAuth({
                         cookies().set("my-first-login", data.isFirst)
                         cookies().set("memberId", data.memberId)
                         token.data = JSON.stringify(data)
-                    } else {
-                        console.error("failed to fetch token from BE", response.status)
                     }
                 }
             }
