@@ -30,7 +30,9 @@ export const getPins = async () => {
 }
 
 export const postPins = async ({ postId }: postPinsProps) => {
-    const response = await fetchFormAPI(MAP_API_URL, "/pins", { method: "POST", body: JSON.stringify(postId) })
+    const response = await fetchFormAPI(MAP_API_URL, "", { method: "POST", body: JSON.stringify(postId) })
+
+    console.log(response)
 
     const data = await response.json()
     return data

@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/date.utils"
 import { processContentImages } from "@/utils/setImage.utils"
 import { FormEvent, useCallback } from "react"
 import { useFetchCreatePost, useFetchUpdatePost } from "@/libs/queryClient/postQueryClient"
+import { postPins } from "@/apis/mapApi"
 
 export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initialData?: UpdatePost) => {
     const createPostMutation = useFetchCreatePost()
@@ -39,7 +40,9 @@ export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initial
                     await updatePostMutation.mutateAsync({ postId: state.postId, editedFields: postData })
                 } else {
                     await createPostMutation.mutateAsync(postData)
+                    await postPins({ postId: state.postId })
                 }
+
                 state.resetFormData()
                 state.resetAll()
                 state.setIsRouterOverlayOpen(true)
