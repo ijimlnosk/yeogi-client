@@ -16,6 +16,11 @@ export const generateMetadata = async ({
     return {
         title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
         description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
+        openGraph: {
+            title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
+            description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
+            images: "/images/og/search.png",
+        },
     }
 }
 

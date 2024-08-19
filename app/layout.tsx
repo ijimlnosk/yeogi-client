@@ -6,18 +6,19 @@ import ClientLayout from "./clientLayout"
 import { NextAuthSession } from "./nextAuthSession"
 import { myeongjo, pretendard } from "./fonts"
 
-export const generateMetadata = async (): Promise<Metadata> => {
-    return {
-        title: "Record Your Trip",
-        description: "여기에 여행을 기록하세요",
-        icons: {
-            icon: "/icons/logo_img.svg",
-        },
-        other: {
-            'link rel="preload" as="image" href="/images/main-02.webp"': "",
-            'link rel="preload" as="image" href="/images/main-03.webp"': "",
-        },
-    }
+// eslint-disable-next-line react-refresh/only-export-components
+export const metadata: Metadata = {
+    title: "Record Your Trip",
+    description: "여기에 여행을 기록하세요",
+    keywords: ["여기", "yeogi", "여행", "기록", "여행 기록", "trip", "vacation", "travel", "travel logs"],
+    icons: {
+        icon: "/icons/logo_img.svg",
+    },
+    other: {
+        'link rel="preload" as="image" href="/images/main-02.webp"': "",
+        'link rel="preload" as="image" href="/images/main-03.webp"': "",
+        'meta property="og:image" content="/images/og/main.png"': "",
+    },
 }
 
 export default function RootLayout({

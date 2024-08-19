@@ -9,6 +9,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
     return {
         title: "Yeogi | check trip style",
         description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
+        openGraph: {
+            title: "Yeogi | check trip style",
+            description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
+            images: "/images/og/survey.png",
+        },
     }
 }
 
