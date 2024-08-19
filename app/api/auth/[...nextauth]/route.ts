@@ -40,9 +40,7 @@ const handler = NextAuth({
                     token.accessToken = account.access_token
                     token.provider = account.provider
 
-                    const encodedToken = encodeURIComponent(account.access_token)
-
-                    const url = `${AUTH_API_URL}auth/generateToken/${account.provider}?token=${encodedToken}`
+                    const url = `${AUTH_API_URL}auth/generateToken/${account.provider}?token=${token.accessToken}`
                     const response = await fetch(url, {
                         method: "GET",
                         headers: {
@@ -51,10 +49,7 @@ const handler = NextAuth({
                     })
 
                     if (response.ok) {
-                        //이부분은 아직 수정중
-                        console.log("response 여기까지 도달할껄????ok start")
                         const data = await response.json()
-                        console.log(data, "BE response data")
                         if (data.token) {
                             token.accessToken = data.token.accessToken // 백엔드에서 받은 토큰 저장
                             token.refreshToken = data.token.refreshToken // 리프레시 토큰이 있다면 저장
@@ -62,8 +57,6 @@ const handler = NextAuth({
                         cookies().set("my-first-login", data.isFirst)
                         cookies().set("memberId", data.memberId)
                         token.data = JSON.stringify(data)
-                    } else {
-                        console.error("failed to fetch token from BE", response.status)
                     }
                 }
             }
@@ -85,7 +78,7 @@ const handler = NextAuth({
         sessionToken: {
             name: `session-token`,
             options: {
-                // httpOnly: true, //자바스크립트를 통한 쿠키 접근을 방지하여 XSS 공격으로부터 보호
+                // httpOnly: true, //자바스크립트를 통한 쿠키 접근을 방지,클라이언트쪽에서 쿠키 토큰 접근 불가
                 sameSite: "lax", //CSRF 공격을 방지하고 일부 크로스 사이트 요청을 허용
                 path: "/", //쿠키가 전체 사이트에서 유효하도록 설정
                 secure: process.env.NODE_ENV === "production",
