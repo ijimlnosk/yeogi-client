@@ -4,7 +4,7 @@ import { fetchFormAPINotToken } from "../api.utils"
 const BASE_URL = "/member"
 export const postSocialSignup = async (data: SocialSignupRequest) => {
     try {
-        const response = await fetchFormAPINotToken(`${BASE_URL}`, "member/signup", {
+        const response = await fetchFormAPINotToken(`${BASE_URL}`, "/signup", {
             method: "POST",
             body: JSON.stringify(data),
         })
@@ -16,7 +16,7 @@ export const postSocialSignup = async (data: SocialSignupRequest) => {
 }
 
 export const getMemberCheckExists = async (nickname: string) => {
-    const response = await fetchFormAPINotToken(`${BASE_URL}`, `/member/nicknames?nickname=${nickname}`, {
+    const response = await fetchFormAPINotToken(`${BASE_URL}`, `/nicknames?nickname=${nickname}`, {
         method: "GET",
     })
     const user = await response.json()
