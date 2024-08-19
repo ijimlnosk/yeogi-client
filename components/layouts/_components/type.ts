@@ -8,7 +8,7 @@ export type HeaderLoginProps = {
 }
 
 export type UserDialogProps = {
-    userId: number | undefined
+    userId: number
     setIsProfileClicked: (isProfileClicked: boolean) => void
 }
 export type footerProps = {

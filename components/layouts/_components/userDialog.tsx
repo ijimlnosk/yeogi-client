@@ -11,9 +11,8 @@ const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
     }
 
     const handleLogout = async () => {
-        await signOut({ redirect: false })
+        await signOut({ redirect: true, callbackUrl: "/" })
         setIsProfileClicked(false)
-        router.push("/")
     }
 
     return (
