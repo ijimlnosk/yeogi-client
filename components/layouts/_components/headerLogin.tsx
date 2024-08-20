@@ -4,7 +4,6 @@ import Image from "next/image"
 import { useState } from "react"
 import UserDialog from "./userDialog"
 import { HeaderLoginProps } from "./type"
-import { useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { getUserInfo } from "@/apis/userApi"
 import sampleProfile from "@/public/images/user/sampleProfile.svg"
@@ -19,7 +18,6 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
         queryFn: getUserInfo,
         enabled: status === "authenticated",
     })
-    const router = useRouter()
 
     return (
         <>

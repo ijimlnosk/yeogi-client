@@ -2,12 +2,7 @@ import SignupAgeButton from "./ageButton"
 import GenderSelect from "./genderSelect"
 import { AgeGenderInputFormProps } from "./type"
 
-const AgeGenderInputForm = ({
-    selectedAge,
-    selectedGender,
-    handleAgeSelect,
-    handleGenderChange,
-}: AgeGenderInputFormProps) => {
+const AgeGenderInputForm = ({ selectedGender, handleAgeSelect, handleGenderChange }: AgeGenderInputFormProps) => {
     return (
         <>
             <div className="flex flex-col w-full gap-2.5 pb-6 ">
