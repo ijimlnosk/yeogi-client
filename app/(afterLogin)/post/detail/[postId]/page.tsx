@@ -19,7 +19,10 @@ export const generateMetadata = async ({ params }: { params: { postId: string } 
             openGraph: {
                 title: post.title,
                 description: post.content.length > 100 ? post.content.substring(0, 100) + "..." : post.content,
-                images: "/images/default/thumbnail01.jpg",
+                images: "https://yeogi-client.vercel.app/images/default/thumbnail01.jpg",
+            },
+            robots: {
+                nocache: true,
             },
         }
     } catch {

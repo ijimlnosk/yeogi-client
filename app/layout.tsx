@@ -10,14 +10,42 @@ import { myeongjo, pretendard } from "./fonts"
 export const metadata: Metadata = {
     title: "Record Your Trip",
     description: "여기에 여행을 기록하세요",
+    applicationName: "Yeogi",
+    viewport: "width=device-width, initial-scale=1",
     keywords: ["여기", "yeogi", "여행", "기록", "여행 기록", "trip", "vacation", "travel", "travel logs"],
     icons: {
         icon: "/icons/logo_img.svg",
     },
+    themeColor: "#658F47",
+    authors: [
+        { name: "Amy", url: "https://github.com/55555-Jyeon" },
+        { name: "DK", url: "https://github.com/ca1af" },
+        { name: "Gang", url: "https://github.com/ijimlnosk" },
+        { name: "Jayden", url: "https://www.behance.net/saltkik" },
+        { name: "Jun", url: "https://github.com/Yejun4911" },
+        { name: "Louis", url: "https://github.com/Kwonnamhyung" },
+        { name: "Wendy", url: "https://github.com/hayoung78" },
+    ],
+    openGraph: {
+        title: "Record Your Trip",
+        description: "여기에 여행을 기록하세요",
+        siteName: "Yeogi",
+        locale: "ko_KR",
+        type: "website",
+        url: "https://yeogi-client.vercel.app/",
+        images: {
+            url: "https://yeogi-client.vercel.app/images/og/main.png",
+        },
+    },
+    robots: {
+        index: true,
+        follow: true,
+        nocache: false,
+    },
     other: {
         'link rel="preload" as="image" href="/images/main-02.webp"': "",
         'link rel="preload" as="image" href="/images/main-03.webp"': "",
-        'meta property="og:image" content="/images/og/main.png"': "",
+        'link rel="canonical" href="https://yeogi-client.vercel.app/"': "",
     },
 }
 

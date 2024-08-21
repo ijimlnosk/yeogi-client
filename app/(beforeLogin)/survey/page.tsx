@@ -5,16 +5,14 @@ import { Metadata } from "next"
 const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const generateMetadata = async (): Promise<Metadata> => {
-    return {
+export const metadata: Metadata = {
+    title: "Yeogi | check trip style",
+    description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
+    openGraph: {
         title: "Yeogi | check trip style",
         description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
-        openGraph: {
-            title: "Yeogi | check trip style",
-            description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
-            images: "/images/og/survey.png",
-        },
-    }
+        images: "https://yeogi-client.vercel.app/images/og/survey.png",
+    },
 }
 
 const Survey = () => {

@@ -19,7 +19,10 @@ export const generateMetadata = async ({
         openGraph: {
             title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
             description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
-            images: "/images/og/search.png",
+            images: "https://yeogi-client.vercel.app/images/og/search.png",
+        },
+        robots: {
+            nocache: true,
         },
     }
 }
