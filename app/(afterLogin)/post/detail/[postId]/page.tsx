@@ -4,7 +4,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { queryClient } from "@/libs/queryClient/postQueryClient"
 import { Metadata } from "next"
 import { getPostDetail } from "@/apis/postApi"
-import { getPostDetailMetadata } from "@/constants/metaData"
+import { getPostDetailMetadata } from "@/utils/metadata.utils"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async ({ params }: { params: { postId: string } }): Promise<Metadata> => {

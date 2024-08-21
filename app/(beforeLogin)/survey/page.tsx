@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
-import { SURVEY_METADATA } from "@/constants/metaData"
+import { SURVEY_METADATA } from "@/utils/metadata.utils"
+
 const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
 // eslint-disable-next-line react-refresh/only-export-components

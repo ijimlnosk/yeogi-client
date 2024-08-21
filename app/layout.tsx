@@ -4,7 +4,7 @@ import { ReactQueryProvider } from "@/components/queryProvider"
 import ClientLayout from "./clientLayout"
 import { NextAuthSession } from "./nextAuthSession"
 import { myeongjo, pretendard } from "./fonts"
-import { DEFAULT_METADATA } from "@/constants/metaData"
+import { DEFAULT_METADATA } from "@/utils/metadata.utils"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const metadata = DEFAULT_METADATA
