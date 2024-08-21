@@ -75,12 +75,15 @@ export const fetchWithTokenRefresh = async (url: string, options: RequestInit) =
     return response
 }
 
-export const fetchServerSide = async (endpoint: string, options: RequestInit = {}, queryParams?: URLSearchParams) => {
+export const fetchServerSide = async (endPoint: string, options: RequestInit = {}, queryParams?: URLSearchParams) => {
     if (typeof window === "undefined") {
-        if (!process.env.NEXT_PUBLIC_BASE_URL) {
+        const baseUrl = process.env.SERVER_BASE_URL
+
+        if (!baseUrl) {
             throw new Error("어라라, window의 타입이 뭔가 이상해요! 🫣")
         }
-        let fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`
+        let fullUrl = `${baseUrl}${endPoint}`
+
         if (queryParams) {
             fullUrl += `?${queryParams.toString()}`
         }
