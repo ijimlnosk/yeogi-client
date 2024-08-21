@@ -3,7 +3,19 @@ import FilterTabs from "./_components/filterTabs"
 import RealTimeRecommendation from "@/app/_components/userRecommendation/realTimeRecommendation"
 import { getPost } from "@/apis/postApi"
 import { Suspense } from "react"
+import { Metadata } from "next"
+import { getSearchMetadata } from "@/utils/metadata.utils"
+
 const SearchClient = dynamic(() => import("./_components/searchClient"), { ssr: false })
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const generateMetadata = async ({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}): Promise<Metadata> => {
+    return getSearchMetadata(searchParams)
+}
 
 const SearchPage = async () => {
     const initialPosts = await getPost({

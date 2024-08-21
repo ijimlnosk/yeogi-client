@@ -5,3 +5,7 @@ export type RecommendedTextFieldsType = {
     title: string
     travelType: string
 }
+
+export type searchParamsProps = {
+    [key: string]: string | string[] | undefined
+}
