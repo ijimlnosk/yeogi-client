@@ -1,3 +1,6 @@
+import { COLORS } from "@/styles/color"
+import { Viewport } from "next"
+
 export const DEPLOY_URL = "https://yeogi-client.vercel.app/"
 export const TITLE = "Record Your Trip"
 export const DESC = "여기에 여행을 기록하세요"
@@ -12,3 +15,8 @@ export const CREW_MEMBERS = [
     { name: "Louis", url: "https://github.com/Kwonnamhyung" },
     { name: "Wendy", url: "https://github.com/hayoung78" },
 ]
+export const VIEWPORT: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+}
+export const THEMECOLOR = COLORS.BRAND[50]

@@ -25,7 +25,7 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                 <>
                     <div
                         onClick={() => setIsProfileClicked(prev => !prev)}
-                        className="overflow-hidden rounded-full relative"
+                        className="overflow-hidden rounded-full relative min-w-12 min-h-12 "
                     >
                         {isLoading && (
                             <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-full">
@@ -35,9 +35,10 @@ const HeaderLogin = ({ isShowHeader }: HeaderLoginProps) => {
                         <Image
                             src={data?.profile || sampleProfile}
                             alt="profile"
-                            width={48}
-                            height={48}
-                            className={`rounded-full ${isProfileClicked ? "border-2 border-BRAND-50" : ""} cursor-pointer`}
+                            sizes="20vw"
+                            priority
+                            fill
+                            className={`rounded-full  ${isProfileClicked ? "border-2 border-BRAND-50" : ""} cursor-pointer`}
                         />
                     </div>
                     <PostWriteBtn />
