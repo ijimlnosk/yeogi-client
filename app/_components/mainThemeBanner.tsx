@@ -59,6 +59,7 @@ const MainThemeBanner = () => {
                                             src={`/images/${key}.svg`}
                                             alt={key}
                                             fill
+                                            priority
                                             sizes="100vw"
                                             className="rounded-lg opacity-70 object-cover"
                                         />

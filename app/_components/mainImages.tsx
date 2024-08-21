@@ -149,7 +149,7 @@ const DynamicPolaroid = dynamic(() => import("./polaroid"), {
 export const Polaroids = () => {
     return (
         <div className="w-full h-0 pt-10 items-center justify-center hidden md:flex md:h-[980px]">
-            <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" />
+            <Image width={1920} height={206} src={Line} className="absolute w-full top-[22%]" alt="string" priority />
             <div className="absolute w-[1680px] h-[600px] xl:w-[1200px] lg:w-[1000px] md:w-[720px] sm:w-[600px] top-[29%] xl:top-[20%] md:top-[18%] md:gap-4 flex flex-row items-center justify-between">
                 <div>
                     <DynamicPolaroid
