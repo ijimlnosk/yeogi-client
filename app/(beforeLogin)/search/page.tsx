@@ -4,6 +4,7 @@ import RealTimeRecommendation from "@/app/_components/userRecommendation/realTim
 import { getPost } from "@/apis/postApi"
 import { Suspense } from "react"
 import { Metadata } from "next"
+import { getSearchMetadata } from "@/constants/metaData"
 const SearchClient = dynamic(() => import("./_components/searchClient"), { ssr: false })
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -12,19 +13,7 @@ export const generateMetadata = async ({
 }: {
     searchParams: { [key: string]: string | string[] | undefined }
 }): Promise<Metadata> => {
-    const { postSortCondition, theme, continent, keyword } = searchParams
-    return {
-        title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
-        description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
-        openGraph: {
-            title: `Yeogi | ${keyword ? `${keyword}` : "All Posts"}`,
-            description: `Find posts ${continent ? `in ${continent}` : "worldwide"}${theme ? ` about ${theme}` : ""}. Sorted by ${postSortCondition || "recent"}.`,
-            images: "https://yeogi-client.vercel.app/images/og/search.png",
-        },
-        robots: {
-            nocache: true,
-        },
-    }
+    return getSearchMetadata(searchParams)
 }
 
 const SearchPage = async () => {

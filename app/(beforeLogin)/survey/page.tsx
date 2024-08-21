@@ -1,19 +1,11 @@
 import dynamic from "next/dynamic"
 import SurveyIntroForm from "./_components/surveyIntro"
 import SurveyRecommendText from "./_components/surveyRecommendText"
-import { Metadata } from "next"
+import { SURVEY_METADATA } from "@/constants/metaData"
 const SurveyClient = dynamic(() => import("./_components/surveyClient"), { ssr: false })
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const metadata: Metadata = {
-    title: "Yeogi | check trip style",
-    description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
-    openGraph: {
-        title: "Yeogi | check trip style",
-        description: "간단한 취향 검사를 통해 여행 취향을 확인해보세요!",
-        images: "https://yeogi-client.vercel.app/images/og/survey.png",
-    },
-}
+export const metadata = SURVEY_METADATA
 
 const Survey = () => {
     return (

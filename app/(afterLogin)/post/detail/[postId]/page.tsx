@@ -4,6 +4,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { queryClient } from "@/libs/queryClient/postQueryClient"
 import { Metadata } from "next"
 import { getPostDetail } from "@/apis/postApi"
+import { getPostDetailMetadata } from "@/constants/metaData"
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async ({ params }: { params: { postId: string } }): Promise<Metadata> => {
@@ -13,18 +14,7 @@ export const generateMetadata = async ({ params }: { params: { postId: string } 
         if (!post || !post.title) {
             throw new Error("Post not found or invalid data")
         }
-        return {
-            title: `Yeogi | ${post.author ? post.author : "member"}'s post`,
-            description: post.title,
-            openGraph: {
-                title: post.title,
-                description: post.content.length > 100 ? post.content.substring(0, 100) + "..." : post.content,
-                images: "https://yeogi-client.vercel.app/images/default/thumbnail01.jpg",
-            },
-            robots: {
-                nocache: true,
-            },
-        }
+        return getPostDetailMetadata(post)
     } catch {
         return {
             title: "Yeogi | Post Detail",
