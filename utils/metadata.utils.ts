@@ -9,12 +9,10 @@ export const DEFAULT_METADATA: Metadata = {
     title: TITLE,
     description: DESC,
     applicationName: NAME,
-    viewport: "width=device-width, initial-scale=1",
     keywords: KEYWORDS,
     icons: {
         icon: "/icons/logo_img.svg",
     },
-    themeColor: COLORS.BRAND[50],
     authors: CREW_MEMBERS,
     openGraph: {
         title: TITLE,
