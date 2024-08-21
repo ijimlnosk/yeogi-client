@@ -3,20 +3,20 @@
 import { useQuery } from "@tanstack/react-query"
 import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
 import { useEffect, useState } from "react"
-import { useLoggedIn } from "@/libs/zustand/login"
 import { getPinLocalStorage } from "@/utils/storage.utils"
-import { MyUserInfoType } from "@/types/user"
+import { MyUserInfoType, UserInfoType } from "@/types/user"
 import EditProfile from "./profile/editProfile"
 import Profile from "./profile/profile"
 import ProfileDetails from "./profile/profileDetails"
 import WorldMap from "./myMap/worldMap"
 import MyPost from "./myPost/myPosts"
 import { UserClientProps } from "./type"
+import { getUserInfo } from "@/apis/userApi"
 
-const UserClient = ({ initialPosts }: UserClientProps) => {
+const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [pinCount, setPinCount] = useState<number>(0)
-    const { userInfo, setUserInfo } = useLoggedIn()
+    const [userInfo, setUserInfo] = useState<UserInfoType>(initialUser)
 
     const { data: myPosts } = useQuery({
         queryKey: ["myPosts"],
@@ -26,11 +26,18 @@ const UserClient = ({ initialPosts }: UserClientProps) => {
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            setUserInfo(userInfo!)
+            const response = await getUserInfo()
+            setUserInfo(response)
         }
         fetchUserInfo()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const { data } = useQuery({
+        queryKey: ["userInfo"],
+        queryFn: getUserInfo,
+        initialData: userInfo,
+    })
 
     useEffect(() => {
         setPinCount(getPinLocalStorage())
@@ -40,21 +47,21 @@ const UserClient = ({ initialPosts }: UserClientProps) => {
         setUserInfo(newInfo)
     }
 
-    if (userInfo)
+    if (data)
         return (
             <>
                 <div>
                     {isEditing ? (
-                        <EditProfile userInfo={userInfo} setUserInfo={handleSetUserInfo} setIsEditing={setIsEditing} />
+                        <EditProfile userInfo={data} setUserInfo={handleSetUserInfo} setIsEditing={setIsEditing} />
                     ) : (
-                        <Profile userInfo={userInfo} onEdit={() => setIsEditing(true)} />
+                        <Profile userInfo={data} onEdit={() => setIsEditing(true)} />
                     )}
-                    <ProfileDetails ageRange={userInfo.ageRange} gender={userInfo.gender} pinCount={pinCount} />
+                    <ProfileDetails ageRange={data.ageRange} gender={data.gender} pinCount={pinCount} />
                 </div>
                 <div className="my-[120px]">
-                    <WorldMap email={userInfo.email} nickname={userInfo.nickname} />
+                    <WorldMap email={data.email} nickname={data.nickname} />
                 </div>
-                <MyPost userInfo={userInfo} myPosts={myPosts} />
+                <MyPost userInfo={data} myPosts={myPosts} />
             </>
         )
 }

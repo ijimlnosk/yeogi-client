@@ -1,9 +1,14 @@
-import { fetchFormAPI, fetchFormMultipartAPI } from "./api.utils"
+import { fetchFormAPI, fetchFormMultipartAPI, fetchServerSide } from "./api.utils"
 import { MyUserInfoType, EditUserInfoType } from "@/types/user"
 
 const USER_API_URL = "/member"
 
 export const getUserInfo = async () => {
+    const serverResponse = await fetchServerSide("/api/member/me", { method: "GET" })
+    if (serverResponse) {
+        return serverResponse.json()
+    }
+
     const response = await fetchFormAPI(USER_API_URL, "/me", { method: "GET" })
     if (!response.ok) {
         throw new Error("response not ok")
