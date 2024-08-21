@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { searchParamsProps } from "@/constants/type"
 import { Post } from "@/types/post"
 import { COLORS } from "@/styles/color"
-import { CREW_MEMBERS, DEPLOY_URL, DESC, KEYWORDS, NAME, TITLE } from "@/constants/metaData"
+import { CREW_MEMBERS, DEPLOY_URL, DESC, KEYWORDS, NAME, TITLE } from "@/constants/metadata"
 
 // layout page meta-data
 export const DEFAULT_METADATA: Metadata = {
