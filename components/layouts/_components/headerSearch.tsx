@@ -13,7 +13,7 @@ const HeaderSearchBar = () => {
             src={"/icons/search.svg"}
             width={24}
             height={24}
-            className="hidden sm:block"
+            className="hidden sm:block h-auto w-auto"
             alt="search icon"
             onClick={handleSearchOpen}
         />

@@ -3,7 +3,7 @@ import { useState } from "react"
 import { getMemberCheckExists } from "@/apis/auth/socialSignup"
 
 const useCheckNicknameExists = () => {
-    const [message, setMessage] = useState<string | null>(null)
+    const [message, setMessage] = useState<string>("")
 
     const mutation = useMutation({
         mutationKey: ["checkNickname"],
@@ -21,7 +21,6 @@ const useCheckNicknameExists = () => {
     })
 
     const checkNickname = (nickname: string) => {
-        setMessage(null)
         mutation.mutate(nickname)
     }
     return { checkNickname, message, isLoading: mutation }
