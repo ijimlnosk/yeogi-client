@@ -2,18 +2,14 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { getUserInfo } from "@/apis/userApi"
 import HeaderSearchBar from "./_components/headerSearch"
 import HeaderLogin from "./_components/headerLogin"
 import HeaderNavigate from "./_components/headerNavigate"
 import { useRouter } from "next/navigation"
-import { useLoggedIn } from "@/libs/zustand/login"
-import { getAccessToken } from "@/apis/auth/token/access.utils"
 
 const Header = () => {
     const [isShowHeader, setIsShowHeader] = useState<boolean>(true)
     const [lastScrollY, setLastScrollY] = useState<number>(0)
-    const { setIsLoggedIn, setUserInfo } = useLoggedIn()
 
     const router = useRouter()
     const handleScroll = () => {
@@ -35,19 +31,6 @@ const Header = () => {
             }
         }
     }, [lastScrollY])
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            const token = getAccessToken()
-            if (token) {
-                setIsLoggedIn(true)
-                const response = await getUserInfo()
-                setUserInfo(response)
-            }
-        }
-        fetchUserData()
-    }, [setIsLoggedIn, setUserInfo])
 
     return (
         <header

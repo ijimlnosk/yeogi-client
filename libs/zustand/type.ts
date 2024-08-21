@@ -90,6 +90,8 @@ export type LikesState = {
 /* modal */
 export type ModalStore = {
     showLoginModal: boolean
+    showModal: boolean
+    openModal: () => void
     openLoginModal: () => void
     closeModal: () => void
     isDelete: boolean

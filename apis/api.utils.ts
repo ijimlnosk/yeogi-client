@@ -1,14 +1,16 @@
-import { logout, reissueTokens } from "./auth/oauthApi"
+import { getSession, signOut } from "next-auth/react"
+import { reissueTokens } from "./auth/oauthApi"
 import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getAccessToken()
+    const session = await getSession()
 
     const response = await fetch(`${api}${endPoint}`, {
         ...options,
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${session?.accessToken}`,
+            ...options.headers,
         },
         credentials: "include",
     })
@@ -64,7 +66,7 @@ export const fetchWithTokenRefresh = async (url: string, options: RequestInit) =
                 },
             })
         } catch {
-            await logout()
+            await signOut({ redirect: false })
             throw new Error("이런! 인증에 실패했습니다, 다시 로그인해주세요. 😔")
         }
     }
@@ -72,12 +74,15 @@ export const fetchWithTokenRefresh = async (url: string, options: RequestInit) =
     return response
 }
 
-export const fetchServerSide = async (endpoint: string, options: RequestInit = {}, queryParams?: URLSearchParams) => {
+export const fetchServerSide = async (endPoint: string, options: RequestInit = {}, queryParams?: URLSearchParams) => {
     if (typeof window === "undefined") {
-        if (!process.env.NEXT_PUBLIC_BASE_URL) {
+        const baseUrl = process.env.SERVER_BASE_URL
+
+        if (!baseUrl) {
             throw new Error("어라라, window의 타입이 뭔가 이상해요! 🫣")
         }
-        let fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`
+        let fullUrl = `${baseUrl}${endPoint}`
+
         if (queryParams) {
             fullUrl += `?${queryParams.toString()}`
         }

@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
-import { postMemberCheckExists } from "@/apis/auth/socialSignup"
+import { getMemberCheckExists } from "@/apis/auth/socialSignup"
 
 const useCheckNicknameExists = () => {
-    const [message, setMessage] = useState<string | null>(null)
+    const [message, setMessage] = useState<string>("")
 
     const mutation = useMutation({
         mutationKey: ["checkNickname"],
-        mutationFn: postMemberCheckExists,
+        mutationFn: getMemberCheckExists,
         onSuccess: (nickname: { nicknameExists: boolean }) => {
             if (nickname.nicknameExists === true) {
                 setMessage("이미 사용 중인 닉네임입니다")
@@ -21,7 +21,6 @@ const useCheckNicknameExists = () => {
     })
 
     const checkNickname = (nickname: string) => {
-        setMessage(null)
         mutation.mutate(nickname)
     }
     return { checkNickname, message, isLoading: mutation }

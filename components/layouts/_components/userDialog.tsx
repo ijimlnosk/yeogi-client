@@ -1,18 +1,17 @@
 import { useRouter } from "next/navigation"
 import { UserDialogProps } from "./type"
-import { useLogout } from "@/libs/reactQuery/useAuthMutation"
+import { signOut } from "next-auth/react"
 
 const UserDialog = ({ userId, setIsProfileClicked }: UserDialogProps) => {
     const router = useRouter()
-    const logout = useLogout()
 
     const navigateMypage = () => {
         router.push(`/user/${userId}`)
         setIsProfileClicked(false)
     }
 
-    const handleLogout = () => {
-        logout.mutate()
+    const handleLogout = async () => {
+        await signOut({ redirect: true, callbackUrl: "/" })
         setIsProfileClicked(false)
     }
 
