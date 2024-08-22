@@ -24,14 +24,8 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                     프로필 수정
                 </button>
             </div>
-            <div className="absolute left-[120px] top-[360px] flex items-center">
-                <Image
-                    width={240}
-                    height={240}
-                    src={userInfo.profile || DefaultProfile}
-                    alt="profile image"
-                    className="rounded-full border-[5px] border-white shadow-profile"
-                />
+            <div className="absolute w-[240px] h-[240px] left-[120px] top-[360px] flex items-center rounded-full border-[5px] border-white shadow-profile overflow-hidden">
+                <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
                 <div className="ml-12 mt-36">
                     <h1 className="text-4xl font-semibold mb-4">{userInfo.nickname}</h1>
                     <p className="text-lg">{userInfo.motto}</p>

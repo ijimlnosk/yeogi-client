@@ -8,14 +8,10 @@ const ProfileImage = ({ image, onImageChange, className }: ProfileImageProps) =>
     const imageInputRef = useRef<HTMLInputElement>(null)
 
     return (
-        <div className={`relative group ${className}`}>
-            <Image
-                width={240}
-                height={240}
-                src={image ? image : ""}
-                alt="profile image"
-                className="rounded-full border-[5px] border-SYSTEM-white shadow-profile"
-            />
+        <div
+            className={`relative w-[240px] h-[240px] rounded-full overflow-hidden border-[5px] border-SYSTEM-white shadow-profile group ${className}`}
+        >
+            <Image fill src={image ? image : ""} alt="profile image" className="object-cover" />
             <div className="absolute inset-0 bg-black opacity-60 rounded-full flex justify-center items-center" />
             <div
                 className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"

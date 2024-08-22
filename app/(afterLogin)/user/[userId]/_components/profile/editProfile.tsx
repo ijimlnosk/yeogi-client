@@ -69,9 +69,6 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
                 ...userInfo,
                 ...editedUserInfo,
             }
-
-            console.log("try start")
-
             // 이미지 업데이트 로직
             if (selectedImages.profile) {
                 console.log("profile update start")
@@ -141,21 +138,6 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             if (previewImages.banner) URL.revokeObjectURL(previewImages.banner)
         }
     }, [previewImages])
-
-    /*     const handleSave = async () => {
-        const previousUserInfo = { ...userInfo }
-        try {
-            const updatedInfo = await updateUserInfo.mutateAsync({
-                userInfo,
-                editedUserInfo,
-            })
-            setUserInfo(updatedInfo)
-            setIsEditing(false)
-        } catch {
-            setUserInfo(previousUserInfo)
-            setIsEditing(true)
-        }
-    } */
 
     return (
         <div className="relative">
