@@ -8,7 +8,7 @@ export const middleware = (req: NextRequest) => {
     const url = req.nextUrl.clone()
     const pathname = url.pathname
 
-    if (firstVisit && !!!token && pathname !== "/auth/addInfo") {
+    if (firstVisit && !pathname.startsWith("/auth")) {
         return NextResponse.redirect(new URL("/auth/addInfo", req.url))
     }
 
@@ -20,6 +20,7 @@ export const middleware = (req: NextRequest) => {
     // 토큰이 있는 경우, 다음 미들웨어 또는 페이지로 계속 진행할 수 있도록 NextResponse.next()를 반환
     return NextResponse.next()
 }
+//아래 경로에서는 미들웨어 실행 x
 export const config = {
-    matcher: "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    matcher: "/((?!api|_next/static|_next/image|favicon.ico|auth/addInfo|member|api).*)",
 }

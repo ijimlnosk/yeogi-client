@@ -1,16 +1,19 @@
-import { fetchFormAPI, fetchFormMultipartAPI } from "./api.utils"
+import { fetchFormAPI, fetchFormMultipartAPI, fetchServerSide } from "./api.utils"
 import { MyUserInfoType, EditUserInfoType } from "@/types/user"
 
 const USER_API_URL = "/member"
 
 export const getUserInfo = async () => {
+    const serverResponse = await fetchServerSide("/api/member/me", { method: "GET" })
+    if (serverResponse) {
+        return serverResponse.json()
+    }
+
     const response = await fetchFormAPI(USER_API_URL, "/me", { method: "GET" })
-    console.log("여기 겟유저인포", response)
     if (!response.ok) {
         throw new Error("response not ok")
     }
     const data = await response.json()
-    console.log("여기 겟유저인포에 리스펀스점 데이터", data)
     return data as MyUserInfoType
 }
 

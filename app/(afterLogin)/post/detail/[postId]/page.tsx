@@ -2,6 +2,25 @@ import { PostDetailProps } from "./type"
 import PostDetailClient from "./_components/postDetailClient"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 import { queryClient } from "@/libs/queryClient/postQueryClient"
+import { Metadata } from "next"
+import { getPostDetail } from "@/apis/postApi"
+import { getPostDetailMetadata } from "@/utils/metadata.utils"
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const generateMetadata = async ({ params }: { params: { postId: string } }): Promise<Metadata> => {
+    try {
+        const numericPostId = parseInt(params.postId.replace(/\D/g, ""), 10)
+        const post = await getPostDetail(numericPostId)
+        if (!post || !post.title) {
+            throw new Error("Post not found or invalid data")
+        }
+        return getPostDetailMetadata(post)
+    } catch {
+        return {
+            title: "Yeogi | Post Detail",
+        }
+    }
+}
 
 /* 
 params ?

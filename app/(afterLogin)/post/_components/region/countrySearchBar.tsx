@@ -10,7 +10,13 @@ const CountrySearchBar = ({ text, onChange }: CountrySearchBarProps) => {
         <div className="max-w-auto mx-auto" onSubmit={handleSubmit}>
             <div className="relative">
                 <div className=" absolute inset-y-0 p-6 placeholder:start-0 flex items-center pointer-events-none">
-                    <Image src={"/icons/search.svg"} alt="search_icon" width={24} height={24} />
+                    <Image
+                        src={"/icons/search.svg"}
+                        alt="search_icon"
+                        width={24}
+                        height={24}
+                        className="w-auto h-auto"
+                    />
                 </div>
                 <div>
                     <input

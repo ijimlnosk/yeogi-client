@@ -1,67 +1,35 @@
 "use client"
 
-import { postLogin } from "@/apis/auth/signin"
-import { UserRequest } from "@/app/auth/_components/signin/type"
-import { SigninResult, SocialSignupResponse, UserResponse } from "./type"
-import { setAccessToken } from "@/apis/auth/token/access.utils"
-import { useState } from "react"
+import { SocialSignupResponse } from "./type"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { SocialSignupRequest } from "@/app/auth/_components/signup/type"
 import { postSocialSignup } from "@/apis/auth/socialSignup"
+import { useModalStore } from "../zustand/modal"
 
-export const useSignin = (): SigninResult => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [formState, setFormState] = useState<"success" | "fail" | null>(null)
+export const useAuthMutaion = () => {
+    const { openModal, showModal, closeModal, setIsDelete, isDelete } = useModalStore()
 
-    const handleOverlay = (isOpen: boolean, state: "success" | "fail" | null = null) => {
-        setIsOpen(isOpen)
-        setFormState(state)
-    }
-
-    const Mutation = useMutation<UserResponse, Error, UserRequest>({
-        mutationKey: ["signin"],
-        mutationFn: async (data: UserRequest) => {
-            const response = await postLogin(data)
-            return response
-        },
-        onSuccess: data => {
-            setAccessToken(data.accessToken)
-            handleOverlay(true, "success")
-        },
-        onError: () => {
-            handleOverlay(true, "fail")
-        },
-    })
-    return { ...Mutation, isOpen, handleOverlay, formState }
-}
-
-export const useSocialSignup = () => {
-    const [formState, setFormState] = useState<"success" | "fail">("fail")
-    const [isOpen, setIsOpen] = useState(false)
-    const handleOverlay = (isOpen: boolean, state: "success" | "fail") => {
-        setIsOpen(isOpen)
-        setFormState(state)
-    }
     const router = useRouter()
     const mutation = useMutation<SocialSignupResponse, Error, SocialSignupRequest>({
         mutationKey: ["signup"],
         mutationFn: async (data: SocialSignupRequest) => {
             const response = await postSocialSignup(data)
-            console.log(response, "response")
             return response
         },
         onSuccess: data => {
-            handleOverlay(true, "success")
-            setFormState("success")
+            openModal()
+            setIsDelete(false)
         },
         onError: error => {
-            handleOverlay(true, "fail")
+            openModal()
+            setIsDelete(true)
         },
     })
     const handleConfirm = () => {
-        router.push("/")
+        closeModal()
+        router.push("/auth")
     }
 
-    return { ...mutation, isOpen, handleOverlay, formState, handleConfirm }
+    return { ...mutation, isDelete, closeModal, showModal, handleConfirm }
 }

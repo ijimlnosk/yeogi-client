@@ -1,3 +1,5 @@
+import { FieldErrors, UseFormRegister } from "react-hook-form"
+
 export type SelectedGender = "F" | "M"
 export type SignupFormData = {
     email: string
@@ -21,4 +23,20 @@ export type SocialSignupRequest = {
 
 export type SocialSignupCheckExists = {
     nickname: string
+}
+export type Register = UseFormRegister<SocialSignupRequest>
+export type Errors = FieldErrors<SocialSignupRequest>
+
+export type NicknameInputFormProps = {
+    register: Register
+    handleNicknameCheck: () => void
+    message: string
+    errors: Errors
+}
+export type SeletedAge = string
+export type AgeGenderInputFormProps = {
+    selectedAge: string
+    selectedGender: SelectedGender
+    handleAgeSelect: (value: SeletedAge) => void
+    handleGenderChange: (seletedGender: SelectedGender) => void
 }
