@@ -7,6 +7,7 @@ import { processContentImages } from "@/utils/setImage.utils"
 import { FormEvent, useCallback } from "react"
 import { useFetchCreatePost, useFetchUpdatePost } from "@/libs/queryClient/postQueryClient"
 import { postPins } from "@/apis/mapApi"
+import { getMyPosts } from "@/apis/postApi"
 
 export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initialData?: UpdatePost) => {
     const createPostMutation = useFetchCreatePost()
@@ -35,14 +36,19 @@ export const useSubmitHandling = (state: PostState, isFreeForm: boolean, initial
                     tripEndDate: state.endDate ? formatDate(state.endDate) : "",
                     themeList: state.selectedTheme || [],
                 }
-
                 if (initialData) {
                     await updatePostMutation.mutateAsync({ postId: state.postId, editedFields: postData })
                 } else {
                     await createPostMutation.mutateAsync(postData)
-                    await postPins({ postId: state.postId })
-                }
 
+                    const myPosts = await getMyPosts()
+                    const latestPostId = myPosts.length > 0 ? myPosts[0].postId : null
+
+                    if (latestPostId) {
+                        // 해당 postId로 postPins 실행
+                        await postPins({ postId: latestPostId })
+                    }
+                }
                 state.resetFormData()
                 state.resetAll()
                 state.setIsRouterOverlayOpen(true)
