@@ -48,15 +48,7 @@ export type UserResponse = {
     accessToken: string
     refreshToken: string
 }
-export type SignInProps = {
-    email: string
-    password: string
-}
-export type SigninResult = UseMutationResult<UserResponse, Error, UserRequest> & {
-    isOpen: boolean
-    formState: "success" | "fail" | null
-    handleOverlay: (isOpen: boolean, state?: "success" | "fail" | null) => void
-}
+
 export type SocialSignupResponse = {
     email: string
     isFirst: boolean
