@@ -53,3 +53,13 @@ export type postReCommentProps = {
 export type postPinsProps = {
     postId: number
 }
+
+export type Pin = {
+    x: string
+    y: string
+    pinId: number
+    nickname: string
+    postId: number
+    country: string
+    createdAt: string
+}

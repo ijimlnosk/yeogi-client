@@ -59,7 +59,7 @@ const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
                     <ProfileDetails ageRange={data.ageRange} gender={data.gender} pinCount={pinCount} />
                 </div>
                 <div className="my-[120px]">
-                    <WorldMap email={data.email} nickname={data.nickname} />
+                    <WorldMap userInfo={data} />
                 </div>
                 <MyPost userInfo={data} myPosts={myPosts} />
             </>
