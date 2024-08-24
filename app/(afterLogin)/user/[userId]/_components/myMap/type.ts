@@ -25,6 +25,19 @@ export type PinListPaginationProps = {
 }
 
 export type UpdatedWorldMapModalProps = {
+    pinId: number
     isOpen: boolean
+    setIsOpen: (isOpen: boolean) => void
     onClose: () => void
+}
+
+export type PinPosition = {
+    x: number
+    y: number
+}
+
+export type PinModalProps = {
+    isOpen: boolean
+    onClick: () => void
+    onLeftClick: () => void
 }

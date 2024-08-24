@@ -1,59 +1,83 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import MyPinList from "./myPinList"
 import { Pin } from "@/apis/type"
 import { WoldMapProps } from "./type"
+import { usePinsQuery } from "@/libs/queryClient/pinQuery"
 
 const WorldMap = ({ userInfo }: WoldMapProps) => {
-    const [pins] = useState<Pin[]>([])
-    const [isEditMode, setEditMode] = useState(false) // 수정 모드 상태
+    const [isEditMode, setEditMode] = useState(false)
+    const mapRef = useRef<HTMLDivElement>(null)
+    const [mapSize, setMapSize] = useState({ width: 1680, height: 800 })
+
+    const { data, isLoading, error } = usePinsQuery()
+
+    useEffect(() => {
+        const updateMapSize = () => {
+            if (mapRef.current) {
+                setMapSize({
+                    width: mapRef.current.offsetWidth,
+                    height: mapRef.current.offsetHeight,
+                })
+            }
+        }
+
+        updateMapSize()
+        window.addEventListener("resize", updateMapSize)
+
+        return () => window.removeEventListener("resize", updateMapSize)
+    }, [])
+
+    const calculatePinPosition = (pin: Pin) => {
+        const xPercent = Number(pin.x)
+        const yPercent = Number(pin.y)
+        console.log(`Pin position: x=${xPercent}%, y=${yPercent}%`)
+        return { xPercent, yPercent }
+    }
+
+    console.log("Map size:", mapSize)
+    console.log("Pins data:", data)
 
     return (
-        <>
-            <div className="flex flex-col justify-center items-center overflow-x-hidden">
-                <div className="relative 2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] flex flex-row justify-between items-center px-5">
-                    <p className="text-xl ">
-                        <span className="text-BRAND-50">{userInfo.nickname}</span>님의 세계지도
-                    </p>
-                    <button
-                        className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
-                        onClick={() => setEditMode(!isEditMode)}
-                    >
-                        {isEditMode ? "저장" : "지도 수정"}
-                    </button>
-                </div>
-                <div
-                    id="map"
-                    className="2xl:w-[1680px] h-[800px] xl:w-[1000px] md:w-[700px] sm:w-[300px] relative overflow-x-hidden"
+        <div className="flex flex-col justify-center items-center overflow-x-hidden">
+            <div className="relative w-full max-w-[1680px] flex flex-row justify-between items-center px-5">
+                <p className="text-xl">
+                    <span className="text-BRAND-50">{userInfo.nickname}</span>님의 세계지도
+                </p>
+                <button
+                    className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
+                    onClick={() => setEditMode(!isEditMode)}
                 >
-                    {isEditMode && <MyPinList isOpen={isEditMode} onClose={() => setEditMode(false)} />}
-                    <Image
-                        className={`${isEditMode ? "opacity-30" : ""} 2xl:w-[1680px] xl:w-[1100px] md:w-[1000px] sm:w-[500px]`}
-                        src={"/images/map.svg"}
-                        alt="world map"
-                        width={1680}
-                        height={800}
-                    />
-                    {pins.map((pin, index) => (
+                    {isEditMode ? "저장" : "지도 수정"}
+                </button>
+            </div>
+            <div ref={mapRef} className="relative w-[90%] max-w-[1680px] h-[797px] overflow-hidden aspect-[1686/797]">
+                {isEditMode && <MyPinList isOpen={isEditMode} onClose={() => setEditMode(false)} />}
+                <Image
+                    className={`${isEditMode ? "opacity-30" : ""} w-full h-full object-contain`}
+                    src="/images/map.svg"
+                    alt="world map"
+                    layout="fill"
+                />
+                {data?.map((pin, index) => {
+                    const { xPercent, yPercent } = calculatePinPosition(pin)
+                    return (
                         <div
                             key={index}
+                            className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2"
                             style={{
-                                position: "absolute",
-                                left: `${pin.x}px`,
-                                top: `${pin.y}px`,
-                                width: "10px",
-                                height: "10px",
-                                backgroundColor: "red",
-                                borderRadius: "50%",
-                                cursor: "pointer",
+                                left: `${xPercent}%`,
+                                top: `${yPercent}%`,
                             }}
-                        />
-                    ))}
-                </div>
+                        >
+                            <Image src="/images/pin.svg" alt="pin" width={24} height={24} />
+                        </div>
+                    )
+                })}
             </div>
-        </>
+        </div>
     )
 }
 

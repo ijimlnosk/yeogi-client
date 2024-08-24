@@ -1,6 +1,7 @@
 import { ContinentType } from "@/types/continent"
 import { ThemeKeys } from "@/types/theme"
 import { SortConditionType } from "@/types/sortCondition"
+import { PinPosition } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 
 export type getPostProps = {
     searchType: "CONTENT" | "NICKNAME" | "REGION"
@@ -52,6 +53,11 @@ export type postReCommentProps = {
 
 export type postPinsProps = {
     postId: number
+}
+
+export type putPinsProps = {
+    pinId: number
+    pinPosition: PinPosition
 }
 
 export type Pin = {
