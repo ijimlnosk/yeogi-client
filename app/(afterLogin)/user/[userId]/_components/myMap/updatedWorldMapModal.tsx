@@ -8,15 +8,6 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
     const [pinPosition, setPinPosition] = useState<PinPosition | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-    const handleBackgroundClick = useCallback(
-        (e: React.MouseEvent<HTMLDivElement>) => {
-            if (e.target === e.currentTarget) {
-                onClose()
-            }
-        },
-        [onClose],
-    )
-
     const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect()
         const x = e.clientX - rect.left
@@ -30,7 +21,7 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
         setIsModalOpen(true)
     }
 
-    const handleSaveClick = useCallback(async () => {
+    const handleSaveClick = async () => {
         if (pinPosition) {
             try {
                 await putPins({ pinId, pinPosition: pinPosition })
@@ -41,7 +32,7 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
                 console.error("Error saving pin position:", error)
             }
         }
-    }, [pinId, pinPosition, setIsOpen, onClose])
+    }
 
     if (!isOpen) return null
 
@@ -50,22 +41,20 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
             <PinModal isOpen={isModalOpen} onClick={() => setIsModalOpen(false)} onLeftClick={handleSaveClick} />
             <div
                 className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
-                onClick={handleBackgroundClick}
+                onClick={e => e.target === e.currentTarget && onClose()}
             >
                 <div className="w-[90%] max-w-[1686px]">
-                    <div onClick={handleMapClick} className=" relative aspect-[1686/797]">
-                        <Image src={"/images/map.svg"} alt="World Map" fill />
+                    <div onClick={handleMapClick} className="relative aspect-[1686/797]">
+                        <Image src="/images/map.svg" alt="World Map" layout="fill" objectFit="contain" />
                         {pinPosition && (
                             <div
-                                className=" absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2"
+                                className="absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2"
                                 style={{
                                     left: `${pinPosition.x}%`,
                                     top: `${pinPosition.y}%`,
                                 }}
                             >
-                                <div className=" relative w-6 h-6">
-                                    <Image src="/images/pin.svg" alt="Pin" fill />
-                                </div>
+                                <Image src="/images/pin.svg" alt="Pin" width={24} height={24} />
                             </div>
                         )}
                     </div>
@@ -74,4 +63,5 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
         </>
     )
 }
+
 export default UpdatedWorldMapModal

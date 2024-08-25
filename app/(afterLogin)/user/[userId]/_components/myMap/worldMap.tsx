@@ -10,7 +10,7 @@ import { usePinsQuery } from "@/libs/queryClient/pinQuery"
 const WorldMap = ({ userInfo }: WoldMapProps) => {
     const [isEditMode, setEditMode] = useState(false)
     const mapRef = useRef<HTMLDivElement>(null)
-    const [mapSize, setMapSize] = useState({ width: 1680, height: 800 })
+    const [mapSize, setMapSize] = useState({ width: 1686, height: 797 })
 
     const { data, isLoading, error } = usePinsQuery()
 
@@ -33,16 +33,12 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
     const calculatePinPosition = (pin: Pin) => {
         const xPercent = Number(pin.x)
         const yPercent = Number(pin.y)
-        console.log(`Pin position: x=${xPercent}%, y=${yPercent}%`)
         return { xPercent, yPercent }
     }
 
-    console.log("Map size:", mapSize)
-    console.log("Pins data:", data)
-
     return (
         <div className="flex flex-col justify-center items-center overflow-x-hidden">
-            <div className="relative w-full max-w-[1680px] flex flex-row justify-between items-center px-5">
+            <div className="relative w-full max-w-[1686px] flex flex-row justify-between items-center px-5">
                 <p className="text-xl">
                     <span className="text-BRAND-50">{userInfo.nickname}</span>님의 세계지도
                 </p>
@@ -53,13 +49,14 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
                     {isEditMode ? "저장" : "지도 수정"}
                 </button>
             </div>
-            <div ref={mapRef} className="relative w-[90%] max-w-[1680px] h-[797px] overflow-hidden aspect-[1686/797]">
+            <div ref={mapRef} className="relative w-[90%] max-w-[1686px] aspect-[1686/797] overflow-hidden">
                 {isEditMode && <MyPinList isOpen={isEditMode} onClose={() => setEditMode(false)} />}
                 <Image
-                    className={`${isEditMode ? "opacity-30" : ""} w-full h-full object-contain`}
+                    className={`${isEditMode ? "opacity-30" : ""}`}
                     src="/images/map.svg"
                     alt="world map"
                     layout="fill"
+                    objectFit="contain"
                 />
                 {data?.map((pin, index) => {
                     const { xPercent, yPercent } = calculatePinPosition(pin)
