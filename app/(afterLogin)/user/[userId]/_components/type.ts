@@ -1,4 +1,3 @@
-import { Pin } from "@/apis/type"
 import { Post } from "@/types/post"
 import { UserInfoType } from "@/types/user"
 

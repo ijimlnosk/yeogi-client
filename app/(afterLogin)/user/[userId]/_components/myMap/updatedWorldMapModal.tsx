@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { PinPosition, UpdatedWorldMapModalProps } from "./type"
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { putPins } from "@/apis/mapApi"
 import PinModal from "./pinModal"
 
@@ -23,14 +23,10 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
 
     const handleSaveClick = async () => {
         if (pinPosition) {
-            try {
-                await putPins({ pinId, pinPosition: pinPosition })
-                setIsModalOpen(false)
-                setIsOpen(false)
-                onClose()
-            } catch (error) {
-                console.error("Error saving pin position:", error)
-            }
+            await putPins({ pinId, pinPosition: pinPosition })
+            setIsModalOpen(false)
+            setIsOpen(false)
+            onClose()
         }
     }
 

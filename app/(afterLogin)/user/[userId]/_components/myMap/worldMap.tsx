@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import Image from "next/image"
 import MyPinList from "./myPinList"
 import { Pin } from "@/apis/type"
@@ -10,31 +10,17 @@ import { usePinsQuery } from "@/libs/queryClient/pinQuery"
 const WorldMap = ({ userInfo }: WoldMapProps) => {
     const [isEditMode, setEditMode] = useState(false)
     const mapRef = useRef<HTMLDivElement>(null)
-    const [mapSize, setMapSize] = useState({ width: 1686, height: 797 })
 
     const { data, isLoading, error } = usePinsQuery()
-
-    useEffect(() => {
-        const updateMapSize = () => {
-            if (mapRef.current) {
-                setMapSize({
-                    width: mapRef.current.offsetWidth,
-                    height: mapRef.current.offsetHeight,
-                })
-            }
-        }
-
-        updateMapSize()
-        window.addEventListener("resize", updateMapSize)
-
-        return () => window.removeEventListener("resize", updateMapSize)
-    }, [])
 
     const calculatePinPosition = (pin: Pin) => {
         const xPercent = Number(pin.x)
         const yPercent = Number(pin.y)
         return { xPercent, yPercent }
     }
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>핀 데이터를 불러오지 못했습니다.</div>
 
     return (
         <div className="flex flex-col justify-center items-center overflow-x-hidden">

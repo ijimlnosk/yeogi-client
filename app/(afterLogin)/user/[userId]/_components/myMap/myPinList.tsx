@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 import { MyPinListProps } from "./type"
 import { usePinsQuery } from "@/libs/queryClient/pinQuery"
-import PinCard from "./pinCard"
-import Image from "next/image"
 import PinListHeader from "./pinListHeader"
 import PinCardGrid from "./pinCardGrid"
 import PinListPagination from "./pinListPagination"
@@ -10,8 +8,6 @@ import PinListPagination from "./pinListPagination"
 const MyPinList = ({ isOpen, onClose }: MyPinListProps) => {
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 6
-
-    if (!isOpen) return null
 
     const { data, isLoading, error } = usePinsQuery()
 
@@ -21,6 +17,7 @@ const MyPinList = ({ isOpen, onClose }: MyPinListProps) => {
         }
     }
 
+    if (!isOpen) return null
     if (isLoading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
 

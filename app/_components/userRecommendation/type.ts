@@ -1,8 +1,8 @@
-import { UserInfo } from "@/app/(afterLogin)/user/[userId]/_components/myMap/type"
 import { Post } from "@/types/post"
+import { UserInfoType } from "@/types/user"
 
 export type RecommendationHeaderProps = {
-    userInfo?: UserInfo
+    userInfo?: UserInfoType
 }
 
 export type PostListProps = {
