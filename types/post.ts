@@ -22,6 +22,7 @@ export type Post = {
     address: string
     themeList: ThemeKeys[]
     hasLiked: boolean
+    thumbnail?: string
 }
 export type memosList = {
     memoId: number

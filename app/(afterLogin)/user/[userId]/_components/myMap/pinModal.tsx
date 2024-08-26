@@ -6,7 +6,7 @@ const PinModal = ({ isOpen, onClick, onLeftClick }: PinModalProps) => {
     if (!isOpen) return null
 
     return (
-        <div style={{ zIndex: 9999 }}>
+        <div className=" z-[9999]">
             <Overlay
                 leftText="돌아가기"
                 leftImageUrl="/icons/white_arrow-left.svg"

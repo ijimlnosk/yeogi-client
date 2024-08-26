@@ -41,3 +41,8 @@ export type PinModalProps = {
     onClick: () => void
     onLeftClick: () => void
 }
+
+export type PinThumbnailProps = {
+    thumbnail: string
+    postId: number
+}

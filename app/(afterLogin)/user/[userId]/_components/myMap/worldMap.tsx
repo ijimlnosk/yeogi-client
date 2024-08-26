@@ -1,17 +1,33 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import MyPinList from "./myPinList"
 import { Pin } from "@/apis/type"
 import { WoldMapProps } from "./type"
 import { usePinsQuery } from "@/libs/queryClient/pinQuery"
+import { usePinStore } from "@/libs/zustand/pin"
+import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
+import { useQuery } from "@tanstack/react-query"
+import PinThumbnail from "./pinThumbnail"
 
 const WorldMap = ({ userInfo }: WoldMapProps) => {
     const [isEditMode, setEditMode] = useState(false)
     const mapRef = useRef<HTMLDivElement>(null)
+    const [openThumbnailIndex, setOpenThumbnailIndex] = useState<number | null>(null)
 
-    const { data, isLoading, error } = usePinsQuery()
+    const { data, isLoading, error, refetch } = usePinsQuery()
+
+    const { data: myPostData, isLoading: myPostLoading } = useQuery({
+        queryKey: ["myPosts"],
+        queryFn: fetchMyPosts,
+    })
+
+    const setRefetch = usePinStore(state => state.setRefetch)
+
+    useEffect(() => {
+        setRefetch(refetch)
+    }, [refetch, setRefetch])
 
     const calculatePinPosition = (pin: Pin) => {
         const xPercent = Number(pin.x)
@@ -19,7 +35,11 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
         return { xPercent, yPercent }
     }
 
-    if (isLoading) return <div>Loading...</div>
+    const handlePinClick = (index: number) => {
+        setOpenThumbnailIndex(prevIndex => (prevIndex === index ? null : index))
+    }
+
+    if (isLoading && myPostLoading && !myPostData) return <div>Loading...</div>
     if (error) return <div>핀 데이터를 불러오지 못했습니다.</div>
 
     return (
@@ -44,8 +64,9 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
                     layout="fill"
                     objectFit="contain"
                 />
-                {data?.map((pin, index) => {
-                    const { xPercent, yPercent } = calculatePinPosition(pin)
+                {data?.map((item, index) => {
+                    const { xPercent, yPercent } = calculatePinPosition(item)
+                    const matchPostId = myPostData?.find(post => post.postId === item.postId)
                     return (
                         <div
                             key={index}
@@ -55,7 +76,17 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
                                 top: `${yPercent}%`,
                             }}
                         >
-                            <Image src="/images/pin.svg" alt="pin" width={24} height={24} />
+                            <div className=" relative w-6 h-6 cursor-pointer" onClick={() => handlePinClick(index)}>
+                                <Image src="/images/pin.svg" alt="pin" fill />
+                            </div>
+                            <div className=" relative">
+                                {openThumbnailIndex === index && matchPostId && (
+                                    <PinThumbnail
+                                        thumbnail={matchPostId.thumbnail || "/images/default/thumbnail01.jpg"}
+                                        postId={item.postId}
+                                    />
+                                )}
+                            </div>
                         </div>
                     )
                 })}

@@ -3,10 +3,12 @@ import { PinPosition, UpdatedWorldMapModalProps } from "./type"
 import { useState } from "react"
 import { putPins } from "@/apis/mapApi"
 import PinModal from "./pinModal"
+import { usePinStore } from "@/libs/zustand/pin"
 
 const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorldMapModalProps) => {
     const [pinPosition, setPinPosition] = useState<PinPosition | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const refetch = usePinStore(state => state.refetch)
 
     const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect()
@@ -24,9 +26,11 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
     const handleSaveClick = async () => {
         if (pinPosition) {
             await putPins({ pinId, pinPosition: pinPosition })
+            if (refetch) {
+                refetch()
+            }
             setIsModalOpen(false)
             setIsOpen(false)
-            onClose()
         }
     }
 
@@ -34,7 +38,7 @@ const UpdatedWorldMapModal = ({ pinId, isOpen, setIsOpen, onClose }: UpdatedWorl
 
     return (
         <>
-            <PinModal isOpen={isModalOpen} onClick={() => setIsModalOpen(false)} onLeftClick={handleSaveClick} />
+            <PinModal isOpen={isModalOpen} onClick={handleSaveClick} onLeftClick={() => setIsModalOpen(false)} />
             <div
                 className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
                 onClick={e => e.target === e.currentTarget && onClose()}
