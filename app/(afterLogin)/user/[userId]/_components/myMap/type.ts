@@ -1,4 +1,5 @@
 import { Pin } from "@/apis/type"
+import { Post } from "@/types/post"
 import { UserInfoType } from "@/types/user"
 
 export type MyPinListProps = {
@@ -45,4 +46,12 @@ export type PinModalProps = {
 export type PinThumbnailProps = {
     thumbnail: string
     postId: number
+}
+
+export type MapPinProps = {
+    pin: Pin
+    index: number
+    isOpen: boolean
+    onClick: (index: number) => void
+    matchingPost: Post | undefined
 }
