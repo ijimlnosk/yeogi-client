@@ -13,7 +13,7 @@ import MyPost from "./myPost/myPosts"
 import { UserClientProps } from "./type"
 import { getUserInfo } from "@/apis/userApi"
 
-const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
+const UserClient = ({ initialUser }: UserClientProps) => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [pinCount, setPinCount] = useState<number>(0)
     const [userInfo, setUserInfo] = useState<UserInfoType>(initialUser)
@@ -21,7 +21,6 @@ const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
     const { data: myPosts } = useQuery({
         queryKey: ["myPosts"],
         queryFn: fetchMyPosts,
-        initialData: initialPosts,
     })
 
     useEffect(() => {
@@ -61,7 +60,7 @@ const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
                 <div className="my-[120px]">
                     <WorldMap userInfo={data} />
                 </div>
-                <MyPost userInfo={data} myPosts={myPosts} />
+                <MyPost userInfo={data} myPosts={myPosts || []} />
             </>
         )
 }
