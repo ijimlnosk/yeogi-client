@@ -1,121 +1,73 @@
 "use client"
 
-import { useState } from "react"
-import { Pin, UserInfo } from "./type"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
+import MyPinList from "./myPinList"
+import { WoldMapProps } from "./type"
+import { usePinsQuery } from "@/libs/queryClient/pinQuery"
+import { usePinStore } from "@/libs/zustand/pin"
+import { fetchMyPosts } from "@/libs/queryClient/postQueryClient"
+import { useQuery } from "@tanstack/react-query"
+import MapPin from "./mapPin"
 
-const WorldMap = ({ nickname }: UserInfo) => {
-    // const { pinCount, incrementPinCount } = useMapStore()
-    const [pins] = useState<Pin[]>([])
-    const [isEditMode] = useState(false) // 수정 모드 상태
-    const [isInProgress, setIsInProgress] = useState<boolean>(false) // 아직 진행 중이에요!
+const WorldMap = ({ userInfo }: WoldMapProps) => {
+    const [isEditMode, setEditMode] = useState(false)
+    const mapRef = useRef<HTMLDivElement>(null)
+    const [openThumbnailIndex, setOpenThumbnailIndex] = useState<number | null>(null)
+    const { data, isLoading, error, refetch } = usePinsQuery()
 
-    /* useEffect(() => {
-        // 컴포넌트가 마운트될 때 로컬 스토리지에서 핀 카운트를 불러옴
-        const storedPinCount = getPinLocalStorage()
-        for (let i = 0; i < storedPinCount; i++) {
-            incrementPinCount()
-        }
+    const { data: myPostData, isLoading: myPostLoading } = useQuery({
+        queryKey: ["myPosts"],
+        queryFn: fetchMyPosts,
+    })
 
-        // 핀 데이터를 가져옴
-        const fetchPins = async () => {
-            if (email) {
-                try {
-                    const data = await getPin({ email: email })
-                    setPins(data)
-                } catch (error) {
-                    // 추후 연결 완료 시 삭제 예정
-                    // console.error("핀 데이터를 가져오는 중 오류 발생:", error)
-                }
-            }
-        }
-        fetchPins()
-    }, [email, incrementPinCount]) */
+    const setRefetch = usePinStore(state => state.setRefetch)
 
-    /* const handleMapClick = async (event: MouseEvent<HTMLDivElement>) => {
-        if (isEditMode && pinCount >= 1) {
-            const coordinates = { x: event.clientX, y: event.clientY }
-            const newPin: Pin = {
-                x: String(coordinates.x),
-                y: String(coordinates.y),
-                email: email,
-                postId: 1,
-            }
+    useEffect(() => {
+        setRefetch(refetch)
+    }, [refetch, setRefetch])
 
-            try {
-                const addedPin = await postPin({ x: newPin.x, y: newPin.y, email: newPin.email, postId: newPin.postId })
-                setPins([...pins, addedPin])
-                incrementPinCount()
-                setPinLocalStorage(String(pinCount + 1))
-                alert("새 핀이 추가되었습니다.")
-            } catch (error) {
-                // 추후 연결 완료 시 삭제 예정
-                console.error("핀을 추가하는 중 오류 발생:", error)
-            }
-        } else if (!isEditMode) {
-            const clickedPin = pins.find(pin => Number(pin.x) === event.clientX && Number(pin.y) === event.clientY)
-            if (clickedPin) {
-                showThumbnail(String(clickedPin.postId))
-            }
-        }
+    const handlePinClick = (index: number) => {
+        setOpenThumbnailIndex(prevIndex => (prevIndex === index ? null : index))
     }
-    const showThumbnail = (postId: string) => {
-        // 추후 연결 완료 시 삭제 예정
-        console.log(`썸네일을 표시할 postId: ${postId}`)
-    } */
+
+    if (isLoading && myPostLoading && !myPostData && !data) return <div>Loading...</div>
+    if (error) return <div>핀 데이터를 불러오지 못했습니다.</div>
 
     return (
-        <>
-            <div className="flex flex-col justify-center items-center overflow-x-hidden">
-                <div className="relative 2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] flex flex-row justify-between items-center px-5">
-                    <p className="text-xl ">
-                        <span className="text-BRAND-50">{nickname}</span>님의 세계지도
-                    </p>
-                    <button
-                        className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
-                        onClick={() => setIsInProgress(true)}
-                    >
-                        {isEditMode ? "저장" : "지도 수정"}
-                    </button>
-                </div>
-                <div className="2xl:w-[1680px] xl:w-[1000px] md:w-[700px] sm:w-[300px] 2xl:h-[800px] xl:h-[490px] md:h-[350px] absolute overflow-x-hidden mt-[50px] xl:mt-[70px] md:mt-[-270px] bg-SYSTEM-white bg-opacity-70 z-10">
-                    <p className="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[100px] text-BRAND-70 opacity-30 font-bold flex justify-center">
-                        coming soon
-                    </p>
-                </div>
-                <div
-                    id="map"
-                    className="2xl:w-[1680px] h-[800px] xl:w-[1000px] md:w-[700px] sm:w-[300px] relative overflow-x-hidden"
+        <div className="flex flex-col justify-center items-center overflow-x-hidden">
+            <div className="relative w-full max-w-[1686px] flex flex-row justify-between items-center px-5">
+                <p className="text-xl">
+                    <span className="text-BRAND-50">{userInfo.nickname}</span>님의 세계지도
+                </p>
+                <button
+                    className={`text-lg ${isEditMode ? "text-ACCENT-orange" : ""}`}
+                    onClick={() => setEditMode(!isEditMode)}
                 >
-                    {isEditMode && <div className="bg-SYSTEM-white w-[1640px] h-[770px] absolute left-5 top-5" />}
-                    <Image
-                        className={`${isEditMode ? "opacity-30" : ""} 2xl:w-[1680px] xl:w-[1100px] md:w-[1000px] sm:w-[500px]`}
-                        src={"/images/map.svg"}
-                        alt="world map"
-                        width={1680}
-                        height={800}
-                    />
-                    {pins.map((pin, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                position: "absolute",
-                                left: `${pin.x}px`,
-                                top: `${pin.y}px`,
-                                width: "10px",
-                                height: "10px",
-                                backgroundColor: "red",
-                                borderRadius: "50%",
-                                cursor: "pointer",
-                            }}
-                            /* onClick={() => showThumbnail(String(pin.postId))} */
-                        />
-                    ))}
-                </div>
+                    {isEditMode ? "저장" : "지도 수정"}
+                </button>
             </div>
-            <StillWorkingOverlay isOpen={isInProgress} onClick={() => setIsInProgress(false)} />
-        </>
+            <div ref={mapRef} className="relative w-[90%] max-w-[1686px] aspect-[1686/797] overflow-hidden">
+                {isEditMode && <MyPinList isOpen={isEditMode} onClose={() => setEditMode(false)} />}
+                <Image
+                    className={`${isEditMode ? "opacity-30" : ""} object-contain`}
+                    src="/images/map.svg"
+                    alt="world map"
+                    fill
+                    priority
+                />
+                {data?.map((item, index) => (
+                    <MapPin
+                        key={index}
+                        pin={item}
+                        index={index}
+                        isOpen={openThumbnailIndex === index}
+                        onClick={handlePinClick}
+                        matchingPost={myPostData?.find(post => post.postId === item.postId || null)}
+                    />
+                ))}
+            </div>
+        </div>
     )
 }
 

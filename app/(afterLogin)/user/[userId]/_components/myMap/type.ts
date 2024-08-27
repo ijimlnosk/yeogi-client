@@ -1,55 +1,57 @@
-import { MouseEvent as ReactMouseEvent } from "react"
+import { Pin } from "@/apis/type"
+import { Post } from "@/types/post"
+import { UserInfoType } from "@/types/user"
 
-export type MapProps = {
-    user: UserInfo
-    movingPins: WorldPost[]
-    setMovingPins: (pins: WorldPost[]) => void
-    pinCount: number
-    setPinCount: (count: number) => void
+export type MyPinListProps = {
+    isOpen: boolean
+    onClose: () => void
 }
 
-export type UserInfo = {
-    email: string
-    nickname: string
-}
-
-export type WorldPostPin = {
+export type PinCardPorps = {
     pin: Pin
-    email: string
-    nickname: string
-    postId: number
 }
 
-export type Pin = {
-    x: string
-    y: string
-    email: string
-    postId: number
+export type WoldMapProps = {
+    userInfo: UserInfoType
 }
 
-export type WorldPost = {
-    id: number
-    title: string
-    content: string
+export type PinCardGridProps = {
+    pins: Pin[]
+}
+
+export type PinListPaginationProps = {
+    currentPage: number
+    totalPages: number
+    onPageChange: (page: number) => void
+}
+
+export type UpdatedWorldMapModalProps = {
+    pinId: number
+    isOpen: boolean
+    setIsOpen: (isOpen: boolean) => void
+    onClose: () => void
+}
+
+export type PinPosition = {
+    x: number
+    y: number
+}
+
+export type PinModalProps = {
+    isOpen: boolean
+    onClick: () => void
+    onLeftClick: () => void
+}
+
+export type PinThumbnailProps = {
     thumbnail: string
+    postId: number
+}
+
+export type MapPinProps = {
     pin: Pin
-}
-
-export type PinProps = {
-    post: WorldPost
-    isUpdate: boolean
-    selectedPin: WorldPost | null
-    onClick: (post: WorldPost, e: ReactMouseEvent<HTMLImageElement>) => void
-}
-
-export type HandleMapClickProps = {
-    e: ReactMouseEvent<HTMLImageElement>
-    isUpdate: boolean
-    pinCount: number
-    movingPins: WorldPost[]
-    pins: WorldPost[]
-    setSelectedPin: (pin: WorldPost | null) => void
-    setPins: (pins: WorldPost[]) => void
-    setMovingPins: (pins: WorldPost[]) => void
-    userInfo: UserInfo
+    index: number
+    isOpen: boolean
+    onClick: (index: number) => void
+    matchingPost: Post | undefined
 }

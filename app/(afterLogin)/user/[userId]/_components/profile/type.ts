@@ -24,3 +24,13 @@ export type ProfileDetailsProps = {
     gender: string
     pinCount: number
 }
+
+export type PinsState = {
+    x: string
+    y: string
+    pinId: number
+    nickname: string
+    postId: number
+    country: string
+    createdAt: string
+}

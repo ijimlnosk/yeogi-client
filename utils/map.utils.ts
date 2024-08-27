@@ -1,3 +1,5 @@
+import { Pin } from "@/apis/type"
+
 /**
  * 구글 맵 JS API 스크립트를 동적 로드
  *
@@ -35,4 +37,16 @@ export const initializeAutocomplete = (
         }
     }
     inputRef.current?.addEventListener("input", handleInputChange)
+}
+
+/**
+ * 지도 핀을 Number로 변환하는 함수
+ *
+ * @param pin
+ * @returns
+ */
+export const calculatePinPosition = (pin: Pin) => {
+    const xPercent = Number(pin.x)
+    const yPercent = Number(pin.y)
+    return { xPercent, yPercent }
 }

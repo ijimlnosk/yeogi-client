@@ -13,7 +13,7 @@ import MyPost from "./myPost/myPosts"
 import { UserClientProps } from "./type"
 import { getUserInfo } from "@/apis/userApi"
 
-const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
+const UserClient = ({ initialUser }: UserClientProps) => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [pinCount, setPinCount] = useState<number>(0)
     const [userInfo, setUserInfo] = useState<UserInfoType>(initialUser)
@@ -21,17 +21,7 @@ const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
     const { data: myPosts } = useQuery({
         queryKey: ["myPosts"],
         queryFn: fetchMyPosts,
-        initialData: initialPosts,
     })
-
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            const response = await getUserInfo()
-            setUserInfo(response)
-        }
-        fetchUserInfo()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     const { data } = useQuery({
         queryKey: ["userInfo"],
@@ -59,9 +49,9 @@ const UserClient = ({ initialPosts, initialUser }: UserClientProps) => {
                     <ProfileDetails ageRange={data.ageRange} gender={data.gender} pinCount={pinCount} />
                 </div>
                 <div className="my-[120px]">
-                    <WorldMap email={data.email} nickname={data.nickname} />
+                    <WorldMap userInfo={data} />
                 </div>
-                <MyPost userInfo={data} myPosts={myPosts} />
+                <MyPost userInfo={data} myPosts={myPosts || []} />
             </>
         )
 }

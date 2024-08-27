@@ -3,6 +3,7 @@
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import { ProfileDetailsProps } from "./type"
 import { useState } from "react"
+import { usePinsQuery } from "@/libs/queryClient/pinQuery"
 
 const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
@@ -11,6 +12,10 @@ const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
         if (gender === "F") return "여성"
         return ""
     }
+
+    const { data, isLoading } = usePinsQuery()
+
+    if (isLoading) return <div>Loading...</div>
 
     return (
         <>
@@ -28,7 +33,7 @@ const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
                     </span>
                     <span className="bg-SYSTEM-white p-5 rounded-2xl w-[156px] h-[120px] text-center">
                         나의 기록 핀 <br />
-                        <span className="text-BRAND-50 font-semibold">준비 중</span>
+                        <span className="text-BRAND-50 font-semibold">{data?.length} 개</span>
                     </span>
                 </div>
             </div>

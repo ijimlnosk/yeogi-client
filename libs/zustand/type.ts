@@ -107,11 +107,10 @@ export type LoginState = {
     setUserInfo: (userInfo: MyUserInfoType) => void
 }
 
-/* map */
-export type MapStore = {
-    pinCount: number
-    incrementPinCount: () => void
-    decrementPinCount: () => void
+/* pin */
+export type PinStore = {
+    refetch: (() => void) | null
+    setRefetch: (refetch: () => void) => void
 }
 
 /* theme */
