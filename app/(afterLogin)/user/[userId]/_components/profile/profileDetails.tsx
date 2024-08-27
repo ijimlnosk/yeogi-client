@@ -1,27 +1,21 @@
 "use client"
 
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
-import { PinsState, ProfileDetailsProps } from "./type"
-import { useEffect, useState } from "react"
-import { getPins } from "@/apis/mapApi"
+import { ProfileDetailsProps } from "./type"
+import { useState } from "react"
+import { usePinsQuery } from "@/libs/queryClient/pinQuery"
 
 const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
-    const [pins, setPins] = useState<PinsState[]>([])
     const displayGender = (gender: string | undefined) => {
         if (gender === "M") return "남성"
         if (gender === "F") return "여성"
         return ""
     }
 
-    useEffect(() => {
-        const fetchPins = async () => {
-            const response = await getPins()
-            setPins(response)
-        }
+    const { data, isLoading } = usePinsQuery()
 
-        fetchPins()
-    }, [])
+    if (isLoading) return <div>Loading...</div>
 
     return (
         <>
@@ -39,7 +33,7 @@ const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
                     </span>
                     <span className="bg-SYSTEM-white p-5 rounded-2xl w-[156px] h-[120px] text-center">
                         나의 기록 핀 <br />
-                        <span className="text-BRAND-50 font-semibold">{pins.length} 개</span>
+                        <span className="text-BRAND-50 font-semibold">{data?.length} 개</span>
                     </span>
                 </div>
             </div>
