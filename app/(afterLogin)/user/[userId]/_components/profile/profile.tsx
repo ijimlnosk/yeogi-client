@@ -24,6 +24,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                     프로필 수정
                 </button>
             </div>
+<<<<<<< HEAD
             <div className="absolute left-[120px] top-[360px] flex items-center">
                 <div className=" relative w-[240px] h-[240px]">
                     <Image
@@ -33,6 +34,10 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                         className="rounded-full border-[5px] border-white shadow-profile"
                     />
                 </div>
+=======
+            <div className="absolute w-[240px] h-[240px] left-[120px] top-[360px] flex items-center rounded-full border-[5px] border-white shadow-profile overflow-hidden">
+                <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
+>>>>>>> c60c2cf (YG-187 🐞 프로필 이미지 형태 유지하도록 변경)
                 <div className="ml-12 mt-36">
                     <h1 className="text-4xl font-semibold mb-4">{userInfo.nickname}</h1>
                     <p className="text-lg">{userInfo.motto}</p>
