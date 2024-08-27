@@ -90,7 +90,6 @@ export const putUserBannerImage = async (image: File): Promise<{ image: string }
     })
     if (!response.ok) throw new Error("유저의 배너 이미지가 변경되지 못했어요...🥹")
     const responseText = await response.text()
-
     try {
         const updatedBanner = JSON.parse(responseText)
         if (typeof updatedBanner.image === "string") {

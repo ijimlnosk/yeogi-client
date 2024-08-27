@@ -16,6 +16,7 @@ const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const { data, isLoading } = usePinsQuery()
 
     if (isLoading) return <div>Loading...</div>
+
     return (
         <>
             <div className="flex justify-end mr-[120px] mt-10 mb-[120px]">
