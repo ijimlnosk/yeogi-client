@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { PinCardPorps } from "./type"
 import { formatISODateString } from "@/utils/date.utils"
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import UpdatedWorldMapModal from "./updatedWorldMapModal"
 
 const PinCard = ({ pin }: PinCardPorps) => {
