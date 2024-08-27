@@ -23,15 +23,6 @@ const UserClient = ({ initialUser }: UserClientProps) => {
         queryFn: fetchMyPosts,
     })
 
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            const response = await getUserInfo()
-            setUserInfo(response)
-        }
-        fetchUserInfo()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     const { data } = useQuery({
         queryKey: ["userInfo"],
         queryFn: getUserInfo,

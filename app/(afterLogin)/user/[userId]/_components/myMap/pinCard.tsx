@@ -7,9 +7,9 @@ import UpdatedWorldMapModal from "./updatedWorldMapModal"
 const PinCard = ({ pin }: PinCardPorps) => {
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleClose = useCallback(() => {
+    const handleClose = () => {
         setIsOpen(false)
-    }, [])
+    }
 
     return (
         <>

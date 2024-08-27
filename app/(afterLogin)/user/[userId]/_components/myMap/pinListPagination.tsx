@@ -12,7 +12,10 @@ const PinListPagination = ({ currentPage, totalPages, onPageChange }: PinListPag
                 disabled={currentPage === 1}
                 className="text-sm text-GREY-80 flex flex-row justify-center items-center gap-2"
             >
-                <Image src="/icons/prev.svg" alt="<" width={5} height={8} />
+                <div className=" relative w-[5px] h-2 ">
+                    <Image src="/icons/prev.svg" alt="<" fill />
+                </div>
+
                 <p>이전</p>
             </button>
             <button
@@ -21,7 +24,9 @@ const PinListPagination = ({ currentPage, totalPages, onPageChange }: PinListPag
                 className="text-sm text-GREY-80 flex flex-row justify-center items-center gap-2"
             >
                 <p>다음</p>
-                <Image src="/icons/next.svg" alt=">" width={5} height={8} />
+                <div className="w-[5px] h-2 relative">
+                    <Image src="/icons/next.svg" alt=">" fill />
+                </div>
             </button>
         </div>
     )

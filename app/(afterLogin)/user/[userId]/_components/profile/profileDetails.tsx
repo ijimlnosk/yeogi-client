@@ -1,19 +1,9 @@
 "use client"
 
 import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
-import { ProfileDetailsProps } from "./type"
+import { PinsState, ProfileDetailsProps } from "./type"
 import { useEffect, useState } from "react"
 import { getPins } from "@/apis/mapApi"
-
-export type PinsState = {
-    x: string
-    y: string
-    pinId: number
-    nickname: string
-    postId: number
-    country: string
-    createdAt: string
-}
 
 const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)

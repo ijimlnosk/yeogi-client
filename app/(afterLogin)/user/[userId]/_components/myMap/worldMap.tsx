@@ -50,11 +50,11 @@ const WorldMap = ({ userInfo }: WoldMapProps) => {
             <div ref={mapRef} className="relative w-[90%] max-w-[1686px] aspect-[1686/797] overflow-hidden">
                 {isEditMode && <MyPinList isOpen={isEditMode} onClose={() => setEditMode(false)} />}
                 <Image
-                    className={`${isEditMode ? "opacity-30" : ""}`}
+                    className={`${isEditMode ? "opacity-30" : ""} object-contain`}
                     src="/images/map.svg"
                     alt="world map"
-                    layout="fill"
-                    objectFit="contain"
+                    fill
+                    priority
                 />
                 {data?.map((item, index) => (
                     <MapPin
