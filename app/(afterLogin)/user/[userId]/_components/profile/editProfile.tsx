@@ -36,6 +36,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         ...userInfo,
         profile: userInfo.profile || DefaultProfile,
         banner: userInfo.banner || DefaultBanner,
+        nickname: userInfo.nickname || "",
         motto: userInfo.motto || "",
         first: false,
     })
@@ -70,6 +71,8 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             let updatedInfo: MyUserInfoType = {
                 ...userInfo,
                 ...editedUserInfo,
+                nickname: editedUserInfo.nickname,
+                motto: editedUserInfo.motto,
             }
             // 이미지 업데이트
             if (selectedImages.profile) {
@@ -86,19 +89,13 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
             }
             // 사용자 정보 업데이트
             const editedFields: EditUserInfoType = {
-                id: updatedInfo.id,
-                email: updatedInfo.email,
-                nickname: updatedInfo.nickname,
-                motto: updatedInfo.motto,
-                ageRange: updatedInfo.ageRange,
-                gender: updatedInfo.gender,
-                profile: updatedInfo.profile,
-                banner: updatedInfo.banner,
+                ...updatedInfo,
                 first: false,
             }
+
             const finalResult = await updateUserInfo.mutateAsync({
-                userInfo: updatedInfo,
-                editedUserInfo: editedFields,
+                userInfo: userInfo,
+                editedUserInfo: editedUserInfo,
             })
             setUserInfo(finalResult)
             setIsEditing(false)
