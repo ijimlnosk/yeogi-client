@@ -2,19 +2,16 @@ import Image from "next/image"
 import { ProfileProps } from "./type"
 import DefaultProfile from "@/public/images/user/sampleProfile.svg"
 import DefaultBanner from "@/public/images/user/defaultBanner.svg"
-
 const Profile = ({ userInfo, onEdit }: ProfileProps) => {
     return (
         <div className="relative">
             <div className="relative">
-                {/* <div className="absolute inset-0 bg-black opacity-20" /> */}
                 <div className="w-full h-[440px] flex justify-center items-center overflow-hidden">
                     <Image
-                        width={1920}
-                        height={440}
+                        fill
                         src={userInfo.banner ? userInfo.banner : DefaultBanner}
                         alt="banner image"
-                        className="w-full min-h-[440px] bg-cover"
+                        className="object-cover"
                     />
                 </div>
                 <button
@@ -24,21 +21,11 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                     프로필 수정
                 </button>
             </div>
-<<<<<<< HEAD
-            <div className="absolute left-[120px] top-[360px] flex items-center">
-                <div className=" relative w-[240px] h-[240px]">
-                    <Image
-                        fill
-                        src={userInfo.profile || DefaultProfile}
-                        alt="profile image"
-                        className="rounded-full border-[5px] border-white shadow-profile"
-                    />
+            <div className="absolute top-[360px] flex flex-col items-center">
+                <div className="absolute left-[120px] w-[240px] h-[240px] rounded-full border-[5px] bg-SYSTEM-white border-SYETEM-white shadow-profile overflow-hidden">
+                    <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
                 </div>
-=======
-            <div className="absolute w-[240px] h-[240px] left-[120px] top-[360px] flex items-center rounded-full border-[5px] border-white shadow-profile overflow-hidden">
-                <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
->>>>>>> c60c2cf (YG-187 🐞 프로필 이미지 형태 유지하도록 변경)
-                <div className="ml-12 mt-36">
+                <div className="ml-[400px] mt-36">
                     <h1 className="text-4xl font-semibold mb-4">{userInfo.nickname}</h1>
                     <p className="text-lg">{userInfo.motto}</p>
                 </div>
