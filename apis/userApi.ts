@@ -34,7 +34,7 @@ export const putUserInfo = async (
         image: typeof editedUserInfo.profile === "string" ? editedUserInfo.profile : userInfo.profile,
         banner: typeof editedUserInfo.banner === "string" ? editedUserInfo.banner : userInfo.banner,
     }
-    const response = await fetchFormAPI(USER_API_URL, "member", {
+    const response = await fetchFormAPI(USER_API_URL, "/member", {
         method: "PUT",
         body: JSON.stringify(updatedInfo),
     })
@@ -51,24 +51,29 @@ export const putUserInfo = async (
 export const putUserProfileImage = async (image: File): Promise<{ image: string }> => {
     const formData = new FormData()
     formData.append("image", image)
-
-    console.log(image, "image")
-    console.log(formData, "fomrData")
-
+    // console.log(image, "image")
     const response = await fetchFormMultipartAPI(USER_API_URL, "profileImage", {
         method: "PUT",
         body: formData,
     })
-    console.log("response", response)
     if (!response.ok) throw new Error("유저의 프로필 이미지가 변경되지 못했어요...🥹")
-    const updatedProfile = await response.json()
-    console.log("updatedProfile", updatedProfile)
+    const responseText = await response.text()
 
-    // BE 응답에서 이미지 URL 추출
-    if (typeof updatedProfile.image === "string") {
-        return { image: updatedProfile.image }
-    } else {
-        throw new Error("서버에서 잘못된 형식의 이미지 URL을 반환했습니다...")
+    // 응답이 JSON인지 확인
+    try {
+        const updatedProfile = JSON.parse(responseText)
+        if (typeof updatedProfile.image === "string") {
+            return { image: updatedProfile.image }
+        } else {
+            throw new Error("서버에서 잘못된 형식의 이미지 URL을 반환했습니다...")
+        }
+    } catch (error) {
+        // JSON이 아니라면, 텍스트가 URL인지 확인
+        if (responseText.startsWith("http")) {
+            return { image: responseText }
+        } else {
+            throw new Error("서버에서 예상치 못한 응답 형식을 반환했습니다...")
+        }
     }
 }
 

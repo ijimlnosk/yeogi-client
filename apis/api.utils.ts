@@ -1,6 +1,5 @@
 import { getSession, signOut } from "next-auth/react"
 import { reissueTokens } from "./auth/oauthApi"
-import { getAccessToken } from "./auth/token/access.utils"
 
 export const fetchFormAPI = async (api: string, endPoint: string, options: RequestInit) => {
     const session = await getSession()
@@ -29,29 +28,29 @@ export const fetchFormAPINotToken = async (api: string, endPoint: string, option
 }
 
 export const fetchFormMultipartAPI = async (api: string, endPoint: string, options: RequestInit) => {
-    const token = getAccessToken()
+    const token = await getSession()
     const headers = new Headers(options.headers)
-    headers.set("Authorization", `Bearer ${token}`)
-    const response = await fetch(`${api}/${endPoint}`, {
+    headers.set("Authorization", `Bearer ${token?.accessToken}`)
+    headers.delete("Content-Type")
+    const url = `/${api}${endPoint ? `/${endPoint}` : ""}`.replace(/\/+/g, "/")
+    const response = await fetch(url, {
         ...options,
         headers: headers,
         credentials: "include",
     })
     if (!response.ok) {
-        const errorBody = await response.text()
-        console.error("Server error response:", errorBody)
-        throw new Error(`유저의 이미지가 변경되지 못했어요...🥹 서버 응답: ${errorBody}`)
+        throw new Error("유저의 이미지가 변경되지 못했어요...🥹")
     }
     return response
 }
 
 export const fetchWithTokenRefresh = async (url: string, options: RequestInit) => {
-    const token = getAccessToken()
+    const token = await getSession()
     let response = await fetch(url, {
         ...options,
         headers: {
             ...options.headers,
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token?.accessToken}`,
         },
     })
 

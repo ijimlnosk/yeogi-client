@@ -9,7 +9,7 @@ const ProfileImage = ({ image, onImageChange, className }: ProfileImageProps) =>
 
     return (
         <div
-            className={`relative w-[240px] h-[240px] rounded-full overflow-hidden border-[5px] border-SYSTEM-white shadow-profile group ${className}`}
+            className={`relative w-[240px] h-[240px] rounded-full overflow-hidden border-[5px] bg-SYSTEM-white border-SYSTEM-white shadow-profile group ${className}`}
         >
             <Image fill src={image ? image : ""} alt="profile image" className="object-cover" />
             <div className="absolute inset-0 bg-black opacity-60 rounded-full flex justify-center items-center" />

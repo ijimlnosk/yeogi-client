@@ -23,7 +23,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                 </button>
             </div>
             <div className="absolute top-[360px] flex flex-col items-center">
-                <div className="absolute left-[120px] w-[240px] h-[240px] rounded-full border-[5px] border-white shadow-profile overflow-hidden">
+                <div className="absolute left-[120px] w-[240px] h-[240px] rounded-full border-[5px] bg-SYSTEM-white border-SYETEM-white shadow-profile overflow-hidden">
                     <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
                 </div>
                 <div className="ml-[400px] mt-36">

@@ -14,6 +14,7 @@ import ProfileImage from "./_components/profileImage"
 import ProfileContext from "./_components/profileContext"
 import EditButtons from "./_components/buttons"
 import { EditUserInfoType, MyUserInfoType } from "@/types/user"
+import { useQueryClient } from "@tanstack/react-query"
 
 const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) => {
     const [previewImages, setPreviewImages] = useState<{
@@ -39,6 +40,7 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
         first: false,
     })
 
+    const queryClient = useQueryClient()
     const updateUserInfo = useUpdateUserInfo()
     const updateUserProfileImage = useUpdateUserProfileImage()
     const updateUserBannerImage = useUpdateUserBannerImage()
@@ -69,65 +71,45 @@ const EditProfile = ({ userInfo, setUserInfo, setIsEditing }: EditProfileProps) 
                 ...userInfo,
                 ...editedUserInfo,
             }
-            // 이미지 업데이트 로직
+            // 이미지 업데이트
             if (selectedImages.profile) {
-                console.log("profile update start")
-                console.log(selectedImages, "selectedImages")
                 const profileResult = await updateUserProfileImage.mutateAsync(selectedImages.profile as File)
-                console.log(profileResult, "update 요청")
-                updatedInfo.profile = typeof profileResult === "string" ? profileResult : profileResult.image
-                console.log("profile update end")
-            } else {
-                // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
-                updatedInfo.profile = userInfo.profile
-            }
-
-            if (selectedImages.banner) {
-                console.log("banner update")
-                const bannerResult = await updateUserBannerImage.mutateAsync(selectedImages.banner as File)
-                updatedInfo.banner = bannerResult.image
-            } else {
-                // 이미지가 변경되지 않았다면 기존 이미지 URL 유지
-                updatedInfo.banner = userInfo.banner
-            }
-
-            // 변경된 필드만 업데이트
-            const changedFields = (Object.keys(updatedInfo) as Array<keyof MyUserInfoType>).filter(
-                key => updatedInfo[key] !== userInfo[key],
-            )
-
-            if (changedFields.length > 0) {
-                const editedFields: EditUserInfoType = {
-                    ...updatedInfo,
-                    // 필요한 필드만 포함
-                    id: updatedInfo.id,
-                    email: updatedInfo.email,
-                    nickname: updatedInfo.nickname,
-                    motto: updatedInfo.motto,
-                    ageRange: updatedInfo.ageRange,
-                    gender: updatedInfo.gender,
-                    profile: updatedInfo.profile,
-                    banner: updatedInfo.banner,
-                    first: false,
+                if (profileResult) {
+                    updatedInfo.profile = profileResult.image
                 }
-
-                const finalResult = await updateUserInfo.mutateAsync({
-                    userInfo: updatedInfo,
-                    editedUserInfo: editedFields,
-                })
-
-                setUserInfo(finalResult)
-
-                console.log("end")
             }
-
+            if (selectedImages.banner) {
+                const bannerResult = await updateUserBannerImage.mutateAsync(selectedImages.banner as File)
+                if (bannerResult) {
+                    updatedInfo.banner = bannerResult.image
+                }
+            }
+            // 사용자 정보 업데이트
+            const editedFields: EditUserInfoType = {
+                id: updatedInfo.id,
+                email: updatedInfo.email,
+                nickname: updatedInfo.nickname,
+                motto: updatedInfo.motto,
+                ageRange: updatedInfo.ageRange,
+                gender: updatedInfo.gender,
+                profile: updatedInfo.profile,
+                banner: updatedInfo.banner,
+                first: false,
+            }
+            const finalResult = await updateUserInfo.mutateAsync({
+                userInfo: updatedInfo,
+                editedUserInfo: editedFields,
+            })
+            setUserInfo(finalResult)
             setIsEditing(false)
+
+            // 쿼리 리패치
+            queryClient.refetchQueries({ queryKey: ["userInfo"] })
         } catch (error) {
-            console.error("Error updating user info:", error)
             setUserInfo(previousUserInfo)
             setIsEditing(true)
             // 사용자에게 에러 알림
-            alert("프로필 업데이트 중 오류가 발생했습니다.")
+            alert("프로필 업데이트 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요!")
         }
     }
 
