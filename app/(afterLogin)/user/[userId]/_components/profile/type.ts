@@ -1,3 +1,4 @@
+import { SelectedGender } from "@/app/auth/_components/signup/type"
 import { MyUserInfoType } from "@/types/user"
 
 export type ProfileProps = {
@@ -21,7 +22,7 @@ export type EditProfileProps = {
 
 export type ProfileDetailsProps = {
     ageRange: string
-    gender: string
+    gender: SelectedGender
     pinCount: number
 }
 

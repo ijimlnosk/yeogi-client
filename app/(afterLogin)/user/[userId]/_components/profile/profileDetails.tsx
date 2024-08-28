@@ -4,10 +4,11 @@ import StillWorkingOverlay from "@/components/commons/stillWorkingOverlay"
 import { ProfileDetailsProps } from "./type"
 import { useState } from "react"
 import { usePinsQuery } from "@/libs/queryClient/pinQuery"
+import { SelectedGender } from "@/app/auth/_components/signup/type"
 
 const ProfileDetails = ({ ageRange, gender }: ProfileDetailsProps) => {
     const [isInProgress, setIsInProgress] = useState<boolean>(false)
-    const displayGender = (gender: string | undefined) => {
+    const displayGender = (gender: SelectedGender) => {
         if (gender === "M") return "남성"
         if (gender === "F") return "여성"
         return ""
