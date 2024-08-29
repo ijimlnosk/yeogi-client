@@ -10,7 +10,7 @@ const Banner = ({ banner, onImageChange }: BannerProps) => {
 
     return (
         <div className="relative">
-            <div className="w-full h-[440px] flex justify-center items-center overflow-hidden">
+            <div className="relative w-full h-[440px] flex justify-center items-center overflow-hidden">
                 <Image fill src={banner ? banner : DefaultBanner} alt="banner image" className="object-cover" />
             </div>
             <div className="absolute inset-0 bg-black opacity-60 flex justify-center items-center" />

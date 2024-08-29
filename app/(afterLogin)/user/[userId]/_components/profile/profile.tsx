@@ -6,7 +6,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
     return (
         <div className="relative">
             <div className="relative">
-                <div className="w-full h-[440px] flex justify-center items-center overflow-hidden">
+                <div className="relative w-full h-[440px] flex justify-center items-center overflow-hidden">
                     <Image
                         fill
                         src={userInfo.banner ? userInfo.banner : DefaultBanner}
@@ -23,7 +23,13 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
             </div>
             <div className="absolute top-[360px] flex flex-col items-center">
                 <div className="absolute left-[120px] w-[240px] h-[240px] rounded-full border-[5px] bg-SYSTEM-white border-SYETEM-white shadow-profile overflow-hidden">
-                    <Image fill src={userInfo.profile || DefaultProfile} alt="profile image" className="object-cover" />
+                    <Image
+                        fill
+                        src={userInfo.profile || DefaultProfile}
+                        alt="profile image"
+                        className="object-cover"
+                        sizes="auto"
+                    />
                 </div>
                 <div className="ml-[400px] mt-36">
                     <h1 className="text-4xl font-semibold mb-4">{userInfo.nickname}</h1>
