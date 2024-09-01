@@ -28,7 +28,7 @@ const Profile = ({ userInfo, onEdit }: ProfileProps) => {
                         src={userInfo.profile || DefaultProfile}
                         alt="profile image"
                         className="object-cover"
-                        sizes="auto"
+                        sizes="240"
                     />
                 </div>
                 <div className="ml-[400px] mt-36">
