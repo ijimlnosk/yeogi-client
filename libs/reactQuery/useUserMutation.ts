@@ -23,10 +23,10 @@ export const useUpdateUserInfo = (): UseMutationResult<
     })
 }
 
-export const useUpdateUserProfileImage = (): UseMutationResult<{ image: FormData }, Error, FormData> => {
+export const useUpdateUserProfileImage = (): UseMutationResult<{ image: string }, Error, File> => {
     const queryClient = useQueryClient()
 
-    return useMutation<{ image: FormData }, Error, FormData>({
+    return useMutation<{ image: string }, Error, File>({
         mutationFn: async image => {
             const response = await putUserProfileImage(image)
             return response
@@ -37,10 +37,10 @@ export const useUpdateUserProfileImage = (): UseMutationResult<{ image: FormData
     })
 }
 
-export const useUpdateUserBannerImage = (): UseMutationResult<{ image: FormData }, Error, FormData> => {
+export const useUpdateUserBannerImage = (): UseMutationResult<{ image: string }, Error, File> => {
     const queryClient = useQueryClient()
 
-    return useMutation<{ image: FormData }, Error, FormData>({
+    return useMutation<{ image: string }, Error, File>({
         mutationFn: async image => {
             const response = await putUserBannerImage(image)
             return response

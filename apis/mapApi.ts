@@ -1,6 +1,6 @@
 const MAP_API_URL = "/pins/"
 
-import { fetchFormAPI, fetchServerSide } from "./api.utils"
+import { fetchFormAPI } from "./api.utils"
 import { Pin, postPinsProps, putPinsProps } from "./type"
 
 export const getPins = async (): Promise<Pin[]> => {

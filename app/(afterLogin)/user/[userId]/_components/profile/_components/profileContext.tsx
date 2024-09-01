@@ -3,7 +3,7 @@ import { ProfileContextProps } from "./type"
 
 const ProfileContext = ({ nickname, motto, onFieldChange }: ProfileContextProps) => {
     return (
-        <div className="ml-12 mt-36">
+        <div className="ml-10 mt-[143px]">
             <EditField
                 value={nickname}
                 onChange={e => onFieldChange("nickname")(e as React.ChangeEvent<HTMLInputElement>)}
