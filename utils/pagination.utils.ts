@@ -1,3 +1,5 @@
+import _ from "lodash"
+
 /**
  *@function generatePagination 페이지네이션(숫자 버튼)을 생성하는 함수
  * @param currentPage 현재 페이지
@@ -15,7 +17,7 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     const startPage = (currentGroup - 1) * itemsPerPage + 1
     const endPage = Math.min(currentGroup * itemsPerPage, totalPages)
 
-    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
+    return _.range(startPage, endPage + 1)
 }
 
 /**
